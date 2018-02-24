@@ -11,10 +11,11 @@
 		C42BB5742041E08A00D7D4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5732041E08A00D7D4CF /* ViewController.swift */; };
 		C42BB5772041E08A00D7D4CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42BB5752041E08A00D7D4CF /* Main.storyboard */; };
 		C42BB57A2041E08A00D7D4CF /* Rewinder.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5782041E08A00D7D4CF /* Rewinder.xcdatamodeld */; };
-		C42BB57C2041E08A00D7D4CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42BB57B2041E08A00D7D4CF /* Assets.xcassets */; };
 		C42BB57F2041E08A00D7D4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42BB57D2041E08A00D7D4CF /* LaunchScreen.storyboard */; };
 		C42BB58A2041E08A00D7D4CF /* RewinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5892041E08A00D7D4CF /* RewinderTests.swift */; };
 		C42BB5952041E08A00D7D4CF /* RewinderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5942041E08A00D7D4CF /* RewinderUITests.swift */; };
+		C46D16B92042002600B1224D /* RoundPlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46D16B82042002600B1224D /* RoundPlayButton.swift */; };
+		C46E2BDA2042138C001BE43A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C46E2BD92042138C001BE43A /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,7 +41,6 @@
 		C42BB5732041E08A00D7D4CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C42BB5762041E08A00D7D4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C42BB5792041E08A00D7D4CF /* Rewinder.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Rewinder.xcdatamodel; sourceTree = "<group>"; };
-		C42BB57B2041E08A00D7D4CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C42BB57E2041E08A00D7D4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C42BB5802041E08A00D7D4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C42BB5852041E08A00D7D4CF /* RewinderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RewinderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,6 +49,8 @@
 		C42BB5902041E08A00D7D4CF /* RewinderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RewinderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42BB5942041E08A00D7D4CF /* RewinderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewinderUITests.swift; sourceTree = "<group>"; };
 		C42BB5962041E08A00D7D4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C46D16B82042002600B1224D /* RoundPlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundPlayButton.swift; sourceTree = "<group>"; };
+		C46E2BD92042138C001BE43A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,8 +103,9 @@
 			children = (
 				C42BB5712041E08A00D7D4CF /* AppDelegate.swift */,
 				C42BB5732041E08A00D7D4CF /* ViewController.swift */,
+				C46D16B82042002600B1224D /* RoundPlayButton.swift */,
+				C46E2BD92042138C001BE43A /* Assets.xcassets */,
 				C42BB5752041E08A00D7D4CF /* Main.storyboard */,
-				C42BB57B2041E08A00D7D4CF /* Assets.xcassets */,
 				C42BB57D2041E08A00D7D4CF /* LaunchScreen.storyboard */,
 				C42BB5802041E08A00D7D4CF /* Info.plist */,
 				C42BB5782041E08A00D7D4CF /* Rewinder.xcdatamodeld */,
@@ -236,7 +239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C42BB57F2041E08A00D7D4CF /* LaunchScreen.storyboard in Resources */,
-				C42BB57C2041E08A00D7D4CF /* Assets.xcassets in Resources */,
+				C46E2BDA2042138C001BE43A /* Assets.xcassets in Resources */,
 				C42BB5772041E08A00D7D4CF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -264,6 +267,7 @@
 			files = (
 				C42BB57A2041E08A00D7D4CF /* Rewinder.xcdatamodeld in Sources */,
 				C42BB5742041E08A00D7D4CF /* ViewController.swift in Sources */,
+				C46D16B92042002600B1224D /* RoundPlayButton.swift in Sources */,
 				C42BB5722041E08A00D7D4CF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
