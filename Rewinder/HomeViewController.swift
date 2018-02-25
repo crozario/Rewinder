@@ -175,9 +175,10 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 			audioObj?.mergeAndAddHighlight2(file2, file3)
 		}
 		else {
-//			audioObj?.mergeAndAddHighlight(trimmed, file2, file3)
-//			audioObj?.mergeAndAddHighlight(trimmed, file3, file2)
-			audioObj?.mergeAndAddHighlight(file3, file2, trimmed)
+            let a = trimmed
+            let b = file2
+            let c = file3
+            audioObj?.mergeAndAddHighlight(b, a, c)
 		}
 	}
 	
@@ -217,7 +218,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
                 highlightButton.isEnabled = true
                 
 				//stitch
-				stitchHighlight(currTime: cropTime!, trimmed: trimmedHigh1!, file2: high2!, file3: new3!)
+//                stitchHighlight(currTime: cropTime!, trimmed: trimmedHigh1!, file2: high2!, file3: new3!)
+                stitchHighlight(currTime: cropTime!, trimmed: new3!, file2: high1!, file3: high2!)
 				
 				let list = [high1, trimmedHigh1, high2, new3, audioObj?.mostRecentHighlight]
 				for file in list{
