@@ -8,7 +8,7 @@
 
 import AVFoundation
 
-class Audio{
+class Audio {
 	
 	var session: AVAudioSession?
 	var recorder: AVAudioRecorder?
