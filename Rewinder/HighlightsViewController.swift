@@ -80,18 +80,20 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
         let status = audioPlayer?.play()
         print(status)
     
-        
+        audioPlayer?.play()
+
     }
     
     
     func setupPlayer(index: Int) {
         let fileName = arr[index]
 //        currSelected = index
-        let url = docsURL?.appendingPathComponent(fileName)
+        let url = highlightsURL?.appendingPathComponent(fileName)
         print(url)
         do {
             try audioPlayer = AVAudioPlayer(contentsOf: url!)
             print(audioPlayer)
+			audioPlayer?.delegate = self
             audioPlayer?.prepareToPlay()
         } catch let error as NSError {
             print("audioPlayer error \(error.localizedDescription)")

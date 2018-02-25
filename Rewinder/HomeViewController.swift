@@ -207,16 +207,19 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		
 //		let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
 //		let trimmedSoundFileURL = documentsDirectory.appendingPathComponent(fileName)
-		print("saving to \(trimmedSoundFileURL.absoluteString)")
+		print("saving to \(trimmedSoundFileURL.path)")
 		
-		if FileManager.default.fileExists(atPath: trimmedSoundFileURL.absoluteString) {
-			print("sound exists, removing \(trimmedSoundFileURL.absoluteString)")
+		//see if temp.caf exists in data
+		print(FileManager.default.fileExists(atPath: trimmedSoundFileURL.path))
+		
+		if FileManager.default.fileExists(atPath: trimmedSoundFileURL.path) {
+			print("sound exists, removing \(trimmedSoundFileURL.path)")
 			do {
 				if try trimmedSoundFileURL.checkResourceIsReachable() {
 					print("is reachable")
 				}
 				
-				try FileManager.default.removeItem(atPath: trimmedSoundFileURL.absoluteString)
+				try FileManager.default.removeItem(atPath: trimmedSoundFileURL.path)
 			} catch {
 				print("could not remove \(trimmedSoundFileURL)")
 				print(error.localizedDescription)
@@ -230,10 +233,11 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 			exporter.outputFileType = AVFileType.caf
 			exporter.outputURL = trimmedSoundFileURL
 			
-//			let duration = CMTimeGetSeconds(asset.duration)
+			let duration = CMTimeGetSeconds(asset.duration)
 
 			let startTime = CMTimeMakeWithSeconds(cropTime!, 1000000)
-			exporter.timeRange = CMTimeRangeFromTimeToTime(startTime, kCMTimePositiveInfinity)
+			let endTime = CMTimeMakeWithSeconds(duration, 1000000)
+			exporter.timeRange = CMTimeRangeFromTimeToTime(startTime, endTime)
 //			exporter.timeRange = CMTimeRangeFromTimeToTime(startTime, stopTime)
 			
 			// do it
