@@ -8,7 +8,7 @@
 
 import AVFoundation
 
-class Audio {
+class Audio{
 	
 	var session: AVAudioSession?
 	var recorder: AVAudioRecorder?
@@ -29,6 +29,8 @@ class Audio {
 	
 	// should be one Audio object per app run
 	init() {
+//		recorder = audioRecorder
+		
 		session = AVAudioSession.sharedInstance()
 		do {
 			try session?.setCategory(AVAudioSessionCategoryPlayAndRecord)
@@ -53,8 +55,8 @@ class Audio {
 				print (error)
 			}
 		}
-		temp1 = dataURL!.appendingPathComponent("temp1.m4a")
-		temp2 = dataURL!.appendingPathComponent("temp2.m4a")
+		temp1 = dataURL!.appendingPathComponent("temp1.caf")
+		temp2 = dataURL!.appendingPathComponent("temp2.caf")
 		
 		firstTemp = true
 	}
@@ -85,8 +87,11 @@ class Audio {
 		
 		do {
 			try recorder = AVAudioRecorder(url: soundFile!, settings: recordSettings as [String: AnyObject])
+			
+			recorder?.delegate = HomeViewController.self()
 			recorder?.prepareToRecord()
-			recorder?.record()
+			let recordStatus = recorder?.record(forDuration: 3.0)
+			print(recordStatus!)
 		}catch let error {
 			print (error)
 		}
@@ -97,7 +102,11 @@ class Audio {
 		return paths[0]
 	}
 	
-	func stopRecording() {}
+	func stopRecording() {
+		if recorder?.isRecording == true {
+			recorder?.stop()
+		}
+	}
 	
 //	func trimTillEnd(inputFile, timeFromEnd)
 	
@@ -107,8 +116,9 @@ class Audio {
 		var fileURLs = [URL]()
 		do {
 			let files = try filemgr.contentsOfDirectory(atPath: dataPath!)
+//			print(files)
 			for file in files {
-				fileURLs.append(URL(string: file)!)
+				fileURLs.append((dataURL?.appendingPathComponent(file))!)
 			}
 		}
 		catch let error {
