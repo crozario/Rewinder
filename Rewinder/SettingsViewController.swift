@@ -10,11 +10,15 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
+    @IBOutlet weak var highlightLength: UILabel!
+    
     @IBAction func durationSlider(_ sender: UISlider) {
         recordDuration = Double(sender.value)
+        highlightLength.text = "\(Int(recordDuration)) secs"
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
 
 }

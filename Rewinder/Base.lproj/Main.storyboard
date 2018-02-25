@@ -6,8 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
-        <capability name="Baseline standard spacing" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -28,8 +26,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="30" minValue="5" maxValue="60" translatesAutoresizingMaskIntoConstraints="NO" id="Cv6-0v-juk">
-                                <rect key="frame" x="-2" y="174" width="379" height="31"/>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="15" minValue="5" maxValue="60" translatesAutoresizingMaskIntoConstraints="NO" id="Cv6-0v-juk">
+                                <rect key="frame" x="-2" y="328.5" width="379" height="31"/>
                                 <connections>
                                     <action selector="durationSlider:" destination="csx-Ar-g15" eventType="valueChanged" id="d2q-dL-fW4"/>
                                 </connections>
@@ -40,30 +38,46 @@
                                     <navigationItem title="Settings" id="Loq-b3-8cj"/>
                                 </items>
                             </navigationBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Highlight Text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nzr-Kg-J2Q">
-                                <rect key="frame" x="119.5" y="145" width="136" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="hdN-GT-KUs"/>
-                                </constraints>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Highlight Length" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nzr-Kg-J2Q">
+                                <rect key="frame" x="90" y="156" width="195" height="26.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RAL-Ol-SKj">
+                                <rect key="frame" x="166" y="228" width="0.0" height="0.0"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15 secs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TuU-2F-bYh">
+                                <rect key="frame" x="150" y="236" width="76" height="28"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="ldz-On-cnR" firstAttribute="trailing" secondItem="UEb-Tv-Cbk" secondAttribute="trailing" id="17G-x5-FHE"/>
-                            <constraint firstItem="UEb-Tv-Cbk" firstAttribute="leading" secondItem="ldz-On-cnR" secondAttribute="leading" id="A8S-Tj-RqA"/>
-                            <constraint firstItem="UEb-Tv-Cbk" firstAttribute="top" secondItem="ldz-On-cnR" secondAttribute="top" constant="26" id="Eps-pc-xNm"/>
-                            <constraint firstItem="Nzr-Kg-J2Q" firstAttribute="top" secondItem="UEb-Tv-Cbk" secondAttribute="bottom" constant="55" id="Jbp-lC-vNv"/>
-                            <constraint firstItem="UEb-Tv-Cbk" firstAttribute="trailing" secondItem="ldz-On-cnR" secondAttribute="trailing" id="QLC-F2-5QN"/>
-                            <constraint firstItem="Cv6-0v-juk" firstAttribute="leading" secondItem="ldz-On-cnR" secondAttribute="leading" id="UYy-a3-AuY"/>
-                            <constraint firstItem="Cv6-0v-juk" firstAttribute="trailing" secondItem="ldz-On-cnR" secondAttribute="trailing" id="aAD-4A-XIj"/>
-                            <constraint firstItem="Nzr-Kg-J2Q" firstAttribute="centerX" secondItem="ldz-On-cnR" secondAttribute="centerX" id="dfK-bt-ecq"/>
-                            <constraint firstItem="Cv6-0v-juk" firstAttribute="firstBaseline" secondItem="Nzr-Kg-J2Q" secondAttribute="baseline" constant="12.5" symbolType="layoutAnchor" id="elW-kb-ZN1"/>
+                            <constraint firstItem="Cv6-0v-juk" firstAttribute="trailing" secondItem="ldz-On-cnR" secondAttribute="trailing" id="13H-Ff-AmQ"/>
+                            <constraint firstItem="Nzr-Kg-J2Q" firstAttribute="top" secondItem="UEb-Tv-Cbk" secondAttribute="bottom" constant="66" id="1MH-s7-fqS"/>
+                            <constraint firstItem="UEb-Tv-Cbk" firstAttribute="top" secondItem="ldz-On-cnR" secondAttribute="top" constant="26" id="4hK-c9-Gad"/>
+                            <constraint firstItem="TuU-2F-bYh" firstAttribute="top" secondItem="Nzr-Kg-J2Q" secondAttribute="bottom" constant="53.5" id="HOm-fC-bYs"/>
+                            <constraint firstItem="Cv6-0v-juk" firstAttribute="top" secondItem="TuU-2F-bYh" secondAttribute="bottom" constant="65" id="J1z-X5-oDv"/>
+                            <constraint firstItem="UEb-Tv-Cbk" firstAttribute="trailing" secondItem="ldz-On-cnR" secondAttribute="trailing" id="Qyz-Dd-oFP"/>
+                            <constraint firstItem="Nzr-Kg-J2Q" firstAttribute="centerX" secondItem="ldz-On-cnR" secondAttribute="centerX" id="bhO-sG-CDm"/>
+                            <constraint firstItem="Cv6-0v-juk" firstAttribute="leading" secondItem="ldz-On-cnR" secondAttribute="leading" id="cOO-Dl-Ze4"/>
+                            <constraint firstItem="TuU-2F-bYh" firstAttribute="centerX" secondItem="ldz-On-cnR" secondAttribute="centerX" id="dZ7-Hu-fWq"/>
+                            <constraint firstItem="UEb-Tv-Cbk" firstAttribute="leading" secondItem="ldz-On-cnR" secondAttribute="leading" id="kNT-wE-BvZ"/>
+                            <constraint firstItem="Cv6-0v-juk" firstAttribute="centerX" secondItem="ldz-On-cnR" secondAttribute="centerX" id="nOY-PQ-pdK"/>
+                            <constraint firstItem="Cv6-0v-juk" firstAttribute="centerY" secondItem="ldz-On-cnR" secondAttribute="centerY" id="uun-oX-FIh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ldz-On-cnR"/>
                     </view>
+                    <connections>
+                        <outlet property="highlightLength" destination="TuU-2F-bYh" id="xnD-9y-1OO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8JO-2T-DmM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -85,7 +99,7 @@
                                     <constraint firstAttribute="height" constant="100" id="NGQ-q1-zFL"/>
                                 </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" image="stop_ver2_1"/>
+                                <state key="normal" image="stop_ver1_1"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                         <real key="value" value="1"/>
@@ -109,6 +123,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="highlightButton" destination="bVh-d9-Onj" id="NNe-nT-NTG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -157,6 +174,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="stop_ver2_1" width="64" height="64"/>
+        <image name="stop_ver1_1" width="64" height="64"/>
     </resources>
 </document>
