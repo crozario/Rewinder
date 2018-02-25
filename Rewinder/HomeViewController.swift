@@ -28,45 +28,54 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 //		audioRecorder?.delegate = self
 		
 //		audioObj?.startRecording()
-		self.beginRecording()
-        
-        //waveform
-        let guide = view.safeAreaLayoutGuide
-        let height = guide.layoutFrame.size.height
-        let viewWidth = view.bounds.size.width
-        
-        let waveformImageDrawer = WaveformImageDrawer()
-        let audioURL = Bundle.main.url(forResource: "Eminem - Rap God", withExtension: "mp3")!
-        let topWaveformImage = waveformImageDrawer.waveformImage(fromAudioAt: audioURL,
-                                                                         size: UIScreen.main.bounds.size,
-                                                                         color: UIColor.blue,
-                                                                         backgroundColor: UIColor.white,
-                                                                         style: .striped,
-                                                                         position: .middle,
-                                                                         scale: UIScreen.main.scale)
-        let waveform = Waveform(audioAssetURL: audioURL)!
-    
-        let image = topWaveformImage
-        let imageView = UIImageView(image: image!)
-        imageView.frame = CGRect(x: 0, y: 50, width: viewWidth, height: viewWidth/2)
-        view.addSubview(imageView)
-        print("so many samples: \(waveform.samples(count: 200))")
-        
+		
+		//waveform
+		let guide = view.safeAreaLayoutGuide
+		let height = guide.layoutFrame.size.height
+		let viewWidth = view.bounds.size.width
+		
+		let waveformImageDrawer = WaveformImageDrawer()
+		let audioURL = Bundle.main.url(forResource: "Eminem - Rap God", withExtension: "mp3")!
+		let topWaveformImage = waveformImageDrawer.waveformImage(fromAudioAt: audioURL,
+																 size: UIScreen.main.bounds.size,
+																 color: UIColor.blue,
+																 backgroundColor: UIColor.white,
+																 style: .striped,
+																 position: .middle,
+																 scale: UIScreen.main.scale)
+		let waveform = Waveform(audioAssetURL: audioURL)!
+		
+		let image = topWaveformImage
+		let imageView = UIImageView(image: image!)
+		imageView.frame = CGRect(x: 0, y: 50, width: viewWidth, height: viewWidth/2)
+		view.addSubview(imageView)
+		print("so many samples: \(waveform.samples(count: 200))")
     }
+	
+	override func viewDidAppear(_ animated: Bool) {
+		print("\(#function)")
+		self.beginRecording()
+
+	}
 
 	func beginRecording() {
 		let recordFile = audioObj!.getNextTempFile()
 //		print("recording to " + recordFile.path)
 		do {
-			try audioRecorder = AVAudioRecorder(url: recordFile, settings: audioObj?.recordSettings as! [String: AnyObject])
+			
+			try audioRecorder = AVAudioRecorder(url: recordFile, settings: (audioObj?.recordSettings as [String: AnyObject]?)!)
 			audioRecorder?.delegate = self
 			audioRecorder?.prepareToRecord()
 //			print("recording starts: \(recordFile)")
-			let recordStatus = audioRecorder?.record(forDuration: recordDuration)
+//			_ = audioRecorder?.record(forDuration: recordDuration)
 //			print(recordStatus!)
 			
 		}catch let error {
 			print (error)
+		}
+		
+		if audioRecorder != nil {
+			audioRecorder!.record(forDuration: recordDuration)
 		}
 	}
 	
@@ -77,7 +86,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 			audioRecorder?.delegate = self
 			audioRecorder?.prepareToRecord()
 			print("SPECIAL recording starts:")
-			let recordStatus = audioRecorder?.record(forDuration: recordDuration)
+			_ = audioRecorder?.record(forDuration: recordDuration)
 //			print(recordStatus!)
 			
 		}catch let error {
