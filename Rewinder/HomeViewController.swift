@@ -14,6 +14,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 //	var audioRecorder: AVAudioRecorder?
 	var audioObj: Audio?
 	var audioPlayer: AVAudioPlayer?
+	var audioRecorder: AVAudioRecorder?
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,9 +22,23 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		audioObj = Audio()
 //		audioRecorder?.delegate = self
 		
-		audioObj?.startRecording()
+//		audioObj?.startRecording()
+		self.beginRecording()
     }
 
+	func beginRecording() {
+		let recordFile = audioObj!.getNextTempFile()
+		print("recording to " + recordFile.path)
+		do {
+			try audioRecorder = AVAudioRecorder(url: recordFile, settings: audioObj?.recordSettings as! [String: AnyObject])
+			audioRecorder?.delegate = self
+			audioRecorder?.prepareToRecord()
+			let recordStatus = audioRecorder?.record(forDuration: 3.0)
+			print(recordStatus!)
+		}catch let error {
+			print (error)
+		}
+	}
 	
 	@IBAction func addHighlight(_ sender: RoundPlayButton) {
 		let files = audioObj?.listOfAudioFiles()
@@ -44,5 +59,6 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
 //		audioObj?.startRecording()
 		print("delegate Called")
+		beginRecording()
 	}
 }

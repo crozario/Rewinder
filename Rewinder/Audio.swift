@@ -73,7 +73,7 @@ class Audio{
 		return false
 	}
 	
-	func startRecording() {
+	func getNextTempFile() -> URL{
 		var soundFile: URL?
 		if firstTemp! {
 			//record to temp1
@@ -84,18 +84,14 @@ class Audio{
 			soundFile = temp2
 			firstTemp = true
 		}
-		
-		do {
-			try recorder = AVAudioRecorder(url: soundFile!, settings: recordSettings as [String: AnyObject])
-			
-			recorder?.delegate = HomeViewController.self()
-			recorder?.prepareToRecord()
-			let recordStatus = recorder?.record(forDuration: 3.0)
-			print(recordStatus!)
-		}catch let error {
-			print (error)
-		}
+		return soundFile!
 	}
+	
+//	func startRecording(recorder: AVAudioRecorder) {
+//
+//		recorder?.record(forDuration: 3.0)
+//
+//	}
 	
 	func getDocumentsDirectory() -> URL {
 		let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
