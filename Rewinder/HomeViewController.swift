@@ -150,7 +150,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 				//stitch
 				stitchHighlight(currTime: cropTime!, trimmed: trimmedHigh1!, file2: high2!, file3: new3!)
 				
-				let list = [trimmedHigh1, high2, new3, audioObj?.highlightsURL?.appendingPathComponent("littHighlight3.caf")]
+				let list = [trimmedHigh1, high2, new3, audioObj?.mostRecentHighlight]
 				for file in list{
 					if file != nil {
 						do {

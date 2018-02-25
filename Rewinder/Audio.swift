@@ -75,6 +75,8 @@ class Audio {
 		firstTemp = true
 	}
 	
+	
+	var mostRecentHighlight: URL?
 	func mergeAndAddHighlight(_ file1: URL, _ file2: URL,_ file3: URL) {
 		// Create a new audio track we can append to
 		let composition = AVMutableComposition()
@@ -125,6 +127,7 @@ class Audio {
 //        let fileName: String = "littHighlight3.caf"
 		print("filename \(fileName)")
 		let appendedAudioPath = highlightsURL?.appendingPathComponent(fileName)
+		mostRecentHighlight = appendedAudioPath
 		
 		//remove if exists
 		if FileManager.default.fileExists(atPath: appendedAudioPath!.path) {
@@ -156,6 +159,8 @@ class Audio {
 			var _: Error? = nil
 		})
 	}
+	
+	
 	
 	func getDatetimeString() ->String {
         let date = Date()

@@ -10,20 +10,28 @@ import Foundation
 
 import UIKit
 
-
-
 class HighlightsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var arr = [String]()
-    
-    
+	var filemgr = FileManager.default
+	var docsURL: URL?
+	var highlightsURL: URL?
+	
     override func viewDidLoad() {
         super.viewDidLoad()
-        arr = ["Crossley", "NJIT", "Haard", "Database", "Computer Networks", "Hackathon", "iOS App", "MacBook"]
-        
-        
+//        arr = ["Crossley", "NJIT", "Haard", "Database", "Computer Networks", "Hackathon", "iOS App", "MacBook"]
+		docsURL = filemgr.urls(for: .documentDirectory, in: .userDomainMask)[0]
+		highlightsURL = docsURL!.appendingPathComponent("highlights")
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+		do {
+			let files = try filemgr.contentsOfDirectory(atPath: highlightsURL!.path)
+			for file in files {
+				arr.append(file)
+			}
+		}catch let error {
+			print(error)
+		}
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -33,17 +41,14 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arr.count
     }
-    
-    
+	
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let reuseId = "HighlightCell"
         let cell =  tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath)
         
         cell.textLabel?.text = arr[indexPath.row]
-        
         return cell
     }
-    
 }
 
 
