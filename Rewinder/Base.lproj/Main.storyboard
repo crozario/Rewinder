@@ -26,12 +26,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="15" minValue="5" maxValue="60" translatesAutoresizingMaskIntoConstraints="NO" id="Cv6-0v-juk">
-                                <rect key="frame" x="-2" y="328.5" width="379" height="31"/>
-                                <connections>
-                                    <action selector="durationSlider:" destination="csx-Ar-g15" eventType="valueChanged" id="d2q-dL-fW4"/>
-                                </connections>
-                            </slider>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UEb-Tv-Cbk">
                                 <rect key="frame" x="0.0" y="46" width="375" height="44"/>
                                 <items>
@@ -57,20 +51,25 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="15" minValue="5" maxValue="60" translatesAutoresizingMaskIntoConstraints="NO" id="Cv6-0v-juk">
+                                <rect key="frame" x="18" y="328.5" width="339" height="31"/>
+                                <connections>
+                                    <action selector="durationSlider:" destination="csx-Ar-g15" eventType="valueChanged" id="d2q-dL-fW4"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Cv6-0v-juk" firstAttribute="trailing" secondItem="ldz-On-cnR" secondAttribute="trailing" id="13H-Ff-AmQ"/>
                             <constraint firstItem="Nzr-Kg-J2Q" firstAttribute="top" secondItem="UEb-Tv-Cbk" secondAttribute="bottom" constant="66" id="1MH-s7-fqS"/>
                             <constraint firstItem="UEb-Tv-Cbk" firstAttribute="top" secondItem="ldz-On-cnR" secondAttribute="top" constant="26" id="4hK-c9-Gad"/>
                             <constraint firstItem="TuU-2F-bYh" firstAttribute="top" secondItem="Nzr-Kg-J2Q" secondAttribute="bottom" constant="53.5" id="HOm-fC-bYs"/>
-                            <constraint firstItem="Cv6-0v-juk" firstAttribute="top" secondItem="TuU-2F-bYh" secondAttribute="bottom" constant="65" id="J1z-X5-oDv"/>
+                            <constraint firstItem="Cv6-0v-juk" firstAttribute="top" secondItem="TuU-2F-bYh" secondAttribute="bottom" constant="64.5" id="IVR-GB-9Bm"/>
                             <constraint firstItem="UEb-Tv-Cbk" firstAttribute="trailing" secondItem="ldz-On-cnR" secondAttribute="trailing" id="Qyz-Dd-oFP"/>
+                            <constraint firstItem="Cv6-0v-juk" firstAttribute="leading" secondItem="ldz-On-cnR" secondAttribute="leading" constant="20" id="Zrx-AN-yVW"/>
                             <constraint firstItem="Nzr-Kg-J2Q" firstAttribute="centerX" secondItem="ldz-On-cnR" secondAttribute="centerX" id="bhO-sG-CDm"/>
-                            <constraint firstItem="Cv6-0v-juk" firstAttribute="leading" secondItem="ldz-On-cnR" secondAttribute="leading" id="cOO-Dl-Ze4"/>
                             <constraint firstItem="TuU-2F-bYh" firstAttribute="centerX" secondItem="ldz-On-cnR" secondAttribute="centerX" id="dZ7-Hu-fWq"/>
+                            <constraint firstAttribute="trailing" secondItem="Cv6-0v-juk" secondAttribute="trailing" constant="20" id="eWb-XM-OAd"/>
                             <constraint firstItem="UEb-Tv-Cbk" firstAttribute="leading" secondItem="ldz-On-cnR" secondAttribute="leading" id="kNT-wE-BvZ"/>
-                            <constraint firstItem="Cv6-0v-juk" firstAttribute="centerX" secondItem="ldz-On-cnR" secondAttribute="centerX" id="nOY-PQ-pdK"/>
                             <constraint firstItem="Cv6-0v-juk" firstAttribute="centerY" secondItem="ldz-On-cnR" secondAttribute="centerY" id="uun-oX-FIh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ldz-On-cnR"/>
@@ -167,6 +166,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ESL-LE-gPT"/>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="bti-a6-TJs" id="chp-7x-wXA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gFS-oU-Lqp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
