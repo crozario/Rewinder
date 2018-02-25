@@ -35,17 +35,26 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
             print("audioSession error: \(error.localizedDescription)")
         }
         
+        do {
+            try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
+        } catch let error as NSError {
+            print("audioSession error: \(error.localizedDescription)")
+        }
+        
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 		do {
-            let files = try filemgr.contentsOfDirectory(atPath: highlightsURL!.path) 
+            let files = try filemgr.contentsOfDirectory(atPath: highlightsURL!.path)
+            arr.removeAll(keepingCapacity: true)
             for file in files {
                 arr.append(file)
             }
 		} catch let error {
 			print(error)
 		}
+        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -66,22 +75,11 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if currSelected == indexPath.row {
-//            audioPlayer?.stop()
-//        } else if (audioPlayer?.isPlaying)! {
-//            audioPlayer?.stop()
-//            setupPlayer(index: indexPath.row)
-//            audioPlayer?.play()
-//        } else {
-//            setupPlayer(index: indexPath.row)
-//            audioPlayer?.play()
-//        }
-        setupPlayer(index: indexPath.row)
-        let status = audioPlayer?.play()
-        print(status)
-    
-        audioPlayer?.play()
+            audioPlayer?.stop()
+            setupPlayer(index: indexPath.row)
+            audioPlayer?.play()
 
+    
     }
     
     
@@ -100,6 +98,26 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.delete {
+            let fileName = arr.remove(at: indexPath.row)
+            let url = highlightsURL?.appendingPathComponent(fileName)
+            
+            if FileManager.default.fileExists(atPath: url!.path) {
+                do {
+                    try FileManager.default.removeItem(atPath: url!.path)
+                } catch {
+                    print(error.localizedDescription)
+                }
+                
+            }
+            tableView.reloadData()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
+        return indexPath
+    }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         
