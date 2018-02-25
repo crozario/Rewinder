@@ -26,7 +26,7 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
         audioPlayer?.delegate = self
         
 		docsURL = filemgr.urls(for: .documentDirectory, in: .userDomainMask)[0]
-//        highlightsURL = docsURL!.appendingPathComponent("highlights")
+        highlightsURL = docsURL!.appendingPathComponent("highlights")
         let audioSession = AVAudioSession.sharedInstance()
         
         do {
@@ -79,18 +79,18 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
 //        }
         setupPlayer(index: indexPath.row)
         audioPlayer?.play()
-    
-        
+
     }
     
     
     func setupPlayer(index: Int) {
         let fileName = arr[index]
 //        currSelected = index
-        let url = docsURL?.appendingPathComponent(fileName)
+        let url = highlightsURL?.appendingPathComponent(fileName)
         print(url)
         do {
             try audioPlayer = AVAudioPlayer(contentsOf: url!)
+			audioPlayer?.delegate = self
             audioPlayer?.prepareToPlay()
         } catch let error as NSError {
             print("audioPlayer error \(error.localizedDescription)")
