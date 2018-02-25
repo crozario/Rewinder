@@ -17,6 +17,7 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
     var audioPlayer: AVAudioPlayer?
     var currSelected: Int?
     
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +55,7 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
 		} catch let error {
 			print(error)
 		}
-        
+        tableView.reloadData()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -75,9 +76,11 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            audioPlayer?.stop()
-            setupPlayer(index: indexPath.row)
-            audioPlayer?.play()
+        audioPlayer?.stop()
+        setupPlayer(index: indexPath.row)
+        audioPlayer?.play()
+        
+        print(audioPlayer?.duration)
 
     
     }
