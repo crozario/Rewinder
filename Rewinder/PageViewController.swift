@@ -17,6 +17,10 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource {
         if let firstViewController = subViewControllers.first {
             self.setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
         }
+        
+        if let myView = view?.subviews.first as? UIScrollView {
+            myView.canCancelContentTouches = false
+        }
  
 
     }

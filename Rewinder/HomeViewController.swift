@@ -10,19 +10,21 @@ import UIKit
 import AVFoundation
 import DSWaveformImage
 
-var recordDuration = 6.0
+
+var recordDuration = 15.0
 
 class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
 
-//	var audioRecorder: AVAudioRecorder?
+    @IBOutlet weak var highlightButton: RoundPlayButton!
+    //	var audioRecorder: AVAudioRecorder?
 	var audioObj: Audio?
 	var audioPlayer: AVAudioPlayer?
 	var audioRecorder: AVAudioRecorder?
 	
-	
-	
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+       
 
 		audioObj = Audio()
 //		audioRecorder?.delegate = self
@@ -59,6 +61,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	}
 
 	func beginRecording() {
+        
 		let recordFile = audioObj!.getNextTempFile()
 //		print("recording to " + recordFile.path)
 		do {
@@ -100,7 +103,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	}
 	
 	@IBAction func addHighlight(_ sender: RoundPlayButton) {
-		
+        highlightButton.isEnabled = false
+        
 //		let files = audioObj?.listOfAudioFiles()
 //		for file in files!{
 //			do {
@@ -191,7 +195,10 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 //		}
 		
 		if new3 != nil {
+            
 			if recorder.url == new3! {
+                highlightButton.isEnabled = true
+                
 				//stitch
 				stitchHighlight(currTime: cropTime!, trimmed: trimmedHigh1!, file2: high2!, file3: new3!)
 				
