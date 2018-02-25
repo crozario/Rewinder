@@ -10,6 +10,9 @@ import UIKit
 import AVFoundation
 import DSWaveformImage
 
+
+var recordDuration = 6.0
+
 class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
 
 //	var audioRecorder: AVAudioRecorder?
@@ -17,7 +20,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	var audioPlayer: AVAudioPlayer?
 	var audioRecorder: AVAudioRecorder?
 	
-	let recordDuration: Double = 6.0
+	
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,13 +41,12 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         let topWaveformImage = waveformImageDrawer.waveformImage(fromAudioAt: audioURL,
                                                                          size: UIScreen.main.bounds.size,
                                                                          color: UIColor.blue,
-                                                                         backgroundColor: UIColor.lightGray,
+                                                                         backgroundColor: UIColor.white,
                                                                          style: .striped,
                                                                          position: .middle,
                                                                          scale: UIScreen.main.scale)
         let waveform = Waveform(audioAssetURL: audioURL)!
     
-        
         let image = topWaveformImage
         let imageView = UIImageView(image: image!)
         imageView.frame = CGRect(x: 0, y: 50, width: viewWidth, height: viewWidth/2)

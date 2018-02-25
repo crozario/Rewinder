@@ -10,10 +10,11 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
+    @IBAction func durationSlider(_ sender: UISlider) {
+        recordDuration = Double(sender.value)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
-
 
 }

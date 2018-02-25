@@ -26,13 +26,12 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
         audioPlayer?.delegate = self
         
 		docsURL = filemgr.urls(for: .documentDirectory, in: .userDomainMask)[0]
-//        highlightsURL = docsURL!.appendingPathComponent("highlights")
+        highlightsURL = docsURL!.appendingPathComponent("highlights")
         let audioSession = AVAudioSession.sharedInstance()
         
         do {
             try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
         } catch let error as NSError {
-            print("----audiosession errorr")
             print("audioSession error: \(error.localizedDescription)")
         }
         
@@ -40,11 +39,11 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 		do {
-			let files = try filemgr.contentsOfDirectory(atPath: highlightsURL!.path)
-			for file in files {
-				arr.append(file)
-			}
-		}catch let error {
+            let files = try filemgr.contentsOfDirectory(atPath: highlightsURL!.path) 
+            for file in files {
+                arr.append(file)
+            }
+		} catch let error {
 			print(error)
 		}
     }
@@ -78,7 +77,8 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
 //            audioPlayer?.play()
 //        }
         setupPlayer(index: indexPath.row)
-        audioPlayer?.play()
+        let status = audioPlayer?.play()
+        print(status)
     
         
     }
@@ -91,6 +91,7 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
         print(url)
         do {
             try audioPlayer = AVAudioPlayer(contentsOf: url!)
+            print(audioPlayer)
             audioPlayer?.prepareToPlay()
         } catch let error as NSError {
             print("audioPlayer error \(error.localizedDescription)")

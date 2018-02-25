@@ -6,6 +6,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Baseline standard spacing" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,20 +28,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cDu-7n-DMC">
-                                <rect key="frame" x="0.0" y="65" width="375" height="44"/>
-                                <items>
-                                    <navigationItem title="Settings" id="4of-BW-IJS"/>
-                                </items>
-                            </navigationBar>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="30" minValue="5" maxValue="60" translatesAutoresizingMaskIntoConstraints="NO" id="Cv6-0v-juk">
+                                <rect key="frame" x="-2" y="174" width="379" height="31"/>
+                                <connections>
+                                    <action selector="durationSlider:" destination="csx-Ar-g15" eventType="valueChanged" id="d2q-dL-fW4"/>
+                                </connections>
+                            </slider>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UEb-Tv-Cbk">
-                                <rect key="frame" x="0.0" y="65" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="46" width="375" height="44"/>
                                 <items>
                                     <navigationItem title="Settings" id="Loq-b3-8cj"/>
                                 </items>
                             </navigationBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Highlight Text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nzr-Kg-J2Q">
-                                <rect key="frame" x="0.0" y="136" width="136" height="21"/>
+                                <rect key="frame" x="119.5" y="145" width="136" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="hdN-GT-KUs"/>
                                 </constraints>
@@ -47,25 +49,18 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="30" minValue="5" maxValue="60" translatesAutoresizingMaskIntoConstraints="NO" id="Cv6-0v-juk">
-                                <rect key="frame" x="-2" y="183" width="379" height="30"/>
-                            </slider>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="cDu-7n-DMC" firstAttribute="bottom" secondItem="UEb-Tv-Cbk" secondAttribute="bottom" id="36Q-fZ-AWb"/>
-                            <constraint firstAttribute="trailing" secondItem="cDu-7n-DMC" secondAttribute="trailing" id="BBj-dY-ptx"/>
-                            <constraint firstItem="Cv6-0v-juk" firstAttribute="top" secondItem="Nzr-Kg-J2Q" secondAttribute="bottom" constant="26" id="F30-1K-WpS"/>
-                            <constraint firstItem="UEb-Tv-Cbk" firstAttribute="top" secondItem="cDu-7n-DMC" secondAttribute="top" id="FL6-zv-3ck"/>
-                            <constraint firstItem="UEb-Tv-Cbk" firstAttribute="top" secondItem="ldz-On-cnR" secondAttribute="top" constant="45" id="Fqt-pQ-jJ1"/>
-                            <constraint firstItem="UEb-Tv-Cbk" firstAttribute="leading" secondItem="Nzr-Kg-J2Q" secondAttribute="leading" id="Iv7-py-fSI"/>
-                            <constraint firstItem="UEb-Tv-Cbk" firstAttribute="trailing" secondItem="cDu-7n-DMC" secondAttribute="trailing" id="RFF-fq-abl"/>
-                            <constraint firstItem="cDu-7n-DMC" firstAttribute="leading" secondItem="Ss1-CB-Kda" secondAttribute="leading" id="Y7O-WD-a6N"/>
-                            <constraint firstItem="ldz-On-cnR" firstAttribute="bottom" secondItem="Cv6-0v-juk" secondAttribute="bottom" constant="455" id="YJQ-Ba-5IO"/>
-                            <constraint firstItem="Nzr-Kg-J2Q" firstAttribute="top" secondItem="UEb-Tv-Cbk" secondAttribute="bottom" constant="27" id="ZN2-6o-ihE"/>
-                            <constraint firstItem="Nzr-Kg-J2Q" firstAttribute="leading" secondItem="Cv6-0v-juk" secondAttribute="leading" id="qgp-RW-v2I"/>
-                            <constraint firstItem="cDu-7n-DMC" firstAttribute="leading" secondItem="UEb-Tv-Cbk" secondAttribute="leading" id="sw6-UB-Rrj"/>
-                            <constraint firstItem="cDu-7n-DMC" firstAttribute="trailing" secondItem="Cv6-0v-juk" secondAttribute="trailing" id="vLv-Em-TMa"/>
+                            <constraint firstItem="ldz-On-cnR" firstAttribute="trailing" secondItem="UEb-Tv-Cbk" secondAttribute="trailing" id="17G-x5-FHE"/>
+                            <constraint firstItem="UEb-Tv-Cbk" firstAttribute="leading" secondItem="ldz-On-cnR" secondAttribute="leading" id="A8S-Tj-RqA"/>
+                            <constraint firstItem="UEb-Tv-Cbk" firstAttribute="top" secondItem="ldz-On-cnR" secondAttribute="top" constant="26" id="Eps-pc-xNm"/>
+                            <constraint firstItem="Nzr-Kg-J2Q" firstAttribute="top" secondItem="UEb-Tv-Cbk" secondAttribute="bottom" constant="55" id="Jbp-lC-vNv"/>
+                            <constraint firstItem="UEb-Tv-Cbk" firstAttribute="trailing" secondItem="ldz-On-cnR" secondAttribute="trailing" id="QLC-F2-5QN"/>
+                            <constraint firstItem="Cv6-0v-juk" firstAttribute="leading" secondItem="ldz-On-cnR" secondAttribute="leading" id="UYy-a3-AuY"/>
+                            <constraint firstItem="Cv6-0v-juk" firstAttribute="trailing" secondItem="ldz-On-cnR" secondAttribute="trailing" id="aAD-4A-XIj"/>
+                            <constraint firstItem="Nzr-Kg-J2Q" firstAttribute="centerX" secondItem="ldz-On-cnR" secondAttribute="centerX" id="dfK-bt-ecq"/>
+                            <constraint firstItem="Cv6-0v-juk" firstAttribute="firstBaseline" secondItem="Nzr-Kg-J2Q" secondAttribute="baseline" constant="12.5" symbolType="layoutAnchor" id="elW-kb-ZN1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ldz-On-cnR"/>
                     </view>
