@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45D045B8E6D0E697097AE99C /* Pods_RewinderUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33B71D22546BD73C8A4CD440 /* Pods_RewinderUITests.framework */; };
+		5C562E6307F3361FB422D2FE /* Pods_Rewinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87E4F74BB160E3B67E67ECE3 /* Pods_Rewinder.framework */; };
+		B36F0717890F38FC22230C47 /* Pods_RewinderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2C1472B1BDBCAD1ADD86E3A /* Pods_RewinderTests.framework */; };
 		C42BB5722041E08A00D7D4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5712041E08A00D7D4CF /* AppDelegate.swift */; };
 		C42BB5742041E08A00D7D4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5732041E08A00D7D4CF /* ViewController.swift */; };
 		C42BB5772041E08A00D7D4CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42BB5752041E08A00D7D4CF /* Main.storyboard */; };
@@ -14,8 +17,10 @@
 		C42BB57F2041E08A00D7D4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42BB57D2041E08A00D7D4CF /* LaunchScreen.storyboard */; };
 		C42BB58A2041E08A00D7D4CF /* RewinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5892041E08A00D7D4CF /* RewinderTests.swift */; };
 		C42BB5952041E08A00D7D4CF /* RewinderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5942041E08A00D7D4CF /* RewinderUITests.swift */; };
+		C45252C220423EE1000808A8 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45252C120423EE1000808A8 /* HomeViewController.swift */; };
 		C46D16B92042002600B1224D /* RoundPlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46D16B82042002600B1224D /* RoundPlayButton.swift */; };
 		C46E2BDA2042138C001BE43A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C46E2BD92042138C001BE43A /* Assets.xcassets */; };
+		C46E2BDD20422323001BE43A /* Eminem - Rap God.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C46E2BDC20422323001BE43A /* Eminem - Rap God.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +41,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		33B71D22546BD73C8A4CD440 /* Pods_RewinderUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RewinderUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D6AACD5A7A46A4BF762F548 /* Pods-RewinderUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RewinderUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RewinderUITests/Pods-RewinderUITests.release.xcconfig"; sourceTree = "<group>"; };
+		508EF42CFA841215B83D0775 /* Pods-Rewinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rewinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rewinder/Pods-Rewinder.debug.xcconfig"; sourceTree = "<group>"; };
+		87E4F74BB160E3B67E67ECE3 /* Pods_Rewinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rewinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1A43D9B070600BD68B44103 /* Pods-RewinderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RewinderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RewinderTests/Pods-RewinderTests.release.xcconfig"; sourceTree = "<group>"; };
+		A2C1472B1BDBCAD1ADD86E3A /* Pods_RewinderTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RewinderTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD248553DBF2FBF53F53FBD7 /* Pods-Rewinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rewinder.release.xcconfig"; path = "Pods/Target Support Files/Pods-Rewinder/Pods-Rewinder.release.xcconfig"; sourceTree = "<group>"; };
+		C121B3D043782CF7C15B913E /* Pods-RewinderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RewinderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RewinderTests/Pods-RewinderTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C42BB56E2041E08A00D7D4CF /* Rewinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rewinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42BB5712041E08A00D7D4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C42BB5732041E08A00D7D4CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -49,8 +62,11 @@
 		C42BB5902041E08A00D7D4CF /* RewinderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RewinderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42BB5942041E08A00D7D4CF /* RewinderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewinderUITests.swift; sourceTree = "<group>"; };
 		C42BB5962041E08A00D7D4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C45252C120423EE1000808A8 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C46D16B82042002600B1224D /* RoundPlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundPlayButton.swift; sourceTree = "<group>"; };
 		C46E2BD92042138C001BE43A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C46E2BDC20422323001BE43A /* Eminem - Rap God.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Eminem - Rap God.mp3"; sourceTree = "<group>"; };
+		FFB38C5E947C35D328D06763 /* Pods-RewinderUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RewinderUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RewinderUITests/Pods-RewinderUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C562E6307F3361FB422D2FE /* Pods_Rewinder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B36F0717890F38FC22230C47 /* Pods_RewinderTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,12 +90,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45D045B8E6D0E697097AE99C /* Pods_RewinderUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		61631C7E87D11CB4F75C0278 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				508EF42CFA841215B83D0775 /* Pods-Rewinder.debug.xcconfig */,
+				AD248553DBF2FBF53F53FBD7 /* Pods-Rewinder.release.xcconfig */,
+				C121B3D043782CF7C15B913E /* Pods-RewinderTests.debug.xcconfig */,
+				A1A43D9B070600BD68B44103 /* Pods-RewinderTests.release.xcconfig */,
+				FFB38C5E947C35D328D06763 /* Pods-RewinderUITests.debug.xcconfig */,
+				3D6AACD5A7A46A4BF762F548 /* Pods-RewinderUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		8BB8E98B965539DFA942F224 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				87E4F74BB160E3B67E67ECE3 /* Pods_Rewinder.framework */,
+				A2C1472B1BDBCAD1ADD86E3A /* Pods_RewinderTests.framework */,
+				33B71D22546BD73C8A4CD440 /* Pods_RewinderUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C42BB5652041E08A00D7D4CF = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +127,8 @@
 				C42BB5882041E08A00D7D4CF /* RewinderTests */,
 				C42BB5932041E08A00D7D4CF /* RewinderUITests */,
 				C42BB56F2041E08A00D7D4CF /* Products */,
+				61631C7E87D11CB4F75C0278 /* Pods */,
+				8BB8E98B965539DFA942F224 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -102,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				C42BB5712041E08A00D7D4CF /* AppDelegate.swift */,
+				C45252C120423EE1000808A8 /* HomeViewController.swift */,
 				C42BB5732041E08A00D7D4CF /* ViewController.swift */,
 				C46D16B82042002600B1224D /* RoundPlayButton.swift */,
 				C46E2BD92042138C001BE43A /* Assets.xcassets */,
@@ -109,6 +154,7 @@
 				C42BB57D2041E08A00D7D4CF /* LaunchScreen.storyboard */,
 				C42BB5802041E08A00D7D4CF /* Info.plist */,
 				C42BB5782041E08A00D7D4CF /* Rewinder.xcdatamodeld */,
+				C46E2BDB204222F1001BE43A /* Files */,
 			);
 			path = Rewinder;
 			sourceTree = "<group>";
@@ -131,6 +177,14 @@
 			path = RewinderUITests;
 			sourceTree = "<group>";
 		};
+		C46E2BDB204222F1001BE43A /* Files */ = {
+			isa = PBXGroup;
+			children = (
+				C46E2BDC20422323001BE43A /* Eminem - Rap God.mp3 */,
+			);
+			path = Files;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -138,9 +192,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C42BB5992041E08A00D7D4CF /* Build configuration list for PBXNativeTarget "Rewinder" */;
 			buildPhases = (
+				A3E17165CB6E5C58366378B0 /* [CP] Check Pods Manifest.lock */,
 				C42BB56A2041E08A00D7D4CF /* Sources */,
 				C42BB56B2041E08A00D7D4CF /* Frameworks */,
 				C42BB56C2041E08A00D7D4CF /* Resources */,
+				6D1AE6699D99A9F2F4D40404 /* [CP] Embed Pods Frameworks */,
+				AADEE0B68A79A3DD241AD848 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -155,9 +212,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C42BB59C2041E08A00D7D4CF /* Build configuration list for PBXNativeTarget "RewinderTests" */;
 			buildPhases = (
+				0851ACF45AA4A61CB4B361AE /* [CP] Check Pods Manifest.lock */,
 				C42BB5812041E08A00D7D4CF /* Sources */,
 				C42BB5822041E08A00D7D4CF /* Frameworks */,
 				C42BB5832041E08A00D7D4CF /* Resources */,
+				69EFCE3F97ECD89C14F90EED /* [CP] Embed Pods Frameworks */,
+				58C401A878929C9B19135C73 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -173,9 +233,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C42BB59F2041E08A00D7D4CF /* Build configuration list for PBXNativeTarget "RewinderUITests" */;
 			buildPhases = (
+				65BA0B67996B744A64CA292D /* [CP] Check Pods Manifest.lock */,
 				C42BB58C2041E08A00D7D4CF /* Sources */,
 				C42BB58D2041E08A00D7D4CF /* Frameworks */,
 				C42BB58E2041E08A00D7D4CF /* Resources */,
+				B14740D2CD89D71D3FE1A411 /* [CP] Embed Pods Frameworks */,
+				AF29DEFE065BBE7B24E9F390 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -241,6 +304,7 @@
 				C42BB57F2041E08A00D7D4CF /* LaunchScreen.storyboard in Resources */,
 				C46E2BDA2042138C001BE43A /* Assets.xcassets in Resources */,
 				C42BB5772041E08A00D7D4CF /* Main.storyboard in Resources */,
+				C46E2BDD20422323001BE43A /* Eminem - Rap God.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,11 +324,162 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0851ACF45AA4A61CB4B361AE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RewinderTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		58C401A878929C9B19135C73 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RewinderTests/Pods-RewinderTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		65BA0B67996B744A64CA292D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RewinderUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		69EFCE3F97ECD89C14F90EED /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RewinderTests/Pods-RewinderTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6D1AE6699D99A9F2F4D40404 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Rewinder/Pods-Rewinder-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/DSWaveformImage/DSWaveformImage.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DSWaveformImage.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Rewinder/Pods-Rewinder-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A3E17165CB6E5C58366378B0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Rewinder-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AADEE0B68A79A3DD241AD848 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Rewinder/Pods-Rewinder-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AF29DEFE065BBE7B24E9F390 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RewinderUITests/Pods-RewinderUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B14740D2CD89D71D3FE1A411 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RewinderUITests/Pods-RewinderUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C42BB56A2041E08A00D7D4CF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C45252C220423EE1000808A8 /* HomeViewController.swift in Sources */,
 				C42BB57A2041E08A00D7D4CF /* Rewinder.xcdatamodeld in Sources */,
 				C42BB5742041E08A00D7D4CF /* ViewController.swift in Sources */,
 				C46D16B92042002600B1224D /* RoundPlayButton.swift in Sources */,
@@ -432,6 +647,7 @@
 		};
 		C42BB59A2041E08A00D7D4CF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 508EF42CFA841215B83D0775 /* Pods-Rewinder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -447,6 +663,7 @@
 		};
 		C42BB59B2041E08A00D7D4CF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD248553DBF2FBF53F53FBD7 /* Pods-Rewinder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -462,6 +679,7 @@
 		};
 		C42BB59D2041E08A00D7D4CF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C121B3D043782CF7C15B913E /* Pods-RewinderTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -479,6 +697,7 @@
 		};
 		C42BB59E2041E08A00D7D4CF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A1A43D9B070600BD68B44103 /* Pods-RewinderTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -496,6 +715,7 @@
 		};
 		C42BB5A02041E08A00D7D4CF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FFB38C5E947C35D328D06763 /* Pods-RewinderUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -512,6 +732,7 @@
 		};
 		C42BB5A12041E08A00D7D4CF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D6AACD5A7A46A4BF762F548 /* Pods-RewinderUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

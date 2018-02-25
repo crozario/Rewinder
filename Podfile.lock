@@ -1,0 +1,12 @@
+PODS:
+  - DSWaveformImage (5.0.1)
+
+DEPENDENCIES:
+  - DSWaveformImage (~> 5.0)
+
+SPEC CHECKSUMS:
+  DSWaveformImage: 8698cd91ceb292a9de7938114c68e782ff229ee6
+
+PODFILE CHECKSUM: 54e6c88e623dc86810f223ebc6ba2af48adda3d3
+
+COCOAPODS: 1.4.0

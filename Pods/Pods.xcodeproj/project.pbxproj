@@ -1,0 +1,898 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		116901E5CB6C3FF75384292BF3D8D1A9 /* WaveformImageTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39770339602076E825D42DF7F1BA423 /* WaveformImageTypes.swift */; };
+		12C5C675E29A9442398F492E3BF9BE22 /* Pods-Rewinder-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D325E7B01F61A915FFD214C75B03CA22 /* Pods-Rewinder-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E552BCCBBD5730B43AFDC1311F06BE4 /* WaveformImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABD21FF009116F09E402D4051B3C901 /* WaveformImageView.swift */; };
+		2338454E90EE2F7D041181957D0BF623 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD950F1ED4341A4B5C99D00AC5F4634 /* ColorExtensions.swift */; };
+		345CE5A4598BBA2AC81766375D3FF93A /* DSWaveformImage.h in Headers */ = {isa = PBXBuildFile; fileRef = C6B34C9F27DE6FF85580A887D53F7809 /* DSWaveformImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3B5BA87BD68B283A3B92613537238BEF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2828B7422B8C5C7BC4BF9C20A6D7B397 /* Foundation.framework */; };
+		3F161E52C04FD00B79314F6DBFB99EF5 /* UIImage+Waveform.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6EAF43659578FDC8959A95D7BB98570 /* UIImage+Waveform.swift */; };
+		40B853BFC999816951713DEB027939FC /* WaveformImageDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B781B4B8F45B04900A75C933331FD923 /* WaveformImageDrawer.swift */; };
+		48766CB2A406A6BE818532787969DC01 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2828B7422B8C5C7BC4BF9C20A6D7B397 /* Foundation.framework */; };
+		4B30C7619D8AEBD82D61ECC5F6CFA355 /* AudioProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1C55A9CC3799447453D9248C76C00C /* AudioProcessor.swift */; };
+		5C9F5EE9524AD0837C8E08F67F941C21 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840966EAD0718963750ABB9F4A6EB218 /* AVFoundation.framework */; };
+		60126F4C4F3ED027FBE6A1005B4AACB2 /* Pods-RewinderTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A62BCAEB08C20BFEB164F690CFD4758 /* Pods-RewinderTests-dummy.m */; };
+		627D5131BFEC2EC762F8D7EF2D295EEF /* Pods-Rewinder-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 21257A86C8ACA1D41AB3BBE41A5E2D49 /* Pods-Rewinder-dummy.m */; };
+		6752E05AEBF70845BF9DC8B015A17708 /* Pods-RewinderUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0053750B8A99F7A691A69FDACDB35C1C /* Pods-RewinderUITests-dummy.m */; };
+		77E71AC9A0D5D2F0D1907E0480E75B28 /* Waveform.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88BFD4D3ECC7AEF54E2A239F2835601 /* Waveform.swift */; };
+		8EA64AC864F44FACCF8628CAEC39A0D3 /* DSWaveformImage-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 400BD27FF8F39A65901BB6E3CD16EED1 /* DSWaveformImage-dummy.m */; };
+		932DA4419CD5B61D43C64CE2ED4A2636 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2828B7422B8C5C7BC4BF9C20A6D7B397 /* Foundation.framework */; };
+		AD0A71EB8BF5C1DE20A58BBE2B2689C9 /* Pods-RewinderUITests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C60F91B8DECBF8C467B3AD7ABBD761C0 /* Pods-RewinderUITests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ADEE82B1C981B0F8B303EE4FA68F695C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2828B7422B8C5C7BC4BF9C20A6D7B397 /* Foundation.framework */; };
+		B30458566D30F4C73F883465F5B8D217 /* DSWaveformImage-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F47F4C523A720F4B7E60D5463E7C84B7 /* DSWaveformImage-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C7D60CDBA7B1F38FBCD229C255188186 /* Pods-RewinderTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = AC7B9EF82493A26D035D59F372922F85 /* Pods-RewinderTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		61AB1DEB840A80D8AEBF1580EB86908B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 904206FA1AA6E7EB9E551500BBC8E47A;
+			remoteInfo = DSWaveformImage;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0053750B8A99F7A691A69FDACDB35C1C /* Pods-RewinderUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RewinderUITests-dummy.m"; sourceTree = "<group>"; };
+		027CF19E7CC31AA01E4B5680E062B521 /* Pods_RewinderUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_RewinderUITests.framework; path = "Pods-RewinderUITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		09B5E8399D61636862364022363AAE8C /* DSWaveformImage-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DSWaveformImage-prefix.pch"; sourceTree = "<group>"; };
+		1063544FCA37E728133F7F30832019C8 /* Pods-RewinderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RewinderTests.debug.xcconfig"; sourceTree = "<group>"; };
+		21257A86C8ACA1D41AB3BBE41A5E2D49 /* Pods-Rewinder-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Rewinder-dummy.m"; sourceTree = "<group>"; };
+		245162E46C805315F16055B0D231533A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2828B7422B8C5C7BC4BF9C20A6D7B397 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		2A62BCAEB08C20BFEB164F690CFD4758 /* Pods-RewinderTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RewinderTests-dummy.m"; sourceTree = "<group>"; };
+		2B6C538C4B7B328F29C5BF428A188F0A /* DSWaveformImage.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = DSWaveformImage.modulemap; sourceTree = "<group>"; };
+		2B7DBA025BA81509D37C223659D1BE46 /* Pods-Rewinder-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Rewinder-acknowledgements.plist"; sourceTree = "<group>"; };
+		2E6BBD65A18DF72D3942DEB048563825 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		36B03D9190DF872D19A79CFE73EEE62A /* Pods-Rewinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Rewinder.debug.xcconfig"; sourceTree = "<group>"; };
+		3B29501EC05A7A46B0479C088C7E8758 /* Pods-RewinderTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-RewinderTests.modulemap"; sourceTree = "<group>"; };
+		3C35F93CD88C5FEC49A2ECEFD94F0632 /* Pods-Rewinder-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Rewinder-acknowledgements.markdown"; sourceTree = "<group>"; };
+		400BD27FF8F39A65901BB6E3CD16EED1 /* DSWaveformImage-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "DSWaveformImage-dummy.m"; sourceTree = "<group>"; };
+		6A2BEB2CEBDC1031034DA99718B7AE24 /* Pods-RewinderTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RewinderTests-resources.sh"; sourceTree = "<group>"; };
+		6ABD21FF009116F09E402D4051B3C901 /* WaveformImageView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WaveformImageView.swift; path = DSWaveformImage/DSWaveformImage/WaveformImageView.swift; sourceTree = "<group>"; };
+		6AD5DB9CE3C67ADA70FFEB7B24115B02 /* Pods-RewinderTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-RewinderTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		6C187C70FA9FACED259C4B0CF47119CE /* Pods-Rewinder-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Rewinder-frameworks.sh"; sourceTree = "<group>"; };
+		73C8880C5D4184A0FC78C51FF3BD9E1A /* Pods_RewinderTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_RewinderTests.framework; path = "Pods-RewinderTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7823AB905FB23000B2392D5BB425E9BC /* Pods-RewinderUITests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RewinderUITests-resources.sh"; sourceTree = "<group>"; };
+		7BA1B82D8218F9223ADC6CE25791F6B0 /* Pods-Rewinder-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Rewinder-resources.sh"; sourceTree = "<group>"; };
+		801F31E53E0D9DFB23E49FE993E24CBD /* DSWaveformImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = DSWaveformImage.framework; path = DSWaveformImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		840966EAD0718963750ABB9F4A6EB218 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		8BDBBF0FF784CD6FBD3508F6AFA89576 /* Pods-RewinderUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RewinderUITests-acknowledgements.plist"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9F9942B28ECC64494B01439E43F2C7D9 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A0D046520071446E8D8C4A9FC1C47011 /* Pods-RewinderUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RewinderUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		A6EAF43659578FDC8959A95D7BB98570 /* UIImage+Waveform.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIImage+Waveform.swift"; path = "DSWaveformImage/DSWaveformImage/UIImage+Waveform.swift"; sourceTree = "<group>"; };
+		A8A35BC382C28C4AAFE4718C81E5C031 /* Pods-RewinderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RewinderTests.release.xcconfig"; sourceTree = "<group>"; };
+		A91AFD7144D54192E7492475FC1CE54B /* DSWaveformImage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = DSWaveformImage.xcconfig; sourceTree = "<group>"; };
+		AAD950F1ED4341A4B5C99D00AC5F4634 /* ColorExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ColorExtensions.swift; path = DSWaveformImage/DSWaveformImage/ColorExtensions.swift; sourceTree = "<group>"; };
+		AB1528227D53DE7251588A95B32F9771 /* Pods-RewinderUITests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RewinderUITests-frameworks.sh"; sourceTree = "<group>"; };
+		AC7B9EF82493A26D035D59F372922F85 /* Pods-RewinderTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RewinderTests-umbrella.h"; sourceTree = "<group>"; };
+		B4FC01B71272299F59519AE358E658A1 /* Pods-RewinderUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-RewinderUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		B781B4B8F45B04900A75C933331FD923 /* WaveformImageDrawer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WaveformImageDrawer.swift; path = DSWaveformImage/DSWaveformImage/WaveformImageDrawer.swift; sourceTree = "<group>"; };
+		B88BFD4D3ECC7AEF54E2A239F2835601 /* Waveform.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Waveform.swift; path = DSWaveformImage/DSWaveformImage/Waveform.swift; sourceTree = "<group>"; };
+		C1B586BA8E77ECB094891D5F6D0ABB5A /* Pods-RewinderUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RewinderUITests.release.xcconfig"; sourceTree = "<group>"; };
+		C39770339602076E825D42DF7F1BA423 /* WaveformImageTypes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WaveformImageTypes.swift; path = DSWaveformImage/DSWaveformImage/WaveformImageTypes.swift; sourceTree = "<group>"; };
+		C60F91B8DECBF8C467B3AD7ABBD761C0 /* Pods-RewinderUITests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RewinderUITests-umbrella.h"; sourceTree = "<group>"; };
+		C6B34C9F27DE6FF85580A887D53F7809 /* DSWaveformImage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DSWaveformImage.h; path = DSWaveformImage/DSWaveformImage.h; sourceTree = "<group>"; };
+		CB859172B03A562DB4C11E4F4E181E56 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CBA1B9CCD481388A5A25C0385BDF70CC /* Pods-Rewinder.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Rewinder.modulemap"; sourceTree = "<group>"; };
+		CC1C55A9CC3799447453D9248C76C00C /* AudioProcessor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AudioProcessor.swift; path = DSWaveformImage/DSWaveformImage/AudioProcessor.swift; sourceTree = "<group>"; };
+		D26D4099D0959BF3A8D13C82D84DBAF6 /* Pods_Rewinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Rewinder.framework; path = "Pods-Rewinder.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D325E7B01F61A915FFD214C75B03CA22 /* Pods-Rewinder-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Rewinder-umbrella.h"; sourceTree = "<group>"; };
+		D55B8F929E026E88CB72299DE1920115 /* Pods-RewinderTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RewinderTests-frameworks.sh"; sourceTree = "<group>"; };
+		E020E3AA2D9822EB67F7881568AD4ED4 /* Pods-Rewinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Rewinder.release.xcconfig"; sourceTree = "<group>"; };
+		F47F4C523A720F4B7E60D5463E7C84B7 /* DSWaveformImage-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DSWaveformImage-umbrella.h"; sourceTree = "<group>"; };
+		FBDF5A3C9EAB5F4DF175A70E537ECE00 /* Pods-RewinderUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-RewinderUITests.modulemap"; sourceTree = "<group>"; };
+		FD23A14CCA0E11E831533AC57D8ED67C /* Pods-RewinderTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RewinderTests-acknowledgements.plist"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		341B63693FD42A89C049909A5C7929F1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C9F5EE9524AD0837C8E08F67F941C21 /* AVFoundation.framework in Frameworks */,
+				3B5BA87BD68B283A3B92613537238BEF /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		604C440C7B3630B5F3024A583272BE54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				932DA4419CD5B61D43C64CE2ED4A2636 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B1857F054E4EC8EE14B3508ECA4CF049 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				48766CB2A406A6BE818532787969DC01 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3C21F1058AF1EC1F4FAB0AEA1A33DD4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ADEE82B1C981B0F8B303EE4FA68F695C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0773E18667B4184BF11F6EEAD94D0D40 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0B2BDE4DB57D71B6E34C95C086DD0780 /* DSWaveformImage */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		0B2BDE4DB57D71B6E34C95C086DD0780 /* DSWaveformImage */ = {
+			isa = PBXGroup;
+			children = (
+				CC1C55A9CC3799447453D9248C76C00C /* AudioProcessor.swift */,
+				AAD950F1ED4341A4B5C99D00AC5F4634 /* ColorExtensions.swift */,
+				C6B34C9F27DE6FF85580A887D53F7809 /* DSWaveformImage.h */,
+				A6EAF43659578FDC8959A95D7BB98570 /* UIImage+Waveform.swift */,
+				B88BFD4D3ECC7AEF54E2A239F2835601 /* Waveform.swift */,
+				B781B4B8F45B04900A75C933331FD923 /* WaveformImageDrawer.swift */,
+				C39770339602076E825D42DF7F1BA423 /* WaveformImageTypes.swift */,
+				6ABD21FF009116F09E402D4051B3C901 /* WaveformImageView.swift */,
+				55FD5497346140F5E5CD2EDC54763431 /* Support Files */,
+			);
+			name = DSWaveformImage;
+			path = DSWaveformImage;
+			sourceTree = "<group>";
+		};
+		37ED0C443A596B6B253B76C8858926C0 /* Pods-RewinderTests */ = {
+			isa = PBXGroup;
+			children = (
+				245162E46C805315F16055B0D231533A /* Info.plist */,
+				3B29501EC05A7A46B0479C088C7E8758 /* Pods-RewinderTests.modulemap */,
+				6AD5DB9CE3C67ADA70FFEB7B24115B02 /* Pods-RewinderTests-acknowledgements.markdown */,
+				FD23A14CCA0E11E831533AC57D8ED67C /* Pods-RewinderTests-acknowledgements.plist */,
+				2A62BCAEB08C20BFEB164F690CFD4758 /* Pods-RewinderTests-dummy.m */,
+				D55B8F929E026E88CB72299DE1920115 /* Pods-RewinderTests-frameworks.sh */,
+				6A2BEB2CEBDC1031034DA99718B7AE24 /* Pods-RewinderTests-resources.sh */,
+				AC7B9EF82493A26D035D59F372922F85 /* Pods-RewinderTests-umbrella.h */,
+				1063544FCA37E728133F7F30832019C8 /* Pods-RewinderTests.debug.xcconfig */,
+				A8A35BC382C28C4AAFE4718C81E5C031 /* Pods-RewinderTests.release.xcconfig */,
+			);
+			name = "Pods-RewinderTests";
+			path = "Target Support Files/Pods-RewinderTests";
+			sourceTree = "<group>";
+		};
+		433CD3331B6C3787F473C941B61FC68F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AB9C43F4BAD2992BD9EE60E0C1AC390B /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		55FD5497346140F5E5CD2EDC54763431 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				2B6C538C4B7B328F29C5BF428A188F0A /* DSWaveformImage.modulemap */,
+				A91AFD7144D54192E7492475FC1CE54B /* DSWaveformImage.xcconfig */,
+				400BD27FF8F39A65901BB6E3CD16EED1 /* DSWaveformImage-dummy.m */,
+				09B5E8399D61636862364022363AAE8C /* DSWaveformImage-prefix.pch */,
+				F47F4C523A720F4B7E60D5463E7C84B7 /* DSWaveformImage-umbrella.h */,
+				CB859172B03A562DB4C11E4F4E181E56 /* Info.plist */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/DSWaveformImage";
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
+				0773E18667B4184BF11F6EEAD94D0D40 /* Pods */,
+				C92C108CDC42EFC2F513E1E50AC48B55 /* Products */,
+				9E000DEF978965B884D2C1A31ED9854D /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		9E000DEF978965B884D2C1A31ED9854D /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				FDEB443A0C3F50886F876BFFF31332BA /* Pods-Rewinder */,
+				37ED0C443A596B6B253B76C8858926C0 /* Pods-RewinderTests */,
+				C1A1128E2BB4B842D776A1C4DC887D25 /* Pods-RewinderUITests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		AB9C43F4BAD2992BD9EE60E0C1AC390B /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				840966EAD0718963750ABB9F4A6EB218 /* AVFoundation.framework */,
+				2828B7422B8C5C7BC4BF9C20A6D7B397 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		C1A1128E2BB4B842D776A1C4DC887D25 /* Pods-RewinderUITests */ = {
+			isa = PBXGroup;
+			children = (
+				9F9942B28ECC64494B01439E43F2C7D9 /* Info.plist */,
+				FBDF5A3C9EAB5F4DF175A70E537ECE00 /* Pods-RewinderUITests.modulemap */,
+				B4FC01B71272299F59519AE358E658A1 /* Pods-RewinderUITests-acknowledgements.markdown */,
+				8BDBBF0FF784CD6FBD3508F6AFA89576 /* Pods-RewinderUITests-acknowledgements.plist */,
+				0053750B8A99F7A691A69FDACDB35C1C /* Pods-RewinderUITests-dummy.m */,
+				AB1528227D53DE7251588A95B32F9771 /* Pods-RewinderUITests-frameworks.sh */,
+				7823AB905FB23000B2392D5BB425E9BC /* Pods-RewinderUITests-resources.sh */,
+				C60F91B8DECBF8C467B3AD7ABBD761C0 /* Pods-RewinderUITests-umbrella.h */,
+				A0D046520071446E8D8C4A9FC1C47011 /* Pods-RewinderUITests.debug.xcconfig */,
+				C1B586BA8E77ECB094891D5F6D0ABB5A /* Pods-RewinderUITests.release.xcconfig */,
+			);
+			name = "Pods-RewinderUITests";
+			path = "Target Support Files/Pods-RewinderUITests";
+			sourceTree = "<group>";
+		};
+		C92C108CDC42EFC2F513E1E50AC48B55 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				801F31E53E0D9DFB23E49FE993E24CBD /* DSWaveformImage.framework */,
+				D26D4099D0959BF3A8D13C82D84DBAF6 /* Pods_Rewinder.framework */,
+				73C8880C5D4184A0FC78C51FF3BD9E1A /* Pods_RewinderTests.framework */,
+				027CF19E7CC31AA01E4B5680E062B521 /* Pods_RewinderUITests.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FDEB443A0C3F50886F876BFFF31332BA /* Pods-Rewinder */ = {
+			isa = PBXGroup;
+			children = (
+				2E6BBD65A18DF72D3942DEB048563825 /* Info.plist */,
+				CBA1B9CCD481388A5A25C0385BDF70CC /* Pods-Rewinder.modulemap */,
+				3C35F93CD88C5FEC49A2ECEFD94F0632 /* Pods-Rewinder-acknowledgements.markdown */,
+				2B7DBA025BA81509D37C223659D1BE46 /* Pods-Rewinder-acknowledgements.plist */,
+				21257A86C8ACA1D41AB3BBE41A5E2D49 /* Pods-Rewinder-dummy.m */,
+				6C187C70FA9FACED259C4B0CF47119CE /* Pods-Rewinder-frameworks.sh */,
+				7BA1B82D8218F9223ADC6CE25791F6B0 /* Pods-Rewinder-resources.sh */,
+				D325E7B01F61A915FFD214C75B03CA22 /* Pods-Rewinder-umbrella.h */,
+				36B03D9190DF872D19A79CFE73EEE62A /* Pods-Rewinder.debug.xcconfig */,
+				E020E3AA2D9822EB67F7881568AD4ED4 /* Pods-Rewinder.release.xcconfig */,
+			);
+			name = "Pods-Rewinder";
+			path = "Target Support Files/Pods-Rewinder";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		02C8A5790A263F3310FA78A6C9020E61 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				12C5C675E29A9442398F492E3BF9BE22 /* Pods-Rewinder-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		42DC6DABA9F0A52F939ABD91522FCC3D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B30458566D30F4C73F883465F5B8D217 /* DSWaveformImage-umbrella.h in Headers */,
+				345CE5A4598BBA2AC81766375D3FF93A /* DSWaveformImage.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		60664B34E84ED5944CC820F99569502F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD0A71EB8BF5C1DE20A58BBE2B2689C9 /* Pods-RewinderUITests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		889AFEC4DF09DEE217A3A64DA3BA4C37 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C7D60CDBA7B1F38FBCD229C255188186 /* Pods-RewinderTests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		17BB421D1A7039514F68D777A315F4F5 /* Pods-Rewinder */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8173575DE832AB8E1FBF061DD57AA114 /* Build configuration list for PBXNativeTarget "Pods-Rewinder" */;
+			buildPhases = (
+				3BB7BB264DBBBCF55CCE622B0F7F4212 /* Sources */,
+				B1857F054E4EC8EE14B3508ECA4CF049 /* Frameworks */,
+				02C8A5790A263F3310FA78A6C9020E61 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DE358F84EABC83B60792FACEAE1CC36F /* PBXTargetDependency */,
+			);
+			name = "Pods-Rewinder";
+			productName = "Pods-Rewinder";
+			productReference = D26D4099D0959BF3A8D13C82D84DBAF6 /* Pods_Rewinder.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4D87C5A3A2E6BC3BA1E3C9423096BB71 /* Pods-RewinderUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8B14CA2FA4D911310363117AB40B1A5 /* Build configuration list for PBXNativeTarget "Pods-RewinderUITests" */;
+			buildPhases = (
+				A6E5A832233ED59E1C87A70BCCEA1A8A /* Sources */,
+				604C440C7B3630B5F3024A583272BE54 /* Frameworks */,
+				60664B34E84ED5944CC820F99569502F /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-RewinderUITests";
+			productName = "Pods-RewinderUITests";
+			productReference = 027CF19E7CC31AA01E4B5680E062B521 /* Pods_RewinderUITests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		904206FA1AA6E7EB9E551500BBC8E47A /* DSWaveformImage */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 047439854426DCBE17001BFFF862B172 /* Build configuration list for PBXNativeTarget "DSWaveformImage" */;
+			buildPhases = (
+				07DD4A3EE444B4C8EC7D7248A9ECCC29 /* Sources */,
+				341B63693FD42A89C049909A5C7929F1 /* Frameworks */,
+				42DC6DABA9F0A52F939ABD91522FCC3D /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DSWaveformImage;
+			productName = DSWaveformImage;
+			productReference = 801F31E53E0D9DFB23E49FE993E24CBD /* DSWaveformImage.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		EC242F0E5994714D6A486A9D5B6A4A63 /* Pods-RewinderTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D8036BFCF1633692BD84E16F1CF06FEA /* Build configuration list for PBXNativeTarget "Pods-RewinderTests" */;
+			buildPhases = (
+				47E8D2946E3707501D5667A8C5CD3220 /* Sources */,
+				B3C21F1058AF1EC1F4FAB0AEA1A33DD4 /* Frameworks */,
+				889AFEC4DF09DEE217A3A64DA3BA4C37 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-RewinderTests";
+			productName = "Pods-RewinderTests";
+			productReference = 73C8880C5D4184A0FC78C51FF3BD9E1A /* Pods_RewinderTests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 0930;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = C92C108CDC42EFC2F513E1E50AC48B55 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				904206FA1AA6E7EB9E551500BBC8E47A /* DSWaveformImage */,
+				17BB421D1A7039514F68D777A315F4F5 /* Pods-Rewinder */,
+				EC242F0E5994714D6A486A9D5B6A4A63 /* Pods-RewinderTests */,
+				4D87C5A3A2E6BC3BA1E3C9423096BB71 /* Pods-RewinderUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		07DD4A3EE444B4C8EC7D7248A9ECCC29 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B30C7619D8AEBD82D61ECC5F6CFA355 /* AudioProcessor.swift in Sources */,
+				2338454E90EE2F7D041181957D0BF623 /* ColorExtensions.swift in Sources */,
+				8EA64AC864F44FACCF8628CAEC39A0D3 /* DSWaveformImage-dummy.m in Sources */,
+				3F161E52C04FD00B79314F6DBFB99EF5 /* UIImage+Waveform.swift in Sources */,
+				77E71AC9A0D5D2F0D1907E0480E75B28 /* Waveform.swift in Sources */,
+				40B853BFC999816951713DEB027939FC /* WaveformImageDrawer.swift in Sources */,
+				116901E5CB6C3FF75384292BF3D8D1A9 /* WaveformImageTypes.swift in Sources */,
+				1E552BCCBBD5730B43AFDC1311F06BE4 /* WaveformImageView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3BB7BB264DBBBCF55CCE622B0F7F4212 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				627D5131BFEC2EC762F8D7EF2D295EEF /* Pods-Rewinder-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		47E8D2946E3707501D5667A8C5CD3220 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				60126F4C4F3ED027FBE6A1005B4AACB2 /* Pods-RewinderTests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A6E5A832233ED59E1C87A70BCCEA1A8A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6752E05AEBF70845BF9DC8B015A17708 /* Pods-RewinderUITests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DE358F84EABC83B60792FACEAE1CC36F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DSWaveformImage;
+			target = 904206FA1AA6E7EB9E551500BBC8E47A /* DSWaveformImage */;
+			targetProxy = 61AB1DEB840A80D8AEBF1580EB86908B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0E110407876A8AA94B151080503564D8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A91AFD7144D54192E7492475FC1CE54B /* DSWaveformImage.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/DSWaveformImage/DSWaveformImage-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/DSWaveformImage/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/DSWaveformImage/DSWaveformImage.modulemap";
+				PRODUCT_NAME = DSWaveformImage;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		26F954BA177A9A46FFFD4E23ED11D67A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		3CE96A1B8B4BC18158420B375EB2C41F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C1B586BA8E77ECB094891D5F6D0ABB5A /* Pods-RewinderUITests.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-RewinderUITests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-RewinderUITests/Pods-RewinderUITests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_RewinderUITests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		86EF04E16E99EB793F34C36B3D943891 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A8A35BC382C28C4AAFE4718C81E5C031 /* Pods-RewinderTests.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-RewinderTests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-RewinderTests/Pods-RewinderTests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_RewinderTests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		899896706C65A6F961C46B3A62B6EFFE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A0D046520071446E8D8C4A9FC1C47011 /* Pods-RewinderUITests.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-RewinderUITests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-RewinderUITests/Pods-RewinderUITests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_RewinderUITests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		B61DC71B1A8EA3CE45B1E84CFEF097F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E020E3AA2D9822EB67F7881568AD4ED4 /* Pods-Rewinder.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Rewinder/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Rewinder/Pods-Rewinder.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_Rewinder;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		B75BCABD3946E35FADAEFB3226F20A4B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 36B03D9190DF872D19A79CFE73EEE62A /* Pods-Rewinder.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Rewinder/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Rewinder/Pods-Rewinder.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_Rewinder;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		DC61823A990CDF35CB7CC3706ABC4BDD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1063544FCA37E728133F7F30832019C8 /* Pods-RewinderTests.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-RewinderTests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-RewinderTests/Pods-RewinderTests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_RewinderTests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		E2BF6D6731C31DE69900B7B24E6F0445 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		FA10C580E868F188F146168F24632961 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A91AFD7144D54192E7492475FC1CE54B /* DSWaveformImage.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/DSWaveformImage/DSWaveformImage-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/DSWaveformImage/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/DSWaveformImage/DSWaveformImage.modulemap";
+				PRODUCT_NAME = DSWaveformImage;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		047439854426DCBE17001BFFF862B172 /* Build configuration list for PBXNativeTarget "DSWaveformImage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E110407876A8AA94B151080503564D8 /* Debug */,
+				FA10C580E868F188F146168F24632961 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E2BF6D6731C31DE69900B7B24E6F0445 /* Debug */,
+				26F954BA177A9A46FFFD4E23ED11D67A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8173575DE832AB8E1FBF061DD57AA114 /* Build configuration list for PBXNativeTarget "Pods-Rewinder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B75BCABD3946E35FADAEFB3226F20A4B /* Debug */,
+				B61DC71B1A8EA3CE45B1E84CFEF097F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D8036BFCF1633692BD84E16F1CF06FEA /* Build configuration list for PBXNativeTarget "Pods-RewinderTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC61823A990CDF35CB7CC3706ABC4BDD /* Debug */,
+				86EF04E16E99EB793F34C36B3D943891 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F8B14CA2FA4D911310363117AB40B1A5 /* Build configuration list for PBXNativeTarget "Pods-RewinderUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				899896706C65A6F961C46B3A62B6EFFE /* Debug */,
+				3CE96A1B8B4BC18158420B375EB2C41F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}
