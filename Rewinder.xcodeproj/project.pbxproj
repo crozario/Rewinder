@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		45D045B8E6D0E697097AE99C /* Pods_RewinderUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33B71D22546BD73C8A4CD440 /* Pods_RewinderUITests.framework */; };
 		5C562E6307F3361FB422D2FE /* Pods_Rewinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87E4F74BB160E3B67E67ECE3 /* Pods_Rewinder.framework */; };
+		5D8102A720424A7C00F62B37 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8102A620424A7C00F62B37 /* Audio.swift */; };
 		B36F0717890F38FC22230C47 /* Pods_RewinderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2C1472B1BDBCAD1ADD86E3A /* Pods_RewinderTests.framework */; };
 		C42BB5722041E08A00D7D4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5712041E08A00D7D4CF /* AppDelegate.swift */; };
 		C42BB5742041E08A00D7D4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5732041E08A00D7D4CF /* ViewController.swift */; };
@@ -44,6 +45,7 @@
 		33B71D22546BD73C8A4CD440 /* Pods_RewinderUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RewinderUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D6AACD5A7A46A4BF762F548 /* Pods-RewinderUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RewinderUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RewinderUITests/Pods-RewinderUITests.release.xcconfig"; sourceTree = "<group>"; };
 		508EF42CFA841215B83D0775 /* Pods-Rewinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rewinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rewinder/Pods-Rewinder.debug.xcconfig"; sourceTree = "<group>"; };
+		5D8102A620424A7C00F62B37 /* Audio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		87E4F74BB160E3B67E67ECE3 /* Pods_Rewinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rewinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A43D9B070600BD68B44103 /* Pods-RewinderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RewinderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RewinderTests/Pods-RewinderTests.release.xcconfig"; sourceTree = "<group>"; };
 		A2C1472B1BDBCAD1ADD86E3A /* Pods_RewinderTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RewinderTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -149,6 +151,7 @@
 				C45252C120423EE1000808A8 /* HomeViewController.swift */,
 				C42BB5732041E08A00D7D4CF /* ViewController.swift */,
 				C46D16B82042002600B1224D /* RoundPlayButton.swift */,
+				5D8102A620424A7C00F62B37 /* Audio.swift */,
 				C46E2BD92042138C001BE43A /* Assets.xcassets */,
 				C42BB5752041E08A00D7D4CF /* Main.storyboard */,
 				C42BB57D2041E08A00D7D4CF /* LaunchScreen.storyboard */,
@@ -479,6 +482,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D8102A720424A7C00F62B37 /* Audio.swift in Sources */,
 				C45252C220423EE1000808A8 /* HomeViewController.swift in Sources */,
 				C42BB57A2041E08A00D7D4CF /* Rewinder.xcdatamodeld in Sources */,
 				C42BB5742041E08A00D7D4CF /* ViewController.swift in Sources */,
