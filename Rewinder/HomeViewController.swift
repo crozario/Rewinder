@@ -10,7 +10,6 @@ import UIKit
 import AVFoundation
 import DSWaveformImage
 
-
 var recordDuration = 6.0
 
 class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
@@ -31,7 +30,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 //		audioObj?.startRecording()
 		self.beginRecording()
         
-        
+        //waveform
         let guide = view.safeAreaLayoutGuide
         let height = guide.layoutFrame.size.height
         let viewWidth = view.bounds.size.width
@@ -151,7 +150,12 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	
 	func stitchHighlight(currTime: TimeInterval, trimmed: URL, file2: URL, file3: URL) {
 		// then merge all files
-		audioObj?.mergeAndAddHighlight(trimmed, file2, file3)
+		if high1 == nil {
+			audioObj?.mergeAndAddHighlight2(file2, file3)
+		}
+		else {
+			audioObj?.mergeAndAddHighlight(trimmed, file2, file3)
+		}
 	}
 	
 	func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
@@ -238,7 +242,6 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 			let startTime = CMTimeMakeWithSeconds(cropTime!, 1000000)
 			let endTime = CMTimeMakeWithSeconds(duration, 1000000)
 			exporter.timeRange = CMTimeRangeFromTimeToTime(startTime, endTime)
-//			exporter.timeRange = CMTimeRangeFromTimeToTime(startTime, stopTime)
 			
 			// do it
 			exporter.exportAsynchronously(completionHandler: {
