@@ -41,8 +41,6 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
         } catch let error as NSError {
             print("audioSession error: \(error.localizedDescription)")
         }
-        
-        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -76,10 +74,22 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        var playing = audioPlayer?.isPlaying
+//
+//        if let player = playing {
+//            audioPlayer?.stop()
+//        } else {
+//            setupPlayer(index: indexPath.row)
+//            audioPlayer?.play()
+//        }
+        
+        
+        
+        
         audioPlayer?.stop()
         setupPlayer(index: indexPath.row)
         audioPlayer?.play()
-        
+
         print(audioPlayer?.duration)
 
     

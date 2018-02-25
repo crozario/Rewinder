@@ -26,14 +26,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UEb-Tv-Cbk">
-                                <rect key="frame" x="0.0" y="46" width="375" height="44"/>
-                                <items>
-                                    <navigationItem title="Settings" id="Loq-b3-8cj"/>
-                                </items>
-                            </navigationBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Highlight Length" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nzr-Kg-J2Q">
-                                <rect key="frame" x="90" y="156" width="195" height="26.5"/>
+                                <rect key="frame" x="90" y="130" width="195" height="27"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -46,31 +40,37 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15 secs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TuU-2F-bYh">
-                                <rect key="frame" x="150" y="236" width="76" height="28"/>
+                                <rect key="frame" x="150" y="210" width="76" height="28"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="15" minValue="5" maxValue="60" translatesAutoresizingMaskIntoConstraints="NO" id="Cv6-0v-juk">
-                                <rect key="frame" x="18" y="328.5" width="339" height="31"/>
+                                <rect key="frame" x="18" y="303" width="339" height="83"/>
                                 <connections>
                                     <action selector="durationSlider:" destination="csx-Ar-g15" eventType="valueChanged" id="d2q-dL-fW4"/>
                                 </connections>
                             </slider>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UEb-Tv-Cbk">
+                                <rect key="frame" x="1" y="20" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="Settings" id="Loq-b3-8cj"/>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Nzr-Kg-J2Q" firstAttribute="top" secondItem="UEb-Tv-Cbk" secondAttribute="bottom" constant="66" id="1MH-s7-fqS"/>
-                            <constraint firstItem="UEb-Tv-Cbk" firstAttribute="top" secondItem="ldz-On-cnR" secondAttribute="top" constant="26" id="4hK-c9-Gad"/>
+                            <constraint firstItem="UEb-Tv-Cbk" firstAttribute="top" secondItem="ldz-On-cnR" secondAttribute="top" id="7j6-lN-Saa"/>
+                            <constraint firstItem="Nzr-Kg-J2Q" firstAttribute="top" secondItem="UEb-Tv-Cbk" secondAttribute="bottom" constant="66" id="ATe-a4-adb"/>
+                            <constraint firstItem="UEb-Tv-Cbk" firstAttribute="leading" secondItem="ldz-On-cnR" secondAttribute="leading" constant="1" id="ERZ-IG-ZXg"/>
                             <constraint firstItem="TuU-2F-bYh" firstAttribute="top" secondItem="Nzr-Kg-J2Q" secondAttribute="bottom" constant="53.5" id="HOm-fC-bYs"/>
                             <constraint firstItem="Cv6-0v-juk" firstAttribute="top" secondItem="TuU-2F-bYh" secondAttribute="bottom" constant="64.5" id="IVR-GB-9Bm"/>
-                            <constraint firstItem="UEb-Tv-Cbk" firstAttribute="trailing" secondItem="ldz-On-cnR" secondAttribute="trailing" id="Qyz-Dd-oFP"/>
                             <constraint firstItem="Cv6-0v-juk" firstAttribute="leading" secondItem="ldz-On-cnR" secondAttribute="leading" constant="20" id="Zrx-AN-yVW"/>
                             <constraint firstItem="Nzr-Kg-J2Q" firstAttribute="centerX" secondItem="ldz-On-cnR" secondAttribute="centerX" id="bhO-sG-CDm"/>
                             <constraint firstItem="TuU-2F-bYh" firstAttribute="centerX" secondItem="ldz-On-cnR" secondAttribute="centerX" id="dZ7-Hu-fWq"/>
                             <constraint firstAttribute="trailing" secondItem="Cv6-0v-juk" secondAttribute="trailing" constant="20" id="eWb-XM-OAd"/>
-                            <constraint firstItem="UEb-Tv-Cbk" firstAttribute="leading" secondItem="ldz-On-cnR" secondAttribute="leading" id="kNT-wE-BvZ"/>
                             <constraint firstItem="Cv6-0v-juk" firstAttribute="centerY" secondItem="ldz-On-cnR" secondAttribute="centerY" id="uun-oX-FIh"/>
+                            <constraint firstItem="UEb-Tv-Cbk" firstAttribute="centerX" secondItem="TuU-2F-bYh" secondAttribute="centerX" id="yNN-bD-0UK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ldz-On-cnR"/>
                     </view>

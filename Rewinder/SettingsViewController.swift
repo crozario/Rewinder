@@ -19,6 +19,10 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        navigationController?.navigationBar.backgroundColor = UIColor(hexString: "#2394BC")
+//        UINavigationBar.appearance().barTintColor = .blue
+        
     }
 
 }
+
