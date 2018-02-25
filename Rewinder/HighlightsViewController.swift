@@ -85,7 +85,15 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
         
         
         
-        
+        if audioPlayer != nil {
+            if audioPlayer!.isPlaying{
+                audioPlayer!.stop()
+            }
+            else{
+                setupPlayer(index: indexPath.row)
+                audioPlayer?.play()
+            }
+        }
         audioPlayer?.stop()
         setupPlayer(index: indexPath.row)
         audioPlayer?.play()
