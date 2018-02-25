@@ -121,8 +121,8 @@ class Audio {
 			// do something
 			return
 		}
-//		let fileName = getDatetimeString()
-		let fileName: String = "littHighlight3.caf"
+        let fileName = getDatetimeString()
+//        let fileName: String = "littHighlight3.caf"
 		print("filename \(fileName)")
 		let appendedAudioPath = highlightsURL?.appendingPathComponent(fileName)
 		
@@ -158,7 +158,12 @@ class Audio {
 	}
 	
 	func getDatetimeString() ->String {
-		
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy-HH-mm-ss"
+        print(dateFormatter.string(from: date))
+        let currentFileName = "recording-\(dateFormatter.string(from: date)).caf"
+        return currentFileName
 	}
 	
 	func requestPermission(_ session: AVAudioSession) {
