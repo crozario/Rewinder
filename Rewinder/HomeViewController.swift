@@ -49,7 +49,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		let imageView = UIImageView(image: image!)
 		imageView.frame = CGRect(x: 0, y: 50, width: viewWidth, height: viewWidth/2)
 		view.addSubview(imageView)
-		print("so many samples: \(waveform.samples(count: 200))")
+//		print("so many samples: \(waveform.samples(count: 200))")
     }
 	
 	override func viewDidAppear(_ animated: Bool) {
@@ -62,7 +62,9 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		let recordFile = audioObj!.getNextTempFile()
 //		print("recording to " + recordFile.path)
 		do {
-			
+			if FileManager.default.fileExists(atPath: recordFile.path){
+				try FileManager.default.removeItem(at: recordFile)
+			}
 			try audioRecorder = AVAudioRecorder(url: recordFile, settings: (audioObj?.recordSettings as [String: AnyObject]?)!)
 			audioRecorder?.delegate = self
 			audioRecorder?.prepareToRecord()
@@ -82,6 +84,9 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	func altRecording(file3: URL) {
 		let recordFile = file3
 		do {
+			if FileManager.default.fileExists(atPath: recordFile.path){
+				try FileManager.default.removeItem(at: recordFile)
+			}
 			try audioRecorder = AVAudioRecorder(url: recordFile, settings: audioObj?.recordSettings as! [String: AnyObject])
 			audioRecorder?.delegate = self
 			audioRecorder?.prepareToRecord()
@@ -139,7 +144,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		altRecording(file3: new3!)
 		
 		//which temp lastest?
-		if audioObj?.firstTemp == true {
+		if audioObj?.firstTemp == false {
 			// temp2 latest
 			high2 = audioObj?.temp2
 			high1 = audioObj?.temp1
@@ -163,7 +168,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 			audioObj?.mergeAndAddHighlight2(file2, file3)
 		}
 		else {
-			audioObj?.mergeAndAddHighlight(trimmed, file2, file3)
+			audioObj?.mergeAndAddHighlight(high1!, file2, file3)
 		}
 	}
 	

@@ -61,6 +61,20 @@ class Audio {
 		//extra temp file
 		temp = dataURL!.appendingPathComponent("temp.caf")
 		
+		do {
+			if filemgr.fileExists(atPath: temp1!.path){
+				try filemgr.removeItem(at: temp1!)
+			}
+			if filemgr.fileExists(atPath: temp2!.path){
+				try filemgr.removeItem(at: temp2!)
+			}
+			if filemgr.fileExists(atPath: temp!.path){
+				try filemgr.removeItem(at: temp!)
+			}
+		}catch let error {
+			print (error)
+		}
+		
 		highlightsURL = docsURL!.appendingPathComponent("highlights")
 		highlightsPath = highlightsURL!.path
 		if !(filemgr.fileExists(atPath: highlightsPath!)){
