@@ -11,7 +11,7 @@ import AVFoundation
 import DSWaveformImage
 
 
-var recordDuration = 15.0
+var recordDuration = 5.0
 
 class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
 
@@ -142,13 +142,15 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		cropTime = audioRecorder?.currentTime
 		
 		//stop recording
+		print(audioRecorder?.url)
 		audioRecorder?.stop()
 		
 		new3 = audioObj?.temp
+		print("IN COMPUTE HIGHLIGHT")
 		altRecording(file3: new3!)
 		
 		//which temp lastest?
-		if audioObj?.firstTemp == false {
+		if audioObj?.firstTemp == true {
 			// temp2 latest
 			high2 = audioObj?.temp2
 			high1 = audioObj?.temp1
@@ -158,6 +160,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 			high2 = audioObj?.temp1
 			high1 = audioObj?.temp2
 		}
+		print("HIGH2: \(high2?.path)")
 		if high1 != nil {
 			//need to trip
 			let asset = AVAsset(url: high1!)
@@ -172,7 +175,9 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 			audioObj?.mergeAndAddHighlight2(file2, file3)
 		}
 		else {
-			audioObj?.mergeAndAddHighlight(high1!, file2, file3)
+//			audioObj?.mergeAndAddHighlight(trimmed, file2, file3)
+//			audioObj?.mergeAndAddHighlight(trimmed, file3, file2)
+			audioObj?.mergeAndAddHighlight(file3, file2, trimmed)
 		}
 	}
 	
@@ -194,6 +199,18 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 //			}
 //		}
 		
+		do {
+			try audioPlayer = AVAudioPlayer(contentsOf: recorder.url)
+			audioPlayer?.delegate = self
+			audioPlayer?.prepareToPlay()
+			//				let playStatus = audioPlayer?.play()
+			print(recorder.url)
+			print(audioPlayer?.duration)
+		} catch let error as NSError {
+			print("audioPlayer error \(error.localizedDescription)")
+		}
+		
+		
 		if new3 != nil {
             
 			if recorder.url == new3! {
@@ -202,7 +219,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 				//stitch
 				stitchHighlight(currTime: cropTime!, trimmed: trimmedHigh1!, file2: high2!, file3: new3!)
 				
-				let list = [trimmedHigh1, high2, new3, audioObj?.mostRecentHighlight]
+				let list = [high1, trimmedHigh1, high2, new3, audioObj?.mostRecentHighlight]
 				for file in list{
 					if file != nil {
 						do {

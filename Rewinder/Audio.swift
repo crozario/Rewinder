@@ -60,6 +60,7 @@ class Audio {
 		temp2 = dataURL!.appendingPathComponent("temp2.caf")
 		//extra temp file
 		temp = dataURL!.appendingPathComponent("temp.caf")
+		let trimmed = dataURL!.appendingPathComponent("trimmed.caf")
 		
 		do {
 			if filemgr.fileExists(atPath: temp1!.path){
@@ -71,6 +72,7 @@ class Audio {
 			if filemgr.fileExists(atPath: temp!.path){
 				try filemgr.removeItem(at: temp!)
 			}
+			
 		}catch let error {
 			print (error)
 		}
