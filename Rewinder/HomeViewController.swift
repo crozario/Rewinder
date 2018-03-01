@@ -28,16 +28,16 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		audioObj = Audio()
 		
 		//delete highlights folder
-		let highFolder = audioObj.highlightsURL
-		let filemgr = audioObj.filemgr
-		do {
-			let files = try filemgr.contentsOfDirectory(atPath: highFolder!.path)
-			for file in files {
-				try filemgr.removeItem(atPath: highFolder!.path + "/" + file)
-			}
-		} catch let error {
-			print (error)
-		}
+//		let highFolder = audioObj.highlightsURL
+//		let filemgr = audioObj.filemgr
+//		do {
+//			let files = try filemgr.contentsOfDirectory(atPath: highFolder!.path)
+//			for file in files {
+//				try filemgr.removeItem(atPath: highFolder!.path + "/" + file)
+//			}
+//		} catch let error {
+//			print (error)
+//		}
 		
 		//waveform
 //		let guide = view.safeAreaLayoutGuide

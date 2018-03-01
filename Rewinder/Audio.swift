@@ -322,11 +322,12 @@ class Audio {
 						self.renameFile(oldFile: file2, newFile: self.temp1)
 					}
 //					self.highlightButton.isEnabled = true
+					self.delete_both_high()
 				}
 				if file2 != self.temp {
 					self.prev_file2 = file2
 				}
-				self.delete_both_high()
+				
 				print("SUCCESS merging files")
 				break
 			case .waiting?:
