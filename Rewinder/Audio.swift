@@ -23,15 +23,19 @@ class Audio {
 	var highlightsURL: URL!
 	var highlightsPath: String!
 	
-	var temp1: URL?
-	var temp2: URL?
-	var temp: URL?
+	var temp1: URL!
+	var temp2: URL!
+	var temp: URL!
 	
 	// is the current file being recorded to first temp?
 	var firstTemp: Bool?
 	
+//	var highlightButton: RoundPlayButton!
+	
 	// should be one Audio object per app run
-	init() {
+	init(/*_ button: RoundPlayButton*/) {
+		
+//		highlightButton = button
 		
 		session = AVAudioSession.sharedInstance()
 		do {
@@ -60,19 +64,18 @@ class Audio {
 		temp2 = dataURL!.appendingPathComponent("temp2.caf")
 		//extra temp file
 		temp = dataURL!.appendingPathComponent("temp.caf")
-		let trimmed = dataURL!.appendingPathComponent("trimmed.caf")
+//		let trimmed = dataURL!.appendingPathComponent("trimmed.caf")
 		
 		do {
-			if filemgr.fileExists(atPath: temp1!.path){
-				try filemgr.removeItem(at: temp1!)
+			if filemgr.fileExists(atPath: temp1.path){
+				try filemgr.removeItem(at: temp1)
 			}
-			if filemgr.fileExists(atPath: temp2!.path){
-				try filemgr.removeItem(at: temp2!)
+			if filemgr.fileExists(atPath: temp2.path){
+				try filemgr.removeItem(at: temp2)
 			}
-			if filemgr.fileExists(atPath: temp!.path){
-				try filemgr.removeItem(at: temp!)
+			if filemgr.fileExists(atPath: temp.path){
+				try filemgr.removeItem(at: temp)
 			}
-			
 		}catch let error {
 			print (error)
 		}
@@ -90,89 +93,6 @@ class Audio {
 		
 		firstTemp = true
 	}
-
-	var mostRecentHighlight: URL?
-//	func mergeAndAddHighlight(_ file1: URL, _ file2: URL,_ file3: URL) {
-//		// Create a new audio track we can append to
-//		let composition = AVMutableComposition()
-//		var appendedAudioTrack: AVMutableCompositionTrack? = composition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
-//		// Grab the two audio tracks that need to be appended
-//		let asset1 = AVURLAsset(url: URL(fileURLWithPath: file1.path), options: nil)
-//		let asset2 = AVURLAsset(url: URL(fileURLWithPath: file2.path), options: nil)
-//		let asset3 = AVURLAsset(url: URL(fileURLWithPath: file3.path), options: nil)
-//		var error: Error? = nil
-//		// Grab the first audio track and insert it into our appendedAudioTrack
-//		var track1 = asset1.tracks(withMediaType: .audio) as [AVAssetTrack]
-//		var timeRange: CMTimeRange = CMTimeRangeMake(kCMTimeZero, asset1.duration)
-//		if let aIndex = track1[0] as? AVAssetTrack {
-//			try? appendedAudioTrack?.insertTimeRange(timeRange, of: aIndex, at: kCMTimeZero)
-//		}
-//		if error != nil {
-//			// do something
-//			return
-//		}
-//		// Grab the second audio track and insert it at the end of the first one
-//		var track2 = asset2.tracks(withMediaType: .audio) as [AVAssetTrack]
-//		timeRange = CMTimeRangeMake(kCMTimeZero, asset2.duration)
-//		if let aIndex = track2[0] as? AVAssetTrack {
-//			try? appendedAudioTrack?.insertTimeRange(timeRange, of: aIndex, at: asset1.duration)
-//		}
-//		if error != nil {
-//			// do something
-//			return
-//		}
-//		// Grab the third audio track and insert it at the end of the second one
-//		var track3 = asset3.tracks(withMediaType: .audio) as [AVAssetTrack]
-//		timeRange = CMTimeRangeMake(kCMTimeZero, asset3.duration)
-//		if let aIndex = track3[0] as? AVAssetTrack {
-//			try? appendedAudioTrack?.insertTimeRange(timeRange, of: aIndex, at: asset2.duration)
-//		}
-//		if error != nil {
-//			// do something
-//			return
-//		}
-//
-//		// Create a new audio file using the appendedAudioTrack
-//		let exportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetPassthrough)
-//		if exportSession == nil {
-//			// do something
-//			return
-//		}
-//        let fileName = getDatetimeString()
-//		print("filename \(fileName)")
-//		let appendedAudioPath = highlightsURL?.appendingPathComponent(fileName)
-//		mostRecentHighlight = appendedAudioPath
-//
-//		//remove if exists
-//		if FileManager.default.fileExists(atPath: appendedAudioPath!.path) {
-//			do {
-//				try FileManager.default.removeItem(at: appendedAudioPath!)
-//			} catch let error {
-//				print (error)
-//			}
-//		}
-//
-//		// make sure to fill this value in
-//		exportSession?.outputURL = appendedAudioPath
-//		exportSession?.outputFileType = AVFileType.caf
-//		exportSession?.exportAsynchronously(completionHandler: {() -> Void in
-//			// exported successfully?
-//			switch exportSession?.status {
-//			case .failed?:
-//				print("failed")
-//				break
-//			case .completed?:
-//				// you should now have the appended audio file
-//				print("SUCCESS")
-//				break
-//			case .waiting?:
-//				break
-//			default:
-//				break
-//			}
-//			var _: Error? = nil
-//		})
-//	}
 	
 	func getDatetimeString() ->String {
         let date = Date()
@@ -266,7 +186,9 @@ class Audio {
 		return fileURLs
 	}
 	
-	func exportAsset(_ asset: AVAsset, trimmedSoundFileURL: URL, cropTime: TimeInterval) {
+	
+	let bothHigh: String = "both_high.caf"
+	func exportAsset(_ asset: AVAsset, trimmedSoundFileURL: URL, cropTime: TimeInterval, mergeWith: URL) {
 		//		print("\(#function)")
 		
 		//see if temp.caf exists in data
@@ -309,37 +231,48 @@ class Audio {
 				else if exporter.status == .cancelled {
 					print("export cancelled \(String(describing: exporter.error))")
 				}
+				else if exporter.status == .completed{
+					do {
+						_ = try self.mergeAndAddHighlight2(trimmedSoundFileURL, mergeWith, outputFileName: self.bothHigh)
+					} catch let error {
+						print (error)
+					}
+				}
 			})
 		} else {
 			print("cannot create AVAssetExportSession for asset \(asset)")
 		}
 	}
 	
-	func mergeAndAddHighlight(_ file1: URL, _ file2: URL,_ file3: URL) {
-		let firsthalf = mergeAndAddHighlight2(file1, file2, outputFileName: "dummy.caf")
-		if filemgr.fileExists(atPath: firsthalf.path){
-			_ = mergeAndAddHighlight2(firsthalf, file3, outputFileName: getDatetimeString())
-//			do {
-//				try filemgr.removeItem(at: firsthalf)
-//			} catch let error {
-//				print (error)
-//			}
-		}
-	}
-	
-	func mergeAndAddHighlight2(_ file1: URL, _ file2: URL, outputFileName: String) -> URL{
+//	func mergeAndAddHighlight(_ file1: URL, _ file2: URL,_ file3: URL) throws {
+//		let firsthalf = try mergeAndAddHighlight2(file1, file2, outputFileName: "dummy.caf")
+//		if filemgr.fileExists(atPath: firsthalf.path){
+//			_ = try mergeAndAddHighlight2(firsthalf, file3, outputFileName: getDatetimeString())
+////			do {
+////				try filemgr.removeItem(at: firsthalf)
+////			} catch let error {
+////				print (error)
+////			}
+//		}
+//	}
+	var mostRecentHighlight: URL?
+	var prev_file2: URL?
+	func mergeAndAddHighlight2(_ file1: URL, _ file2: URL, outputFileName: String) throws -> AVAssetExportSession{
 		// Create a new audio track we can append to
 		let composition = AVMutableComposition()
 		var appendedAudioTrack: AVMutableCompositionTrack? = composition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
 		// Grab the two audio tracks that need to be appended
+		
 		let asset1 = AVURLAsset(url: URL(fileURLWithPath: file1.path), options: nil)
 		let asset2 = AVURLAsset(url: URL(fileURLWithPath: file2.path), options: nil)
 		
 		// Grab the first audio track and insert it into our appendedAudioTrack
-		var track1 = asset1.tracks(withMediaType: .audio) as [AVAssetTrack]
+		var track1: [AVAssetTrack] = asset1.tracks(withMediaType: .audio) as [AVAssetTrack]
 		var timeRange: CMTimeRange = CMTimeRangeMake(kCMTimeZero, asset1.duration)
-		if let aIndex = track1[0] as? AVAssetTrack {
-			try? appendedAudioTrack?.insertTimeRange(timeRange, of: aIndex, at: kCMTimeZero)
+		if track1.count != 0 {
+			if let aIndex = track1[0] as? AVAssetTrack {
+				try? appendedAudioTrack?.insertTimeRange(timeRange, of: aIndex, at: kCMTimeZero)
+			}
 		}
 		
 		// Grab the second audio track and insert it at the end of the first one
@@ -375,11 +308,27 @@ class Audio {
 			// exported successfully?
 			switch exportSession?.status {
 			case .failed?:
-				print("failed")
+				print("Failed exporting merged files")
 				break
-			case .completed?:
-				// you should now have the appended audio file
-				print("SUCCESS")
+			case .completed?: // you should now have the appended audio file
+				if file2 == self.temp {
+					if self.prev_file2 != nil {
+						//rename temp to prev_file2
+						//rename the temp.caf to high2 (prev_file2)
+						
+						self.renameFile(oldFile: file2, newFile: self.prev_file2!)
+					}
+					else {
+						self.renameFile(oldFile: file2, newFile: self.temp1)
+					}
+//					self.highlightButton.isEnabled = true
+					self.delete_both_high()
+				}
+				if file2 != self.temp {
+					self.prev_file2 = file2
+				}
+				
+				print("SUCCESS merging files")
 				break
 			case .waiting?:
 				break
@@ -388,7 +337,31 @@ class Audio {
 			}
 			var _: Error? = nil
 		})
-		return appendedAudioPath
+		return exportSession!
+	}
+	
+	func renameFile (oldFile: URL, newFile: URL) {
+		if self.filemgr.fileExists(atPath: oldFile.path){
+			do {
+				//first remove the original
+				try self.filemgr.removeItem(at: newFile)
+				//now rename temp --> high2 (aka prev_file2 aka temp to temp1/temp2)
+				try self.filemgr.moveItem(at: oldFile, to: newFile)
+			} catch let error {
+				print (error)
+			}
+		}
+	}
+	
+	func delete_both_high() {
+		let url = highlightsURL.appendingPathComponent(self.bothHigh)
+		if self.filemgr.fileExists(atPath: url.path){
+			do {
+				try filemgr.removeItem(at: url)
+			} catch let error {
+				print (error)
+			}
+		}
 	}
 }
 

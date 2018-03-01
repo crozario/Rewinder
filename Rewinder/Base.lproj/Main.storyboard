@@ -111,7 +111,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="addHighlight:" destination="BYZ-38-t0r" eventType="touchUpInside" id="O68-as-Le1"/>
+                                    <action selector="addHighlight:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nLu-gF-bKZ"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -123,7 +123,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="highlightButton" destination="bVh-d9-Onj" id="NNe-nT-NTG"/>
+                        <outlet property="highlightButton" destination="bVh-d9-Onj" id="nVY-4y-lH3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
