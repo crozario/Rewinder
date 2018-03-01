@@ -60,7 +60,7 @@ class Audio {
 		temp2 = dataURL!.appendingPathComponent("temp2.caf")
 		//extra temp file
 		temp = dataURL!.appendingPathComponent("temp.caf")
-		let trimmed = dataURL!.appendingPathComponent("trimmed.caf")
+//		let trimmed = dataURL!.appendingPathComponent("trimmed.caf")
 		
 		do {
 			if filemgr.fileExists(atPath: temp1!.path){
@@ -72,7 +72,6 @@ class Audio {
 			if filemgr.fileExists(atPath: temp!.path){
 				try filemgr.removeItem(at: temp!)
 			}
-			
 		}catch let error {
 			print (error)
 		}
@@ -92,87 +91,6 @@ class Audio {
 	}
 
 	var mostRecentHighlight: URL?
-//	func mergeAndAddHighlight(_ file1: URL, _ file2: URL,_ file3: URL) {
-//		// Create a new audio track we can append to
-//		let composition = AVMutableComposition()
-//		var appendedAudioTrack: AVMutableCompositionTrack? = composition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
-//		// Grab the two audio tracks that need to be appended
-//		let asset1 = AVURLAsset(url: URL(fileURLWithPath: file1.path), options: nil)
-//		let asset2 = AVURLAsset(url: URL(fileURLWithPath: file2.path), options: nil)
-//		let asset3 = AVURLAsset(url: URL(fileURLWithPath: file3.path), options: nil)
-//		var error: Error? = nil
-//		// Grab the first audio track and insert it into our appendedAudioTrack
-//		var track1 = asset1.tracks(withMediaType: .audio) as [AVAssetTrack]
-//		var timeRange: CMTimeRange = CMTimeRangeMake(kCMTimeZero, asset1.duration)
-//		if let aIndex = track1[0] as? AVAssetTrack {
-//			try? appendedAudioTrack?.insertTimeRange(timeRange, of: aIndex, at: kCMTimeZero)
-//		}
-//		if error != nil {
-//			// do something
-//			return
-//		}
-//		// Grab the second audio track and insert it at the end of the first one
-//		var track2 = asset2.tracks(withMediaType: .audio) as [AVAssetTrack]
-//		timeRange = CMTimeRangeMake(kCMTimeZero, asset2.duration)
-//		if let aIndex = track2[0] as? AVAssetTrack {
-//			try? appendedAudioTrack?.insertTimeRange(timeRange, of: aIndex, at: asset1.duration)
-//		}
-//		if error != nil {
-//			// do something
-//			return
-//		}
-//		// Grab the third audio track and insert it at the end of the second one
-//		var track3 = asset3.tracks(withMediaType: .audio) as [AVAssetTrack]
-//		timeRange = CMTimeRangeMake(kCMTimeZero, asset3.duration)
-//		if let aIndex = track3[0] as? AVAssetTrack {
-//			try? appendedAudioTrack?.insertTimeRange(timeRange, of: aIndex, at: asset2.duration)
-//		}
-//		if error != nil {
-//			// do something
-//			return
-//		}
-//
-//		// Create a new audio file using the appendedAudioTrack
-//		let exportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetPassthrough)
-//		if exportSession == nil {
-//			// do something
-//			return
-//		}
-//        let fileName = getDatetimeString()
-//		print("filename \(fileName)")
-//		let appendedAudioPath = highlightsURL?.appendingPathComponent(fileName)
-//		mostRecentHighlight = appendedAudioPath
-//
-//		//remove if exists
-//		if FileManager.default.fileExists(atPath: appendedAudioPath!.path) {
-//			do {
-//				try FileManager.default.removeItem(at: appendedAudioPath!)
-//			} catch let error {
-//				print (error)
-//			}
-//		}
-//
-//		// make sure to fill this value in
-//		exportSession?.outputURL = appendedAudioPath
-//		exportSession?.outputFileType = AVFileType.caf
-//		exportSession?.exportAsynchronously(completionHandler: {() -> Void in
-//			// exported successfully?
-//			switch exportSession?.status {
-//			case .failed?:
-//				print("failed")
-//				break
-//			case .completed?:
-//				// you should now have the appended audio file
-//				print("SUCCESS")
-//				break
-//			case .waiting?:
-//				break
-//			default:
-//				break
-//			}
-//			var _: Error? = nil
-//		})
-//	}
 	
 	func getDatetimeString() ->String {
         let date = Date()
@@ -336,8 +254,10 @@ class Audio {
 		let asset2 = AVURLAsset(url: URL(fileURLWithPath: file2.path), options: nil)
 		
 		// Grab the first audio track and insert it into our appendedAudioTrack
-		var track1 = asset1.tracks(withMediaType: .audio) as [AVAssetTrack]
+		var track1: [AVAssetTrack] = asset1.tracks(withMediaType: .audio) as [AVAssetTrack]
 		var timeRange: CMTimeRange = CMTimeRangeMake(kCMTimeZero, asset1.duration)
+		print("length track1: \(track1.count)")
+		print("asset 1 duration: \(asset1.duration)")
 		if let aIndex = track1[0] as? AVAssetTrack {
 			try? appendedAudioTrack?.insertTimeRange(timeRange, of: aIndex, at: kCMTimeZero)
 		}

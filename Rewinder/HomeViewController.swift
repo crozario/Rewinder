@@ -67,6 +67,9 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	}
 
 	func beginRecording(recordFile: URL) {
+		
+		print("began recording: \(recordFile)")
+		
 		do {
 			if FileManager.default.fileExists(atPath: recordFile.path){
 				try FileManager.default.removeItem(at: recordFile)
@@ -101,6 +104,9 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		//get current recording time
 		let cropTime = audioRecorder?.currentTime
 		
+		//get current recording file
+		high2 = audioRecorder?.url
+		
 		//stop recording
 		audioRecorder?.stop()
 	
@@ -109,12 +115,22 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 			self.beginRecording(recordFile: high3!)
 		}
 
-		high1 = audioObj.getOldTempFile()
-		high2 = audioObj.getCurrTempFile()
+		// get old recording file (high1)
+		if high2 == audioObj.temp1 {
+			high1 = audioObj.temp2
+		} else {
+			high1 = audioObj.temp1
+		}
 		
-		if high1 != nil {
+		if FileManager.default.fileExists(atPath: high1!.path) {
 			//need to trip
-			print (high1)
+//			print (high1)
+//			do {
+//				let dataFiles = try audioObj.filemgr.contentsOfDirectory(atPath: audioObj.dataPath)
+//				print (dataFiles)
+//			} catch let error {
+//				print (error)
+//			}
 			let asset = AVAsset(url: high1!)
 			trimmedHigh1 = audioObj.dataURL?.appendingPathComponent("trimmed.caf")
 			audioObj.exportAsset(asset, trimmedSoundFileURL: trimmedHigh1!, cropTime: cropTime!)
@@ -126,21 +142,22 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	
 	func stitchHighlight() {
 		// then merge all files
-		if high1 == nil {
-			audioObj.mergeAndAddHighlight2(high2!, high3!, outputFileName: audioObj.getDatetimeString())
+		if !FileManager.default.fileExists(atPath: high1!.path) {
+			print("No high1")
+			_ = audioObj.mergeAndAddHighlight2(high2!, high3!, outputFileName: audioObj.getDatetimeString())
 		}
 		else {
             let a = trimmedHigh1!
             let b = high2!
             let c = high3!
-			audioObj.mergeAndAddHighlight(a, b, c)
-//            audioObj.mergeAndAddHighlight(b, a, c)
-			
-//			audioObj.mergeAndAddHighlight(a, c, b)
-//			audioObj.mergeAndAddHighlight(b, a, c) //** was good just switch last two
-//			audioObj.mergeAndAddHighlight(b, c, a)
-//			audioObj.mergeAndAddHighlight(c, a, b)
-//			audioObj.mergeAndAddHighlight(c, b, a)
+			let filemgr = FileManager.default
+			if filemgr.fileExists(atPath: a.path) && filemgr.fileExists(atPath: b.path) && filemgr.fileExists(atPath: c.path) {
+				audioObj.mergeAndAddHighlight(a, b, c)
+			}
+			else {
+				print("could not merge three files")
+			}
+//			audioObj.mergeAndAddHighlight(a, b, c)
 			
 			printAudioLength(message: "trimmed", url: a)
 			printAudioLength(message: "file2", url: b)
@@ -152,23 +169,40 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		do {
 			try audioPlayer = AVAudioPlayer(contentsOf: url)
 			print(message)
-			print(audioPlayer?.duration)
+			print(audioPlayer?.duration ?? -1.0)
 		}catch let error{
 			print (error)
 		}
 	}
 	
 	func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+		
+		print("finished recording \(recorder.url)")
+		print()
+		
 		if high3 != nil {
 			if recorder.url == high3! {
-                highlightButton.isEnabled = true
                 
 				//stitch
                 stitchHighlight()
-//                stitchHighlight()
 				
+				//rename the temp.caf to high2 (temp1 or temp2)
+				let filemgr = FileManager.default
+				if filemgr.fileExists(atPath: high3!.path){
+					do {
+						//first remove the original
+						try filemgr.removeItem(at: high2!)
+						//now rename high3 --> high2 (aka temp to temp1/temp2)
+						try filemgr.moveItem(at: high3!, to: high2!)
+					} catch let error {
+						print (error)
+					}
+				}
+				//reset the var until next time
 				high3 = nil
-//				self.beginRecording(recordFile: audioObj!.getNextTempFile())
+				
+				self.beginRecording(recordFile: audioObj!.getNextTempFile())
+				highlightButton.isEnabled = true
 			}
 		}
 		else {
