@@ -42,6 +42,8 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
             print("audioSession error: \(error.localizedDescription)")
         }
     }
+	var dataFiles = [String]()
+	var dataURL: URL?
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 		do {
@@ -53,6 +55,17 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
 		} catch let error {
 			print(error)
 		}
+		dataURL = docsURL!.appendingPathComponent("data")
+		do {
+			let files = try filemgr.contentsOfDirectory(atPath: dataURL!.path)
+			for file in files {
+				arr.append(file)
+				dataFiles.append(file)
+			}
+		} catch let error {
+			print(error)
+		}
+		
         tableView.reloadData()
     }
     
@@ -74,44 +87,37 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        var playing = audioPlayer?.isPlaying
-//
-//        if let player = playing {
-//            audioPlayer?.stop()
-//        } else {
-//            setupPlayer(index: indexPath.row)
-//            audioPlayer?.play()
-//        }
-        
-        
-        
-        if audioPlayer != nil {
-            if audioPlayer!.isPlaying{
-                audioPlayer!.stop()
-            }
-            else{
-                setupPlayer(index: indexPath.row)
-                audioPlayer?.play()
-            }
-        }
-        audioPlayer?.stop()
-        setupPlayer(index: indexPath.row)
-        audioPlayer?.play()
+
+		if let player = audioPlayer {
+			if player.isPlaying{
+				player.stop()
+				audioPlayer = nil
+			}
+		}
+		else{
+			setupPlayer(index: indexPath.row)
+			audioPlayer?.play()
+		}
 
         print(audioPlayer?.duration)
-
-    
     }
-    
-    
+
     func setupPlayer(index: Int) {
         let fileName = arr[index]
 //        currSelected = index
-        let url = highlightsURL?.appendingPathComponent(fileName)
+//        let url = highlightsURL?.appendingPathComponent(fileName)
+		var url: URL?
+		if dataFiles.contains(fileName) {
+			url = (dataURL?.appendingPathComponent(fileName))
+		}
+		else {
+			url = (highlightsURL?.appendingPathComponent(fileName))
+		}
+		print(dataFiles)
+		
         print(url)
         do {
-            try audioPlayer = AVAudioPlayer(contentsOf: url!)
-            print(audioPlayer)
+			try audioPlayer = AVAudioPlayer(contentsOf: url!)
 			audioPlayer?.delegate = self
             audioPlayer?.prepareToPlay()
         } catch let error as NSError {
@@ -141,7 +147,8 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        
+		print("\(#function)")
+		audioPlayer = nil
     }
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
         
