@@ -55,16 +55,16 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
 		} catch let error {
 			print(error)
 		}
-		dataURL = docsURL!.appendingPathComponent("data")
-		do {
-			let files = try filemgr.contentsOfDirectory(atPath: dataURL!.path)
-			for file in files {
-				arr.append(file)
-				dataFiles.append(file)
-			}
-		} catch let error {
-			print(error)
-		}
+//		dataURL = docsURL!.appendingPathComponent("data")
+//		do {
+//			let files = try filemgr.contentsOfDirectory(atPath: dataURL!.path)
+//			for file in files {
+//				arr.append(file)
+//				dataFiles.append(file)
+//			}
+//		} catch let error {
+//			print(error)
+//		}
 		
         tableView.reloadData()
     }

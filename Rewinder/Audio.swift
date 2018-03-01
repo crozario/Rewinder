@@ -23,15 +23,19 @@ class Audio {
 	var highlightsURL: URL!
 	var highlightsPath: String!
 	
-	var temp1: URL?
-	var temp2: URL?
-	var temp: URL?
+	var temp1: URL!
+	var temp2: URL!
+	var temp: URL!
 	
 	// is the current file being recorded to first temp?
 	var firstTemp: Bool?
 	
+//	var highlightButton: RoundPlayButton!
+	
 	// should be one Audio object per app run
-	init() {
+	init(/*_ button: RoundPlayButton*/) {
+		
+//		highlightButton = button
 		
 		session = AVAudioSession.sharedInstance()
 		do {
@@ -63,14 +67,14 @@ class Audio {
 //		let trimmed = dataURL!.appendingPathComponent("trimmed.caf")
 		
 		do {
-			if filemgr.fileExists(atPath: temp1!.path){
-				try filemgr.removeItem(at: temp1!)
+			if filemgr.fileExists(atPath: temp1.path){
+				try filemgr.removeItem(at: temp1)
 			}
-			if filemgr.fileExists(atPath: temp2!.path){
-				try filemgr.removeItem(at: temp2!)
+			if filemgr.fileExists(atPath: temp2.path){
+				try filemgr.removeItem(at: temp2)
 			}
-			if filemgr.fileExists(atPath: temp!.path){
-				try filemgr.removeItem(at: temp!)
+			if filemgr.fileExists(atPath: temp.path){
+				try filemgr.removeItem(at: temp)
 			}
 		}catch let error {
 			print (error)
@@ -89,8 +93,6 @@ class Audio {
 		
 		firstTemp = true
 	}
-
-	var mostRecentHighlight: URL?
 	
 	func getDatetimeString() ->String {
         let date = Date()
@@ -184,7 +186,9 @@ class Audio {
 		return fileURLs
 	}
 	
-	func exportAsset(_ asset: AVAsset, trimmedSoundFileURL: URL, cropTime: TimeInterval) {
+	
+	let bothHigh: String = "both_high.caf"
+	func exportAsset(_ asset: AVAsset, trimmedSoundFileURL: URL, cropTime: TimeInterval, mergeWith: URL) {
 		//		print("\(#function)")
 		
 		//see if temp.caf exists in data
@@ -227,39 +231,48 @@ class Audio {
 				else if exporter.status == .cancelled {
 					print("export cancelled \(String(describing: exporter.error))")
 				}
+				else if exporter.status == .completed{
+					do {
+						_ = try self.mergeAndAddHighlight2(trimmedSoundFileURL, mergeWith, outputFileName: self.bothHigh)
+					} catch let error {
+						print (error)
+					}
+				}
 			})
 		} else {
 			print("cannot create AVAssetExportSession for asset \(asset)")
 		}
 	}
 	
-	func mergeAndAddHighlight(_ file1: URL, _ file2: URL,_ file3: URL) {
-		let firsthalf = mergeAndAddHighlight2(file1, file2, outputFileName: "dummy.caf")
-		if filemgr.fileExists(atPath: firsthalf.path){
-			_ = mergeAndAddHighlight2(firsthalf, file3, outputFileName: getDatetimeString())
-//			do {
-//				try filemgr.removeItem(at: firsthalf)
-//			} catch let error {
-//				print (error)
-//			}
-		}
-	}
-	
-	func mergeAndAddHighlight2(_ file1: URL, _ file2: URL, outputFileName: String) -> URL{
+//	func mergeAndAddHighlight(_ file1: URL, _ file2: URL,_ file3: URL) throws {
+//		let firsthalf = try mergeAndAddHighlight2(file1, file2, outputFileName: "dummy.caf")
+//		if filemgr.fileExists(atPath: firsthalf.path){
+//			_ = try mergeAndAddHighlight2(firsthalf, file3, outputFileName: getDatetimeString())
+////			do {
+////				try filemgr.removeItem(at: firsthalf)
+////			} catch let error {
+////				print (error)
+////			}
+//		}
+//	}
+	var mostRecentHighlight: URL?
+	var prev_file2: URL?
+	func mergeAndAddHighlight2(_ file1: URL, _ file2: URL, outputFileName: String) throws -> AVAssetExportSession{
 		// Create a new audio track we can append to
 		let composition = AVMutableComposition()
 		var appendedAudioTrack: AVMutableCompositionTrack? = composition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
 		// Grab the two audio tracks that need to be appended
+		
 		let asset1 = AVURLAsset(url: URL(fileURLWithPath: file1.path), options: nil)
 		let asset2 = AVURLAsset(url: URL(fileURLWithPath: file2.path), options: nil)
 		
 		// Grab the first audio track and insert it into our appendedAudioTrack
 		var track1: [AVAssetTrack] = asset1.tracks(withMediaType: .audio) as [AVAssetTrack]
 		var timeRange: CMTimeRange = CMTimeRangeMake(kCMTimeZero, asset1.duration)
-		print("length track1: \(track1.count)")
-		print("asset 1 duration: \(asset1.duration)")
-		if let aIndex = track1[0] as? AVAssetTrack {
-			try? appendedAudioTrack?.insertTimeRange(timeRange, of: aIndex, at: kCMTimeZero)
+		if track1.count != 0 {
+			if let aIndex = track1[0] as? AVAssetTrack {
+				try? appendedAudioTrack?.insertTimeRange(timeRange, of: aIndex, at: kCMTimeZero)
+			}
 		}
 		
 		// Grab the second audio track and insert it at the end of the first one
@@ -295,11 +308,26 @@ class Audio {
 			// exported successfully?
 			switch exportSession?.status {
 			case .failed?:
-				print("failed")
+				print("Failed exporting merged files")
 				break
-			case .completed?:
-				// you should now have the appended audio file
-				print("SUCCESS")
+			case .completed?: // you should now have the appended audio file
+				if file2 == self.temp {
+					if self.prev_file2 != nil {
+						//rename temp to prev_file2
+						//rename the temp.caf to high2 (prev_file2)
+						
+						self.renameFile(oldFile: file2, newFile: self.prev_file2!)
+					}
+					else {
+						self.renameFile(oldFile: file2, newFile: self.temp1)
+					}
+//					self.highlightButton.isEnabled = true
+				}
+				if file2 != self.temp {
+					self.prev_file2 = file2
+				}
+				self.delete_both_high()
+				print("SUCCESS merging files")
 				break
 			case .waiting?:
 				break
@@ -308,7 +336,31 @@ class Audio {
 			}
 			var _: Error? = nil
 		})
-		return appendedAudioPath
+		return exportSession!
+	}
+	
+	func renameFile (oldFile: URL, newFile: URL) {
+		if self.filemgr.fileExists(atPath: oldFile.path){
+			do {
+				//first remove the original
+				try self.filemgr.removeItem(at: newFile)
+				//now rename temp --> high2 (aka prev_file2 aka temp to temp1/temp2)
+				try self.filemgr.moveItem(at: oldFile, to: newFile)
+			} catch let error {
+				print (error)
+			}
+		}
+	}
+	
+	func delete_both_high() {
+		let url = highlightsURL.appendingPathComponent(self.bothHigh)
+		if self.filemgr.fileExists(atPath: url.path){
+			do {
+				try filemgr.removeItem(at: url)
+			} catch let error {
+				print (error)
+			}
+		}
 	}
 }
 
