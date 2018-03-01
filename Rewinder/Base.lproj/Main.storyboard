@@ -45,9 +45,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minValue="5" maxValue="60" translatesAutoresizingMaskIntoConstraints="NO" id="Cv6-0v-juk">
-                                <rect key="frame" x="18" y="328.5" width="339" height="31"/>
+                                <rect key="frame" x="18" y="302.5" width="339" height="83"/>
                                 <connections>
                                     <action selector="durationSlider:" destination="csx-Ar-g15" eventType="valueChanged" id="d2q-dL-fW4"/>
                                 </connections>
