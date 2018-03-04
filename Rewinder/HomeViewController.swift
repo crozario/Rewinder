@@ -63,7 +63,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     }
 	
 	override func viewDidAppear(_ animated: Bool) {
-		print("\(#function)")
+//		print("\(#function)")
 		self.beginRecording(recordFile: audioObj.getNextTempFile())
 	}
 

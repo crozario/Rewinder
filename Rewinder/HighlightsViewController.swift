@@ -12,8 +12,8 @@ import AVFoundation
 class HighlightsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     var arr = [String]()
 	var filemgr = FileManager.default
-	var docsURL: URL?
-	var highlightsURL: URL?
+	var docsURL: URL!
+	var highlightsURL: URL!
     var audioPlayer: AVAudioPlayer?
     var currSelected: Int?
     
@@ -27,7 +27,7 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
         audioPlayer?.delegate = self
         
 		docsURL = filemgr.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        highlightsURL = docsURL!.appendingPathComponent("highlights")
+        highlightsURL = docsURL.appendingPathComponent("highlights")
         let audioSession = AVAudioSession.sharedInstance()
         
         do {
@@ -68,6 +68,15 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
 		
         tableView.reloadData()
     }
+	
+	override func viewWillDisappear(_ animated: Bool) {
+//		print("\(#function)")
+		if audioPlayer != nil {
+			if audioPlayer!.isPlaying {
+				audioPlayer?.stop()
+			}
+		}
+	}
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -125,33 +134,79 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == UITableViewCellEditingStyle.delete {
-			print("remove editing")
-            let fileName = arr.remove(at: indexPath.row)
-            let url = highlightsURL?.appendingPathComponent(fileName)
-            
-            if FileManager.default.fileExists(atPath: url!.path) {
-                do {
-                    try FileManager.default.removeItem(atPath: url!.path)
-                } catch {
-                    print(error.localizedDescription)
-                }
-                
-            }
-            tableView.reloadData()
-        }
-		else if editingStyle == .insert {
-			print("insert editing")
-		}
-    }
-    
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == UITableViewCellEditingStyle.delete {
+//			print("remove editing")
+//            let fileName = arr.remove(at: indexPath.row)
+//            let url = highlightsURL?.appendingPathComponent(fileName)
+//
+//            if FileManager.default.fileExists(atPath: url!.path) {
+//                do {
+//                    try FileManager.default.removeItem(atPath: url!.path)
+//                } catch {
+//                    print(error.localizedDescription)
+//                }
+//
+//            }
+//            tableView.reloadData()
+//        }
+//		else if editingStyle == .insert {
+//			print("insert editing")
+//		}
+//    }
+	
     func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
         return indexPath
     }
 	
 	func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
 		return true
+	}
+	
+//	func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+//		
+//	}
+	
+	func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+		let editAction = UITableViewRowAction(style: .default, title: "Edit", handler: { (action, indexPath) in
+			let alert = UIAlertController(title: "", message: "Edit list item", preferredStyle: .alert)
+			alert.addTextField(configurationHandler: { (textField) in
+				textField.text = self.arr[indexPath.row]
+			})
+			alert.addAction(UIAlertAction(title: "Update", style: .default, handler: { (updateAction) in
+				let newName = alert.textFields!.first!.text!
+				let oldName = self.arr[indexPath.row]
+				let newURL = self.highlightsURL.appendingPathComponent(newName)
+				let oldURL = self.highlightsURL.appendingPathComponent(oldName)
+				
+				//check if newName already exists
+				if self.filemgr.fileExists(atPath: newURL.path) {
+					// close alert
+					
+					// display message
+					let alreadyExistsAlert = UIAlertController(title: "", message: "Error: Sound already exists.", preferredStyle: .alert)
+					alreadyExistsAlert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
+				} else {
+					do {
+						try self.filemgr.moveItem(at: oldURL, to: newURL)
+					} catch let error {
+						print (error)
+					}
+					self.arr[indexPath.row] = newName
+					self.tableView.reloadRows(at: [indexPath], with: .fade)
+				}
+			}))
+			alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+			self.present(alert, animated: false)
+		})
+		
+		let deleteAction = UITableViewRowAction(style: .default, title: "Delete", handler: { (action, indexPath) in
+//			self.arr.remove(at: indexPath.row)
+			// also remove in file system
+			tableView.reloadData()
+		})
+		
+		return [deleteAction, editAction]
 	}
 	
 	func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
