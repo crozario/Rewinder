@@ -186,10 +186,12 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
 				//check if newName already exists
 				if self.filemgr.fileExists(atPath: newURL.path) {
 					// close alert --> closes automatically
+					self.dismiss(animated: true, completion: nil)
 					
 					// display message
-					let alreadyExistsAlert = UIAlertController(title: "", message: "Error: Sound already exists.", preferredStyle: .alert)
+					let alreadyExistsAlert = UIAlertController(title: "Rename Error", message: "Highlight name already exists.", preferredStyle: .alert)
 					alreadyExistsAlert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
+					self.present(alreadyExistsAlert, animated: true)
 				} else {
 					do {
 						try self.filemgr.moveItem(at: oldURL, to: newURL)
