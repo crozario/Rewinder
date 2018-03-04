@@ -127,6 +127,7 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCellEditingStyle.delete {
+			print("remove editing")
             let fileName = arr.remove(at: indexPath.row)
             let url = highlightsURL?.appendingPathComponent(fileName)
             
@@ -140,24 +141,41 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
             }
             tableView.reloadData()
         }
+		else if editingStyle == .insert {
+			print("insert editing")
+		}
     }
     
     func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
         return indexPath
     }
-    
+	
+	func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+		return true
+	}
+	
+	func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
+		print("\(#function)")
+	}
+	
+	func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
+		print("\(#function)")
+	}
+	
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
 		print("\(#function)")
 		audioPlayer = nil
     }
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
-        
+		
     }
     func audioPlayerBeginInterruption(_ player: AVAudioPlayer) {
-        
+		if player.isPlaying {
+			player.pause()
+		}
     }
     func audioPlayerEndInterruption(player: AVAudioPlayer) {
-        
+		
     }
     
     
