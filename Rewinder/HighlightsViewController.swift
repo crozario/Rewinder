@@ -16,41 +16,48 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
 	var highlightsURL: URL!
     var audioPlayer: AVAudioPlayer?
     var currSelected: Int?
+	let fileExtension: String = "caf"
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        arr = ["Crossley", "NJIT", "Haard", "Database", "Computer Networks", "Hackathon", "iOS App", "MacBook"]
-//        var playButton = false
-//        var stopButton = false
+
         audioPlayer?.delegate = self
-        
+		
+		// initialize file system urls
 		docsURL = filemgr.urls(for: .documentDirectory, in: .userDomainMask)[0]
         highlightsURL = docsURL.appendingPathComponent("highlights")
         let audioSession = AVAudioSession.sharedInstance()
-        
+		
+		// initialize audio session
         do {
             try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
         } catch let error as NSError {
             print("audioSession error: \(error.localizedDescription)")
         }
-        
+		
+		// play from bottom speaker
         do {
             try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
         } catch let error as NSError {
             print("audioSession error: \(error.localizedDescription)")
         }
     }
-	var dataFiles = [String]()
-	var dataURL: URL?
+	
+//	var dataFiles = [String]()
+//	var dataURL: URL?
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 		do {
             let files = try filemgr.contentsOfDirectory(atPath: highlightsURL!.path)
-            arr.removeAll(keepingCapacity: true)
+			arr.removeAll(keepingCapacity: true) //FIX ME: instead of removingAll, which would be very inefficient in case where array is large. Initialize arr only in viewDidLoad and use some sort of call back to update arr everytime new item is added or removed
             for file in files {
-                arr.append(file)
+				var newFile = file
+				
+				//removes four elements -> .caf
+				newFile.removeLast(4)
+                arr.append(newFile)
             }
 		} catch let error {
 			print(error)
@@ -73,8 +80,10 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
 //		print("\(#function)")
 		if audioPlayer != nil {
 			if audioPlayer!.isPlaying {
-				audioPlayer?.stop()
+				audioPlayer!.pause()
+//				self.audioPlayerBeginInterruption(audioPlayer!)
 			}
+			
 		}
 	}
     
@@ -96,37 +105,31 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+		
 		if let player = audioPlayer {
 			if player.isPlaying{
 				player.stop()
 				audioPlayer = nil
 			}
+			else {
+				player.play()
+			}
 		}
 		else{
 			setupPlayer(index: indexPath.row)
 			audioPlayer?.play()
+			print(audioPlayer?.duration ?? -1.0) // -1.0 is default value if the duration cannot be unwraped
 		}
-
-        print(audioPlayer?.duration)
     }
 
     func setupPlayer(index: Int) {
         let fileName = arr[index]
-//        currSelected = index
-//        let url = highlightsURL?.appendingPathComponent(fileName)
-		var url: URL?
-		if dataFiles.contains(fileName) {
-			url = (dataURL?.appendingPathComponent(fileName))
-		}
-		else {
-			url = (highlightsURL?.appendingPathComponent(fileName))
-		}
-		print(dataFiles)
-		
-        print(url)
+
+        var url = highlightsURL.appendingPathComponent(fileName)
+		url.appendPathExtension(self.fileExtension)
+
         do {
-			try audioPlayer = AVAudioPlayer(contentsOf: url!)
+			try audioPlayer = AVAudioPlayer(contentsOf: url)
 			audioPlayer?.delegate = self
             audioPlayer?.prepareToPlay()
         } catch let error as NSError {
@@ -169,19 +172,20 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
 	
 	func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
 		let editAction = UITableViewRowAction(style: .default, title: "Edit", handler: { (action, indexPath) in
-			let alert = UIAlertController(title: "", message: "Edit list item", preferredStyle: .alert)
+			let alert = UIAlertController(title: "Modify Highlight Name", message: "Would would you like to call this highlight?", preferredStyle: .alert)
 			alert.addTextField(configurationHandler: { (textField) in
 				textField.text = self.arr[indexPath.row]
+				textField.clearButtonMode = .always
 			})
 			alert.addAction(UIAlertAction(title: "Update", style: .default, handler: { (updateAction) in
 				let newName = alert.textFields!.first!.text!
 				let oldName = self.arr[indexPath.row]
-				let newURL = self.highlightsURL.appendingPathComponent(newName)
-				let oldURL = self.highlightsURL.appendingPathComponent(oldName)
+				let newURL = self.highlightsURL.appendingPathComponent(newName).appendingPathExtension(self.fileExtension)
+				let oldURL = self.highlightsURL.appendingPathComponent(oldName).appendingPathExtension(self.fileExtension)
 				
 				//check if newName already exists
 				if self.filemgr.fileExists(atPath: newURL.path) {
-					// close alert
+					// close alert --> closes automatically
 					
 					// display message
 					let alreadyExistsAlert = UIAlertController(title: "", message: "Error: Sound already exists.", preferredStyle: .alert)
@@ -222,14 +226,17 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
 		audioPlayer = nil
     }
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
-		
+		print("\(#function)")
+		print(error as Any)
     }
     func audioPlayerBeginInterruption(_ player: AVAudioPlayer) {
+		print("\(#function)")
 		if player.isPlaying {
 			player.pause()
 		}
     }
     func audioPlayerEndInterruption(player: AVAudioPlayer) {
+		print("\(#function)")
 		
     }
     
