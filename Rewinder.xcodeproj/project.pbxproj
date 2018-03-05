@@ -27,6 +27,7 @@
 		C46D16B92042002600B1224D /* RoundPlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46D16B82042002600B1224D /* RoundPlayButton.swift */; };
 		C46E2BDA2042138C001BE43A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C46E2BD92042138C001BE43A /* Assets.xcassets */; };
 		C46E2BDD20422323001BE43A /* Eminem - Rap God.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C46E2BDC20422323001BE43A /* Eminem - Rap God.mp3 */; };
+		C4E048D2204C76A9007355E1 /* waveformsample.png in Resources */ = {isa = PBXBuildFile; fileRef = C4E048D1204C76A9007355E1 /* waveformsample.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +79,7 @@
 		C46D16B82042002600B1224D /* RoundPlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundPlayButton.swift; sourceTree = "<group>"; };
 		C46E2BD92042138C001BE43A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C46E2BDC20422323001BE43A /* Eminem - Rap God.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Eminem - Rap God.mp3"; sourceTree = "<group>"; };
+		C4E048D1204C76A9007355E1 /* waveformsample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waveformsample.png; sourceTree = "<group>"; };
 		FFB38C5E947C35D328D06763 /* Pods-RewinderUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RewinderUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RewinderUITests/Pods-RewinderUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -198,6 +200,7 @@
 		C46E2BDB204222F1001BE43A /* Files */ = {
 			isa = PBXGroup;
 			children = (
+				C4E048D1204C76A9007355E1 /* waveformsample.png */,
 				C46E2BDC20422323001BE43A /* Eminem - Rap God.mp3 */,
 			);
 			path = Files;
@@ -321,6 +324,7 @@
 			files = (
 				C42BB57F2041E08A00D7D4CF /* LaunchScreen.storyboard in Resources */,
 				C46E2BDA2042138C001BE43A /* Assets.xcassets in Resources */,
+				C4E048D2204C76A9007355E1 /* waveformsample.png in Resources */,
 				C42BB5772041E08A00D7D4CF /* Main.storyboard in Resources */,
 				C46E2BDD20422323001BE43A /* Eminem - Rap God.mp3 in Resources */,
 			);
