@@ -42,6 +42,14 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 //		audioObj.printAllHighlightEntities()
 	}
 	
+	override func viewWillDisappear(_ animated: Bool) {
+		if audioRecorder != nil {
+			if audioRecorder!.isRecording {
+				audioRecorder?.stop()
+			}
+		}
+	}
+	
 	// MARK: - Add Highlight
 	@IBAction func addHighlight(_ sender: RoundPlayButton) {
         highlightButton.isEnabled = false
