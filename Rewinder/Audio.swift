@@ -33,7 +33,7 @@ class Audio {
 //	var highlightButton: RoundPlayButton!
 	
 	// should be one Audio object per app run
-	init(/*_ button: RoundPlayButton*/) {
+	init() {
 		
 //		highlightButton = button
 		
@@ -321,7 +321,6 @@ class Audio {
 					else {
 						self.renameFile(oldFile: file2, newFile: self.temp1)
 					}
-//					self.highlightButton.isEnabled = true
 					self.delete_both_high()
 				}
 				if file2 != self.temp {
