@@ -3,10 +3,10 @@
     <entity name="HighlightEntity" representedClassName="HighlightEntity" syncable="YES">
         <attribute name="audioURL" optional="YES" attributeType="Transformable" customClassName="NSURL" syncable="YES"/>
         <attribute name="dateandtime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="duration" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="duration" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="HighlightEntity" positionX="-63" positionY="-18" width="128" height="103"/>
+        <element name="HighlightEntity" positionX="-63" positionY="-18" width="128" height="105"/>
     </elements>
 </model>

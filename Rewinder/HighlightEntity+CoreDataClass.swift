@@ -2,7 +2,7 @@
 //  HighlightEntity+CoreDataClass.swift
 //  
 //
-//  Created by Haard Shah on 3/4/18.
+//  Created by Haard Shah on 3/5/18.
 //
 //
 
@@ -11,5 +11,5 @@ import CoreData
 
 @objc(HighlightEntity)
 public class HighlightEntity: NSManagedObject {
-
+	
 }

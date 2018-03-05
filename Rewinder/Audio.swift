@@ -7,12 +7,15 @@
 //
 
 import AVFoundation
+import CoreData
 
 class Audio {
 	
 	var session: AVAudioSession?
 	
 	let recordSettings = [AVEncoderAudioQualityKey: AVAudioQuality.min.rawValue, AVEncoderBitRateKey: 16, AVNumberOfChannelsKey: 2, AVSampleRateKey: 44100.0] as [String: Any]
+	
+	var context: NSManagedObjectContext!
 	
 	//file system
 	var filemgr = FileManager.default
@@ -30,19 +33,18 @@ class Audio {
 	// is the current file being recorded to first temp?
 	var firstTemp: Bool?
 	
-//	var highlightButton: RoundPlayButton!
-	
+// MARK: - Initialize Session and urls
 	// should be one Audio object per app run
-	init() {
-		
-//		highlightButton = button
-		
+	init(_ MOC: NSManagedObjectContext) {
 		session = AVAudioSession.sharedInstance()
 		do {
 			try session?.setCategory(AVAudioSessionCategoryPlayAndRecord)
 		}catch let error as NSError{
 			print (error)
 		}
+		
+		//core data context
+		context = MOC
 		
 		//request permission
 		
@@ -94,15 +96,7 @@ class Audio {
 		firstTemp = true
 	}
 	
-	func getDatetimeString() ->String {
-        let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM-dd-yyyy-HH-mm-ss"
-//        print(dateFormatter.string(from: date))
-        let currentFileName = "recording-\(dateFormatter.string(from: date)).caf"
-        return currentFileName
-	}
-	
+	// MARK: - Permissions
 	func requestPermission(_ session: AVAudioSession) {
 		
 	}
@@ -115,6 +109,7 @@ class Audio {
 		return false
 	}
 	
+	// MARK: - temp buffer state
 	func getNextTempFile() -> URL{
 		var soundFile: URL?
 		if firstTemp! {
@@ -129,64 +124,7 @@ class Audio {
 		return soundFile!
 	}
 	
-	func getCurrTempFile() -> URL{
-		var currFile: URL?
-		if firstTemp! {
-			currFile = temp2
-		} else {
-			currFile = temp1
-		}
-		return currFile!
-	}
-	
-	func getOldTempFile() -> URL{
-		var oldFile: URL?
-		if firstTemp! {
-			oldFile = temp1
-		}
-		else {
-			oldFile = temp2
-		}
-		return oldFile!
-	}
-	
-	func getDocumentsDirectory() -> URL {
-		let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-		return paths[0]
-	}
-
-	func listOfAudioFiles() -> [URL] {
-		var fileURLs = [URL]()
-		do {
-			let files = try filemgr.contentsOfDirectory(atPath: dataPath!)
-//			print(files)
-			for file in files {
-				fileURLs.append((dataURL?.appendingPathComponent(file))!)
-			}
-		}
-		catch let error {
-			print (error)
-		}
-		return fileURLs
-	}
-	
-	func listOfHighlights() -> [URL] {
-		var fileURLs = [URL]()
-		do {
-			let files = try filemgr.contentsOfDirectory(atPath: highlightsPath!)
-			//			print(files)
-			for file in files {
-//				fileURLs.append((highlightsURL?.appendingPathComponent(file))!)
-				fileURLs.append(URL(string: file)!)
-			}
-		}
-		catch let error {
-			print (error)
-		}
-		return fileURLs
-	}
-	
-	
+	// MARK: - Trimming
 	let bothHigh: String = "both_high.caf"
 	func exportAsset(_ asset: AVAsset, trimmedSoundFileURL: URL, cropTime: TimeInterval, mergeWith: URL) {
 		//		print("\(#function)")
@@ -244,23 +182,13 @@ class Audio {
 		}
 	}
 	
-//	func mergeAndAddHighlight(_ file1: URL, _ file2: URL,_ file3: URL) throws {
-//		let firsthalf = try mergeAndAddHighlight2(file1, file2, outputFileName: "dummy.caf")
-//		if filemgr.fileExists(atPath: firsthalf.path){
-//			_ = try mergeAndAddHighlight2(firsthalf, file3, outputFileName: getDatetimeString())
-////			do {
-////				try filemgr.removeItem(at: firsthalf)
-////			} catch let error {
-////				print (error)
-////			}
-//		}
-//	}
+	// MARK: - Merging Audio
 	var mostRecentHighlight: URL?
 	var prev_file2: URL?
 	func mergeAndAddHighlight2(_ file1: URL, _ file2: URL, outputFileName: String) throws -> AVAssetExportSession{
 		// Create a new audio track we can append to
 		let composition = AVMutableComposition()
-		var appendedAudioTrack: AVMutableCompositionTrack? = composition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
+		let appendedAudioTrack: AVMutableCompositionTrack? = composition.addMutableTrack(withMediaType: .audio, preferredTrackID: kCMPersistentTrackID_Invalid)
 		// Grab the two audio tracks that need to be appended
 		
 		let asset1 = AVURLAsset(url: URL(fileURLWithPath: file1.path), options: nil)
@@ -270,7 +198,7 @@ class Audio {
 		var track1: [AVAssetTrack] = asset1.tracks(withMediaType: .audio) as [AVAssetTrack]
 		var timeRange: CMTimeRange = CMTimeRangeMake(kCMTimeZero, asset1.duration)
 		if track1.count != 0 {
-			if let aIndex = track1[0] as? AVAssetTrack {
+			if let aIndex = track1[0] as AVAssetTrack? {
 				try? appendedAudioTrack?.insertTimeRange(timeRange, of: aIndex, at: kCMTimeZero)
 			}
 		}
@@ -278,7 +206,7 @@ class Audio {
 		// Grab the second audio track and insert it at the end of the first one
 		var track2 = asset2.tracks(withMediaType: .audio) as [AVAssetTrack]
 		timeRange = CMTimeRangeMake(kCMTimeZero, asset2.duration)
-		if let aIndex = track2[0] as? AVAssetTrack {
+		if let aIndex = track2[0] as AVAssetTrack? {
 			try? appendedAudioTrack?.insertTimeRange(timeRange, of: aIndex, at: asset1.duration)
 		}
 		
@@ -291,18 +219,18 @@ class Audio {
 		
 //		let outputFileName = getDatetimeString()
 		print("filename \(outputFileName)")
-		let appendedAudioPath = highlightsURL.appendingPathComponent(outputFileName)
-		mostRecentHighlight = appendedAudioPath
+		let appendedAudioURL = highlightsURL.appendingPathComponent(outputFileName)
+		mostRecentHighlight = appendedAudioURL
 		
 		//remove if exists
-		if FileManager.default.fileExists(atPath: appendedAudioPath.path) {
+		if FileManager.default.fileExists(atPath: appendedAudioURL.path) {
 			do {
-				try FileManager.default.removeItem(at: appendedAudioPath)
+				try FileManager.default.removeItem(at: appendedAudioURL)
 			} catch let error {
 				print (error)
 			}
 		}
-		exportSession?.outputURL = appendedAudioPath
+		exportSession?.outputURL = appendedAudioURL
 		exportSession?.outputFileType = AVFileType.caf
 		exportSession?.exportAsynchronously(completionHandler: {() -> Void in
 			// exported successfully?
@@ -322,8 +250,11 @@ class Audio {
 						self.renameFile(oldFile: file2, newFile: self.temp1)
 					}
 					self.delete_both_high()
+					
+					//append to database
+					self.appendHighlightEntity(outputFileURL: appendedAudioURL)
 				}
-				if file2 != self.temp {
+				else {
 					self.prev_file2 = file2
 				}
 				
@@ -338,6 +269,102 @@ class Audio {
 		})
 		return exportSession!
 	}
+	
+	func appendHighlightEntity(outputFileURL: URL){
+		var title = outputFileURL.lastPathComponent
+		title.removeLast(4)
+		
+		let entityDescription = NSEntityDescription.entity(forEntityName: "HighlightEntity", in: self.context)
+		let highlight = HighlightEntity(entity: entityDescription!, insertInto: self.context)
+		highlight.title = title
+		highlight.duration = CMTimeGetSeconds(AVAsset(url: outputFileURL).duration)
+		highlight.dateandtime = Date() as NSDate
+		highlight.audioURL = outputFileURL as NSURL
+		
+		do {
+			try self.context.save()
+		} catch let error {
+			print(error.localizedDescription)
+		}
+	}
+	
+	func printAllHighlightEntities() {
+		let entityDescription = NSEntityDescription.entity(forEntityName: "HighlightEntity", in: self.context)
+		
+		let request: NSFetchRequest<HighlightEntity> = HighlightEntity.fetchRequest()
+		request.entity = entityDescription
+		
+		do {
+			let highlightObjects = try context.fetch(request as! NSFetchRequest<NSFetchRequestResult>)
+			for highlight in highlightObjects {
+				let currentHighlight = highlight as! HighlightEntity
+				currentHighlight.printHighlightInfoWithURL()
+			}
+		} catch let error {
+			print (error)
+		}
+	}
+	
+	// MARK: - File system data getters
+	func getCurrTempFile() -> URL{
+		var currFile: URL?
+		if firstTemp! {
+			currFile = temp2
+		} else {
+			currFile = temp1
+		}
+		return currFile!
+	}
+	
+	func getOldTempFile() -> URL{
+		var oldFile: URL?
+		if firstTemp! {
+			oldFile = temp1
+		}
+		else {
+			oldFile = temp2
+		}
+		return oldFile!
+	}
+	
+	func getDocumentsDirectory() -> URL {
+		let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+		return paths[0]
+	}
+	
+	func listOfAudioFiles() -> [URL] {
+		var fileURLs = [URL]()
+		do {
+			let files = try filemgr.contentsOfDirectory(atPath: dataPath!)
+			//			print(files)
+			for file in files {
+				fileURLs.append((dataURL?.appendingPathComponent(file))!)
+			}
+		}
+		catch let error {
+			print (error)
+		}
+		return fileURLs
+	}
+	
+	func listOfHighlights() -> [URL] {
+		var fileURLs = [URL]()
+		do {
+			let files = try filemgr.contentsOfDirectory(atPath: highlightsPath!)
+			//			print(files)
+			for file in files {
+				//				fileURLs.append((highlightsURL?.appendingPathComponent(file))!)
+				fileURLs.append(URL(string: file)!)
+			}
+		}
+		catch let error {
+			print (error)
+		}
+		return fileURLs
+	}
+	
+	
+	// MARK: - Helper Functions
 	
 	func renameFile (oldFile: URL, newFile: URL) {
 		if self.filemgr.fileExists(atPath: oldFile.path){
@@ -361,6 +388,15 @@ class Audio {
 				print (error)
 			}
 		}
+	}
+	
+	func getDatetimeString() ->String {
+		let date = Date()
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "MM-dd-yyyy-HH-mm-ss"
+		//        print(dateFormatter.string(from: date))
+		let currentFileName = "recording-\(dateFormatter.string(from: date)).caf"
+		return currentFileName
 	}
 }
 
