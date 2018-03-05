@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import CoreData
 
 class HighlightsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     var arr = [String]()
@@ -19,7 +20,10 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
 	let fileExtension: String = "caf"
     
     @IBOutlet weak var tableView: UITableView!
-    
+	
+	let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+	//CONTINUE NOTE: load the table view from database and manage changes to database using notifications of the NSManagedObjectContext
+	
     override func viewDidLoad() {
         super.viewDidLoad()
 

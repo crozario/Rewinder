@@ -151,7 +151,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	}
 	
 	func createWaveform() {
-		let guide = view.safeAreaLayoutGuide
+//		let guide = view.safeAreaLayoutGuide
 //		let height = guide.layoutFrame.size.height 	//never used
 		let viewWidth = view.bounds.size.width
 		
