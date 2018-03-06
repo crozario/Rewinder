@@ -2,12 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/haardshah/developement/copy/Rewinder/Rewinder/HighlightEntity+CoreDataClass.swift">
-   </FileRef>
-   <FileRef
-      location = "group:/Users/haardshah/developement/copy/Rewinder/Rewinder/HighlightEntity+CoreDataProperties.swift">
-   </FileRef>
-   <FileRef
       location = "group:Rewinder.xcodeproj">
    </FileRef>
    <FileRef

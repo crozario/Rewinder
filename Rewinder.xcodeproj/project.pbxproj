@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		45D045B8E6D0E697097AE99C /* Pods_RewinderUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33B71D22546BD73C8A4CD440 /* Pods_RewinderUITests.framework */; };
 		5C562E6307F3361FB422D2FE /* Pods_Rewinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87E4F74BB160E3B67E67ECE3 /* Pods_Rewinder.framework */; };
-		5D261212204D41EE0093B258 /* HighlightEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D261210204D41ED0093B258 /* HighlightEntity+CoreDataProperties.swift */; };
-		5D261213204D41EE0093B258 /* HighlightEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D261211204D41ED0093B258 /* HighlightEntity+CoreDataClass.swift */; };
+		5D79EFE3204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D79EFE1204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift */; };
+		5D79EFE4204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D79EFE2204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift */; };
 		5D8102A720424A7C00F62B37 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8102A620424A7C00F62B37 /* Audio.swift */; };
 		B36F0717890F38FC22230C47 /* Pods_RewinderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2C1472B1BDBCAD1ADD86E3A /* Pods_RewinderTests.framework */; };
 		C42BB5722041E08A00D7D4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5712041E08A00D7D4CF /* AppDelegate.swift */; };
@@ -51,8 +51,8 @@
 		33B71D22546BD73C8A4CD440 /* Pods_RewinderUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RewinderUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D6AACD5A7A46A4BF762F548 /* Pods-RewinderUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RewinderUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RewinderUITests/Pods-RewinderUITests.release.xcconfig"; sourceTree = "<group>"; };
 		508EF42CFA841215B83D0775 /* Pods-Rewinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rewinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rewinder/Pods-Rewinder.debug.xcconfig"; sourceTree = "<group>"; };
-		5D261210204D41ED0093B258 /* HighlightEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "HighlightEntity+CoreDataProperties.swift"; path = "/Users/haardshah/developement/copy/Rewinder/Rewinder/HighlightEntity+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
-		5D261211204D41ED0093B258 /* HighlightEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "HighlightEntity+CoreDataClass.swift"; path = "/Users/haardshah/developement/copy/Rewinder/Rewinder/HighlightEntity+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		5D79EFE1204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HighlightEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		5D79EFE2204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HighlightEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		5D8102A620424A7C00F62B37 /* Audio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		87E4F74BB160E3B67E67ECE3 /* Pods_Rewinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rewinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A43D9B070600BD68B44103 /* Pods-RewinderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RewinderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RewinderTests/Pods-RewinderTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -159,9 +159,9 @@
 		C42BB5702041E08A00D7D4CF /* Rewinder */ = {
 			isa = PBXGroup;
 			children = (
+				5D79EFE1204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift */,
+				5D79EFE2204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift */,
 				C42BB5712041E08A00D7D4CF /* AppDelegate.swift */,
-				5D261211204D41ED0093B258 /* HighlightEntity+CoreDataClass.swift */,
-				5D261210204D41ED0093B258 /* HighlightEntity+CoreDataProperties.swift */,
 				C42BB5752041E08A00D7D4CF /* Main.storyboard */,
 				C452530420428768000808A8 /* PageViewController.swift */,
 				C4525302204284A3000808A8 /* HighlightsViewController.swift */,
@@ -503,15 +503,15 @@
 			files = (
 				C4525303204284A3000808A8 /* HighlightsViewController.swift in Sources */,
 				5D8102A720424A7C00F62B37 /* Audio.swift in Sources */,
-				5D261213204D41EE0093B258 /* HighlightEntity+CoreDataClass.swift in Sources */,
 				C45252C220423EE1000808A8 /* HomeViewController.swift in Sources */,
-				5D261212204D41EE0093B258 /* HighlightEntity+CoreDataProperties.swift in Sources */,
 				C42BB57A2041E08A00D7D4CF /* Rewinder.xcdatamodeld in Sources */,
 				C42BB5742041E08A00D7D4CF /* ViewController.swift in Sources */,
+				5D79EFE4204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift in Sources */,
 				C46D16B92042002600B1224D /* RoundPlayButton.swift in Sources */,
 				C42BB5722041E08A00D7D4CF /* AppDelegate.swift in Sources */,
 				C452530520428768000808A8 /* PageViewController.swift in Sources */,
 				C4525307204293B6000808A8 /* SettingsViewController.swift in Sources */,
+				5D79EFE3204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -679,10 +679,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SMV452RP74;
+				DEVELOPMENT_TEAM = F73Q286GM2;
 				INFOPLIST_FILE = Rewinder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = crozario.tech;
+				PRODUCT_BUNDLE_IDENTIFIER = nasty.devs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -695,10 +695,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SMV452RP74;
+				DEVELOPMENT_TEAM = F73Q286GM2;
 				INFOPLIST_FILE = Rewinder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = crozario.tech;
+				PRODUCT_BUNDLE_IDENTIFIER = nasty.devs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

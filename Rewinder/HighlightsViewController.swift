@@ -32,9 +32,9 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
 		// initialize file system urls
 		docsURL = filemgr.urls(for: .documentDirectory, in: .userDomainMask)[0]
         highlightsURL = docsURL.appendingPathComponent("highlights")
-        let audioSession = AVAudioSession.sharedInstance()
 		
 		// initialize audio session
+		let audioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
         } catch let error as NSError {
@@ -53,32 +53,66 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
 //	var dataURL: URL?
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-		do {
-            let files = try filemgr.contentsOfDirectory(atPath: highlightsURL!.path)
-			arr.removeAll(keepingCapacity: true) //FIX ME: instead of removingAll, which would be very inefficient in case where array is large. Initialize arr only in viewDidLoad and use some sort of call back to update arr everytime new item is added or removed
-            for file in files {
-				var newFile = file
-				
-				//removes four elements -> .caf
-				newFile.removeLast(4)
-                arr.append(newFile)
-            }
-		} catch let error {
-			print(error)
-		}
-//		dataURL = docsURL!.appendingPathComponent("data")
-//		do {
-//			let files = try filemgr.contentsOfDirectory(atPath: dataURL!.path)
-//			for file in files {
-//				arr.append(file)
-//				dataFiles.append(file)
-//			}
-//		} catch let error {
-//			print(error)
-//		}
+
+		arr = self.getHighlightTitles()
 		
         tableView.reloadData()
     }
+	
+	func getHighlightsList() -> [NSFetchRequestResult] {
+		let entityDescription = NSEntityDescription.entity(forEntityName: "HighlightEntity", in: context)
+		let request: NSFetchRequest<HighlightEntity> = HighlightEntity.fetchRequest()
+		let sortDescriptor = NSSortDescriptor(key: "dateandtime", ascending: false)
+		
+		request.entity = entityDescription
+		request.sortDescriptors = [sortDescriptor]
+		
+		var results = [NSFetchRequestResult]()
+		do {
+			results = try context.fetch(request as! NSFetchRequest<NSFetchRequestResult>)
+		} catch let error {
+			print (error.localizedDescription)
+		}
+		return results
+	}
+	
+	func getHighlightTitles() -> [String]{
+		let results = self.getHighlightsList()
+		var titles = [String]()
+		for element in results {
+			let managedObject = element as! NSManagedObject
+			titles.append((managedObject.value(forKey: "title") as? String)!)
+		}
+		return titles
+	}
+	
+	func getHighlightFilename(title: String) -> String {
+		let entityDescription = NSEntityDescription.entity(forEntityName: "HighlightEntity", in: context)
+		let request: NSFetchRequest<HighlightEntity> = HighlightEntity.fetchRequest()
+		let sortDescriptor = NSSortDescriptor(key: "dateandtime", ascending: true)
+		let pred = NSPredicate(format: "(title = %@)", title)
+		
+		request.entity = entityDescription
+		request.sortDescriptors = [sortDescriptor]
+		request.predicate = pred
+		
+		var results = [NSFetchRequestResult]()
+		do {
+			results = try context.fetch(request as! NSFetchRequest<NSFetchRequestResult>)
+		} catch let error {
+			print (error.localizedDescription)
+		}
+		
+		var fileName: String!
+		if results.count == 1 {
+			let managedObject = results[0] as! NSManagedObject
+			fileName = managedObject.value(forKey: "fileName") as? String
+		} else {
+			// there shouldn't be duplicates
+		}
+		
+		return fileName
+	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
 //		print("\(#function)")
@@ -127,10 +161,7 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
     }
 
     func setupPlayer(index: Int) {
-        let fileName = arr[index]
-
-        var url = highlightsURL.appendingPathComponent(fileName)
-		url.appendPathExtension(self.fileExtension)
+		let url = highlightsURL.appendingPathComponent(self.getHighlightFilename(title: arr[index]))
 
         do {
 			try audioPlayer = AVAudioPlayer(contentsOf: url)

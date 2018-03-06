@@ -1,8 +1,9 @@
 //
 //  HighlightEntity+CoreDataProperties.swift
-//  
+//  Rewinder
 //
-//  Created by Haard Shah on 3/5/18.
+//  Created by Haard Shah on 3/6/18.
+//  Copyright © 2018 Crossley Rozario. All rights reserved.
 //
 //
 
@@ -16,7 +17,7 @@ extension HighlightEntity {
         return NSFetchRequest<HighlightEntity>(entityName: "HighlightEntity")
     }
 
-    @NSManaged public var audioURL: NSURL?
+    @NSManaged public var fileName: String?
     @NSManaged public var dateandtime: NSDate?
     @NSManaged public var duration: Double
     @NSManaged public var title: String?
@@ -25,7 +26,7 @@ extension HighlightEntity {
 		print("Title: \(title!.description), Date: \(dateandtime!.description), Duration: \(duration.description)")
 	}
 	
-	func printHighlightInfoWithURL() {
-		print("Title: \(title!.description), Date: \(dateandtime!.description), Duration: \(duration.description), URL: \(String(describing: audioURL!.absoluteString))")
+	func printHighlightInfoWithFilename() {
+		print("Title: \(title!.description), Date: \(dateandtime!.description), Duration: \(duration.description), Filename: \(fileName!.description)")
 	}
 }

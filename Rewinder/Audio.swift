@@ -279,7 +279,7 @@ class Audio {
 		highlight.title = title
 		highlight.duration = CMTimeGetSeconds(AVAsset(url: outputFileURL).duration)
 		highlight.dateandtime = Date() as NSDate
-		highlight.audioURL = outputFileURL as NSURL
+		highlight.fileName = outputFileURL.lastPathComponent
 		
 		do {
 			try self.context.save()
@@ -298,7 +298,7 @@ class Audio {
 			let highlightObjects = try context.fetch(request as! NSFetchRequest<NSFetchRequestResult>)
 			for highlight in highlightObjects {
 				let currentHighlight = highlight as! HighlightEntity
-				currentHighlight.printHighlightInfoWithURL()
+				currentHighlight.printHighlightInfoWithFilename()
 			}
 		} catch let error {
 			print (error)
