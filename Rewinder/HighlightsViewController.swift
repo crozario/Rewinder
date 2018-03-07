@@ -63,33 +63,7 @@ class HighlightsViewController: UIViewController, /*UITableViewDataSource, UITab
 		NotificationCenter.default.removeObserver(self)
 	}
 	
-	@objc func updateHighlights(notification: NSNotification) {
-		if let userInfo = notification.userInfo {
-			if let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject>, !inserts.isEmpty{
-				print(inserts)
-				// go through and add to tableView at the beginning and to the beginning of arr
-				let insert = inserts.first!
-				let title: String = insert.value(forKey: "title") as! String
-				self.arr.insert(title, at: 0)
-				numToInsert += 1
-			}
-		}
-	}
-	
-	func updateRows() {
-		var iPaths = [IndexPath]()
-		for row in 0...self.numToInsert-1 {
-			let iPath = IndexPath(row: row, section: 0)
-			iPaths.append(iPath)
-		}
-		tableView.beginUpdates()
-		tableView.insertRows(at: iPaths, with: .fade)
-		tableView.endUpdates()
-		self.numToInsert = 0
-	}
-	
 	var numToInsert: Int = 0
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -113,25 +87,30 @@ class HighlightsViewController: UIViewController, /*UITableViewDataSource, UITab
 		}
 	}
 	
-	func removeHighlightDatabaseAndFileSystem(title: String) throws -> Bool {
-		let managedObj = self.getHighlightManagedObject(title: title)
-		
-		// remove in filesystem
-		let file = managedObj.value(forKey: "fileName") as! String
-		let url = self.highlightsURL.appendingPathComponent(file)
-		if self.filemgr.fileExists(atPath: url.path) {
-			try self.filemgr.removeItem(at: url)
-		} else {
-			print("File \(title).caf not found in filesystem")
-			return false
+	// MARK: - Core Data Save Notification
+	@objc func updateHighlights(notification: NSNotification) {
+		if let userInfo = notification.userInfo {
+			if let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject>, !inserts.isEmpty{
+				print(inserts)
+				// go through and add to tableView at the beginning and to the beginning of arr
+				let insert = inserts.first!
+				let title: String = insert.value(forKey: "title") as! String
+				self.arr.insert(title, at: 0)
+				numToInsert += 1
+			}
 		}
-		
-		// remove in database
-		self.context.delete(managedObj)
-		try self.context.save()
-		
-		// deletion complete successfully
-		return true
+	}
+	
+	func updateRows() {
+		var iPaths = [IndexPath]()
+		for row in 0...self.numToInsert-1 {
+			let iPath = IndexPath(row: row, section: 0)
+			iPaths.append(iPath)
+		}
+		tableView.beginUpdates()
+		tableView.insertRows(at: iPaths, with: .fade)
+		tableView.endUpdates()
+		self.numToInsert = 0
 	}
 	
 	// MARK: - Core data getters
@@ -205,6 +184,28 @@ class HighlightsViewController: UIViewController, /*UITableViewDataSource, UITab
 		}
 		return false
 	}
+	
+	// MARK: - Delete highlight
+	func removeHighlightDatabaseAndFileSystem(title: String) throws -> Bool {
+		let managedObj = self.getHighlightManagedObject(title: title)
+		
+		// remove in filesystem
+		let file = managedObj.value(forKey: "fileName") as! String
+		let url = self.highlightsURL.appendingPathComponent(file)
+		if self.filemgr.fileExists(atPath: url.path) {
+			try self.filemgr.removeItem(at: url)
+		} else {
+			print("File \(title).caf not found in filesystem")
+			return false
+		}
+		
+		// remove in database
+		self.context.delete(managedObj)
+		try self.context.save()
+		
+		// deletion complete successfully
+		return true
+	}
 }
 
 extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -238,8 +239,9 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 		}
 	}
 	
+	// MARK: - Editing highlight name
 	func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-		let editAction = UITableViewRowAction(style: .default, title: "Edit", handler: { (action, indexPath) in
+		let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: { (action, indexPath) in
 			let alert = UIAlertController(title: "Modify Highlight Name", message: "Would would you like to call this highlight?", preferredStyle: .alert)
 			alert.addTextField(configurationHandler: { (textField) in
 				textField.text = self.arr[indexPath.row]
@@ -285,9 +287,9 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 			
 			// delete in tableView
 			self.arr.remove(at: indexPath.row)
+			tableView.beginUpdates()
 			tableView.deleteRows(at: [indexPath], with: .fade)
-			
-			//			tableView.reloadData() //try to just remove the row instead
+			tableView.endUpdates()
 		})
 		
 		return [deleteAction, editAction]
