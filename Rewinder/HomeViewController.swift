@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 import DSWaveformImage
 import CoreData
+import NotificationCenter
 
 var recordDuration = 5.0
 

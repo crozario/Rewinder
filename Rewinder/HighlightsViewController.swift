@@ -9,8 +9,9 @@
 import UIKit
 import AVFoundation
 import CoreData
+import NotificationCenter
 
-class HighlightsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
+class HighlightsViewController: UIViewController, /*UITableViewDataSource, UITableViewDelegate,*/ AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     var arr = [String]()
 	var filemgr = FileManager.default
 	var docsURL: URL!
@@ -21,8 +22,8 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
     
     @IBOutlet weak var tableView: UITableView!
 	
-	let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-	//CONTINUE NOTE: load the table view from database and manage changes to database using notifications of the NSManagedObjectContext
+	let context: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+	
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,15 +48,61 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
         } catch let error as NSError {
             print("audioSession error: \(error.localizedDescription)")
         }
+		
+		// populate data array (arr) for the first time
+		arr = self.getHighlightTitles()
+		
+		// create observers
+		NotificationCenter.default.addObserver(self, selector: #selector(self.updateHighlights(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
+		
+		// hide empty cells
+		tableView.tableFooterView = UIView(frame: CGRect.zero)
     }
 	
-//	var dataFiles = [String]()
-//	var dataURL: URL?
+	deinit {
+		NotificationCenter.default.removeObserver(self)
+	}
+	
+	@objc func updateHighlights(notification: NSNotification) {
+		if let userInfo = notification.userInfo {
+			if let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject>, !inserts.isEmpty{
+				print(inserts)
+				// go through and add to tableView at the beginning and to the beginning of arr
+				let insert = inserts.first!
+				let title: String = insert.value(forKey: "title") as! String
+				self.arr.insert(title, at: 0)
+				numToInsert += 1
+			}
+		}
+	}
+	
+	func updateRows() {
+		var iPaths = [IndexPath]()
+		for row in 0...self.numToInsert-1 {
+			let iPath = IndexPath(row: row, section: 0)
+			iPaths.append(iPath)
+		}
+		tableView.beginUpdates()
+		tableView.insertRows(at: iPaths, with: .fade)
+		tableView.endUpdates()
+		self.numToInsert = 0
+	}
+	
+	var numToInsert: Int = 0
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-		arr = self.getHighlightTitles()
-        tableView.reloadData()
+
+		if numToInsert != 0 {
+			updateRows()
+		}
     }
+	
+	override func viewDidAppear(_ animated: Bool) {
+		if numToInsert != 0 {
+			updateRows()
+		}
+	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
 //		print("\(#function)")
@@ -64,108 +111,6 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
 				audioPlayer!.pause() //FIX ME: WHY ARE WE PAUSING?
 			}
 		}
-	}
-	
-	// MARK: - Table view cell content
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arr.count
-    }
-	
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let reuseId = "HighlightCell"
-        let cell =  tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath)
-        
-        cell.textLabel?.text = arr[indexPath.row]
-        return cell
-    }
-    
-	// MARK: - Playing audio
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		if let player = audioPlayer {
-			if player.isPlaying{
-				player.stop()
-				audioPlayer = nil
-			}
-			else {
-				player.play()
-			}
-		}
-		else{
-			setupPlayer(index: indexPath.row)
-			audioPlayer?.play()
-			print(audioPlayer?.duration ?? -1.0) // -1.0 is default value if the duration cannot be unwraped
-		}
-    }
-    func setupPlayer(index: Int) {
-		let url = highlightsURL.appendingPathComponent(self.getHighlightFilename(title: arr[index]))
-
-        do {
-			try audioPlayer = AVAudioPlayer(contentsOf: url)
-			audioPlayer?.delegate = self
-            audioPlayer?.prepareToPlay()
-        } catch let error as NSError {
-            print("audioPlayer error \(error.localizedDescription)")
-        }
-    }
-	
-	// CONTINUE NOTE: check the edit and implement the delete
-	func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-		let editAction = UITableViewRowAction(style: .default, title: "Edit", handler: { (action, indexPath) in
-			let alert = UIAlertController(title: "Modify Highlight Name", message: "Would would you like to call this highlight?", preferredStyle: .alert)
-			alert.addTextField(configurationHandler: { (textField) in
-				textField.text = self.arr[indexPath.row]
-				textField.clearButtonMode = .always
-			})
-			alert.addAction(UIAlertAction(title: "Update", style: .default, handler: { (updateAction) in
-				let newName = alert.textFields!.first!.text!
-				let oldName = self.arr[indexPath.row]
-				
-				//check if newName already exists
-				if self.highlightTitleExists(title: newName) {
-					// close alert --> closes automatically
-					self.dismiss(animated: true, completion: nil)
-					
-					// display message
-					let alreadyExistsAlert = UIAlertController(title: "Rename Error", message: "Highlight name already exists.", preferredStyle: .alert)
-					alreadyExistsAlert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
-					self.present(alreadyExistsAlert, animated: true)
-				} else {
-					let managedObj = self.getHighlightManagedObject(title: oldName)
-					managedObj.setValue(newName, forKey: "title")
-					do {
-						try self.context.save()
-						self.arr[indexPath.row] = newName
-						self.tableView.reloadRows(at: [indexPath], with: .fade)
-					} catch let error {
-						print(error.localizedDescription)
-					}
-				}
-			}))
-			alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-			self.present(alert, animated: false)
-		})
-		
-		let deleteAction = UITableViewRowAction(style: .default, title: "Delete", handler: { (action, indexPath) in
-			
-			// delete in database and filesystem
-			do {
-				try self.removeHighlightDatabaseAndFileSystem(title: self.arr[indexPath.row])
-			} catch let error {
-				print("delete error: \(error.localizedDescription)")
-			}
-			
-			// delete in tableView
-			self.arr.remove(at: indexPath.row)
-			tableView.deleteRows(at: [indexPath], with: .fade)
-			
-//			tableView.reloadData() //try to just remove the row instead
-		})
-		
-		return [deleteAction, editAction]
 	}
 	
 	func removeHighlightDatabaseAndFileSystem(title: String) throws -> Bool {
@@ -260,6 +205,110 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
 		}
 		return false
 	}
+}
+
+extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
+	
+	// MARK: - Playing audio
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		if let player = audioPlayer {
+			if player.isPlaying{
+				player.stop()
+				audioPlayer = nil
+			}
+			else {
+				player.play()
+			}
+		}
+		else{
+			setupPlayer(index: indexPath.row)
+			audioPlayer?.play()
+			print(audioPlayer?.duration ?? -1.0) // -1.0 is default value if the duration cannot be unwraped
+		}
+	}
+	func setupPlayer(index: Int) {
+		let url = highlightsURL.appendingPathComponent(self.getHighlightFilename(title: arr[index]))
+		
+		do {
+			try audioPlayer = AVAudioPlayer(contentsOf: url)
+			audioPlayer?.delegate = self
+			audioPlayer?.prepareToPlay()
+		} catch let error as NSError {
+			print("audioPlayer error \(error.localizedDescription)")
+		}
+	}
+	
+	func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+		let editAction = UITableViewRowAction(style: .default, title: "Edit", handler: { (action, indexPath) in
+			let alert = UIAlertController(title: "Modify Highlight Name", message: "Would would you like to call this highlight?", preferredStyle: .alert)
+			alert.addTextField(configurationHandler: { (textField) in
+				textField.text = self.arr[indexPath.row]
+				textField.clearButtonMode = .always
+			})
+			alert.addAction(UIAlertAction(title: "Update", style: .default, handler: { (updateAction) in
+				let newName = alert.textFields!.first!.text!
+				let oldName = self.arr[indexPath.row]
+				
+				//check if newName already exists
+				if self.highlightTitleExists(title: newName) {
+					// close alert --> closes automatically
+					self.dismiss(animated: true, completion: nil)
+					
+					// display message
+					let alreadyExistsAlert = UIAlertController(title: "Rename Error", message: "Highlight name already exists.", preferredStyle: .alert)
+					alreadyExistsAlert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
+					self.present(alreadyExistsAlert, animated: true)
+				} else {
+					let managedObj = self.getHighlightManagedObject(title: oldName)
+					managedObj.setValue(newName, forKey: "title")
+					do {
+						try self.context.save()
+						self.arr[indexPath.row] = newName
+						self.tableView.reloadRows(at: [indexPath], with: .fade)
+					} catch let error {
+						print(error.localizedDescription)
+					}
+				}
+			}))
+			alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+			self.present(alert, animated: false)
+		})
+		
+		let deleteAction = UITableViewRowAction(style: .default, title: "Delete", handler: { (action, indexPath) in
+			
+			// delete in database and filesystem
+			do {
+				try self.removeHighlightDatabaseAndFileSystem(title: self.arr[indexPath.row])
+			} catch let error {
+				print("delete error: \(error.localizedDescription)")
+			}
+			
+			// delete in tableView
+			self.arr.remove(at: indexPath.row)
+			tableView.deleteRows(at: [indexPath], with: .fade)
+			
+			//			tableView.reloadData() //try to just remove the row instead
+		})
+		
+		return [deleteAction, editAction]
+	}
+	
+	// MARK: - Table view cell content
+	func numberOfSections(in tableView: UITableView) -> Int {
+		return 1
+	}
+	
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return arr.count
+	}
+	
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let reuseId = "HighlightCell"
+		let cell =  tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath)
+		
+		cell.textLabel?.text = arr[indexPath.row]
+		return cell
+	}
 	
 	// MARK: - Unused delegate callbacks
 	func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
@@ -272,6 +321,12 @@ class HighlightsViewController: UIViewController, UITableViewDataSource, UITable
 	
 	func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
 		print("\(#function)")
+		if let player = audioPlayer {
+			if player.isPlaying{
+				player.stop()
+				audioPlayer = nil
+			}
+		}
 	}
 	
 	func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {

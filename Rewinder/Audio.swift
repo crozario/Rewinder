@@ -31,7 +31,7 @@ class Audio {
 	var temp: URL!
 	
 	// is the current file being recorded to first temp?
-	var firstTemp: Bool?
+	var isFirstTemp: Bool?
 	
 // MARK: - Initialize Session and urls
 	// should be one Audio object per app run
@@ -93,7 +93,7 @@ class Audio {
 			}
 		}
 		
-		firstTemp = true
+		isFirstTemp = true
 	}
 	
 	// MARK: - Permissions
@@ -112,14 +112,14 @@ class Audio {
 	// MARK: - temp buffer state
 	func getNextTempFile() -> URL{
 		var soundFile: URL?
-		if firstTemp! {
+		if isFirstTemp! {
 			//record to temp1
 			soundFile = temp1
-			firstTemp = false
+			isFirstTemp = false
 		}else {
 			//record to temp2
 			soundFile = temp2
-			firstTemp = true
+			isFirstTemp = true
 		}
 		return soundFile!
 	}
@@ -275,7 +275,7 @@ class Audio {
 		title.removeLast(4)
 		
 		let entityDescription = NSEntityDescription.entity(forEntityName: "HighlightEntity", in: self.context)
-		let highlight = HighlightEntity(entity: entityDescription!, insertInto: self.context)
+		let highlight = HighlightEntity.init(entity: entityDescription!, insertInto: self.context)
 		highlight.title = title
 		highlight.duration = CMTimeGetSeconds(AVAsset(url: outputFileURL).duration)
 		highlight.dateandtime = Date() as NSDate
@@ -308,7 +308,7 @@ class Audio {
 	// MARK: - File system data getters
 	func getCurrTempFile() -> URL{
 		var currFile: URL?
-		if firstTemp! {
+		if isFirstTemp! {
 			currFile = temp2
 		} else {
 			currFile = temp1
@@ -318,7 +318,7 @@ class Audio {
 	
 	func getOldTempFile() -> URL{
 		var oldFile: URL?
-		if firstTemp! {
+		if isFirstTemp! {
 			oldFile = temp1
 		}
 		else {
