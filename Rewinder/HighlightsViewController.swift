@@ -258,7 +258,7 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 		} else {
 			setupPlayer(index: indexPath.row)
 			audioPlayer?.play()
-			print((audioPlayer?.url?.lastPathComponent)! + ": " + (audioPlayer?.duration.description)!)
+			print(self.arr[indexPath.row] + ": " + (audioPlayer?.duration.description)!)
 		}
 		prevPath = indexPath
 	}

@@ -36,6 +36,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		
 		//waveform
 //		createWaveform()
+		
+		self.beginRecording(recordFile: audioObj.getNextTempFile())
     }
 	
 	override func viewDidAppear(_ animated: Bool) {
@@ -46,7 +48,6 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		print("\(#function)")
 		// reset temp files
 //		audioObj.deleteAndResetTempData()
-		self.beginRecording(recordFile: audioObj.getNextTempFile())
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
