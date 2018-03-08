@@ -201,8 +201,10 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 }
 
 class myRecorder: AVAudioRecorder {
+	var localurl: URL!
 	override init(url: URL, settings: [String : Any]) throws {
 		try super.init(url: url, settings: settings)
+		localurl = url
 		print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 		print("Recorder Object Created")
 		print("url: \(url.lastPathComponent)")
