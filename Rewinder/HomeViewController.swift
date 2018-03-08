@@ -23,7 +23,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     //	var audioRecorder: AVAudioRecorder?
 	var audioObj: Audio!
 	var audioPlayer: AVAudioPlayer?
-	var audioRecorder: AVAudioRecorder?
+//	var audioRecorder: AVAudioRecorder!
+	var audioRecorder: myRecorder!
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,22 +32,29 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		audioObj = Audio(managedObjectContext)
 		
 		//delete highlights folder
-//		deleteAllHighlights()
+//		audioObj.deleteAllHighlights()
 		
 		//waveform
 //		createWaveform()
     }
 	
 	override func viewDidAppear(_ animated: Bool) {
-//		print("\(#function)")
+		print("\(#function)")
+	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		print("\(#function)")
+		// reset temp files
+//		audioObj.deleteAndResetTempData()
 		self.beginRecording(recordFile: audioObj.getNextTempFile())
-//		audioObj.printAllHighlightEntities()
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
+		print("\(#function)")
 		if audioRecorder != nil {
 			if audioRecorder!.isRecording {
-				audioRecorder?.stop()
+				// stop recording
+//				audioRecorder!.stop()
 			}
 		}
 	}
@@ -57,6 +65,28 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		computeHighlight()
 	}
 	
+	// MARK: - Recording
+	func beginRecording(recordFile: URL) {
+		do {
+			if FileManager.default.fileExists(atPath: recordFile.path){
+				try FileManager.default.removeItem(at: recordFile)
+			}
+			try audioRecorder = myRecorder(url: recordFile, settings: (audioObj.recordSettings as [String: AnyObject]?)!)
+			audioRecorder?.delegate = self
+			audioRecorder?.prepareToRecord()
+		}catch let error {
+			print (error)
+		}
+		
+		if audioRecorder != nil {
+			audioRecorder!.record(forDuration: recordDuration)
+		}
+		else {
+			print("ERROR: audioRecorder is nil and therefore did not begin recording")
+		}
+	}
+	
+	// MARK: - Computing Highlight
 	var high1: URL?
 	var trimmedHigh1: URL?
 	var trimmedHigh1_high2: URL?
@@ -146,19 +176,6 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		}
 	}
 	
-	func deleteAllHighlights() {
-		let highFolder = audioObj.highlightsURL
-		let filemgr = audioObj.filemgr
-		do {
-			let files = try filemgr.contentsOfDirectory(atPath: highFolder!.path)
-			for file in files {
-				try filemgr.removeItem(atPath: highFolder!.path + "/" + file)
-			}
-		} catch let error {
-			print (error)
-		}
-	}
-	
 	func createWaveform() {
 //		let guide = view.safeAreaLayoutGuide
 //		let height = guide.layoutFrame.size.height 	//never used
@@ -181,25 +198,21 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		view.addSubview(imageView)
 		print("so many samples: \(String(describing: waveform.samples(count: 200)))")
 	}
+}
+
+class myRecorder: AVAudioRecorder {
+	override init(url: URL, settings: [String : Any]) throws {
+		try super.init(url: url, settings: settings)
+		print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+		print("Recorder Object Created")
+		print("url: \(url.lastPathComponent)")
+		print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+	}
 	
-	// MARK: - Recording
-	func beginRecording(recordFile: URL) {
-		do {
-			if FileManager.default.fileExists(atPath: recordFile.path){
-				try FileManager.default.removeItem(at: recordFile)
-			}
-			try audioRecorder = AVAudioRecorder(url: recordFile, settings: (audioObj.recordSettings as [String: AnyObject]?)!)
-			audioRecorder?.delegate = self
-			audioRecorder?.prepareToRecord()
-		}catch let error {
-			print (error)
-		}
-		
-		if audioRecorder != nil {
-			audioRecorder!.record(forDuration: recordDuration)
-		}
-		else {
-			print("ERROR: audioRecorder is nil and therefore did not begin recording")
-		}
+	deinit {
+		print("------------------------------------------------------------------")
+		print("Deinit called")
+		print("url: \(url.lastPathComponent)")
+		print("------------------------------------------------------------------")
 	}
 }

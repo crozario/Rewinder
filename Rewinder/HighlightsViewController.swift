@@ -11,7 +11,7 @@ import AVFoundation
 import CoreData
 import NotificationCenter
 
-class HighlightsViewController: UIViewController, /*UITableViewDataSource, UITableViewDelegate,*/ AVAudioPlayerDelegate, AVAudioRecorderDelegate {
+class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     var arr = [String]()
 	var filemgr = FileManager.default
 	var docsURL: URL!
@@ -82,7 +82,8 @@ class HighlightsViewController: UIViewController, /*UITableViewDataSource, UITab
 //		print("\(#function)")
 		if audioPlayer != nil {
 			if audioPlayer!.isPlaying {
-				audioPlayer!.pause() //FIX ME: WHY ARE WE PAUSING?
+				audioPlayer!.stop()
+				audioPlayer = nil
 			}
 		}
 	}
@@ -206,26 +207,60 @@ class HighlightsViewController: UIViewController, /*UITableViewDataSource, UITab
 		// deletion complete successfully
 		return true
 	}
+	
+	// MARK: - AudioPlayer delegates
+	func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+		print("\(#function)")
+		audioPlayer = nil
+		tableView.deselectRow(at: prevPath!, animated: true)
+	}
+	func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
+		print("\(#function)")
+		print(error as Any)
+	}
+	func audioPlayerBeginInterruption(_ player: AVAudioPlayer) {
+		print("\(#function)")
+		if player.isPlaying {
+			player.pause()
+		}
+	}
+	func audioPlayerEndInterruption(player: AVAudioPlayer) {
+		print("\(#function)")
+	}
+	
+	// used inside extension
+	var prevPath: IndexPath?
 }
 
 extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 	
 	// MARK: - Playing audio
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		if let player = audioPlayer {
-			if player.isPlaying{
-				player.stop()
-				audioPlayer = nil
+//		if let player = audioPlayer {
+//			if player.isPlaying{
+//				player.stop()
+//			}
+//			audioPlayer = nil
+//		}
+//		else{
+//			setupPlayer(index: indexPath.row)
+//			audioPlayer?.play()
+//			print(audioPlayer?.duration ?? -1.0) // -1.0 is default value if the duration cannot be unwraped
+//		}
+		
+		if self.prevPath != nil, self.prevPath == indexPath, self.audioPlayer != nil{
+			if self.audioPlayer!.isPlaying {
+				audioPlayer!.pause()
+				tableView.deselectRow(at: indexPath, animated: true)
+			} else {
+				audioPlayer?.play()
 			}
-			else {
-				player.play()
-			}
-		}
-		else{
+		} else {
 			setupPlayer(index: indexPath.row)
 			audioPlayer?.play()
-			print(audioPlayer?.duration ?? -1.0) // -1.0 is default value if the duration cannot be unwraped
+			print((audioPlayer?.url?.lastPathComponent)! + ": " + (audioPlayer?.duration.description)!)
 		}
+		prevPath = indexPath
 	}
 	func setupPlayer(index: Int) {
 		let url = highlightsURL.appendingPathComponent(self.getHighlightFilename(title: arr[index]))
@@ -314,6 +349,7 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 	
 	// MARK: - Unused delegate callbacks
 	func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
+		print("\(#function)")
 		return indexPath
 	}
 	
@@ -332,24 +368,6 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 	}
 	
 	func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
-		print("\(#function)")
-	}
-	
-	func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-		print("\(#function)")
-		audioPlayer = nil
-	}
-	func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
-		print("\(#function)")
-		print(error as Any)
-	}
-	func audioPlayerBeginInterruption(_ player: AVAudioPlayer) {
-		print("\(#function)")
-		if player.isPlaying {
-			player.pause()
-		}
-	}
-	func audioPlayerEndInterruption(player: AVAudioPlayer) {
 		print("\(#function)")
 	}
 }

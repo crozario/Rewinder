@@ -13,15 +13,13 @@ class Audio {
 	
 	var session: AVAudioSession?
 	
-	let recordSettings = [AVEncoderAudioQualityKey: AVAudioQuality.min.rawValue, AVEncoderBitRateKey: 16, AVNumberOfChannelsKey: 2, AVSampleRateKey: 44100.0] as [String: Any]
+	let recordSettings: [String: Any] = [AVEncoderAudioQualityKey: AVAudioQuality.min.rawValue, AVEncoderBitRateKey: 16, AVNumberOfChannelsKey: 2, AVSampleRateKey: 44100.0] as [String: Any]
 	
 	var context: NSManagedObjectContext!
 	
 	//file system
 	var filemgr = FileManager.default
-	var docsURL: URL!
 	var dataURL: URL!
-	var dataPath: String!
 	
 	var highlightsURL: URL!
 	var highlightsPath: String!
@@ -51,49 +49,32 @@ class Audio {
 		
 		//init directories
 		let dirs = filemgr.urls(for: .documentDirectory, in: .userDomainMask)
-		docsURL = dirs[0]
-		dataURL = docsURL!.appendingPathComponent("data")
-		dataPath = dataURL!.path
-		if !(filemgr.fileExists(atPath: dataPath!)){
-			do {
-				try filemgr.createDirectory(atPath: dataPath!, withIntermediateDirectories: true, attributes: nil)
-			}
-			catch let error {
-				print (error)
-			}
-		}
+		let docsURL = dirs[0]
+		dataURL = docsURL.appendingPathComponent("data")
+		createDir(dirURL: dataURL) // data dir created
+		
+		// BUFFER
 		temp1 = dataURL!.appendingPathComponent("temp1.caf")
 		temp2 = dataURL!.appendingPathComponent("temp2.caf")
 		//extra temp file
 		temp = dataURL!.appendingPathComponent("temp.caf")
-//		let trimmed = dataURL!.appendingPathComponent("trimmed.caf")
 		
-		do {
-			if filemgr.fileExists(atPath: temp1.path){
-				try filemgr.removeItem(at: temp1)
-			}
-			if filemgr.fileExists(atPath: temp2.path){
-				try filemgr.removeItem(at: temp2)
-			}
-			if filemgr.fileExists(atPath: temp.path){
-				try filemgr.removeItem(at: temp)
-			}
-		}catch let error {
-			print (error)
-		}
+		self.deleteTempData()
 		
-		highlightsURL = docsURL!.appendingPathComponent("highlights")
-		highlightsPath = highlightsURL!.path
-		if !(filemgr.fileExists(atPath: highlightsPath!)){
-			do {
-				try filemgr.createDirectory(atPath: highlightsPath!, withIntermediateDirectories: true, attributes: nil)
-			}
-			catch let error {
-				print (error)
-			}
-		}
+		highlightsURL = docsURL.appendingPathComponent("highlights")
+		createDir(dirURL: highlightsURL) // highlights dir created
 		
 		isFirstTemp = true
+	}
+	
+	func createDir(dirURL: URL){
+		if !(self.filemgr.fileExists(atPath: dirURL.path)) {
+			do {
+				try filemgr.createDirectory(atPath: dirURL.path, withIntermediateDirectories: true, attributes: nil)
+			} catch let error {
+				print (error.localizedDescription)
+			}
+		}
 	}
 	
 	// MARK: - Permissions
@@ -243,7 +224,6 @@ class Audio {
 					if self.prev_file2 != nil {
 						//rename temp to prev_file2
 						//rename the temp.caf to high2 (prev_file2)
-						
 						self.renameFile(oldFile: file2, newFile: self.prev_file2!)
 					}
 					else {
@@ -304,6 +284,31 @@ class Audio {
 			print (error)
 		}
 	}
+	// MARK: - Deleting folders (data / highlights)
+	func deleteAllHighlights() {
+		self.deleteAll(folderURL: self.highlightsURL)
+	}
+	
+	func deleteAndResetTempData() {
+		deleteTempData()
+		self.isFirstTemp = true
+		self.prev_file2 = nil
+	}
+	
+	func deleteTempData() {
+		self.deleteAll(folderURL: self.dataURL)
+	}
+	
+	private func deleteAll(folderURL: URL) {
+		do {
+			let files = try self.filemgr.contentsOfDirectory(atPath: folderURL.path)
+			for file in files {
+				try self.filemgr.removeItem(atPath: folderURL.path + "/" + file)
+			}
+		} catch let error {
+			print (error)
+		}
+	}
 	
 	// MARK: - File system data getters
 	func getCurrTempFile() -> URL{
@@ -335,7 +340,7 @@ class Audio {
 	func listOfAudioFiles() -> [URL] {
 		var fileURLs = [URL]()
 		do {
-			let files = try filemgr.contentsOfDirectory(atPath: dataPath!)
+			let files = try filemgr.contentsOfDirectory(atPath: self.dataURL.path)
 			//			print(files)
 			for file in files {
 				fileURLs.append((dataURL?.appendingPathComponent(file))!)
@@ -365,7 +370,6 @@ class Audio {
 	
 	
 	// MARK: - Helper Functions
-	
 	func renameFile (oldFile: URL, newFile: URL) {
 		if self.filemgr.fileExists(atPath: oldFile.path){
 			do {

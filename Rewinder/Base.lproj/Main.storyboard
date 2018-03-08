@@ -90,8 +90,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="p9T-gV-wyr">
-                                <rect key="frame" x="0.0" y="364" width="375" height="283"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="p9T-gV-wyr">
+                                <rect key="frame" x="6" y="364" width="364" height="283"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -104,7 +104,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="127"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bVh-d9-Onj" customClass="RoundPlayButton" customModule="Rewinder" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bVh-d9-Onj" customClass="RoundPlayButton" customModule="Rewinder" customModuleProvider="target">
                                         <rect key="frame" x="137" y="220" width="100" height="100"/>
                                         <color key="backgroundColor" red="1" green="0.60242883792750324" blue="0.77418510642225935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -133,18 +133,18 @@
                                 <constraints>
                                     <constraint firstItem="bVh-d9-Onj" firstAttribute="centerX" secondItem="cKO-rC-NPM" secondAttribute="centerX" id="0au-UB-gyT"/>
                                     <constraint firstAttribute="height" constant="320" id="2J3-GT-u3N"/>
-                                    <constraint firstAttribute="bottom" secondItem="bVh-d9-Onj" secondAttribute="bottom" constant="33" id="tZF-IX-LIZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="bVh-d9-Onj" secondAttribute="bottom" id="tZF-IX-LIZ"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="cKO-rC-NPM" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="LwY-vH-kDp"/>
-                            <constraint firstItem="p9T-gV-wyr" firstAttribute="top" secondItem="cKO-rC-NPM" secondAttribute="bottom" constant="-1" id="PtN-Z8-DTu"/>
+                            <constraint firstItem="p9T-gV-wyr" firstAttribute="top" secondItem="cKO-rC-NPM" secondAttribute="bottom" constant="15" id="PtN-Z8-DTu"/>
                             <constraint firstItem="cKO-rC-NPM" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="9" id="WbX-4g-vy7"/>
-                            <constraint firstItem="p9T-gV-wyr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="fzp-Ay-ydH"/>
+                            <constraint firstItem="p9T-gV-wyr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="6" id="fzp-Ay-ydH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="p9T-gV-wyr" secondAttribute="bottom" constant="20" id="mRD-GX-96n"/>
-                            <constraint firstItem="p9T-gV-wyr" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="tdh-9j-ie9"/>
+                            <constraint firstItem="p9T-gV-wyr" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-5" id="tdh-9j-ie9"/>
                             <constraint firstItem="cKO-rC-NPM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="xgT-QL-S5m"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -155,7 +155,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-756" y="-134.48275862068968"/>
+            <point key="canvasLocation" x="-756.5" y="-134.5"/>
         </scene>
         <!--Highlights View Controller-->
         <scene sceneID="ys1-Ia-qMK">
