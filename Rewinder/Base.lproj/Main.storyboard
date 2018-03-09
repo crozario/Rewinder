@@ -13,7 +13,7 @@
         <!--Page View Controller-->
         <scene sceneID="tHz-7m-YNe">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="zLk-at-lvo" customClass="PageViewController" customModule="Rewinder" customModuleProvider="target" sceneMemberID="viewController"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" pageSpacing="2" navigationOrientation="horizontal" spineLocation="none" id="zLk-at-lvo" customClass="PageViewController" customModule="Rewinder" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZQV-UD-1Ym" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-519" y="-896"/>
@@ -58,7 +58,7 @@
                                 </items>
                             </navigationBar>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.0078431372550000003" green="0.47058823529999999" blue="0.68235294120000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="UEb-Tv-Cbk" firstAttribute="top" secondItem="ldz-On-cnR" secondAttribute="top" id="7j6-lN-Saa"/>
                             <constraint firstItem="Nzr-Kg-J2Q" firstAttribute="top" secondItem="UEb-Tv-Cbk" secondAttribute="bottom" constant="66" id="ATe-a4-adb"/>
@@ -100,9 +100,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cKO-rC-NPM">
                                 <rect key="frame" x="0.0" y="327" width="375" height="340"/>
                                 <subviews>
-                                    <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="EOp-eI-8a0">
-                                        <rect key="frame" x="168" y="283" width="39" height="37"/>
-                                    </pageControl>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bVh-d9-Onj" customClass="RoundPlayButton" customModule="Rewinder" customModuleProvider="target">
                                         <rect key="frame" x="137" y="18" width="100" height="100"/>
                                         <color key="backgroundColor" red="1" green="0.60242883792750324" blue="0.77418510642225935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -137,14 +134,11 @@
                                 <color key="backgroundColor" red="0.0078431372549019607" green="0.47058823529411764" blue="0.68235294117647061" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="340" id="2J3-GT-u3N"/>
-                                    <constraint firstItem="EOp-eI-8a0" firstAttribute="leading" secondItem="cKO-rC-NPM" secondAttribute="leading" constant="168" id="2LE-sP-OTs"/>
                                     <constraint firstItem="jxj-zz-1Qv" firstAttribute="top" secondItem="bVh-d9-Onj" secondAttribute="bottom" constant="30" id="CxS-Zp-wIc"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="320" id="KiW-Np-WZ6"/>
                                     <constraint firstItem="bVh-d9-Onj" firstAttribute="centerX" secondItem="cKO-rC-NPM" secondAttribute="centerX" id="Phu-L0-YW7"/>
                                     <constraint firstItem="jxj-zz-1Qv" firstAttribute="leading" secondItem="cKO-rC-NPM" secondAttribute="leading" id="SRL-uf-W3s"/>
                                     <constraint firstAttribute="trailing" secondItem="jxj-zz-1Qv" secondAttribute="trailing" id="WTR-rR-myS"/>
-                                    <constraint firstItem="EOp-eI-8a0" firstAttribute="centerX" secondItem="cKO-rC-NPM" secondAttribute="centerX" id="du7-hQ-s7c"/>
-                                    <constraint firstAttribute="trailing" secondItem="EOp-eI-8a0" secondAttribute="trailing" constant="168" id="vWv-8z-g2y"/>
                                     <constraint firstItem="bVh-d9-Onj" firstAttribute="top" secondItem="cKO-rC-NPM" secondAttribute="top" constant="18" id="wpX-3e-QIS"/>
                                 </constraints>
                             </view>
@@ -153,7 +147,6 @@
                         <constraints>
                             <constraint firstItem="cKO-rC-NPM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Chy-zL-l8C"/>
                             <constraint firstItem="p9T-gV-wyr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="L8X-gE-F2s"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="EOp-eI-8a0" secondAttribute="bottom" constant="20" id="RKu-uY-1cZ"/>
                             <constraint firstItem="p9T-gV-wyr" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="SHg-Su-JiM"/>
                             <constraint firstItem="cKO-rC-NPM" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="deO-pF-jAT"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="cKO-rC-NPM" secondAttribute="bottom" id="fSj-gz-qv4"/>
@@ -180,7 +173,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bti-a6-TJs">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.0078431372550000003" green="0.47058823529999999" blue="0.68235294120000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HighlightCell" id="qwR-NM-a7r">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
