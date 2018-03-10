@@ -10,12 +10,10 @@ import UIKit
 import AVFoundation
 import CoreData
 import NotificationCenter
-
-var recordDuration = 5.0
-
 import AudioKit
 import AudioKitUI
 
+var recordDuration = 5.0
 // change
 
 class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
@@ -63,11 +61,11 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		let silence = AKBooster(tracker, gain: 0)
 		
 		AudioKit.output = silence
-		do {
-			try AudioKit.start()
-		} catch let error {
-			print(error.localizedDescription)
-		}
+        do {
+            try AudioKit.start()
+        } catch let error {
+            print(error.localizedDescription)
+        }
 		
 		// create rolling waveform plot
 		rollingPlot = createRollingPlot(micCopy1)

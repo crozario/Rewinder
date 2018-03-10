@@ -11,17 +11,12 @@
 		3EC9E635ED9F797BFBC41349 /* Pods_RewinderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5A644DF458AA35FC34D2A08 /* Pods_RewinderTests.framework */; };
 		54142D86AC16C0AAC7266C1B /* Pods_RewinderUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB12212EC35DBCB86B5CC6E0 /* Pods_RewinderUITests.framework */; };
 		5D249A0D20538AAE00B65029 /* HighlightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D249A0C20538AAE00B65029 /* HighlightsViewController.swift */; };
-		5D249A1D20538D5E00B65029 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D249A1B20538D5E00B65029 /* AudioKit.framework */; };
-		5D249A1E20538D5E00B65029 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5D249A1B20538D5E00B65029 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		5D249A1F20538D5E00B65029 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D249A1C20538D5E00B65029 /* AudioKitUI.framework */; };
-		5D249A2020538D5E00B65029 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5D249A1C20538D5E00B65029 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5D77DD4920539312000FC2C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D77DD4820539312000FC2C3 /* Main.storyboard */; };
 		5D77DD4B205397BE000FC2C3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D77DD4A205397BE000FC2C3 /* HomeViewController.swift */; };
 		5D79EFE3204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D79EFE1204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift */; };
 		5D79EFE4204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D79EFE2204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift */; };
 		5D8102A720424A7C00F62B37 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8102A620424A7C00F62B37 /* Audio.swift */; };
 		C42BB5722041E08A00D7D4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5712041E08A00D7D4CF /* AppDelegate.swift */; };
-		C42BB5742041E08A00D7D4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5732041E08A00D7D4CF /* ViewController.swift */; };
 		C42BB57A2041E08A00D7D4CF /* Rewinder.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5782041E08A00D7D4CF /* Rewinder.xcdatamodeld */; };
 		C42BB57F2041E08A00D7D4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42BB57D2041E08A00D7D4CF /* LaunchScreen.storyboard */; };
 		C42BB58A2041E08A00D7D4CF /* RewinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5892041E08A00D7D4CF /* RewinderTests.swift */; };
@@ -58,8 +53,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				5D249A2020538D5E00B65029 /* AudioKitUI.framework in Embed Frameworks */,
-				5D249A1E20538D5E00B65029 /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -72,8 +65,6 @@
 		5D249A0C20538AAE00B65029 /* HighlightsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightsViewController.swift; sourceTree = "<group>"; };
 		5D249A1520538C6500B65029 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioKit.framework; sourceTree = "<group>"; };
 		5D249A1920538C6500B65029 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioKitUI.framework; sourceTree = "<group>"; };
-		5D249A1B20538D5E00B65029 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Desktop/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
-		5D249A1C20538D5E00B65029 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Desktop/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 		5D77DD4820539312000FC2C3 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		5D77DD4A205397BE000FC2C3 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5D79EFE1204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HighlightEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -86,7 +77,6 @@
 		C121B3D043782CF7C15B913E /* Pods-RewinderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RewinderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RewinderTests/Pods-RewinderTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C42BB56E2041E08A00D7D4CF /* Rewinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rewinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42BB5712041E08A00D7D4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C42BB5732041E08A00D7D4CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C42BB5792041E08A00D7D4CF /* Rewinder.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Rewinder.xcdatamodel; sourceTree = "<group>"; };
 		C42BB57E2041E08A00D7D4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C42BB5802041E08A00D7D4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -111,8 +101,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5D249A1F20538D5E00B65029 /* AudioKitUI.framework in Frameworks */,
-				5D249A1D20538D5E00B65029 /* AudioKit.framework in Frameworks */,
 				1358215CE5A809C2E23134EA /* Pods_Rewinder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -164,8 +152,6 @@
 		C42BB5652041E08A00D7D4CF = {
 			isa = PBXGroup;
 			children = (
-				5D249A1B20538D5E00B65029 /* AudioKit.framework */,
-				5D249A1C20538D5E00B65029 /* AudioKitUI.framework */,
 				C42BB5702041E08A00D7D4CF /* Rewinder */,
 				C42BB5882041E08A00D7D4CF /* RewinderTests */,
 				C42BB5932041E08A00D7D4CF /* RewinderUITests */,
@@ -197,7 +183,6 @@
 				5D249A0C20538AAE00B65029 /* HighlightsViewController.swift */,
 				C46D16B82042002600B1224D /* RoundPlayButton.swift */,
 				5D77DD4A205397BE000FC2C3 /* HomeViewController.swift */,
-				C42BB5732041E08A00D7D4CF /* ViewController.swift */,
 				5D8102A620424A7C00F62B37 /* Audio.swift */,
 				C46E2BD92042138C001BE43A /* Assets.xcassets */,
 				C42BB57D2041E08A00D7D4CF /* LaunchScreen.storyboard */,
@@ -533,7 +518,6 @@
 			files = (
 				5D8102A720424A7C00F62B37 /* Audio.swift in Sources */,
 				C42BB57A2041E08A00D7D4CF /* Rewinder.xcdatamodeld in Sources */,
-				C42BB5742041E08A00D7D4CF /* ViewController.swift in Sources */,
 				5D79EFE4204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift in Sources */,
 				C46D16B92042002600B1224D /* RoundPlayButton.swift in Sources */,
 				C42BB5722041E08A00D7D4CF /* AppDelegate.swift in Sources */,
@@ -701,10 +685,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F73Q286GM2;
+				DEVELOPMENT_TEAM = SMV452RP74;
 				INFOPLIST_FILE = Rewinder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nasty.devs;
+				PRODUCT_BUNDLE_IDENTIFIER = tech.crozario;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -717,10 +701,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F73Q286GM2;
+				DEVELOPMENT_TEAM = SMV452RP74;
 				INFOPLIST_FILE = Rewinder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nasty.devs;
+				PRODUCT_BUNDLE_IDENTIFIER = tech.crozario;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

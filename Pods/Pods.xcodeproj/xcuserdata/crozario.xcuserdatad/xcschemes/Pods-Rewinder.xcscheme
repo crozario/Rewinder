@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "17BB421D1A7039514F68D777A315F4F5"
+               BlueprintIdentifier = "F6DC01FD2C3B3BB07EFA2743CBD180A0"
                BuildableName = "Pods_Rewinder.framework"
                BlueprintName = "Pods-Rewinder"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "17BB421D1A7039514F68D777A315F4F5"
+            BlueprintIdentifier = "F6DC01FD2C3B3BB07EFA2743CBD180A0"
             BuildableName = "Pods_Rewinder.framework"
             BlueprintName = "Pods-Rewinder"
             ReferencedContainer = "container:Pods.xcodeproj">
