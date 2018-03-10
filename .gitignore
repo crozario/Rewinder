@@ -1,4 +1,5 @@
-Pods/Pods.xcodeproj/xcuserdata/haardshah.xcuserdatad/
+Pods/*
+*AudioKit*
 Rewinder.xcworkspace/xcuserdata/
 .DS_Store
 *.xcuserdatad

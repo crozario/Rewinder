@@ -7,21 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		45D045B8E6D0E697097AE99C /* Pods_RewinderUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33B71D22546BD73C8A4CD440 /* Pods_RewinderUITests.framework */; };
-		5C562E6307F3361FB422D2FE /* Pods_Rewinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87E4F74BB160E3B67E67ECE3 /* Pods_Rewinder.framework */; };
+		1358215CE5A809C2E23134EA /* Pods_Rewinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6617F5124CB62670B78D2C7F /* Pods_Rewinder.framework */; };
+		3EC9E635ED9F797BFBC41349 /* Pods_RewinderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5A644DF458AA35FC34D2A08 /* Pods_RewinderTests.framework */; };
+		54142D86AC16C0AAC7266C1B /* Pods_RewinderUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB12212EC35DBCB86B5CC6E0 /* Pods_RewinderUITests.framework */; };
+		5D249A09205389C200B65029 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D249A08205389C200B65029 /* HomeViewController.swift */; };
+		5D249A0B20538A4D00B65029 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D249A0A20538A4D00B65029 /* Main.storyboard */; };
+		5D249A0D20538AAE00B65029 /* HighlightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D249A0C20538AAE00B65029 /* HighlightsViewController.swift */; };
+		5D249A1D20538D5E00B65029 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D249A1B20538D5E00B65029 /* AudioKit.framework */; };
+		5D249A1E20538D5E00B65029 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5D249A1B20538D5E00B65029 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5D249A1F20538D5E00B65029 /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D249A1C20538D5E00B65029 /* AudioKitUI.framework */; };
+		5D249A2020538D5E00B65029 /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5D249A1C20538D5E00B65029 /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5D79EFE3204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D79EFE1204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift */; };
 		5D79EFE4204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D79EFE2204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift */; };
 		5D8102A720424A7C00F62B37 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8102A620424A7C00F62B37 /* Audio.swift */; };
-		B36F0717890F38FC22230C47 /* Pods_RewinderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2C1472B1BDBCAD1ADD86E3A /* Pods_RewinderTests.framework */; };
 		C42BB5722041E08A00D7D4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5712041E08A00D7D4CF /* AppDelegate.swift */; };
 		C42BB5742041E08A00D7D4CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5732041E08A00D7D4CF /* ViewController.swift */; };
-		C42BB5772041E08A00D7D4CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42BB5752041E08A00D7D4CF /* Main.storyboard */; };
 		C42BB57A2041E08A00D7D4CF /* Rewinder.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5782041E08A00D7D4CF /* Rewinder.xcdatamodeld */; };
 		C42BB57F2041E08A00D7D4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42BB57D2041E08A00D7D4CF /* LaunchScreen.storyboard */; };
 		C42BB58A2041E08A00D7D4CF /* RewinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5892041E08A00D7D4CF /* RewinderTests.swift */; };
 		C42BB5952041E08A00D7D4CF /* RewinderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5942041E08A00D7D4CF /* RewinderUITests.swift */; };
-		C45252C220423EE1000808A8 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45252C120423EE1000808A8 /* HomeViewController.swift */; };
-		C4525303204284A3000808A8 /* HighlightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4525302204284A3000808A8 /* HighlightsViewController.swift */; };
 		C452530520428768000808A8 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C452530420428768000808A8 /* PageViewController.swift */; };
 		C4525307204293B6000808A8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4525306204293B6000808A8 /* SettingsViewController.swift */; };
 		C46D16B92042002600B1224D /* RoundPlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46D16B82042002600B1224D /* RoundPlayButton.swift */; };
@@ -47,22 +51,42 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		5D249A1420538C0100B65029 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5D249A2020538D5E00B65029 /* AudioKitUI.framework in Embed Frameworks */,
+				5D249A1E20538D5E00B65029 /* AudioKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		33B71D22546BD73C8A4CD440 /* Pods_RewinderUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RewinderUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D6AACD5A7A46A4BF762F548 /* Pods-RewinderUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RewinderUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RewinderUITests/Pods-RewinderUITests.release.xcconfig"; sourceTree = "<group>"; };
 		508EF42CFA841215B83D0775 /* Pods-Rewinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rewinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rewinder/Pods-Rewinder.debug.xcconfig"; sourceTree = "<group>"; };
+		5D249A08205389C200B65029 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = ../../../copy/Rewinder/Rewinder/HomeViewController.swift; sourceTree = "<group>"; };
+		5D249A0A20538A4D00B65029 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		5D249A0C20538AAE00B65029 /* HighlightsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightsViewController.swift; sourceTree = "<group>"; };
+		5D249A1520538C6500B65029 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioKit.framework; sourceTree = "<group>"; };
+		5D249A1920538C6500B65029 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioKitUI.framework; sourceTree = "<group>"; };
+		5D249A1B20538D5E00B65029 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Desktop/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
+		5D249A1C20538D5E00B65029 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../Desktop/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 		5D79EFE1204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HighlightEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		5D79EFE2204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HighlightEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		5D8102A620424A7C00F62B37 /* Audio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
-		87E4F74BB160E3B67E67ECE3 /* Pods_Rewinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rewinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6617F5124CB62670B78D2C7F /* Pods_Rewinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rewinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A43D9B070600BD68B44103 /* Pods-RewinderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RewinderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RewinderTests/Pods-RewinderTests.release.xcconfig"; sourceTree = "<group>"; };
-		A2C1472B1BDBCAD1ADD86E3A /* Pods_RewinderTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RewinderTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5A644DF458AA35FC34D2A08 /* Pods_RewinderTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RewinderTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD248553DBF2FBF53F53FBD7 /* Pods-Rewinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rewinder.release.xcconfig"; path = "Pods/Target Support Files/Pods-Rewinder/Pods-Rewinder.release.xcconfig"; sourceTree = "<group>"; };
 		C121B3D043782CF7C15B913E /* Pods-RewinderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RewinderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RewinderTests/Pods-RewinderTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C42BB56E2041E08A00D7D4CF /* Rewinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rewinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42BB5712041E08A00D7D4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C42BB5732041E08A00D7D4CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		C42BB5762041E08A00D7D4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C42BB5792041E08A00D7D4CF /* Rewinder.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Rewinder.xcdatamodel; sourceTree = "<group>"; };
 		C42BB57E2041E08A00D7D4CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C42BB5802041E08A00D7D4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -72,14 +96,13 @@
 		C42BB5902041E08A00D7D4CF /* RewinderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RewinderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42BB5942041E08A00D7D4CF /* RewinderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewinderUITests.swift; sourceTree = "<group>"; };
 		C42BB5962041E08A00D7D4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C45252C120423EE1000808A8 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		C4525302204284A3000808A8 /* HighlightsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightsViewController.swift; sourceTree = "<group>"; };
 		C452530420428768000808A8 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		C4525306204293B6000808A8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C46D16B82042002600B1224D /* RoundPlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundPlayButton.swift; sourceTree = "<group>"; };
 		C46E2BD92042138C001BE43A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C46E2BDC20422323001BE43A /* Eminem - Rap God.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Eminem - Rap God.mp3"; sourceTree = "<group>"; };
 		C4E048D1204C76A9007355E1 /* waveformsample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waveformsample.png; sourceTree = "<group>"; };
+		CB12212EC35DBCB86B5CC6E0 /* Pods_RewinderUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RewinderUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFB38C5E947C35D328D06763 /* Pods-RewinderUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RewinderUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RewinderUITests/Pods-RewinderUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,7 +111,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C562E6307F3361FB422D2FE /* Pods_Rewinder.framework in Frameworks */,
+				5D249A1F20538D5E00B65029 /* AudioKitUI.framework in Frameworks */,
+				5D249A1D20538D5E00B65029 /* AudioKit.framework in Frameworks */,
+				1358215CE5A809C2E23134EA /* Pods_Rewinder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,7 +121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B36F0717890F38FC22230C47 /* Pods_RewinderTests.framework in Frameworks */,
+				3EC9E635ED9F797BFBC41349 /* Pods_RewinderTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,7 +129,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45D045B8E6D0E697097AE99C /* Pods_RewinderUITests.framework in Frameworks */,
+				54142D86AC16C0AAC7266C1B /* Pods_RewinderUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,6 +139,8 @@
 		61631C7E87D11CB4F75C0278 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				5D249A1520538C6500B65029 /* AudioKit.framework */,
+				5D249A1920538C6500B65029 /* AudioKitUI.framework */,
 				508EF42CFA841215B83D0775 /* Pods-Rewinder.debug.xcconfig */,
 				AD248553DBF2FBF53F53FBD7 /* Pods-Rewinder.release.xcconfig */,
 				C121B3D043782CF7C15B913E /* Pods-RewinderTests.debug.xcconfig */,
@@ -127,9 +154,9 @@
 		8BB8E98B965539DFA942F224 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				87E4F74BB160E3B67E67ECE3 /* Pods_Rewinder.framework */,
-				A2C1472B1BDBCAD1ADD86E3A /* Pods_RewinderTests.framework */,
-				33B71D22546BD73C8A4CD440 /* Pods_RewinderUITests.framework */,
+				6617F5124CB62670B78D2C7F /* Pods_Rewinder.framework */,
+				A5A644DF458AA35FC34D2A08 /* Pods_RewinderTests.framework */,
+				CB12212EC35DBCB86B5CC6E0 /* Pods_RewinderUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -137,6 +164,8 @@
 		C42BB5652041E08A00D7D4CF = {
 			isa = PBXGroup;
 			children = (
+				5D249A1B20538D5E00B65029 /* AudioKit.framework */,
+				5D249A1C20538D5E00B65029 /* AudioKitUI.framework */,
 				C42BB5702041E08A00D7D4CF /* Rewinder */,
 				C42BB5882041E08A00D7D4CF /* RewinderTests */,
 				C42BB5932041E08A00D7D4CF /* RewinderUITests */,
@@ -162,13 +191,13 @@
 				5D79EFE1204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift */,
 				5D79EFE2204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift */,
 				C42BB5712041E08A00D7D4CF /* AppDelegate.swift */,
-				C42BB5752041E08A00D7D4CF /* Main.storyboard */,
+				5D249A0A20538A4D00B65029 /* Main.storyboard */,
 				C452530420428768000808A8 /* PageViewController.swift */,
-				C4525302204284A3000808A8 /* HighlightsViewController.swift */,
 				C4525306204293B6000808A8 /* SettingsViewController.swift */,
+				5D249A0C20538AAE00B65029 /* HighlightsViewController.swift */,
 				C46D16B82042002600B1224D /* RoundPlayButton.swift */,
 				C42BB5732041E08A00D7D4CF /* ViewController.swift */,
-				C45252C120423EE1000808A8 /* HomeViewController.swift */,
+				5D249A08205389C200B65029 /* HomeViewController.swift */,
 				5D8102A620424A7C00F62B37 /* Audio.swift */,
 				C46E2BD92042138C001BE43A /* Assets.xcassets */,
 				C42BB57D2041E08A00D7D4CF /* LaunchScreen.storyboard */,
@@ -219,6 +248,7 @@
 				C42BB56C2041E08A00D7D4CF /* Resources */,
 				6D1AE6699D99A9F2F4D40404 /* [CP] Embed Pods Frameworks */,
 				AADEE0B68A79A3DD241AD848 /* [CP] Copy Pods Resources */,
+				5D249A1420538C0100B65029 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -323,9 +353,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C42BB57F2041E08A00D7D4CF /* LaunchScreen.storyboard in Resources */,
+				5D249A0B20538A4D00B65029 /* Main.storyboard in Resources */,
 				C46E2BDA2042138C001BE43A /* Assets.xcassets in Resources */,
 				C4E048D2204C76A9007355E1 /* waveformsample.png in Resources */,
-				C42BB5772041E08A00D7D4CF /* Main.storyboard in Resources */,
 				C46E2BDD20422323001BE43A /* Eminem - Rap God.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -501,9 +531,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4525303204284A3000808A8 /* HighlightsViewController.swift in Sources */,
 				5D8102A720424A7C00F62B37 /* Audio.swift in Sources */,
-				C45252C220423EE1000808A8 /* HomeViewController.swift in Sources */,
 				C42BB57A2041E08A00D7D4CF /* Rewinder.xcdatamodeld in Sources */,
 				C42BB5742041E08A00D7D4CF /* ViewController.swift in Sources */,
 				5D79EFE4204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift in Sources */,
@@ -512,6 +540,8 @@
 				C452530520428768000808A8 /* PageViewController.swift in Sources */,
 				C4525307204293B6000808A8 /* SettingsViewController.swift in Sources */,
 				5D79EFE3204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift in Sources */,
+				5D249A09205389C200B65029 /* HomeViewController.swift in Sources */,
+				5D249A0D20538AAE00B65029 /* HighlightsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,14 +577,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		C42BB5752041E08A00D7D4CF /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C42BB5762041E08A00D7D4CF /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		C42BB57D2041E08A00D7D4CF /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

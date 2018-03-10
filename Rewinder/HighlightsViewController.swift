@@ -19,7 +19,9 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
     var audioPlayer: AVAudioPlayer?
     var currSelected: Int?
 	let fileExtension: String = "caf"
-    
+	
+	var viewPresented: Bool!
+	
     @IBOutlet weak var tableView: UITableView!
 	
 	let context: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -57,6 +59,8 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		
 		// hide empty cells
 		tableView.tableFooterView = UIView(frame: CGRect.zero)
+		
+		viewPresented = true
     }
 	
 	deinit {
@@ -72,10 +76,16 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		}
     }
 	
+	
 	override func viewDidAppear(_ animated: Bool) {
 		if numToInsert != 0 {
 			updateRows()
 		}
+		viewPresented = true
+	}
+	
+	override func viewDidDisappear(_ animated: Bool) {
+		viewPresented = false
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
@@ -97,7 +107,17 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 				let insert = inserts.first!
 				let title: String = insert.value(forKey: "title") as! String
 				self.arr.insert(title, at: 0)
-				numToInsert += 1
+				
+				if viewPresented == true {
+					DispatchQueue.main.async {
+						let path = IndexPath(row: 0, section: 0)
+						self.tableView.beginUpdates()
+						self.tableView.insertRows(at: [path], with: .fade)
+						self.tableView.endUpdates()
+					}
+				} else {
+					numToInsert += 1
+				}
 			}
 		}
 	}
@@ -262,6 +282,7 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 		}
 		prevPath = indexPath
 	}
+	
 	func setupPlayer(index: Int) {
 		let url = highlightsURL.appendingPathComponent(self.getHighlightFilename(title: arr[index]))
 		
@@ -315,7 +336,7 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 			
 			// delete in database and filesystem
 			do {
-				try self.removeHighlightDatabaseAndFileSystem(title: self.arr[indexPath.row])
+				_ = try self.removeHighlightDatabaseAndFileSystem(title: self.arr[indexPath.row])
 			} catch let error {
 				print("delete error: \(error.localizedDescription)")
 			}
