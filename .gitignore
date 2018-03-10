@@ -1,5 +1,6 @@
 Pods/*
-*AudioKit*
+AudioKit.framework/*
+AudioKitUI.framework/*
 Rewinder.xcworkspace/xcuserdata/
 .DS_Store
 *.xcuserdatad

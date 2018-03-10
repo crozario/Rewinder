@@ -145,7 +145,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="highlightButton" destination="bVh-d9-Onj" id="nVY-4y-lH3"/>
+                        <outlet property="highlightButton" destination="bVh-d9-Onj" id="Svn-Xo-b4b"/>
                         <outlet property="plotView" destination="cKO-rC-NPM" id="XMC-db-wOx"/>
                     </connections>
                 </viewController>
