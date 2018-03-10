@@ -20,7 +20,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	
 	@IBOutlet weak var highlightButton: RoundPlayButton!
 	
-	
+    @IBOutlet weak var buttonAndTranscribingView: UIView!
+    
 	let managedObjectContext: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 	
 	//	var audioRecorder: AVAudioRecorder?
@@ -36,6 +37,9 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+        
+        buttonAndTranscribingView.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
+        
 		
 		audioObj = Audio(managedObjectContext)
 		
@@ -79,7 +83,10 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		rplot.shouldFill = true
 		rplot.shouldMirror = true
 		// Color: Yale Blue (RGB: 14, 77, 146) - for RGB proportions between 0-1 divide by 255
-		rplot.color = AKColor(displayP3Red: 0.055, green: 0.302, blue: 0.573, alpha: 1.0)
+		rplot.color = UIColorFromRGB(rgbValue: 0xFFFFFF)
+        rplot.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
+//        rplot.backgroundColor = AKColor(displayP3Red: 2/255, green: 120/255, blue: 174/255, alpha: 1.0)
+    
 		rplot.gain = 2
 		
 		return rplot
@@ -240,5 +247,26 @@ class myRecorder: AVAudioRecorder {
 		print("url: \(url.lastPathComponent)")
 		print("------------------------------------------------------------------")
 	}
+}
+
+
+extension UIColor {
+    convenience init(red: Int, green: Int, blue: Int) {
+        let newRed = CGFloat(red)/255
+        let newGreen = CGFloat(green)/255
+        let newBlue = CGFloat(blue)/255
+        
+        self.init(red: newRed, green: newGreen, blue: newBlue, alpha: 1.0)
+    }
+}
+
+
+func UIColorFromRGB(rgbValue: UInt) -> UIColor {
+    return UIColor(
+        red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+        green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+        blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+        alpha: CGFloat(1.0)
+    )
 }
 

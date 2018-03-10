@@ -29,6 +29,7 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
 
         audioPlayer?.delegate = self
 		
@@ -298,7 +299,7 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 	// MARK: - Editing highlight name
 	func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
 		let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: { (action, indexPath) in
-			let alert = UIAlertController(title: "Modify Highlight Name", message: "Would would you like to call this highlight?", preferredStyle: .alert)
+			let alert = UIAlertController(title: "Modify Highlight Name", message: "What would you like to call this highlight?", preferredStyle: .alert)
 			alert.addTextField(configurationHandler: { (textField) in
 				textField.text = self.arr[indexPath.row]
 				textField.clearButtonMode = .always
