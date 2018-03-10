@@ -127,12 +127,12 @@
                                     </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="cgF-Hi-OP4" firstAttribute="leading" secondItem="fQR-Uh-Aew" secondAttribute="leading" id="6EB-iN-IPJ"/>
                                     <constraint firstItem="bVh-d9-Onj" firstAttribute="top" secondItem="cgF-Hi-OP4" secondAttribute="bottom" constant="28" id="DdC-Lj-ci4"/>
                                     <constraint firstItem="bVh-d9-Onj" firstAttribute="centerX" secondItem="pby-3H-fDE" secondAttribute="centerX" constant="-0.5" id="HGB-Vf-1ky"/>
                                     <constraint firstAttribute="height" constant="330" id="Hpz-hi-ipT"/>
-                                    <constraint firstItem="cgF-Hi-OP4" firstAttribute="leading" secondItem="fQR-Uh-Aew" secondAttribute="leading" id="N9B-FR-4Lc"/>
                                     <constraint firstAttribute="bottom" secondItem="bVh-d9-Onj" secondAttribute="bottom" constant="22" id="dSB-Z0-yJf"/>
-                                    <constraint firstItem="cgF-Hi-OP4" firstAttribute="trailing" secondItem="fQR-Uh-Aew" secondAttribute="trailing" id="udx-Mu-wmC"/>
+                                    <constraint firstItem="cgF-Hi-OP4" firstAttribute="trailing" secondItem="fQR-Uh-Aew" secondAttribute="trailing" id="vDS-Nz-Z8h"/>
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="fQR-Uh-Aew"/>
                             </view>

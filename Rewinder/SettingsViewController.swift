@@ -21,7 +21,6 @@ class SettingsViewController: UIViewController {
         view.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
         
         
-//        navigationController?.navigationBar.backgroundColor = UIColor(hexString: "#2394BC")
 //        UINavigationBar.appearance().barTintColor = .blue
         
     }
