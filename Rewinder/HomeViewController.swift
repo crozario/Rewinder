@@ -12,6 +12,8 @@ import CoreData
 import NotificationCenter
 import AudioKit
 import AudioKitUI
+import Speech
+
 
 var recordDuration = 5.0
 // change
@@ -20,6 +22,13 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	
 	@IBOutlet weak var highlightButton: RoundPlayButton!
 	
+    @IBOutlet weak var TranscribingTextView: UITextView!
+    
+    private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))!
+    private var speechRecognitionRequest: SFSpeechAudioBufferRecognitionRequest?
+    private var speechRecognitionTask: SFSpeechRecognitionTask?
+    private let audioEngine = AVAudioEngine()
+    
     @IBOutlet weak var buttonAndTranscribingView: UIView!
     
 	let managedObjectContext: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -74,6 +83,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		// create rolling waveform plot
 		rollingPlot = createRollingPlot(micCopy1)
 		plotView.addSubview(rollingPlot)
+        
+        startSession()
 	}
 	
 	func createRollingPlot(_ inputNode: AKNode) -> AKNodeOutputPlot {
@@ -228,7 +239,55 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 			print (error)
 		}
 	}
+    
+    
+    func startSession() {
+        if let recognitionTask = speechRecognitionTask {
+            recognitionTask.cancel()
+            self.speechRecognitionTask = nil
+        }
+        
+        let audioSession = AVAudioSession.sharedInstance()
+        try! audioSession.setCategory(AVAudioSessionCategoryRecord)
+        speechRecognitionRequest = SFSpeechAudioBufferRecognitionRequest()
+        
+        guard let recognitionRequest = speechRecognitionRequest else {
+            fatalError("SFSpeechAudioBufferRecognitionRequest object creation failed")
+        }
+        
+        let inputNode = audioEngine.inputNode
+        
+        recognitionRequest.shouldReportPartialResults = true
+        speechRecognitionTask = speechRecognizer.recognitionTask(with: recognitionRequest) {
+            result, error in
+            
+            var finished = false
+            if let result = result {
+                self.TranscribingTextView.text = result.bestTranscription.formattedString
+                finished = result.isFinal
+            }
+            
+            if error != nil || finished {
+                self.audioEngine.stop()
+                inputNode.removeTap(onBus: 0)
+                self.speechRecognitionTask = nil
+            }
+        }
+        
+        let recordingFormat = inputNode.outputFormat(forBus: 0)
+        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { (buffer: AVAudioPCMBuffer, when: AVAudioTime) in
+            self.speechRecognitionRequest?.append(buffer) }
+        audioEngine.prepare()
+        try! audioEngine.start()
+        
+        
+    }
+    
+    
+    
 }
+
+
 
 class myRecorder: AVAudioRecorder {
 	var localurl: URL!
@@ -248,6 +307,7 @@ class myRecorder: AVAudioRecorder {
 		print("------------------------------------------------------------------")
 	}
 }
+
 
 
 extension UIColor {

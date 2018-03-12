@@ -136,27 +136,27 @@
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="fQR-Uh-Aew"/>
                             </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="p9T-gV-wyr">
-                                <rect key="frame" x="0.0" y="20" width="375" height="317"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p9T-gV-wyr">
+                                <rect key="frame" x="16" y="20" width="343" height="317"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="p9T-gV-wyr" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="2n9-Kp-SeB"/>
                             <constraint firstItem="pby-3H-fDE" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="DnM-C3-sMX"/>
-                            <constraint firstItem="pby-3H-fDE" firstAttribute="top" secondItem="p9T-gV-wyr" secondAttribute="bottom" id="Edo-HR-H7C"/>
                             <constraint firstItem="pby-3H-fDE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="FBu-uB-fyn"/>
-                            <constraint firstItem="p9T-gV-wyr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="VRl-6y-iaz"/>
-                            <constraint firstItem="p9T-gV-wyr" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="bxr-u3-FBm"/>
+                            <constraint firstItem="p9T-gV-wyr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Rdg-SV-7Tw"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="p9T-gV-wyr" secondAttribute="trailing" constant="16" id="dlS-D6-jkk"/>
+                            <constraint firstItem="p9T-gV-wyr" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="kZN-ck-Mcr"/>
                             <constraint firstItem="pby-3H-fDE" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="lcQ-yu-uVO"/>
+                            <constraint firstItem="cgF-Hi-OP4" firstAttribute="top" secondItem="p9T-gV-wyr" secondAttribute="bottom" id="y4K-6v-zrH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="TranscribingTextView" destination="p9T-gV-wyr" id="eUZ-dp-Wre"/>
                         <outlet property="buttonAndTranscribingView" destination="pby-3H-fDE" id="AGX-We-f12"/>
                         <outlet property="highlightButton" destination="bVh-d9-Onj" id="Svn-Xo-b4b"/>
                         <outlet property="plotView" destination="cgF-Hi-OP4" id="zoH-Z2-xpl"/>
