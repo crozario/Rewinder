@@ -13,6 +13,7 @@ import NotificationCenter
 
 class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     var arr = [String]()
+	var twoDarr = [[String]]()
 	var filemgr = FileManager.default
 	var docsURL: URL!
 	var highlightsURL: URL!
@@ -26,6 +27,10 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	
 	let context: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 	
+	let attribute_dateandtime: String = "dateandtime"
+	let attribute_duration: String = "duration"
+	let attribute_fileName: String = "fileName"
+	let attribute_title: String = "title"
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +59,8 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		
 		// populate data array (arr) for the first time
 		arr = self.getHighlightTitles()
+		
+		twoDarr = self.getHighlightTitlesTwoD()
 		
 		// create observers
 		NotificationCenter.default.addObserver(self, selector: #selector(self.updateHighlights(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
@@ -112,7 +119,7 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 				print(inserts)
 				// go through and add to tableView at the beginning and to the beginning of arr
 				let insert = inserts.first!
-				let title: String = insert.value(forKey: "title") as! String
+				let title: String = insert.value(forKey: attribute_title) as! String
 				self.arr.insert(title, at: 0)
 				
 				if viewPresented == true {
@@ -145,7 +152,7 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	func getHighlightsList() -> [NSFetchRequestResult] {
 		let entityDescription = NSEntityDescription.entity(forEntityName: "HighlightEntity", in: context)
 		let request: NSFetchRequest<HighlightEntity> = HighlightEntity.fetchRequest()
-		let sortDescriptor = NSSortDescriptor(key: "dateandtime", ascending: false)
+		let sortDescriptor = NSSortDescriptor(key: attribute_dateandtime, ascending: false)
 		
 		request.entity = entityDescription
 		request.sortDescriptors = [sortDescriptor]
@@ -164,24 +171,53 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		var titles = [String]()
 		for element in results {
 			let managedObject = element as! NSManagedObject
-			titles.append((managedObject.value(forKey: "title") as? String)!)
+			titles.append((managedObject.value(forKey: attribute_title) as? String)!)
 		}
 		return titles
 	}
 	
 	//CONTINUE NOTES: Implement this next and put titles into two dimentional array. Each column is each secion on tableView.
-	func getTitlesTwoD() -> [[String]] {
+	func getHighlightTitlesTwoD() -> [[String]] {
 		let results = self.getHighlightsList()
 		var twoDimTitles = [[String]]()
-		var currDate: Date?
+		var prevDate: String?
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .medium
+		dateFormatter.timeStyle = .none
+		dateFormatter.locale = Locale(identifier: "en_US")
+		var i = -1, j = 0
+		for element in results {
+			let managedObj = element as! NSManagedObject
+			let date: Date = managedObj.value(forKey: attribute_dateandtime) as! Date
+			let title: String = managedObj.value(forKey: attribute_title) as! String
+			let currDate: String = dateFormatter.string(from: date)
+
+			if prevDate == currDate {
+				twoDimTitles[i].append(title)
+			} else {
+				i += 1
+				twoDimTitles.append([currDate])
+				twoDimTitles[i].append(title)
+				
+				prevDate = currDate
+			}
+		}
+//		print2D(twoDimTitles)
 		
+		return twoDimTitles
+	}
+	
+	func print2D(_ arr: [[String]]) {
+		for sublist in arr {
+			print(sublist)
+		}
 	}
 	
 	let defaultNotFoundManagedObject: NSManagedObject = NSManagedObject()
 	func getHighlightManagedObject(title: String) -> NSManagedObject {
 		let entityDescription = NSEntityDescription.entity(forEntityName: "HighlightEntity", in: context)
 		let request: NSFetchRequest<HighlightEntity> = HighlightEntity.fetchRequest()
-		let sortDescriptor = NSSortDescriptor(key: "dateandtime", ascending: true)
+		let sortDescriptor = NSSortDescriptor(key: attribute_dateandtime, ascending: true)
 		let pred = NSPredicate(format: "(title = %@)", title)
 		
 		request.entity = entityDescription
@@ -210,7 +246,7 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	}
 	
 	func getHighlightFilename(title: String) -> String {
-		return (getHighlightManagedObject(title: title).value(forKey: "fileName") as? String)!
+		return (getHighlightManagedObject(title: title).value(forKey: attribute_fileName) as? String)!
 	}
 	
 	func highlightTitleExists(title: String) -> Bool {
@@ -226,7 +262,7 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		let managedObj = self.getHighlightManagedObject(title: title)
 		
 		// remove in filesystem
-		let file = managedObj.value(forKey: "fileName") as! String
+		let file = managedObj.value(forKey: attribute_fileName) as! String
 		let url = self.highlightsURL.appendingPathComponent(file)
 		if self.filemgr.fileExists(atPath: url.path) {
 			try self.filemgr.removeItem(at: url)
@@ -333,7 +369,7 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 					self.present(alreadyExistsAlert, animated: true)
 				} else {
 					let managedObj = self.getHighlightManagedObject(title: oldName)
-					managedObj.setValue(newName, forKey: "title")
+					managedObj.setValue(newName, forKey: self.attribute_title)
 					do {
 						try self.context.save()
 						self.arr[indexPath.row] = newName
@@ -366,21 +402,25 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 		return [deleteAction, editAction]
 	}
 	
-	// MARK: - Table view cell content
+	// MARK: - Table view cell content	
 	func numberOfSections(in tableView: UITableView) -> Int {
-		return 1
+		return twoDarr.count
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return arr.count
+		return (twoDarr[section].count - 1)
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let reuseId = "HighlightCell"
 		let cell =  tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath)
 		
-		cell.textLabel?.text = arr[indexPath.row]
+		cell.textLabel?.text = twoDarr[indexPath.section][indexPath.row+1]
 		return cell
+	}
+	
+	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		return twoDarr[section][0]
 	}
 	
 	// MARK: - Unused delegate callbacks
