@@ -58,9 +58,9 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
         }
 		
 		// populate data array (arr) for the first time
-		arr = self.getHighlightTitles()
+//		arr = self.getHighlightTitles()
 		
-		twoDarr = self.getHighlightTitlesTwoD()
+		self.getHighlightTitlesTwoD()
 		
 		// create observers
 		NotificationCenter.default.addObserver(self, selector: #selector(self.updateHighlights(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
@@ -82,17 +82,18 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	}
 	
 	var numToInsert: Int = 0
+	var twoDinserted = [[Bool]]()
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-		if numToInsert != 0 {
+		if !twoDinserted.isEmpty {
 			updateRows()
 		}
     }
 	
 	
 	override func viewDidAppear(_ animated: Bool) {
-		if numToInsert != 0 {
+		if !twoDinserted.isEmpty {
 			updateRows()
 		}
 		viewPresented = true
@@ -112,6 +113,7 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		}
 	}
 	
+	// CONTINUE NOTE: Insert sections into the tableview real time and change all the arr write and reads to twoDarr
 	// MARK: - Core Data Save Notification
 	@objc func updateHighlights(notification: NSNotification) {
 		if let userInfo = notification.userInfo {
@@ -119,18 +121,26 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 				print(inserts)
 				// go through and add to tableView at the beginning and to the beginning of arr
 				let insert = inserts.first!
-				let title: String = insert.value(forKey: attribute_title) as! String
-				self.arr.insert(title, at: 0)
+//				self.arr.insert(title, at: 0)
+				let newSectionInserted: Bool = appendTo2Darr(managedObject: insert)
 				
 				if viewPresented == true {
 					DispatchQueue.main.async {
-						let path = IndexPath(row: 0, section: 0)
 						self.tableView.beginUpdates()
+						if newSectionInserted {
+							let section_idx = IndexSet(integer: 0)
+							self.tableView.insertSections(section_idx, with: .fade)
+						}
+						let path = IndexPath(row: 0, section: 0)
 						self.tableView.insertRows(at: [path], with: .fade)
 						self.tableView.endUpdates()
 					}
 				} else {
-					numToInsert += 1
+					if twoDinserted.isEmpty || newSectionInserted {
+						twoDinserted.insert([false], at: 0)
+					} else {
+						twoDinserted[0].append(true)
+					}
 				}
 			}
 		}
@@ -138,21 +148,34 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	
 	func updateRows() {
 		var iPaths = [IndexPath]()
-		for row in 0...self.numToInsert-1 {
-			let iPath = IndexPath(row: row, section: 0)
-			iPaths.append(iPath)
+
+		tableView.beginUpdates()
+		for (section, row) in twoDinserted.enumerated() {
+			if row[0] != false {
+				//insert section
+				
+				let section_idx = IndexSet(integer: section)
+				tableView.insertSections(section_idx, with: .fade)
+//				tableView.endUpdates()
+			}
+			for rowIdx in 0..<row.count {
+				let iPath = IndexPath(row: rowIdx, section: section)
+				iPaths.append(iPath)
+			}
 		}
+		
 		tableView.beginUpdates()
 		tableView.insertRows(at: iPaths, with: .fade)
 		tableView.endUpdates()
-		self.numToInsert = 0
+		
+		twoDinserted.removeAll(keepingCapacity: false)
 	}
 	
 	// MARK: - Core data getters
 	func getHighlightsList() -> [NSFetchRequestResult] {
 		let entityDescription = NSEntityDescription.entity(forEntityName: "HighlightEntity", in: context)
 		let request: NSFetchRequest<HighlightEntity> = HighlightEntity.fetchRequest()
-		let sortDescriptor = NSSortDescriptor(key: attribute_dateandtime, ascending: false)
+		let sortDescriptor = NSSortDescriptor(key: attribute_dateandtime, ascending: true)
 		
 		request.entity = entityDescription
 		request.sortDescriptors = [sortDescriptor]
@@ -177,34 +200,79 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	}
 	
 	//CONTINUE NOTES: Implement this next and put titles into two dimentional array. Each column is each secion on tableView.
-	func getHighlightTitlesTwoD() -> [[String]] {
+//	func getHighlightTitlesTwoD() -> [[String]] {
+//		let results = self.getHighlightsList()
+//		var twoDimTitles = [[String]]()
+//		var prevDate: String?
+//
+////		var i = -1
+//		for element in results {
+//			let managedObj = element as! NSManagedObject
+//			appendTo2Darr(managedObject: managedObj)
+////			let date: Date = managedObj.value(forKey: attribute_dateandtime) as! Date
+////			let title: String = managedObj.value(forKey: attribute_title) as! String
+////			let currDate: String = getDate(date: date)
+////
+////			if prevDate == currDate {
+////				twoDimTitles[i].append(title)
+////			} else {
+////				i += 1
+////				twoDimTitles.append([currDate])
+////				twoDimTitles[i].append(title)
+////
+////				prevDate = currDate
+////			}
+//		}
+////		print2D(twoDimTitles)
+//
+//		return twoDimTitles
+//	}
+	func getHighlightTitlesTwoD(){
 		let results = self.getHighlightsList()
-		var twoDimTitles = [[String]]()
-		var prevDate: String?
+		
+		for element in results {
+			let managedObj = element as! NSManagedObject
+			_ = appendTo2Darr(managedObject: managedObj)
+		}
+	}
+	
+	func appendTo2Darr(managedObject: NSManagedObject) -> Bool {
+		
+		var newSectionInserted: Bool = false
+		
+		let date: Date = managedObject.value(forKey: attribute_dateandtime) as! Date
+		let currDate: String = getDate(date: date)
+		let title: String = managedObject.value(forKey: attribute_title) as! String
+		
+		if !twoDarr.isEmpty {
+			// should never have twoDarr[0].count == 0 so don't need to check
+			let prevDate: String = twoDarr[0][0]
+			
+			if currDate == prevDate {
+				twoDarr[0].insert(title, at: 1)
+				newSectionInserted = false
+			}
+			else {
+				twoDarr.insert([currDate], at: 0)
+				twoDarr[0].insert(title, at: 1)
+				newSectionInserted = true
+			}
+		} else {
+			twoDarr.insert([currDate], at: 0)
+			twoDarr[0].insert(title, at: 1)
+			newSectionInserted = true
+		}
+		return newSectionInserted
+	}
+	
+	func getDate(date: Date) -> String{
+		// in "en_US" format; ex: Mar 15, 2018
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateStyle = .medium
 		dateFormatter.timeStyle = .none
 		dateFormatter.locale = Locale(identifier: "en_US")
-		var i = -1, j = 0
-		for element in results {
-			let managedObj = element as! NSManagedObject
-			let date: Date = managedObj.value(forKey: attribute_dateandtime) as! Date
-			let title: String = managedObj.value(forKey: attribute_title) as! String
-			let currDate: String = dateFormatter.string(from: date)
-
-			if prevDate == currDate {
-				twoDimTitles[i].append(title)
-			} else {
-				i += 1
-				twoDimTitles.append([currDate])
-				twoDimTitles[i].append(title)
-				
-				prevDate = currDate
-			}
-		}
-//		print2D(twoDimTitles)
 		
-		return twoDimTitles
+		return dateFormatter.string(from: date)
 	}
 	
 	func print2D(_ arr: [[String]]) {
@@ -299,6 +367,18 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		print("\(#function)")
 	}
 	
+	func getElementFromTwoDarr(indexPath: IndexPath) -> String {
+		return twoDarr[indexPath.section][indexPath.row + 1]
+	}
+	
+	func setElementOfTwoDarr(indexPath: IndexPath, title: String) {
+		twoDarr[indexPath.section][indexPath.row + 1] = title
+	}
+	
+	func removeElementOfTwoDarr(indexPath: IndexPath) {
+		twoDarr[indexPath.section].remove(at: indexPath.row + 1)
+	}
+	
 	// used inside extension
 	var prevPath: IndexPath?
 }
@@ -307,17 +387,6 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 	
 	// MARK: - Playing audio
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//		if let player = audioPlayer {
-//			if player.isPlaying{
-//				player.stop()
-//			}
-//			audioPlayer = nil
-//		}
-//		else{
-//			setupPlayer(index: indexPath.row)
-//			audioPlayer?.play()
-//			print(audioPlayer?.duration ?? -1.0) // -1.0 is default value if the duration cannot be unwraped
-//		}
 		
 		if self.prevPath != nil, self.prevPath == indexPath, self.audioPlayer != nil{
 			if self.audioPlayer!.isPlaying {
@@ -327,16 +396,15 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 				audioPlayer?.play()
 			}
 		} else {
-			setupPlayer(index: indexPath.row)
+			setupPlayer(indexPath: indexPath)
 			audioPlayer?.play()
-			print(self.arr[indexPath.row] + ": " + (audioPlayer?.duration.description)!)
+			print(self.getElementFromTwoDarr(indexPath: indexPath) + ": " + (audioPlayer?.duration.description)!)
 		}
 		prevPath = indexPath
 	}
 	
-	func setupPlayer(index: Int) {
-		let url = highlightsURL.appendingPathComponent(self.getHighlightFilename(title: arr[index]))
-		
+	func setupPlayer(indexPath: IndexPath) {
+		let url = highlightsURL.appendingPathComponent(self.getHighlightFilename(title: self.getElementFromTwoDarr(indexPath: indexPath)))
 		do {
 			try audioPlayer = AVAudioPlayer(contentsOf: url)
 			audioPlayer?.delegate = self
@@ -351,12 +419,12 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 		let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: { (action, indexPath) in
 			let alert = UIAlertController(title: "Modify Highlight Name", message: "What would you like to call this highlight?", preferredStyle: .alert)
 			alert.addTextField(configurationHandler: { (textField) in
-				textField.text = self.arr[indexPath.row]
+				textField.text = self.getElementFromTwoDarr(indexPath: indexPath)
 				textField.clearButtonMode = .always
 			})
 			alert.addAction(UIAlertAction(title: "Update", style: .default, handler: { (updateAction) in
 				let newName = alert.textFields!.first!.text!
-				let oldName = self.arr[indexPath.row]
+				let oldName = self.getElementFromTwoDarr(indexPath: indexPath)
 				
 				//check if newName already exists
 				if self.highlightTitleExists(title: newName) {
@@ -372,7 +440,8 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 					managedObj.setValue(newName, forKey: self.attribute_title)
 					do {
 						try self.context.save()
-						self.arr[indexPath.row] = newName
+//						self.arr[indexPath.row] = newName
+						self.setElementOfTwoDarr(indexPath: indexPath, title: newName)
 						self.tableView.reloadRows(at: [indexPath], with: .fade)
 					} catch let error {
 						print(error.localizedDescription)
@@ -387,16 +456,27 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 			
 			// delete in database and filesystem
 			do {
-				_ = try self.removeHighlightDatabaseAndFileSystem(title: self.arr[indexPath.row])
+				let element = self.getElementFromTwoDarr(indexPath: indexPath)
+				_ = try self.removeHighlightDatabaseAndFileSystem(title: element)
 			} catch let error {
 				print("delete error: \(error.localizedDescription)")
 			}
 			
 			// delete in tableView
-			self.arr.remove(at: indexPath.row)
+//			self.arr.remove(at: indexPath.row)
+			self.removeElementOfTwoDarr(indexPath: indexPath)
 			tableView.beginUpdates()
 			tableView.deleteRows(at: [indexPath], with: .fade)
 			tableView.endUpdates()
+			
+			// check if the section still has any rows (delete section if not)
+			if self.twoDarr[indexPath.section].count == 1 {
+				self.twoDarr.remove(at: indexPath.section)
+				tableView.beginUpdates()
+				let section_indexset = IndexSet(integer: indexPath.section)
+				tableView.deleteSections(section_indexset, with: .fade)
+				tableView.endUpdates()
+			}
 		})
 		
 		return [deleteAction, editAction]
@@ -415,7 +495,7 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 		let reuseId = "HighlightCell"
 		let cell =  tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath)
 		
-		cell.textLabel?.text = twoDarr[indexPath.section][indexPath.row+1]
+		cell.textLabel?.text = getElementFromTwoDarr(indexPath: indexPath)
 		return cell
 	}
 	

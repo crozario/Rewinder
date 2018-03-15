@@ -36,15 +36,17 @@ class Audio {
 	init(_ MOC: NSManagedObjectContext) {
 		session = AVAudioSession.sharedInstance()
 		do {
-			try session?.setCategory(AVAudioSessionCategoryPlayAndRecord)
+//			try session?.setCategory(AVAudioSessionCategoryPlayAndRecord)
+			try session?.setCategory(AVAudioSessionCategoryPlayAndRecord, with: AVAudioSessionCategoryOptions.mixWithOthers)
 		}catch let error as NSError{
 			print (error)
 		}
+//		AVAudioSessionCategoryOptions.mixWithOthers
 		
 		//core data context
 		context = MOC
 		
-		//request permission
+		//request permission******
 		
 		
 		//init directories
