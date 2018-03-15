@@ -333,12 +333,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         
     }
     
-    struct viewControllerData {
-        var image: UIImage
-        var title: String
-    }
-    
-    
+    @IBAction func unwindToHome(segue: UIStoryboardSegue) {}
     
 }
 
@@ -384,12 +379,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
-            self.performSegue(withIdentifier: "highlightsSegue", sender: self)
-        } else if indexPath.row == 1 {
-            self.performSegue(withIdentifier: "settingsSegue", sender: self)
-        }
-        
+        self.performSegue(withIdentifier: SideMenuData.getSegue(index: indexPath.row), sender: self)
     }
 }
 
@@ -419,9 +409,10 @@ class SideMenuData {
     struct viewControllerData {
         var image: UIImage
         var title: String
+        var segueId: String
     }
 
-    static var data = [viewControllerData(image: #imageLiteral(resourceName: "highlightIcon"), title: "Highlights"), viewControllerData(image: #imageLiteral(resourceName: "settingsIcon"), title: "Settings") ]
+    static var data = [viewControllerData(image: #imageLiteral(resourceName: "highlightIcon"), title: "Highlights", segueId: "highlightsSegue"), viewControllerData(image: #imageLiteral(resourceName: "settingsIcon"), title: "Settings", segueId: "settingsSegue")]
 
     static func getImage(index: Int) -> UIImage {
         return data[index].image
@@ -430,6 +421,12 @@ class SideMenuData {
     static func getTitle(index: Int) -> String {
         return data[index].title
     }
+    
+    static func getSegue(index: Int) -> String {
+        return data[index].segueId
+    }
+    
+
 }
 
 
