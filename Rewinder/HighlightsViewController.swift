@@ -163,6 +163,14 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		return titles
 	}
 	
+	//CONTINUE NOTES: Implement this next and put titles into two dimentional array. Each column is each secion on tableView.
+	func getTitlesTwoD() -> [[String]] {
+		let results = self.getHighlightsList()
+		var twoDimTitles = [[String]]()
+		var currDate: Date?
+		
+	}
+	
 	let defaultNotFoundManagedObject: NSManagedObject = NSManagedObject()
 	func getHighlightManagedObject(title: String) -> NSManagedObject {
 		let entityDescription = NSEntityDescription.entity(forEntityName: "HighlightEntity", in: context)
