@@ -25,5 +25,8 @@ class SettingsViewController: UIViewController {
         
     }
 
+    @IBAction func backButton(_ sender: UIButton) {
+        performSegue(withIdentifier: "homeSegue", sender: self)
+    }
 }
 

@@ -63,6 +63,12 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		
 		viewPresented = true
     }
+    
+    
+    @IBAction func backButton(_ sender: UIButton) {
+       performSegue(withIdentifier: "homeSegue", sender: self)
+    }
+    
 	
 	deinit {
 		NotificationCenter.default.removeObserver(self)

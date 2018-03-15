@@ -19,10 +19,24 @@ var recordDuration = 5.0
 // change
 
 class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
-	
-	@IBOutlet weak var highlightButton: RoundPlayButton!
+    
+//    var data = [viewControllerData(image: #imageLiteral(resourceName: "highlightIcon"), title: "Highlights"), viewControllerData(image: #imageLiteral(resourceName: "settingsIcon"), title: "Settings") ]
+    
+    @IBOutlet var mainView: UIView!
+    
+    @IBOutlet weak var sideMenu: UIView!
+    
+    @IBOutlet weak var sideMenuLeadingConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var transcribingView: UIView!
+    
+    @IBOutlet weak var navBarView: UIView!
+    
+    @IBOutlet weak var highlightButton: RoundPlayButton!
 	
     @IBOutlet weak var TranscribingTextView: UITextView!
+    
+    @IBOutlet weak var sideMenuTableView: UITableView!
     
     private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))!
     private var speechRecognitionRequest: SFSpeechAudioBufferRecognitionRequest?
@@ -30,6 +44,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     private let audioEngine = AVAudioEngine()
     
     @IBOutlet weak var buttonAndTranscribingView: UIView!
+    
+    var menuShowing = false
     
 	let managedObjectContext: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 	
@@ -45,12 +61,22 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	@IBOutlet weak var plotView: UIView!
 	
 	override func viewDidLoad() {
+        
 		super.viewDidLoad()
-        
+        mainView.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
+        transcribingView.backgroundColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
+        navBarView.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
         buttonAndTranscribingView.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
-        
+        sideMenu.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
+        sideMenuTableView.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
+        sideMenu.layer.shadowOpacity = 1
+        sideMenu.layer.shadowRadius = 6
 		
 		audioObj = Audio(managedObjectContext)
+        sideMenuTableView.delegate = self
+        sideMenuTableView.dataSource = self
+        sideMenuTableView.separatorStyle = UITableViewCellSeparatorStyle.none
+
 		
 		//delete highlights folder
 		//		audioObj.deleteAllHighlights()
@@ -86,6 +112,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         
         startSession()
 	}
+    
 	
 	func createRollingPlot(_ inputNode: AKNode) -> AKNodeOutputPlot {
 		let frame: CGRect = plotView.frame
@@ -95,6 +122,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		rplot.shouldMirror = true
 		// Color: Yale Blue (RGB: 14, 77, 146) - for RGB proportions between 0-1 divide by 255
 		rplot.color = UIColorFromRGB(rgbValue: 0xFFFFFF)
+        //Blue theme
         rplot.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
 //        rplot.backgroundColor = AKColor(displayP3Red: 2/255, green: 120/255, blue: 174/255, alpha: 1.0)
     
@@ -122,7 +150,29 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 			}
 		}
 	}
-	
+    @IBAction func openMenu(_ sender: UIButton) {
+        if menuShowing == false {
+            menuShowing = true
+            sideMenuLeadingConstraint.constant = 0
+            UIView.animate(withDuration: 0.3, animations: {
+                self.view.layoutIfNeeded()
+            })
+        }
+        
+        
+    }
+  
+    @IBAction func closeMenu(_ sender: UIButton) {
+        if menuShowing == true {
+            menuShowing = false
+            sideMenuLeadingConstraint.constant = -210
+            UIView.animate(withDuration: 0.3, animations: {
+                self.view.layoutIfNeeded()
+            })
+        }
+        
+    }
+    
 	// MARK: - Add Highlight
 	@IBAction func addHighlight(_ sender: RoundPlayButton) {
 		highlightButton.isEnabled = false
@@ -283,7 +333,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         
     }
     
-    
+    @IBAction func unwindToHome(segue: UIStoryboardSegue) {}
     
 }
 
@@ -308,6 +358,30 @@ class myRecorder: AVAudioRecorder {
 	}
 }
 
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return SideMenuData.data.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let reuseId = "segueCell"
+        let cell =  tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath) as! SideMenuTableViewCell
+//        cell.viewcontrollerImage.image = data[indexPath.row].image
+//        cell.title.text = data[indexPath.row].title
+        cell.viewcontrollerImage.image = SideMenuData.getImage(index: indexPath.row)
+        cell.title.text = SideMenuData.getTitle(index: indexPath.row)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: SideMenuData.getSegue(index: indexPath.row), sender: self)
+    }
+}
 
 
 extension UIColor {
@@ -329,4 +403,34 @@ func UIColorFromRGB(rgbValue: UInt) -> UIColor {
         alpha: CGFloat(1.0)
     )
 }
+
+class SideMenuData {
+
+    struct viewControllerData {
+        var image: UIImage
+        var title: String
+        var segueId: String
+    }
+
+    static var data = [viewControllerData(image: #imageLiteral(resourceName: "highlightIcon"), title: "Highlights", segueId: "highlightsSegue"), viewControllerData(image: #imageLiteral(resourceName: "settingsIcon"), title: "Settings", segueId: "settingsSegue")]
+
+    static func getImage(index: Int) -> UIImage {
+        return data[index].image
+    }
+
+    static func getTitle(index: Int) -> String {
+        return data[index].title
+    }
+    
+    static func getSegue(index: Int) -> String {
+        return data[index].segueId
+    }
+    
+
+}
+
+
+
+
+
 
