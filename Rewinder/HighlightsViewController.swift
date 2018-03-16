@@ -67,6 +67,8 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		
 		// hide empty cells
 		tableView.tableFooterView = UIView(frame: CGRect.zero)
+		tableView.estimatedRowHeight = 60.0
+		tableView.rowHeight = UITableViewAutomaticDimension
 		
 		viewPresented = true
     }
@@ -199,34 +201,6 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		return titles
 	}
 	
-	//CONTINUE NOTES: Implement this next and put titles into two dimentional array. Each column is each secion on tableView.
-//	func getHighlightTitlesTwoD() -> [[String]] {
-//		let results = self.getHighlightsList()
-//		var twoDimTitles = [[String]]()
-//		var prevDate: String?
-//
-////		var i = -1
-//		for element in results {
-//			let managedObj = element as! NSManagedObject
-//			appendTo2Darr(managedObject: managedObj)
-////			let date: Date = managedObj.value(forKey: attribute_dateandtime) as! Date
-////			let title: String = managedObj.value(forKey: attribute_title) as! String
-////			let currDate: String = getDate(date: date)
-////
-////			if prevDate == currDate {
-////				twoDimTitles[i].append(title)
-////			} else {
-////				i += 1
-////				twoDimTitles.append([currDate])
-////				twoDimTitles[i].append(title)
-////
-////				prevDate = currDate
-////			}
-//		}
-////		print2D(twoDimTitles)
-//
-//		return twoDimTitles
-//	}
 	func getHighlightTitlesTwoD(){
 		let results = self.getHighlightsList()
 		
@@ -314,7 +288,9 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	}
 	
 	func getHighlightFilename(title: String) -> String {
-		return (getHighlightManagedObject(title: title).value(forKey: attribute_fileName) as? String)!
+		let highlightManagedObject = getHighlightManagedObject(title: title)
+		let fileName = highlightManagedObject.value(forKey: attribute_fileName) as! String
+		return fileName
 	}
 	
 	func highlightTitleExists(title: String) -> Bool {
@@ -323,6 +299,12 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 			return true
 		}
 		return false
+	}
+	
+	func getHighlightDuration(title: String) -> Double {
+		let highlightManagedObject = getHighlightManagedObject(title: title)
+		let duration: Double = highlightManagedObject.value(forKey: attribute_duration) as! Double
+		return duration
 	}
 	
 	// MARK: - Delete highlight
@@ -351,7 +333,8 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
 		print("\(#function)")
 		audioPlayer = nil
-		tableView.deselectRow(at: prevPath!, animated: true)
+//		tableView.deselectRow(at: prevPath!, animated: true)
+		prevCell?.setButtonPlay()
 	}
 	func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
 		print("\(#function)")
@@ -381,6 +364,29 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	
 	// used inside extension
 	var prevPath: IndexPath?
+	var prevCell: NormalHighlightCell?
+}
+
+extension HighlightsViewController: HighlightCellDelegate {
+	func didTapPlayback(title: String, cell: NormalHighlightCell) {
+		print("tapped playback on \(title)")
+		if prevCell != nil, prevCell?.getTitle() == title, audioPlayer != nil {
+			if audioPlayer!.isPlaying {
+				audioPlayer!.pause()
+				cell.setButtonPlay()
+			} else {
+				audioPlayer!.play()
+				cell.setButtonStop()
+			}
+		} else {
+			setupPlayerFromTitle(title: title)
+			audioPlayer?.play()
+			cell.setButtonStop()
+			prevCell?.setButtonPlay()
+			print(title + ": " + (audioPlayer?.duration.debugDescription)!)
+		}
+		prevCell = cell
+	}
 }
 
 extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -388,23 +394,34 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 	// MARK: - Playing audio
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		
-		if self.prevPath != nil, self.prevPath == indexPath, self.audioPlayer != nil{
-			if self.audioPlayer!.isPlaying {
-				audioPlayer!.pause()
-				tableView.deselectRow(at: indexPath, animated: true)
-			} else {
-				audioPlayer?.play()
-			}
-		} else {
-			setupPlayer(indexPath: indexPath)
-			audioPlayer?.play()
-			print(self.getElementFromTwoDarr(indexPath: indexPath) + ": " + (audioPlayer?.duration.description)!)
-		}
-		prevPath = indexPath
+//		if self.prevPath != nil, self.prevPath == indexPath, self.audioPlayer != nil{
+//			if self.audioPlayer!.isPlaying {
+//				audioPlayer!.pause()
+//				tableView.deselectRow(at: indexPath, animated: true)
+//			} else {
+//				audioPlayer!.play()
+//			}
+//		} else {
+//			setupPlayer(indexPath: indexPath)
+//			audioPlayer?.play()
+//			print(self.getElementFromTwoDarr(indexPath: indexPath) + ": " + (audioPlayer?.duration.description)!)
+//		}
+//		prevPath = indexPath
 	}
 	
 	func setupPlayer(indexPath: IndexPath) {
 		let url = highlightsURL.appendingPathComponent(self.getHighlightFilename(title: self.getElementFromTwoDarr(indexPath: indexPath)))
+		do {
+			try audioPlayer = AVAudioPlayer(contentsOf: url)
+			audioPlayer?.delegate = self
+			audioPlayer?.prepareToPlay()
+		} catch let error as NSError {
+			print("audioPlayer error \(error.localizedDescription)")
+		}
+	}
+	
+	func setupPlayerFromTitle(title: String) {
+		let url = highlightsURL.appendingPathComponent(self.getHighlightFilename(title: title))
 		do {
 			try audioPlayer = AVAudioPlayer(contentsOf: url)
 			audioPlayer?.delegate = self
@@ -482,6 +499,16 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 		return [deleteAction, editAction]
 	}
 	
+	func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
+		print("\(#function)")
+		if let player = audioPlayer {
+			if player.isPlaying{
+				player.stop()
+				audioPlayer = nil
+			}
+		}
+	}
+	
 	// MARK: - Table view cell content	
 	func numberOfSections(in tableView: UITableView) -> Int {
 		return twoDarr.count
@@ -492,10 +519,16 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let reuseId = "HighlightCell"
-		let cell =  tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath)
+		let reuseId = "idNormalHighlightCell"
+		let cell =  tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath) as! NormalHighlightCell
 		
-		cell.textLabel?.text = getElementFromTwoDarr(indexPath: indexPath)
+//		cell.textLabel?.text = getElementFromTwoDarr(indexPath: indexPath)
+		let title = getElementFromTwoDarr(indexPath: indexPath)
+		cell.setTitle(title)
+		let duration = getHighlightDuration(title: title)
+		cell.setDuration(duration)
+		cell.delegate = self
+		
 		return cell
 	}
 	
@@ -511,16 +544,6 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 	
 	func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
 		return true
-	}
-	
-	func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
-		print("\(#function)")
-		if let player = audioPlayer {
-			if player.isPlaying{
-				player.stop()
-				audioPlayer = nil
-			}
-		}
 	}
 	
 	func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {

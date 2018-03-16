@@ -340,13 +340,53 @@
                                 <rect key="frame" x="0.0" y="70" width="375" height="597"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HighlightCell" id="qwR-NM-a7r">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="idNormalHighlightCell" rowHeight="60" id="qwR-NM-a7r" customClass="NormalHighlightCell" customModule="Rewinder" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qwR-NM-a7r" id="4IL-id-5H6">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QfR-o8-Yvo">
+                                                    <rect key="frame" x="31" y="0.0" width="274" height="26"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5O9-Nw-ogO">
+                                                    <rect key="frame" x="310" y="14" width="50" height="30"/>
+                                                    <state key="normal" title="Play"/>
+                                                    <connections>
+                                                        <action selector="playbackTapped:" destination="qwR-NM-a7r" eventType="touchUpInside" id="b9s-eL-nQR"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sox-Zj-1hX">
+                                                    <rect key="frame" x="31" y="29" width="234" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="234" id="vjK-VB-guX"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Sox-Zj-1hX" firstAttribute="leading" secondItem="QfR-o8-Yvo" secondAttribute="leading" id="1Ei-F6-H5a"/>
+                                                <constraint firstItem="5O9-Nw-ogO" firstAttribute="leading" secondItem="QfR-o8-Yvo" secondAttribute="trailing" constant="5" id="IzL-Mj-bMN"/>
+                                                <constraint firstItem="5O9-Nw-ogO" firstAttribute="leading" secondItem="Sox-Zj-1hX" secondAttribute="trailing" constant="45" id="P3g-xF-GpK"/>
+                                                <constraint firstItem="QfR-o8-Yvo" firstAttribute="leading" secondItem="4IL-id-5H6" secondAttribute="leading" constant="31" id="RGf-wG-CTe"/>
+                                                <constraint firstItem="Sox-Zj-1hX" firstAttribute="top" secondItem="QfR-o8-Yvo" secondAttribute="bottom" constant="3" id="Rse-BP-ITD"/>
+                                                <constraint firstItem="5O9-Nw-ogO" firstAttribute="centerY" secondItem="4IL-id-5H6" secondAttribute="centerY" id="Wm6-yh-tcc"/>
+                                                <constraint firstItem="Sox-Zj-1hX" firstAttribute="bottom" secondItem="4IL-id-5H6" secondAttribute="bottomMargin" id="cuV-xn-rB2"/>
+                                                <constraint firstItem="QfR-o8-Yvo" firstAttribute="top" secondItem="4IL-id-5H6" secondAttribute="top" id="g2a-Uc-F29"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="5O9-Nw-ogO" secondAttribute="trailing" id="n79-7M-RU3"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="durationLabel" destination="Sox-Zj-1hX" id="P7n-as-bhP"/>
+                                            <outlet property="playbackButton" destination="5O9-Nw-ogO" id="Syo-0X-jSm"/>
+                                            <outlet property="titleLabel" destination="QfR-o8-Yvo" id="M78-zm-djb"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
