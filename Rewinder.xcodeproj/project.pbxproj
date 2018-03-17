@@ -14,6 +14,8 @@
 		5D79EFE4204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D79EFE2204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift */; };
 		5D8102A720424A7C00F62B37 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8102A620424A7C00F62B37 /* Audio.swift */; };
 		5DF98003205C481300579F45 /* NormalHighlightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF98002205C481300579F45 /* NormalHighlightCell.swift */; };
+		C4164246205DB43900658407 /* ContinueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4164245205DB43900658407 /* ContinueTableViewCell.swift */; };
+		C416424A205DB4E400658407 /* CustomLengthTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4164249205DB4E400658407 /* CustomLengthTableViewCell.swift */; };
 		C42BB5722041E08A00D7D4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5712041E08A00D7D4CF /* AppDelegate.swift */; };
 		C42BB57A2041E08A00D7D4CF /* Rewinder.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5782041E08A00D7D4CF /* Rewinder.xcdatamodeld */; };
 		C42BB57F2041E08A00D7D4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42BB57D2041E08A00D7D4CF /* LaunchScreen.storyboard */; };
@@ -73,6 +75,8 @@
 		A1A43D9B070600BD68B44103 /* Pods-RewinderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RewinderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RewinderTests/Pods-RewinderTests.release.xcconfig"; sourceTree = "<group>"; };
 		AD248553DBF2FBF53F53FBD7 /* Pods-Rewinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rewinder.release.xcconfig"; path = "Pods/Target Support Files/Pods-Rewinder/Pods-Rewinder.release.xcconfig"; sourceTree = "<group>"; };
 		C121B3D043782CF7C15B913E /* Pods-RewinderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RewinderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RewinderTests/Pods-RewinderTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C4164245205DB43900658407 /* ContinueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinueTableViewCell.swift; sourceTree = "<group>"; };
+		C4164249205DB4E400658407 /* CustomLengthTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLengthTableViewCell.swift; sourceTree = "<group>"; };
 		C42BB56E2041E08A00D7D4CF /* Rewinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rewinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42BB5712041E08A00D7D4CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C42BB5792041E08A00D7D4CF /* Rewinder.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Rewinder.xcdatamodel; sourceTree = "<group>"; };
@@ -169,18 +173,20 @@
 			isa = PBXGroup;
 			children = (
 				C4C524E520542E7F00C5DF95 /* Main.storyboard */,
-				5D79EFE1204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift */,
-				5D79EFE2204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift */,
-				C42BB5712041E08A00D7D4CF /* AppDelegate.swift */,
-				C452530420428768000808A8 /* PageViewController.swift */,
-				C4525306204293B6000808A8 /* SettingsViewController.swift */,
-				C4E98812205CA1B5008FC728 /* CircularTransition.swift */,
-				C46D16B82042002600B1224D /* RoundButton.swift */,
-				5D8102A620424A7C00F62B37 /* Audio.swift */,
 				5D77DD4A205397BE000FC2C3 /* HomeViewController.swift */,
 				5D249A0C20538AAE00B65029 /* HighlightsViewController.swift */,
-				5DF98002205C481300579F45 /* NormalHighlightCell.swift */,
+				C4525306204293B6000808A8 /* SettingsViewController.swift */,
+				C452530420428768000808A8 /* PageViewController.swift */,
 				C4E987EA205C9306008FC728 /* Settings.swift */,
+				5D8102A620424A7C00F62B37 /* Audio.swift */,
+				C46D16B82042002600B1224D /* RoundButton.swift */,
+				C4E98812205CA1B5008FC728 /* CircularTransition.swift */,
+				5D79EFE2204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift */,
+				5D79EFE1204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift */,
+				5DF98002205C481300579F45 /* NormalHighlightCell.swift */,
+				C42BB5712041E08A00D7D4CF /* AppDelegate.swift */,
+				C4164245205DB43900658407 /* ContinueTableViewCell.swift */,
+				C4164249205DB4E400658407 /* CustomLengthTableViewCell.swift */,
 				C46E2BD92042138C001BE43A /* Assets.xcassets */,
 				C42BB57D2041E08A00D7D4CF /* LaunchScreen.storyboard */,
 				C42BB5802041E08A00D7D4CF /* Info.plist */,
@@ -522,11 +528,13 @@
 				C4E98813205CA1B5008FC728 /* CircularTransition.swift in Sources */,
 				C42BB57A2041E08A00D7D4CF /* Rewinder.xcdatamodeld in Sources */,
 				C4E987EB205C9306008FC728 /* Settings.swift in Sources */,
+				C4164246205DB43900658407 /* ContinueTableViewCell.swift in Sources */,
 				5D79EFE4204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift in Sources */,
 				C46D16B92042002600B1224D /* RoundButton.swift in Sources */,
 				C42BB5722041E08A00D7D4CF /* AppDelegate.swift in Sources */,
 				5DF98003205C481300579F45 /* NormalHighlightCell.swift in Sources */,
 				C452530520428768000808A8 /* PageViewController.swift in Sources */,
+				C416424A205DB4E400658407 /* CustomLengthTableViewCell.swift in Sources */,
 				5D77DD4B205397BE000FC2C3 /* HomeViewController.swift in Sources */,
 				C4525307204293B6000808A8 /* SettingsViewController.swift in Sources */,
 				5D79EFE3204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift in Sources */,

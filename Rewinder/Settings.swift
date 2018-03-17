@@ -10,7 +10,8 @@ import Foundation
 
 
 class Settings {
-    static var recordingDuration = 5.0
+    static var recordingDuration = 30.0
+    static var continueRecording = false
     
     static func getRecordingDuration() -> Double {
         return recordingDuration
@@ -20,4 +21,9 @@ class Settings {
         recordingDuration = duration
     }
 }
+
+
+//enum HighlightDuration {
+//    
+//}
 

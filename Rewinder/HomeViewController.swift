@@ -44,7 +44,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     private let audioEngine = AVAudioEngine()
     
     @IBOutlet weak var buttonAndTranscribingView: UIView!
-    
+
     
 	let managedObjectContext: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 	
@@ -58,6 +58,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	var rollingPlot: AKNodeOutputPlot!
 	
 	@IBOutlet weak var plotView: UIView!
+    
+//    var isRecording = false
     
 //    var buttonTag = -1
 //
@@ -127,10 +129,11 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	override func viewDidLoad() {
         
 		super.viewDidLoad()
+
         mainView.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
         transcribingView.backgroundColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
         navBarView.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
-        buttonAndTranscribingView.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
+//        buttonAndTranscribingView.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
 		
 		audioObj = Audio(managedObjectContext)
 		
@@ -163,24 +166,23 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         }
 		
 		// create rolling waveform plot
-		rollingPlot = createRollingPlot(micCopy1)
+        rollingPlot = createRollingPlot(micCopy1)
 		plotView.addSubview(rollingPlot)
         
         startSession()
 	}
     
 	
-	func createRollingPlot(_ inputNode: AKNode) -> AKNodeOutputPlot {
-		let frame: CGRect = plotView.frame
+    func createRollingPlot(_ inputNode: AKNode) -> AKNodeOutputPlot {
+        let frame: CGRect = CGRect(x: plotView.frame.origin.x, y: plotView.frame.origin.y, width: mainView.frame.width, height: plotView.frame.height)
+        
 		let rplot = AKNodeOutputPlot(inputNode, frame: frame)
 		rplot.plotType = .rolling
 		rplot.shouldFill = true
 		rplot.shouldMirror = true
-		// Color: Yale Blue (RGB: 14, 77, 146) - for RGB proportions between 0-1 divide by 255
 		rplot.color = UIColorFromRGB(rgbValue: 0xFFFFFF)
         //Blue theme
         rplot.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
-//        rplot.backgroundColor = AKColor(displayP3Red: 2/255, green: 120/255, blue: 174/255, alpha: 1.0)
     
 		rplot.gain = 2
 		
