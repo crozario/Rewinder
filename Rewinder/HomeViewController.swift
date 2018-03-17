@@ -18,25 +18,25 @@ import Speech
 var recordDuration = 5.0
 // change
 
-class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
+class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate, UIViewControllerTransitioningDelegate {
     
 //    var data = [viewControllerData(image: #imageLiteral(resourceName: "highlightIcon"), title: "Highlights"), viewControllerData(image: #imageLiteral(resourceName: "settingsIcon"), title: "Settings") ]
     
     @IBOutlet var mainView: UIView!
     
-    @IBOutlet weak var sideMenu: UIView!
-    
-    @IBOutlet weak var sideMenuLeadingConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var transcribingView: UIView!
     
     @IBOutlet weak var navBarView: UIView!
     
-    @IBOutlet weak var highlightButton: RoundPlayButton!
+    @IBOutlet weak var highlightButton: RoundButton!
 	
     @IBOutlet weak var TranscribingTextView: UITextView!
     
-    @IBOutlet weak var sideMenuTableView: UITableView!
+    @IBOutlet weak var highlightPageButton: RoundButton!
+    
+    @IBOutlet weak var settingsPageButton: RoundButton!
+    let highlightTransition = CircularTransition()
+    let settingsTransition = CircularTransition()
     
     private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))!
     private var speechRecognitionRequest: SFSpeechAudioBufferRecognitionRequest?
@@ -45,7 +45,6 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     
     @IBOutlet weak var buttonAndTranscribingView: UIView!
     
-    var menuShowing = false
     
 	let managedObjectContext: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 	
@@ -59,6 +58,71 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	var rollingPlot: AKNodeOutputPlot!
 	
 	@IBOutlet weak var plotView: UIView!
+    
+    var buttonTag = -1
+    
+    @IBAction func highlightButtonPressed(_ sender: RoundButton) {
+        buttonTag = 1
+    }
+    
+    @IBAction func settingsButtonPressed(_ sender: RoundButton) {
+        buttonTag = 2
+    }
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        
+        if buttonTag == 1 {
+            highlightTransition.transitionMode = .present
+            highlightTransition.startingPoint = highlightPageButton.center
+            highlightTransition.circleColor = highlightPageButton.backgroundColor!
+            return highlightTransition
+        } else if buttonTag == 2 {
+            highlightTransition.transitionMode = .present
+            settingsTransition.startingPoint = settingsPageButton.center
+            settingsTransition.circleColor = settingsPageButton.backgroundColor!
+            return settingsTransition
+        }
+        return settingsTransition
+//        transition.startingPoint = highlightPageButton.center
+//        transition.circleColor = highlightPageButton.backgroundColor!
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if buttonTag == 1 {
+            highlightTransition.transitionMode = .dismiss
+            highlightTransition.startingPoint = highlightPageButton.center
+            highlightTransition.circleColor = highlightPageButton.backgroundColor!
+            return highlightTransition
+        } else if buttonTag == 2 {
+            highlightTransition.transitionMode = .dismiss
+            settingsTransition.startingPoint = settingsPageButton.center
+            settingsTransition.circleColor = settingsPageButton.backgroundColor!
+            return settingsTransition
+        }
+        return settingsTransition
+        
+//        transition.startingPoint = highlightPageButton.center
+//        transition.circleColor = highlightPageButton.backgroundColor!
+        
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("\(segue.identifier) --- \(segue.source)")
+        
+        if buttonTag == 1 {
+            var secondVC = segue.destination as! HighlightsViewController
+           
+            secondVC.transitioningDelegate = self
+            secondVC.modalPresentationStyle = .custom
+        } else if buttonTag == 2 {
+            var secondVC = segue.destination as! SettingsViewController
+            secondVC.transitioningDelegate = self
+            secondVC.modalPresentationStyle = .custom
+        }
+        
+    }
 	
 	override func viewDidLoad() {
         
@@ -67,16 +131,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         transcribingView.backgroundColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
         navBarView.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
         buttonAndTranscribingView.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
-        sideMenu.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
-        sideMenuTableView.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
-        sideMenu.layer.shadowOpacity = 1
-        sideMenu.layer.shadowRadius = 6
 		
 		audioObj = Audio(managedObjectContext)
-        sideMenuTableView.delegate = self
-        sideMenuTableView.dataSource = self
-        sideMenuTableView.separatorStyle = UITableViewCellSeparatorStyle.none
-
 		
 		//delete highlights folder
 		//		audioObj.deleteAllHighlights()
@@ -150,31 +206,9 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 			}
 		}
 	}
-    @IBAction func openMenu(_ sender: UIButton) {
-        if menuShowing == false {
-            menuShowing = true
-            sideMenuLeadingConstraint.constant = 0
-            UIView.animate(withDuration: 0.3, animations: {
-                self.view.layoutIfNeeded()
-            })
-        }
-        
-        
-    }
-  
-    @IBAction func closeMenu(_ sender: UIButton) {
-        if menuShowing == true {
-            menuShowing = false
-            sideMenuLeadingConstraint.constant = -210
-            UIView.animate(withDuration: 0.3, animations: {
-                self.view.layoutIfNeeded()
-            })
-        }
-        
-    }
     
 	// MARK: - Add Highlight
-	@IBAction func addHighlight(_ sender: RoundPlayButton) {
+	@IBAction func addHighlight(_ sender: RoundButton) {
 		highlightButton.isEnabled = false
 		computeHighlight()
 	}
@@ -332,8 +366,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         
         
     }
-    
-    @IBAction func unwindToHome(segue: UIStoryboardSegue) {}
+
     
 }
 
@@ -356,31 +389,10 @@ class myRecorder: AVAudioRecorder {
 		print("url: \(url.lastPathComponent)")
 		print("------------------------------------------------------------------")
 	}
-}
-
-extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return SideMenuData.data.count
-    }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let reuseId = "segueCell"
-        let cell =  tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath) as! SideMenuTableViewCell
-//        cell.viewcontrollerImage.image = data[indexPath.row].image
-//        cell.title.text = data[indexPath.row].title
-        cell.viewcontrollerImage.image = SideMenuData.getImage(index: indexPath.row)
-        cell.title.text = SideMenuData.getTitle(index: indexPath.row)
-        return cell
-    }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: SideMenuData.getSegue(index: indexPath.row), sender: self)
-    }
+    
 }
 
 
@@ -403,32 +415,6 @@ func UIColorFromRGB(rgbValue: UInt) -> UIColor {
         alpha: CGFloat(1.0)
     )
 }
-
-class SideMenuData {
-
-    struct viewControllerData {
-        var image: UIImage
-        var title: String
-        var segueId: String
-    }
-
-    static var data = [viewControllerData(image: #imageLiteral(resourceName: "highlightIcon"), title: "Highlights", segueId: "highlightsSegue"), viewControllerData(image: #imageLiteral(resourceName: "settingsIcon"), title: "Settings", segueId: "settingsSegue")]
-
-    static func getImage(index: Int) -> UIImage {
-        return data[index].image
-    }
-
-    static func getTitle(index: Int) -> String {
-        return data[index].title
-    }
-    
-    static func getSegue(index: Int) -> String {
-        return data[index].segueId
-    }
-    
-
-}
-
 
 
 

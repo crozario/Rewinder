@@ -10,6 +10,8 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
+    @IBOutlet weak var dismissSettingPageButton: RoundButton!
+    
     @IBOutlet weak var highlightLength: UILabel!
     
     @IBAction func durationSlider(_ sender: UISlider) {
@@ -25,6 +27,10 @@ class SettingsViewController: UIViewController {
         
     }
 
+    @IBAction func dismissHighlightVC(_ sender: RoundButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     @IBAction func backButton(_ sender: UIButton) {
         performSegue(withIdentifier: "homeSegue", sender: self)
     }

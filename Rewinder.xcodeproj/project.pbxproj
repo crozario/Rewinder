@@ -21,12 +21,13 @@
 		C42BB5952041E08A00D7D4CF /* RewinderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5942041E08A00D7D4CF /* RewinderUITests.swift */; };
 		C452530520428768000808A8 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C452530420428768000808A8 /* PageViewController.swift */; };
 		C4525307204293B6000808A8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4525306204293B6000808A8 /* SettingsViewController.swift */; };
-		C46D16B92042002600B1224D /* RoundPlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46D16B82042002600B1224D /* RoundPlayButton.swift */; };
+		C46D16B92042002600B1224D /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46D16B82042002600B1224D /* RoundButton.swift */; };
 		C46E2BDA2042138C001BE43A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C46E2BD92042138C001BE43A /* Assets.xcassets */; };
 		C46E2BDD20422323001BE43A /* Eminem - Rap God.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C46E2BDC20422323001BE43A /* Eminem - Rap God.mp3 */; };
 		C4C524E620542E7F00C5DF95 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4C524E520542E7F00C5DF95 /* Main.storyboard */; };
 		C4E048D2204C76A9007355E1 /* waveformsample.png in Resources */ = {isa = PBXBuildFile; fileRef = C4E048D1204C76A9007355E1 /* waveformsample.png */; };
-		C4E8F1C8205A105E00EEA787 /* SideMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E8F1C7205A105E00EEA787 /* SideMenuTableViewCell.swift */; };
+		C4E987EB205C9306008FC728 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E987EA205C9306008FC728 /* Settings.swift */; };
+		C4E98813205CA1B5008FC728 /* CircularTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E98812205CA1B5008FC728 /* CircularTransition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,12 +86,13 @@
 		C42BB5962041E08A00D7D4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C452530420428768000808A8 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		C4525306204293B6000808A8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		C46D16B82042002600B1224D /* RoundPlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundPlayButton.swift; sourceTree = "<group>"; };
+		C46D16B82042002600B1224D /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		C46E2BD92042138C001BE43A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C46E2BDC20422323001BE43A /* Eminem - Rap God.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Eminem - Rap God.mp3"; sourceTree = "<group>"; };
 		C4C524E520542E7F00C5DF95 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		C4E048D1204C76A9007355E1 /* waveformsample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waveformsample.png; sourceTree = "<group>"; };
-		C4E8F1C7205A105E00EEA787 /* SideMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewCell.swift; sourceTree = "<group>"; };
+		C4E987EA205C9306008FC728 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		C4E98812205CA1B5008FC728 /* CircularTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularTransition.swift; sourceTree = "<group>"; };
 		FFB38C5E947C35D328D06763 /* Pods-RewinderUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RewinderUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RewinderUITests/Pods-RewinderUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -172,12 +174,13 @@
 				C42BB5712041E08A00D7D4CF /* AppDelegate.swift */,
 				C452530420428768000808A8 /* PageViewController.swift */,
 				C4525306204293B6000808A8 /* SettingsViewController.swift */,
-				C46D16B82042002600B1224D /* RoundPlayButton.swift */,
-				C4E8F1C7205A105E00EEA787 /* SideMenuTableViewCell.swift */,
+				C4E98812205CA1B5008FC728 /* CircularTransition.swift */,
+				C46D16B82042002600B1224D /* RoundButton.swift */,
 				5D8102A620424A7C00F62B37 /* Audio.swift */,
 				5D77DD4A205397BE000FC2C3 /* HomeViewController.swift */,
 				5D249A0C20538AAE00B65029 /* HighlightsViewController.swift */,
 				5DF98002205C481300579F45 /* NormalHighlightCell.swift */,
+				C4E987EA205C9306008FC728 /* Settings.swift */,
 				C46E2BD92042138C001BE43A /* Assets.xcassets */,
 				C42BB57D2041E08A00D7D4CF /* LaunchScreen.storyboard */,
 				C42BB5802041E08A00D7D4CF /* Info.plist */,
@@ -516,16 +519,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D8102A720424A7C00F62B37 /* Audio.swift in Sources */,
+				C4E98813205CA1B5008FC728 /* CircularTransition.swift in Sources */,
 				C42BB57A2041E08A00D7D4CF /* Rewinder.xcdatamodeld in Sources */,
+				C4E987EB205C9306008FC728 /* Settings.swift in Sources */,
 				5D79EFE4204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift in Sources */,
-				C46D16B92042002600B1224D /* RoundPlayButton.swift in Sources */,
+				C46D16B92042002600B1224D /* RoundButton.swift in Sources */,
 				C42BB5722041E08A00D7D4CF /* AppDelegate.swift in Sources */,
 				5DF98003205C481300579F45 /* NormalHighlightCell.swift in Sources */,
 				C452530520428768000808A8 /* PageViewController.swift in Sources */,
 				5D77DD4B205397BE000FC2C3 /* HomeViewController.swift in Sources */,
 				C4525307204293B6000808A8 /* SettingsViewController.swift in Sources */,
 				5D79EFE3204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift in Sources */,
-				C4E8F1C8205A105E00EEA787 /* SideMenuTableViewCell.swift in Sources */,
 				5D249A0D20538AAE00B65029 /* HighlightsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -686,10 +690,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F73Q286GM2;
+				DEVELOPMENT_TEAM = SMV452RP74;
 				INFOPLIST_FILE = Rewinder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nasty.devs;
+				PRODUCT_BUNDLE_IDENTIFIER = tech.crozario;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -702,10 +706,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F73Q286GM2;
+				DEVELOPMENT_TEAM = SMV452RP74;
 				INFOPLIST_FILE = Rewinder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nasty.devs;
+				PRODUCT_BUNDLE_IDENTIFIER = tech.crozario;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

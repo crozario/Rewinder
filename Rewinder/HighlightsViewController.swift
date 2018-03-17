@@ -23,6 +23,7 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	
 	var viewPresented: Bool!
 	
+    @IBOutlet weak var dismissHighlightPageButton: RoundButton!
     @IBOutlet weak var tableView: UITableView!
 	
 	let context: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -32,6 +33,9 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	let attribute_fileName: String = "fileName"
 	let attribute_title: String = "title"
 	
+    @IBAction func dismissHighlightVC(_ sender: RoundButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
@@ -549,6 +553,10 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
 		print("\(#function)")
 	}
+    
+    
+    
+    
 }
 
 
