@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GEd-IG-Ocd">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -47,18 +47,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v8k-tt-DRZ">
                                 <rect key="frame" x="0.0" y="20" width="375" height="50"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ROc-Pv-121">
-                                        <rect key="frame" x="16" y="10" width="30" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="ncv-og-bGi"/>
-                                            <constraint firstAttribute="width" constant="30" id="nir-mq-1cJ"/>
-                                        </constraints>
-                                        <state key="normal" image="backIcon"/>
-                                        <connections>
-                                            <action selector="backButton:" destination="csx-Ar-g15" eventType="touchUpInside" id="eTu-kY-8mU"/>
-                                            <action selector="openMenu:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4aI-oM-woS"/>
-                                        </connections>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rkp-Vg-qJf">
                                         <rect key="frame" x="156" y="10" width="63.5" height="30"/>
                                         <constraints>
@@ -72,32 +60,12 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="rkp-Vg-qJf" firstAttribute="centerY" secondItem="v8k-tt-DRZ" secondAttribute="centerY" id="8lC-0R-KSf"/>
-                                    <constraint firstItem="ROc-Pv-121" firstAttribute="centerY" secondItem="v8k-tt-DRZ" secondAttribute="centerY" id="XVL-Kt-e47"/>
                                     <constraint firstItem="rkp-Vg-qJf" firstAttribute="centerX" secondItem="v8k-tt-DRZ" secondAttribute="centerX" id="aiv-Ml-JB4"/>
                                     <constraint firstAttribute="height" constant="50" id="b3l-VF-Fgy"/>
-                                    <constraint firstItem="ROc-Pv-121" firstAttribute="leading" secondItem="v8k-tt-DRZ" secondAttribute="leading" constant="16" id="bLf-KT-sHo"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8c7-IG-LZB" customClass="RoundButton" customModule="Rewinder" customModuleProvider="target">
-                                <rect key="frame" x="16" y="565" width="70" height="70"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="o2e-Rc-IJ0"/>
-                                    <constraint firstAttribute="width" constant="70" id="qG0-2c-Nmj"/>
-                                </constraints>
-                                <state key="normal" title="S"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="35"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="dismissHighlightVC:" destination="csx-Ar-g15" eventType="touchUpInside" id="j8E-33-eD1"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="ldz-On-cnR" firstAttribute="bottom" secondItem="8c7-IG-LZB" secondAttribute="bottom" constant="32" id="DKU-rs-64e"/>
                             <constraint firstItem="TuU-2F-bYh" firstAttribute="top" secondItem="Nzr-Kg-J2Q" secondAttribute="bottom" constant="53.5" id="HOm-fC-bYs"/>
                             <constraint firstItem="Cv6-0v-juk" firstAttribute="top" secondItem="TuU-2F-bYh" secondAttribute="bottom" constant="64.5" id="IVR-GB-9Bm"/>
                             <constraint firstItem="v8k-tt-DRZ" firstAttribute="trailing" secondItem="ldz-On-cnR" secondAttribute="trailing" id="U0Q-eQ-mci"/>
@@ -107,19 +75,25 @@
                             <constraint firstItem="v8k-tt-DRZ" firstAttribute="leading" secondItem="ldz-On-cnR" secondAttribute="leading" id="dKe-La-tJc"/>
                             <constraint firstItem="TuU-2F-bYh" firstAttribute="centerX" secondItem="ldz-On-cnR" secondAttribute="centerX" id="dZ7-Hu-fWq"/>
                             <constraint firstAttribute="trailing" secondItem="Cv6-0v-juk" secondAttribute="trailing" constant="20" id="eWb-XM-OAd"/>
-                            <constraint firstItem="8c7-IG-LZB" firstAttribute="leading" secondItem="ldz-On-cnR" secondAttribute="leading" constant="16" id="iuj-vt-ZYa"/>
                             <constraint firstItem="Cv6-0v-juk" firstAttribute="centerY" secondItem="ldz-On-cnR" secondAttribute="centerY" id="uun-oX-FIh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ldz-On-cnR"/>
                     </view>
                     <connections>
-                        <outlet property="dismissSettingPageButton" destination="8c7-IG-LZB" id="DYj-Dm-vJf"/>
                         <outlet property="highlightLength" destination="TuU-2F-bYh" id="xnD-9y-1OO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8JO-2T-DmM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-986" y="-257"/>
+        </scene>
+        <!--Page View Controller-->
+        <scene sceneID="vLv-5h-RbO">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="GEd-IG-Ocd" customClass="PageViewController" customModule="Rewinder" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cbQ-VO-aYn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1319" y="-1137"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -165,54 +139,14 @@
                                             <action selector="addHighlight:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nLu-gF-bKZ"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0pa-L9-NQL" customClass="RoundButton" customModule="Rewinder" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="228" width="70" height="70"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="70" id="96i-Hk-H2V"/>
-                                            <constraint firstAttribute="height" constant="70" id="pDi-H3-Hz2"/>
-                                        </constraints>
-                                        <state key="normal" title="S"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="35"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="settingsButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cfB-UM-naz"/>
-                                            <segue destination="csx-Ar-g15" kind="show" id="n8G-lw-p17"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7wZ-aB-hfa" customClass="RoundButton" customModule="Rewinder" customModuleProvider="target">
-                                        <rect key="frame" x="289" y="228" width="70" height="70"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="70" id="ESj-HP-N8I"/>
-                                            <constraint firstAttribute="height" constant="70" id="jvD-cP-VPM"/>
-                                        </constraints>
-                                        <state key="normal" title="H"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="35"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="highlightButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5yd-gP-EzC"/>
-                                            <segue destination="pK0-V1-429" kind="show" id="eWN-cY-uy4"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="cgF-Hi-OP4" firstAttribute="leading" secondItem="fQR-Uh-Aew" secondAttribute="leading" id="6EB-iN-IPJ"/>
                                     <constraint firstItem="bVh-d9-Onj" firstAttribute="top" secondItem="cgF-Hi-OP4" secondAttribute="bottom" constant="28" id="DdC-Lj-ci4"/>
                                     <constraint firstItem="bVh-d9-Onj" firstAttribute="centerX" secondItem="pby-3H-fDE" secondAttribute="centerX" id="HGB-Vf-1ky"/>
                                     <constraint firstAttribute="height" constant="330" id="Hpz-hi-ipT"/>
-                                    <constraint firstItem="0pa-L9-NQL" firstAttribute="leading" secondItem="fQR-Uh-Aew" secondAttribute="leading" constant="16" id="aME-e6-KGF"/>
-                                    <constraint firstItem="fQR-Uh-Aew" firstAttribute="trailing" secondItem="7wZ-aB-hfa" secondAttribute="trailing" constant="16" id="auj-Mz-cR5"/>
                                     <constraint firstAttribute="bottom" secondItem="bVh-d9-Onj" secondAttribute="bottom" constant="22" id="dSB-Z0-yJf"/>
-                                    <constraint firstItem="fQR-Uh-Aew" firstAttribute="bottom" secondItem="0pa-L9-NQL" secondAttribute="bottom" constant="32" id="o3Q-av-iPr"/>
                                     <constraint firstItem="cgF-Hi-OP4" firstAttribute="trailing" secondItem="fQR-Uh-Aew" secondAttribute="trailing" id="vDS-Nz-Z8h"/>
-                                    <constraint firstItem="fQR-Uh-Aew" firstAttribute="bottom" secondItem="7wZ-aB-hfa" secondAttribute="bottom" constant="32" id="xyj-mn-SgU"/>
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="fQR-Uh-Aew"/>
                             </view>
@@ -273,11 +207,9 @@
                         <outlet property="TranscribingTextView" destination="p9T-gV-wyr" id="eUZ-dp-Wre"/>
                         <outlet property="buttonAndTranscribingView" destination="pby-3H-fDE" id="AGX-We-f12"/>
                         <outlet property="highlightButton" destination="bVh-d9-Onj" id="Svn-Xo-b4b"/>
-                        <outlet property="highlightPageButton" destination="7wZ-aB-hfa" id="EHU-Sv-TbU"/>
                         <outlet property="mainView" destination="8bC-Xf-vdC" id="dnn-FV-ADx"/>
                         <outlet property="navBarView" destination="bG0-RJ-3dZ" id="oZX-7h-XhT"/>
-                        <outlet property="plotView" destination="7wZ-aB-hfa" id="CkF-44-MLO"/>
-                        <outlet property="settingsPageButton" destination="0pa-L9-NQL" id="Ftc-GP-cEb"/>
+                        <outlet property="plotView" destination="cgF-Hi-OP4" id="Wh2-JN-ykE"/>
                         <outlet property="transcribingView" destination="6hU-eq-3gt" id="WJD-Gj-U9G"/>
                         <outlet property="view" destination="8bC-Xf-vdC" id="cuR-Ti-9al"/>
                     </connections>
@@ -364,45 +296,14 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3XR-yr-tjb">
-                                        <rect key="frame" x="16" y="10" width="30" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="2bb-Uz-eoB"/>
-                                            <constraint firstAttribute="height" constant="30" id="TLX-Yp-erh"/>
-                                        </constraints>
-                                        <state key="normal" image="backIcon"/>
-                                        <connections>
-                                            <action selector="backButton:" destination="pK0-V1-429" eventType="touchUpInside" id="LAE-qI-rcj"/>
-                                            <action selector="openMenu:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6He-IE-og7"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="DGz-SG-Jdl"/>
-                                    <constraint firstItem="3XR-yr-tjb" firstAttribute="centerY" secondItem="7Hf-SH-fZo" secondAttribute="centerY" id="GiK-Gg-7FF"/>
                                     <constraint firstItem="k7j-0l-mLZ" firstAttribute="centerX" secondItem="7Hf-SH-fZo" secondAttribute="centerX" id="de4-CE-utx"/>
-                                    <constraint firstItem="3XR-yr-tjb" firstAttribute="leading" secondItem="7Hf-SH-fZo" secondAttribute="leading" constant="16" id="mEC-hM-yt1"/>
                                     <constraint firstItem="k7j-0l-mLZ" firstAttribute="centerY" secondItem="7Hf-SH-fZo" secondAttribute="centerY" id="wHV-ev-FOx"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ey-ze-odb" customClass="RoundButton" customModule="Rewinder" customModuleProvider="target">
-                                <rect key="frame" x="289" y="565" width="70" height="70"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="Bv1-4u-Cvb"/>
-                                    <constraint firstAttribute="width" constant="70" id="xPa-kg-B6A"/>
-                                </constraints>
-                                <state key="normal" title="H"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="35"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="dismissHighlightVC:" destination="pK0-V1-429" eventType="touchUpInside" id="bZE-Gi-SDH"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -413,13 +314,10 @@
                             <constraint firstItem="bti-a6-TJs" firstAttribute="bottom" secondItem="ESL-LE-gPT" secondAttribute="bottom" id="D7Z-kS-Gcu"/>
                             <constraint firstItem="bti-a6-TJs" firstAttribute="leading" secondItem="zbl-b9-ECi" secondAttribute="leading" id="GR8-AC-gGc"/>
                             <constraint firstAttribute="trailing" secondItem="bti-a6-TJs" secondAttribute="trailing" id="OdN-N6-ixU"/>
-                            <constraint firstItem="ESL-LE-gPT" firstAttribute="trailing" secondItem="7Ey-ze-odb" secondAttribute="trailing" constant="16" id="eqC-cZ-iZF"/>
-                            <constraint firstItem="ESL-LE-gPT" firstAttribute="bottom" secondItem="7Ey-ze-odb" secondAttribute="bottom" constant="32" id="mPb-Hb-8w1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ESL-LE-gPT"/>
                     </view>
                     <connections>
-                        <outlet property="dismissHighlightPageButton" destination="7Ey-ze-odb" id="lMQ-tm-02A"/>
                         <outlet property="tableView" destination="bti-a6-TJs" id="chp-7x-wXA"/>
                     </connections>
                 </viewController>
@@ -429,7 +327,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="backIcon" width="166" height="183"/>
         <image name="stop_ver1_1" width="64" height="64"/>
     </resources>
 </document>

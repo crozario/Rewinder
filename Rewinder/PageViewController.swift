@@ -14,9 +14,9 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource {
         super.viewDidLoad()
         self.dataSource = self
         
-        if let firstViewController = subViewControllers.first {
-            self.setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
-        }
+        let firstViewController = subViewControllers[1]
+        self.setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
+        
         
         if let myView = view?.subviews.first as? UIScrollView {
             myView.canCancelContentTouches = false
@@ -34,7 +34,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource {
         
         
         
-        return [homeViewController, highlightsViewController, settingsViewController]
+        return [settingsViewController, homeViewController, highlightsViewController]
     }()
 
     

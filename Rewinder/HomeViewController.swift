@@ -32,11 +32,11 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	
     @IBOutlet weak var TranscribingTextView: UITextView!
     
-    @IBOutlet weak var highlightPageButton: RoundButton!
+//    @IBOutlet weak var highlightPageButton: RoundButton!
     
-    @IBOutlet weak var settingsPageButton: RoundButton!
-    let highlightTransition = CircularTransition()
-    let settingsTransition = CircularTransition()
+//    @IBOutlet weak var settingsPageButton: RoundButton!
+//    let highlightTransition = CircularTransition()
+//    let settingsTransition = CircularTransition()
     
     private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))!
     private var speechRecognitionRequest: SFSpeechAudioBufferRecognitionRequest?
@@ -50,7 +50,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	
 	//	var audioRecorder: AVAudioRecorder?
 	var audioObj: Audio!
-	var audioPlayer: AVAudioPlayer?
+    var audioPlayer: AVAudioPlayer?
 	//	var audioRecorder: AVAudioRecorder!
 	var audioRecorder: myRecorder!
 	
@@ -59,70 +59,70 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	
 	@IBOutlet weak var plotView: UIView!
     
-    var buttonTag = -1
-    
-    @IBAction func highlightButtonPressed(_ sender: RoundButton) {
-        buttonTag = 1
-    }
-    
-    @IBAction func settingsButtonPressed(_ sender: RoundButton) {
-        buttonTag = 2
-    }
-    
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        
-        
-        if buttonTag == 1 {
-            highlightTransition.transitionMode = .present
-            highlightTransition.startingPoint = highlightPageButton.center
-            highlightTransition.circleColor = highlightPageButton.backgroundColor!
-            return highlightTransition
-        } else if buttonTag == 2 {
-            highlightTransition.transitionMode = .present
-            settingsTransition.startingPoint = settingsPageButton.center
-            settingsTransition.circleColor = settingsPageButton.backgroundColor!
-            return settingsTransition
-        }
-        return settingsTransition
-//        transition.startingPoint = highlightPageButton.center
-//        transition.circleColor = highlightPageButton.backgroundColor!
-    }
-    
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if buttonTag == 1 {
-            highlightTransition.transitionMode = .dismiss
-            highlightTransition.startingPoint = highlightPageButton.center
-            highlightTransition.circleColor = highlightPageButton.backgroundColor!
-            return highlightTransition
-        } else if buttonTag == 2 {
-            highlightTransition.transitionMode = .dismiss
-            settingsTransition.startingPoint = settingsPageButton.center
-            settingsTransition.circleColor = settingsPageButton.backgroundColor!
-            return settingsTransition
-        }
-        return settingsTransition
-        
-//        transition.startingPoint = highlightPageButton.center
-//        transition.circleColor = highlightPageButton.backgroundColor!
-        
-    }
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("\(segue.identifier) --- \(segue.source)")
-        
-        if buttonTag == 1 {
-            var secondVC = segue.destination as! HighlightsViewController
-           
-            secondVC.transitioningDelegate = self
-            secondVC.modalPresentationStyle = .custom
-        } else if buttonTag == 2 {
-            var secondVC = segue.destination as! SettingsViewController
-            secondVC.transitioningDelegate = self
-            secondVC.modalPresentationStyle = .custom
-        }
-        
-    }
+//    var buttonTag = -1
+//
+//    @IBAction func highlightButtonPressed(_ sender: RoundButton) {
+//        buttonTag = 1
+//    }
+//
+//    @IBAction func settingsButtonPressed(_ sender: RoundButton) {
+//        buttonTag = 2
+//    }
+//
+//    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//
+//
+//        if buttonTag == 1 {
+//            highlightTransition.transitionMode = .present
+//            highlightTransition.startingPoint = highlightPageButton.center
+//            highlightTransition.circleColor = highlightPageButton.backgroundColor!
+//            return highlightTransition
+//        } else if buttonTag == 2 {
+//            highlightTransition.transitionMode = .present
+//            settingsTransition.startingPoint = settingsPageButton.center
+//            settingsTransition.circleColor = settingsPageButton.backgroundColor!
+//            return settingsTransition
+//        }
+//        return settingsTransition
+////        transition.startingPoint = highlightPageButton.center
+////        transition.circleColor = highlightPageButton.backgroundColor!
+//    }
+//
+//    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        if buttonTag == 1 {
+//            highlightTransition.transitionMode = .dismiss
+//            highlightTransition.startingPoint = highlightPageButton.center
+//            highlightTransition.circleColor = highlightPageButton.backgroundColor!
+//            return highlightTransition
+//        } else if buttonTag == 2 {
+//            highlightTransition.transitionMode = .dismiss
+//            settingsTransition.startingPoint = settingsPageButton.center
+//            settingsTransition.circleColor = settingsPageButton.backgroundColor!
+//            return settingsTransition
+//        }
+//        return settingsTransition
+//
+////        transition.startingPoint = highlightPageButton.center
+////        transition.circleColor = highlightPageButton.backgroundColor!
+//
+//    }
+//
+//
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        print("\(segue.identifier) --- \(segue.source)")
+//
+//        if buttonTag == 1 {
+//            var secondVC = segue.destination as! HighlightsViewController
+//
+//            secondVC.transitioningDelegate = self
+//            secondVC.modalPresentationStyle = .custom
+//        } else if buttonTag == 2 {
+//            var secondVC = segue.destination as! SettingsViewController
+//            secondVC.transitioningDelegate = self
+//            secondVC.modalPresentationStyle = .custom
+//        }
+//
+//    }
 	
 	override func viewDidLoad() {
         
