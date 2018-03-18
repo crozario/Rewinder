@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -167,32 +166,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pby-3H-fDE">
-                                <rect key="frame" x="0.0" y="327" width="375" height="340"/>
+                                <rect key="frame" x="0.0" y="267" width="375" height="400"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bVh-d9-Onj" customClass="RoundButton" customModule="Rewinder" customModuleProvider="target">
-                                        <rect key="frame" x="137.5" y="218" width="100" height="100"/>
-                                        <color key="backgroundColor" red="1" green="0.60242883792750324" blue="0.77418510642225935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="100" id="Elx-hN-g2b"/>
-                                            <constraint firstAttribute="height" constant="100" id="uMF-gZ-hfz"/>
-                                        </constraints>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" image="stop_ver1_1"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="50"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="addHighlight:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nLu-gF-bKZ"/>
-                                        </connections>
-                                    </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cgF-Hi-OP4">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="180"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -201,14 +176,112 @@
                                             <constraint firstAttribute="height" constant="180" id="VqV-X6-HeT"/>
                                         </constraints>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f6C-ds-aEc" customClass="RoundButton" customModule="Rewinder" customModuleProvider="target">
+                                        <rect key="frame" x="77.5" y="255" width="60" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="L"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="30"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="leftButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7KD-ld-jo7"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qN5-UV-b7g" customClass="RoundButton" customModule="Rewinder" customModuleProvider="target">
+                                        <rect key="frame" x="237.5" y="255" width="60" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="R"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="30"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="rightButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PsF-rq-2Ul"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rMb-va-GqE" customClass="RoundButton" customModule="Rewinder" customModuleProvider="target">
+                                        <rect key="frame" x="157.5" y="170" width="60" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="T"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="30"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="topButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9DL-aW-2iz"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f5t-IK-F4n" customClass="RoundButton" customModule="Rewinder" customModuleProvider="target">
+                                        <rect key="frame" x="157.5" y="330" width="60" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="B"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="30"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="bottomButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="q1t-Cj-Kwh"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bVh-d9-Onj" customClass="RoundButton" customModule="Rewinder" customModuleProvider="target">
+                                        <rect key="frame" x="147" y="240" width="80" height="80"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="H"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="40"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="highlightButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9hc-mK-cpe"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="cgF-Hi-OP4" firstAttribute="leading" secondItem="pby-3H-fDE" secondAttribute="leading" id="6MT-gY-ZdF"/>
                                     <constraint firstItem="cgF-Hi-OP4" firstAttribute="top" secondItem="pby-3H-fDE" secondAttribute="top" id="D6w-b3-FRH"/>
-                                    <constraint firstItem="bVh-d9-Onj" firstAttribute="centerX" secondItem="pby-3H-fDE" secondAttribute="centerX" id="HGB-Vf-1ky"/>
-                                    <constraint firstAttribute="height" constant="340" id="Hpz-hi-ipT"/>
+                                    <constraint firstAttribute="height" constant="400" id="Hpz-hi-ipT"/>
                                     <constraint firstAttribute="trailing" secondItem="cgF-Hi-OP4" secondAttribute="trailing" id="MQ1-1q-rYh"/>
-                                    <constraint firstAttribute="bottom" secondItem="bVh-d9-Onj" secondAttribute="bottom" constant="22" id="dSB-Z0-yJf"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bG0-RJ-3dZ">
@@ -232,10 +305,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6hU-eq-3gt">
-                                <rect key="frame" x="0.0" y="70" width="375" height="257"/>
+                                <rect key="frame" x="0.0" y="70" width="375" height="197"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p9T-gV-wyr">
-                                        <rect key="frame" x="16" y="0.0" width="343" height="257"/>
+                                        <rect key="frame" x="16" y="0.0" width="343" height="197"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -265,11 +338,15 @@
                     </view>
                     <connections>
                         <outlet property="TranscribingTextView" destination="p9T-gV-wyr" id="eUZ-dp-Wre"/>
+                        <outlet property="bottomButton" destination="f5t-IK-F4n" id="PdY-8L-Rdq"/>
                         <outlet property="buttonAndTranscribingView" destination="pby-3H-fDE" id="AGX-We-f12"/>
                         <outlet property="highlightButton" destination="bVh-d9-Onj" id="Svn-Xo-b4b"/>
+                        <outlet property="leftButton" destination="f6C-ds-aEc" id="1wT-fF-8Iv"/>
                         <outlet property="mainView" destination="8bC-Xf-vdC" id="dnn-FV-ADx"/>
                         <outlet property="navBarView" destination="bG0-RJ-3dZ" id="oZX-7h-XhT"/>
                         <outlet property="plotView" destination="cgF-Hi-OP4" id="Wh2-JN-ykE"/>
+                        <outlet property="rightButton" destination="qN5-UV-b7g" id="anv-Wb-lSm"/>
+                        <outlet property="topButton" destination="rMb-va-GqE" id="epr-yk-aR3"/>
                         <outlet property="transcribingView" destination="6hU-eq-3gt" id="WJD-Gj-U9G"/>
                         <outlet property="view" destination="8bC-Xf-vdC" id="cuR-Ti-9al"/>
                     </connections>
@@ -294,7 +371,7 @@
                                 <rect key="frame" x="0.0" y="70" width="375" height="597"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="idNormalHighlightCell" rowHeight="60" id="qwR-NM-a7r" customClass="NormalHighlightCell" customModule="Rewinder" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="idNormalHighlightCell" rowHeight="60" id="qwR-NM-a7r" customClass="NormalHighlightCell" customModule="Rewinder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qwR-NM-a7r" id="4IL-id-5H6">
@@ -389,7 +466,4 @@
             <point key="canvasLocation" x="572" y="-256"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="stop_ver1_1" width="64" height="64"/>
-    </resources>
 </document>
