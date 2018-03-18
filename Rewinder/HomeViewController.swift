@@ -137,18 +137,24 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 //
 //    }
 	
+    var buttonsOut = false
+    
 	override func viewDidLoad() {
         
 		super.viewDidLoad()
         setupHighlightButton()
         
         self.zeroAlpha()
-        setupButtons()
+        setupButtonConstraints()
+        setupRestofButtonConstraints()
         
         topButtonCenter = topButton.center
         bottomButtonCenter = bottomButton.center
         leftButtonCenter = leftButton.center
         rightButtonCenter = rightButton.center
+        
+        
+        
         
         highlightButtonCenter = highlightButton.center
         
@@ -157,6 +163,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 //        print("left center \(leftButtonCenter)")
 //        print("right center \(rightButtonCenter)")
         print("highlight center \(highlightButtonCenter)")
+        print("highlight center 2 \(highlightButton.center)")
         
         topButton.center = highlightButtonCenter
         bottomButton.center = highlightButtonCenter
@@ -237,7 +244,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         highlightButton.bottomAnchor.constraint(equalTo: buttonAndTranscribingView.bottomAnchor, constant: -80).isActive = true
     }
     
-    func setupButtons() {
+    func setupButtonConstraints() {
         leftButton.translatesAutoresizingMaskIntoConstraints = false
         rightButton.translatesAutoresizingMaskIntoConstraints = false
         topButton.translatesAutoresizingMaskIntoConstraints = false
@@ -269,7 +276,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     }
     
     
-    func setupRestofButton() {
+    func setupRestofButtonConstraints() {
         leftButton.bottomAnchor.constraint(equalTo: buttonAndTranscribingView.bottomAnchor, constant: -85).isActive = true
         leftButton.rightAnchor.constraint(equalTo: highlightButton.leftAnchor, constant: -10).isActive = true
         rightButton.bottomAnchor.constraint(equalTo: buttonAndTranscribingView.bottomAnchor, constant: -85).isActive = true
@@ -284,7 +291,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     
     
     @IBAction func highlightButtonClicked(_ sender: RoundButton) {
-            highlightButton.isEnabled = false
+        if buttonsOut == false && isRecording == false {
             UIView.animate(withDuration: 0.3, animations: {
                 self.topButton.center = self.topButtonCenter
                 self.bottomButton.center = self.bottomButtonCenter
@@ -292,8 +299,14 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
                 self.rightButton.center = self.rightButtonCenter
                 self.oneAlpha()
             })
-//        setupRestofButton()
-        
+            buttonsOut = true
+        } else if buttonsOut == true && isRecording == false {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.backToCenter()
+                self.zeroAlpha()
+            })
+            buttonsOut = false
+        }
         
     }
     
@@ -417,6 +430,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	
 	func computeHighlight(){
         highlightButton.backgroundColor = UIColorFromRGB(rgbValue: 0xFF467E)
+        highlightButton.isEnabled = false
 		//get current recording time
 		let cropTime = audioRecorder?.currentTime
 		
