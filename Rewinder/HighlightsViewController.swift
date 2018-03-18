@@ -243,16 +243,16 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		return newSectionInserted
 	}
 	
-	func getDate(date: Date) -> String{
-		// in "en_US" format; ex: Mar 15, 2018
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateStyle = .medium
-		dateFormatter.timeStyle = .none
-		dateFormatter.locale = Locale(identifier: "en_US")
-		
-		return dateFormatter.string(from: date)
-	}
-	
+    func getDate(date: Date) -> String{
+        // in "en_US" format; ex: Mar 15, 2018
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        dateFormatter.locale = Locale(identifier: "en_US")
+        
+        return dateFormatter.string(from: date)
+    }
+    
 	func print2D(_ arr: [[String]]) {
 		for sublist in arr {
 			print(sublist)

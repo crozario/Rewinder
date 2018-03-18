@@ -138,37 +138,43 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 //    }
 	
     var buttonsOut = false
+    var buttonsConstraintsSet = false
     
 	override func viewDidLoad() {
         
 		super.viewDidLoad()
-        setupHighlightButton()
         
+        setupHighlightButtonConstraints()
         self.zeroAlpha()
-        setupButtonConstraints()
-        setupRestofButtonConstraints()
+//        setupButtonConstraints()
+//        setupRestofButtonConstraints()
         
         topButtonCenter = topButton.center
         bottomButtonCenter = bottomButton.center
         leftButtonCenter = leftButton.center
         rightButtonCenter = rightButton.center
-        
-        
-        
-        
+ 
         highlightButtonCenter = highlightButton.center
+//        highlightButtonCenter = CGPoint(x: mainView.center.x + 10, y: highlightButton.center.y)
         
-//        print("top center \(topButtonCenter)")
-//        print("bottom center \(bottomButtonCenter)")
-//        print("left center \(leftButtonCenter)")
-//        print("right center \(rightButtonCenter)")
+        print("top center \(topButtonCenter)")
+        print("bottom center \(bottomButtonCenter)")
+        print("left center \(leftButtonCenter)")
+        print("right center \(rightButtonCenter)")
         print("highlight center \(highlightButtonCenter)")
         print("highlight center 2 \(highlightButton.center)")
         
+//        highlightButton.center = highlightButtonCenter
         topButton.center = highlightButtonCenter
         bottomButton.center = highlightButtonCenter
         leftButton.center = highlightButtonCenter
         rightButton.center = highlightButtonCenter
+        
+        print("top center \(topButton.center)")
+        print("bottom center \(bottomButton.center)")
+        print("left center \(leftButton.center)")
+        print("right center \(rightButton.center)")
+        print("highlight center \(highlightButton.center)")
         
         highlightButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
         topButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
@@ -218,6 +224,9 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         
         startSession()
         setButtonsTitle()
+        
+//        setupButtonConstraints()
+//        setupRestofButtonConstraints()
 	}
     
     func zeroAlpha() {
@@ -236,7 +245,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     
 
     
-    func setupHighlightButton() {
+    func setupHighlightButtonConstraints() {
         highlightButton.translatesAutoresizingMaskIntoConstraints = false
         highlightButton.centerXAnchor.constraint(equalTo: buttonAndTranscribingView.centerXAnchor).isActive = true
         highlightButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
@@ -277,14 +286,29 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     
     
     func setupRestofButtonConstraints() {
-        leftButton.bottomAnchor.constraint(equalTo: buttonAndTranscribingView.bottomAnchor, constant: -85).isActive = true
-        leftButton.rightAnchor.constraint(equalTo: highlightButton.leftAnchor, constant: -10).isActive = true
-        rightButton.bottomAnchor.constraint(equalTo: buttonAndTranscribingView.bottomAnchor, constant: -85).isActive = true
-        rightButton.leftAnchor.constraint(equalTo: highlightButton.rightAnchor, constant: 10).isActive = true
-        topButton.bottomAnchor.constraint(equalTo: highlightButton.topAnchor, constant: -10).isActive = true
-        topButton.centerXAnchor.constraint(equalTo: buttonAndTranscribingView.centerXAnchor).isActive = true
-        bottomButton.topAnchor.constraint(equalTo: highlightButton.bottomAnchor, constant: 10).isActive = true
-        bottomButton.centerXAnchor.constraint(equalTo: buttonAndTranscribingView.centerXAnchor).isActive = true
+        if buttonsConstraintsSet {
+            leftButton.bottomAnchor.constraint(equalTo: buttonAndTranscribingView.bottomAnchor, constant: -85).isActive = false
+            leftButton.rightAnchor.constraint(equalTo: highlightButton.leftAnchor, constant: -10).isActive = false
+            rightButton.bottomAnchor.constraint(equalTo: buttonAndTranscribingView.bottomAnchor, constant: -85).isActive = false
+            rightButton.leftAnchor.constraint(equalTo: highlightButton.rightAnchor, constant: 10).isActive = false
+            topButton.bottomAnchor.constraint(equalTo: highlightButton.topAnchor, constant: -10).isActive = false
+            topButton.centerXAnchor.constraint(equalTo: buttonAndTranscribingView.centerXAnchor).isActive = false
+            bottomButton.topAnchor.constraint(equalTo: highlightButton.bottomAnchor, constant: 10).isActive = false
+            bottomButton.centerXAnchor.constraint(equalTo: buttonAndTranscribingView.centerXAnchor).isActive = false
+            buttonsConstraintsSet = false
+        } else {
+            leftButton.bottomAnchor.constraint(equalTo: buttonAndTranscribingView.bottomAnchor, constant: -85).isActive = true
+            leftButton.rightAnchor.constraint(equalTo: highlightButton.leftAnchor, constant: -10).isActive = true
+            rightButton.bottomAnchor.constraint(equalTo: buttonAndTranscribingView.bottomAnchor, constant: -85).isActive = true
+            rightButton.leftAnchor.constraint(equalTo: highlightButton.rightAnchor, constant: 10).isActive = true
+            topButton.bottomAnchor.constraint(equalTo: highlightButton.topAnchor, constant: -10).isActive = true
+            topButton.centerXAnchor.constraint(equalTo: buttonAndTranscribingView.centerXAnchor).isActive = true
+            bottomButton.topAnchor.constraint(equalTo: highlightButton.bottomAnchor, constant: 10).isActive = true
+            bottomButton.centerXAnchor.constraint(equalTo: buttonAndTranscribingView.centerXAnchor).isActive = true
+            buttonsConstraintsSet = true
+        }
+        
+        
     }
     
     
@@ -292,6 +316,9 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     
     @IBAction func highlightButtonClicked(_ sender: RoundButton) {
         if buttonsOut == false && isRecording == false {
+//            setupHighlightButtonConstraints()
+//            setupButtonConstraints()
+//            setupRestofButtonConstraints()
             UIView.animate(withDuration: 0.3, animations: {
                 self.topButton.center = self.topButtonCenter
                 self.bottomButton.center = self.bottomButtonCenter
@@ -300,13 +327,26 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
                 self.oneAlpha()
             })
             buttonsOut = true
+            setupButtonConstraints()
+            setupRestofButtonConstraints()
         } else if buttonsOut == true && isRecording == false {
+//            setupButtonConstraints()
+//            setupRestofButtonConstraints()
+            buttonsConstraintsSet = false
             UIView.animate(withDuration: 0.3, animations: {
                 self.backToCenter()
                 self.zeroAlpha()
             })
             buttonsOut = false
+//            setupButtonConstraints()
+//            setupRestofButtonConstraints()
         }
+        
+        print("top center CLICKED \(topButton.center)")
+        print("bottom center CLICKED \(bottomButton.center)")
+        print("left center CLICKED\(leftButton.center)")
+        print("right center CLICKED\(rightButton.center)")
+        print("highlight center CLICKED\(highlightButton.center)")
         
     }
     
@@ -348,10 +388,10 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     }
     
     func setButtonsTitle() {
-        leftButton.titleLabel?.text = String(describing: Settings.Duration.leftButton)
-        topButton.titleLabel?.text = String(describing: Settings.Duration.topButton)
-        rightButton.titleLabel?.text = String(describing: Settings.Duration.rightButton)
-        bottomButton.titleLabel?.text = String(Settings.customDuration)
+        leftButton.setTitle(String(Settings.Duration.leftButton.rawValue), for: .normal)
+        topButton.setTitle(String(Settings.Duration.topButton.rawValue), for: .normal)
+        rightButton.setTitle(String(Settings.Duration.rightButton.rawValue), for: .normal)
+        bottomButton.setTitle(String(Settings.customDuration), for: .normal)
     }
     
     func backToCenter() {
@@ -383,8 +423,6 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
-        
-        
 		print("\(#function)")
 		// reset temp files
 		//		audioObj.deleteAndResetTempData()
