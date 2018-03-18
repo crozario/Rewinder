@@ -49,9 +49,13 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         
         if indexPath.row == 0 {
             let cell =  tableView.dequeueReusableCell(withIdentifier: "ContinueCell", for: indexPath) as! ContinueTableViewCell
+            cell.continueSwitch.isOn = Settings.continueRecording
             return cell
         } else {
+            
             let cell =  tableView.dequeueReusableCell(withIdentifier: "CustomizeLengthCell", for: indexPath) as! CustomLengthTableViewCell
+//            cell.customLengthSetter.text = Settings.customDuration
+            
             return cell
         }
         

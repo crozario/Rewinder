@@ -14,10 +14,6 @@ import AudioKit
 import AudioKitUI
 import Speech
 
-
-var recordDuration = 5.0
-// change
-
 class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate, UIViewControllerTransitioningDelegate {
     
 //    var data = [viewControllerData(image: #imageLiteral(resourceName: "highlightIcon"), title: "Highlights"), viewControllerData(image: #imageLiteral(resourceName: "settingsIcon"), title: "Settings") ]
@@ -214,6 +210,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		plotView.addSubview(rollingPlot)
         
         startSession()
+        setButtonsTitle()
 	}
     
     func zeroAlpha() {
@@ -288,9 +285,6 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     
     @IBAction func highlightButtonClicked(_ sender: RoundButton) {
             highlightButton.isEnabled = false
-            highlightButton.backgroundColor = UIColorFromRGB(rgbValue: 0xFF467E)
-            computeHighlight()
-        
             UIView.animate(withDuration: 0.3, animations: {
                 self.topButton.center = self.topButtonCenter
                 self.bottomButton.center = self.bottomButtonCenter
@@ -302,29 +296,49 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         
         
     }
+    
     @IBAction func topButtonClicked(_ sender: RoundButton) {
+        Settings.recordingDuration = Settings.Duration.topButton.rawValue
+        print("RECORDING DURATION: \(Settings.recordingDuration)")
+        computeHighlight()
         UIView.animate(withDuration: 0.3, animations: {
             self.backToCenter()
             self.zeroAlpha()
         })
     }
     @IBAction func bottomButtonClicked(_ sender: RoundButton) {
+        Settings.recordingDuration = Settings.customDuration
+        print("RECORDING DURATION: \(Settings.recordingDuration)")
+        computeHighlight()
         UIView.animate(withDuration: 0.3, animations: {
             self.backToCenter()
             self.zeroAlpha()
         })
     }
     @IBAction func leftButtonClicked(_ sender: RoundButton) {
+        Settings.recordingDuration = Settings.Duration.leftButton.rawValue
+        print("RECORDING DURATION: \(Settings.recordingDuration)")
+        computeHighlight()
         UIView.animate(withDuration: 0.3, animations: {
             self.backToCenter()
             self.zeroAlpha()
         })
     }
     @IBAction func rightButtonClicked(_ sender: RoundButton) {
+        Settings.recordingDuration = Settings.Duration.rightButton.rawValue
+        print("RECORDING DURATION: \(Settings.recordingDuration)")
+        computeHighlight()
         UIView.animate(withDuration: 0.3, animations: {
             self.backToCenter()
             self.zeroAlpha()
         })
+    }
+    
+    func setButtonsTitle() {
+        leftButton.titleLabel?.text = String(describing: Settings.Duration.leftButton)
+        topButton.titleLabel?.text = String(describing: Settings.Duration.topButton)
+        rightButton.titleLabel?.text = String(describing: Settings.Duration.rightButton)
+        bottomButton.titleLabel?.text = String(Settings.customDuration)
     }
     
     func backToCenter() {
@@ -387,7 +401,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		}
 		
 		if audioRecorder != nil {
-			audioRecorder!.record(forDuration: recordDuration)
+			audioRecorder!.record(forDuration: Settings.recordingDuration)
 		}
 		else {
 			print("ERROR: audioRecorder is nil and therefore did not begin recording")
@@ -402,6 +416,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	var high3: URL?
 	
 	func computeHighlight(){
+        highlightButton.backgroundColor = UIColorFromRGB(rgbValue: 0xFF467E)
 		//get current recording time
 		let cropTime = audioRecorder?.currentTime
 		
