@@ -56,7 +56,6 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     
     @IBOutlet weak var buttonAndTranscribingView: UIView!
 
-    
 	let managedObjectContext: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 	
 	//	var audioRecorder: AVAudioRecorder?
@@ -199,7 +198,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		self.beginRecording(recordFile: audioObj.getNextTempFile())
 		
 		let micCopy1 = AKBooster(mic)
-		let micCopy2 = AKBooster(mic)
+//		let micCopy2 = AKBooster(mic)
 		if let inputs = AudioKit.inputDevices {
 			do {
 				try AudioKit.setInputDevice(inputs[0])
@@ -208,16 +207,18 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 				print (error.localizedDescription)
 			}
 		}
-		let tracker = AKFrequencyTracker(micCopy2, hopSize: 200, peakCount: 2_000)
-		let silence = AKBooster(tracker, gain: 0)
+//		let tracker = AKFrequencyTracker(micCopy1, hopSize: 200, peakCount: 2_000)
+//		let silence = AKBooster(tracker, gain: 0)
 		
-		AudioKit.output = silence
+		
+//		AudioKit.output = nil
         do {
             try AudioKit.start()
         } catch let error {
             print(error.localizedDescription)
         }
 		
+		micCopy1.gain = 5.5
 		// create rolling waveform plot
         rollingPlot = createRollingPlot(micCopy1)
 		plotView.addSubview(rollingPlot)
@@ -418,7 +419,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         //Blue theme
         rplot.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
     
-		rplot.gain = 2
+		rplot.gain = 1
 		
 		return rplot
 	}
@@ -429,17 +430,15 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	
 	override func viewWillAppear(_ animated: Bool) {
 		print("\(#function)")
-		// reset temp files
-		//		audioObj.deleteAndResetTempData()
+		if rollingPlot.isConnected {
+			rollingPlot.resume()
+		}
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		print("\(#function)")
-		if audioRecorder != nil {
-			if audioRecorder!.isRecording {
-				// stop recording
-				//				audioRecorder!.stop()
-			}
+		if rollingPlot.isConnected {
+			rollingPlot.pause()
 		}
 	}
 	
