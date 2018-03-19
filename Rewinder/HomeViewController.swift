@@ -263,7 +263,10 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     @objc func highlightButtonClicked(_ sender: RoundButton) {
         computeHighlight()
         print("RECORDING WITH DURATION: \(Settings.recordingDuration)")
-
+		
+		if audioRecorder.isRecordingHighlight() {
+			audioRecorder.stop()
+		}
     }
     
     

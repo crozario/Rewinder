@@ -514,6 +514,7 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 				tableView.endUpdates()
 			}
 		})
+		
 		// export to photo library
 		let exportAction = UITableViewRowAction(style: .destructive, title: "Export", handler: { (action, indexPath) in
 			let fileURL = self.getFileURL(from: self.getElementFromTwoDarr(indexPath: indexPath))
