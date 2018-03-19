@@ -8,14 +8,17 @@
 
 import UIKit
 
-class PageViewController: UIPageViewController, UIPageViewControllerDataSource {
+class PageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+//    let pageControl = UIPageControl()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dataSource = self
+        self.delegate = self
         
-        let firstViewController = subViewControllers[1]
-        self.setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
+        let firstViewController = subViewControllers.first
+        self.setViewControllers([firstViewController!], direction: .forward, animated: true, completion: nil)
+        
         
         
         if let myView = view?.subviews.first as? UIScrollView {
@@ -30,11 +33,10 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource {
         
         let homeViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
         let highlightsViewController = storyboard.instantiateViewController(withIdentifier: "HighlightsViewController")
-        let settingsViewController = storyboard.instantiateViewController(withIdentifier: "SettingsViewController")
         
         
         
-        return [settingsViewController, homeViewController, highlightsViewController]
+        return [homeViewController, highlightsViewController]
     }()
 
     
@@ -68,7 +70,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource {
         
         let nextViewControllerIndex = viewControllerIndex + 1
         
-        guard subViewControllers.count != nextViewControllerIndex else {
+        guard nextViewControllerIndex  < subViewControllers.count else {
             return nil
         }
         

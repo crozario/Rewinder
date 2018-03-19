@@ -18,24 +18,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     
 //    var data = [viewControllerData(image: #imageLiteral(resourceName: "highlightIcon"), title: "Highlights"), viewControllerData(image: #imageLiteral(resourceName: "settingsIcon"), title: "Settings") ]
     
-    @IBOutlet var mainView: UIView!
-    
-    @IBOutlet weak var transcribingView: UIView!
-    
-    @IBOutlet weak var navBarView: UIView!
-    
-    @IBOutlet weak var highlightButton: RoundButton!
-	
-    @IBOutlet weak var TranscribingTextView: UITextView!
-    
-    @IBOutlet weak var topButton: RoundButton!
-    
-    @IBOutlet weak var bottomButton: RoundButton!
-    
-    @IBOutlet weak var leftButton: RoundButton!
-    
-    @IBOutlet weak var rightButton: RoundButton!
-    
+
+
     var topButtonCenter: CGPoint!
     var bottomButtonCenter: CGPoint!
     var leftButtonCenter: CGPoint!
@@ -43,18 +27,11 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     var highlightButtonCenter: CGPoint!
     var isRecording = false
     
-//    @IBOutlet weak var highlightPageButton: RoundButton!
-    
-//    @IBOutlet weak var settingsPageButton: RoundButton!
-//    let highlightTransition = CircularTransition()
-//    let settingsTransition = CircularTransition()
-    
     private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))!
     private var speechRecognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var speechRecognitionTask: SFSpeechRecognitionTask?
     private let audioEngine = AVAudioEngine()
     
-    @IBOutlet weak var buttonAndTranscribingView: UIView!
 
 	let managedObjectContext: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 	
@@ -67,75 +44,32 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	let mic = AKMicrophone()
 	var rollingPlot: AKNodeOutputPlot!
 	
-	@IBOutlet weak var plotView: UIView!
+    var plotView: UIView = {
+        let pView = UIView()
+        return pView
+    }()
     
-//    var isRecording = false
+    private let highlightButton: RoundButton = {
+        let button = RoundButton()
+        button.cornerRadius = 40
+        button.setTitle("H", for: .normal)
+        return button
+    }()
     
-//    var buttonTag = -1
-//
-//    @IBAction func highlightButtonPressed(_ sender: RoundButton) {
-//        buttonTag = 1
-//    }
-//
-//    @IBAction func settingsButtonPressed(_ sender: RoundButton) {
-//        buttonTag = 2
-//    }
-//
-//    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//
-//
-//        if buttonTag == 1 {
-//            highlightTransition.transitionMode = .present
-//            highlightTransition.startingPoint = highlightPageButton.center
-//            highlightTransition.circleColor = highlightPageButton.backgroundColor!
-//            return highlightTransition
-//        } else if buttonTag == 2 {
-//            highlightTransition.transitionMode = .present
-//            settingsTransition.startingPoint = settingsPageButton.center
-//            settingsTransition.circleColor = settingsPageButton.backgroundColor!
-//            return settingsTransition
-//        }
-//        return settingsTransition
-////        transition.startingPoint = highlightPageButton.center
-////        transition.circleColor = highlightPageButton.backgroundColor!
-//    }
-//
-//    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        if buttonTag == 1 {
-//            highlightTransition.transitionMode = .dismiss
-//            highlightTransition.startingPoint = highlightPageButton.center
-//            highlightTransition.circleColor = highlightPageButton.backgroundColor!
-//            return highlightTransition
-//        } else if buttonTag == 2 {
-//            highlightTransition.transitionMode = .dismiss
-//            settingsTransition.startingPoint = settingsPageButton.center
-//            settingsTransition.circleColor = settingsPageButton.backgroundColor!
-//            return settingsTransition
-//        }
-//        return settingsTransition
-//
-////        transition.startingPoint = highlightPageButton.center
-////        transition.circleColor = highlightPageButton.backgroundColor!
-//
-//    }
-//
-//
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        print("\(segue.identifier) --- \(segue.source)")
-//
-//        if buttonTag == 1 {
-//            var secondVC = segue.destination as! HighlightsViewController
-//
-//            secondVC.transitioningDelegate = self
-//            secondVC.modalPresentationStyle = .custom
-//        } else if buttonTag == 2 {
-//            var secondVC = segue.destination as! SettingsViewController
-//            secondVC.transitioningDelegate = self
-//            secondVC.modalPresentationStyle = .custom
-//        }
-//
-//    }
-	
+    private let backgroundRecordingButton: RoundButton = {
+        let button = RoundButton()
+        button.cornerRadius = 40
+        button.setTitle("B", for: .normal)
+        return button
+    }()
+    
+    private let pickDurationButton: RoundButton = {
+        let button = RoundButton()
+        button.cornerRadius = 40
+        button.setTitle("D", for: .normal)
+        return button
+    }()
+    
     var buttonsOut = false
     var buttonsConstraintsSet = false
     
@@ -143,49 +77,73 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         
 		super.viewDidLoad()
         
+        //add views to the main view
+        view.addSubview(highlightButton)
+        view.addSubview(plotView)
+        view.addSubview(backgroundRecordingButton)
+        view.addSubview(pickDurationButton)
+        
+        
+        setupBackgroundColors()
+        
+        //add constraints
         setupHighlightButtonConstraints()
-        self.zeroAlpha()
-//        setupButtonConstraints()
-//        setupRestofButtonConstraints()
+        setupPlotViewConstraints()
+        setupPickDurationButtonConstraints()
+        setupBackgroundRecordingButtonConstraints()
         
-        topButtonCenter = topButton.center
-        bottomButtonCenter = bottomButton.center
-        leftButtonCenter = leftButton.center
-        rightButtonCenter = rightButton.center
- 
-        highlightButtonCenter = highlightButton.center
-//        highlightButtonCenter = CGPoint(x: mainView.center.x + 10, y: highlightButton.center.y)
+        //button actions
+        highlightButton.addTarget(self, action: #selector(highlightButtonClicked), for: .touchUpInside)
+        backgroundRecordingButton.addTarget(self, action: #selector(backgroundRecordingButtonClicked), for: .touchUpInside)
+        pickDurationButton.addTarget(self, action: #selector(pickDurationButtonClicked), for: .touchUpInside)
         
-        print("top center \(topButtonCenter)")
-        print("bottom center \(bottomButtonCenter)")
-        print("left center \(leftButtonCenter)")
-        print("right center \(rightButtonCenter)")
-        print("highlight center \(highlightButtonCenter)")
-        print("highlight center 2 \(highlightButton.center)")
-        
-//        highlightButton.center = highlightButtonCenter
-        topButton.center = highlightButtonCenter
-        bottomButton.center = highlightButtonCenter
-        leftButton.center = highlightButtonCenter
-        rightButton.center = highlightButtonCenter
-        
-        print("top center \(topButton.center)")
-        print("bottom center \(bottomButton.center)")
-        print("left center \(leftButton.center)")
-        print("right center \(rightButton.center)")
-        print("highlight center \(highlightButton.center)")
-        
-        highlightButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
-        topButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
-        bottomButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
-        leftButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
-        rightButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
+        //drop shadow
+        highlightButton.layer.shadowOpacity = 1
+        highlightButton.layer.shadowRadius = 5
+        backgroundRecordingButton.layer.shadowOpacity = 1
+        backgroundRecordingButton.layer.shadowRadius = 5
+        pickDurationButton.layer.shadowOpacity = 1
+        pickDurationButton.layer.shadowRadius = 5
         
         
-        mainView.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
-        transcribingView.backgroundColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
-        navBarView.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
-//        buttonAndTranscribingView.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
+        
+        
+        
+//        self.zeroAlpha()
+        
+//        topButtonCenter = topButton.center
+//        bottomButtonCenter = bottomButton.center
+//        leftButtonCenter = leftButton.center
+//        rightButtonCenter = rightButton.center
+//
+//        highlightButtonCenter = highlightButton.center
+////        highlightButtonCenter = CGPoint(x: mainView.center.x + 10, y: highlightButton.center.y)
+//
+//        print("top center \(topButtonCenter)")
+//        print("bottom center \(bottomButtonCenter)")
+//        print("left center \(leftButtonCenter)")
+//        print("right center \(rightButtonCenter)")
+//        print("highlight center \(highlightButtonCenter)")
+//        print("highlight center 2 \(highlightButton.center)")
+//
+////        highlightButton.center = highlightButtonCenter
+//        topButton.center = highlightButtonCenter
+//        bottomButton.center = highlightButtonCenter
+//        leftButton.center = highlightButtonCenter
+//        rightButton.center = highlightButtonCenter
+//
+//        print("top center \(topButton.center)")
+//        print("bottom center \(bottomButton.center)")
+//        print("left center \(leftButton.center)")
+//        print("right center \(rightButton.center)")
+//        print("highlight center \(highlightButton.center)")
+//
+       
+//        topButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
+//        bottomButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
+//        leftButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
+//        rightButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
+        
 		
 		audioObj = Audio(managedObjectContext)
 		
@@ -221,208 +179,152 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		micCopy1.gain = 5.5
 		// create rolling waveform plot
         rollingPlot = createRollingPlot(micCopy1)
+        
+        
+        
 		plotView.addSubview(rollingPlot)
         
-        startSession()
-        setButtonsTitle()
+        rollingPlot.translatesAutoresizingMaskIntoConstraints = false
+        rollingPlot.topAnchor.constraint(equalTo: plotView.topAnchor).isActive = true
+        rollingPlot.leftAnchor.constraint(equalTo: plotView.leftAnchor).isActive = true
+        rollingPlot.rightAnchor.constraint(equalTo: plotView.rightAnchor).isActive = true
+        rollingPlot.heightAnchor.constraint(equalToConstant: 300).isActive = true
+//        setupRollingPlotConstraints()
         
-//        setupButtonConstraints()
-//        setupRestofButtonConstraints()
+        startSession()
 	}
     
-    func zeroAlpha() {
-        leftButton.alpha = 0
-        rightButton.alpha = 0
-        topButton.alpha = 0
-        bottomButton.alpha = 0
-    }
     
-    func oneAlpha() {
-        leftButton.alpha = 1
-        rightButton.alpha = 1
-        topButton.alpha = 1
-        bottomButton.alpha = 1
-    }
+    
+    
+//    func zeroAlpha() {
+//        leftButton.alpha = 0
+//        rightButton.alpha = 0
+//        topButton.alpha = 0
+//        bottomButton.alpha = 0
+//    }
+//
+//    func oneAlpha() {
+//        leftButton.alpha = 1
+//        rightButton.alpha = 1
+//        topButton.alpha = 1
+//        bottomButton.alpha = 1
+//    }
     
 
+    func setupBackgroundColors() {
+        view.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
+        highlightButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
+        pickDurationButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
+        backgroundRecordingButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
+//        plotView.backgroundColor = .purple
+        
+    }
     
     func setupHighlightButtonConstraints() {
         highlightButton.translatesAutoresizingMaskIntoConstraints = false
-        highlightButton.centerXAnchor.constraint(equalTo: buttonAndTranscribingView.centerXAnchor).isActive = true
+        highlightButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         highlightButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
         highlightButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
-        highlightButton.bottomAnchor.constraint(equalTo: buttonAndTranscribingView.bottomAnchor, constant: -80).isActive = true
+        highlightButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150).isActive = true
     }
     
-    func setupButtonConstraints() {
-        leftButton.translatesAutoresizingMaskIntoConstraints = false
-        rightButton.translatesAutoresizingMaskIntoConstraints = false
-        topButton.translatesAutoresizingMaskIntoConstraints = false
-        bottomButton.translatesAutoresizingMaskIntoConstraints = false
+    
+    func setupPlotViewConstraints() {
+        plotView.translatesAutoresizingMaskIntoConstraints = false
+        plotView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        plotView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        plotView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        plotView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+    }
+    
+    func setupPickDurationButtonConstraints() {
+        pickDurationButton.translatesAutoresizingMaskIntoConstraints = false
+        pickDurationButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        pickDurationButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        pickDurationButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -15).isActive = true
+        pickDurationButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
         
+    }
+    
+    func setupBackgroundRecordingButtonConstraints() {
+        backgroundRecordingButton.translatesAutoresizingMaskIntoConstraints = false
+        backgroundRecordingButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        backgroundRecordingButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        backgroundRecordingButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 15).isActive = true
+        backgroundRecordingButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
         
-        leftButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        leftButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-//        leftButton.bottomAnchor.constraint(equalTo: buttonAndTranscribingView.bottomAnchor, constant: -85).isActive = true
-//        leftButton.rightAnchor.constraint(equalTo: highlightButton.leftAnchor, constant: -10).isActive = true
+    }
 
-        
-        rightButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        rightButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-//        rightButton.bottomAnchor.constraint(equalTo: buttonAndTranscribingView.bottomAnchor, constant: -85).isActive = true
-//        rightButton.leftAnchor.constraint(equalTo: highlightButton.rightAnchor, constant: 10).isActive = true
-        
-        topButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        topButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-//        topButton.bottomAnchor.constraint(equalTo: highlightButton.topAnchor, constant: -10).isActive = true
-//        topButton.centerXAnchor.constraint(equalTo: buttonAndTranscribingView.centerXAnchor).isActive = true
-        
-        
-        bottomButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        bottomButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-//        bottomButton.topAnchor.constraint(equalTo: highlightButton.bottomAnchor, constant: 10).isActive = true
-//        bottomButton.centerXAnchor.constraint(equalTo: buttonAndTranscribingView.centerXAnchor).isActive = true
-        
+
+    
+    
+    /* Button Actions */
+    @objc func highlightButtonClicked(_ sender: RoundButton) {
+        computeHighlight()
+        print("RECORDING WITH DURATION: \(Settings.recordingDuration)")
+
     }
     
     
-    func setupRestofButtonConstraints() {
-        if buttonsConstraintsSet {
-            leftButton.bottomAnchor.constraint(equalTo: buttonAndTranscribingView.bottomAnchor, constant: -85).isActive = false
-            leftButton.rightAnchor.constraint(equalTo: highlightButton.leftAnchor, constant: -10).isActive = false
-            rightButton.bottomAnchor.constraint(equalTo: buttonAndTranscribingView.bottomAnchor, constant: -85).isActive = false
-            rightButton.leftAnchor.constraint(equalTo: highlightButton.rightAnchor, constant: 10).isActive = false
-            topButton.bottomAnchor.constraint(equalTo: highlightButton.topAnchor, constant: -10).isActive = false
-            topButton.centerXAnchor.constraint(equalTo: buttonAndTranscribingView.centerXAnchor).isActive = false
-            bottomButton.topAnchor.constraint(equalTo: highlightButton.bottomAnchor, constant: 10).isActive = false
-            bottomButton.centerXAnchor.constraint(equalTo: buttonAndTranscribingView.centerXAnchor).isActive = false
-            buttonsConstraintsSet = false
+    
+    
+    // FIX WITH ICONS
+    @objc func backgroundRecordingButtonClicked(_ sender: RoundButton) {
+        let recordInBackground = Settings.continueRecordingInBackground
+        
+        if recordInBackground == true {
+            backgroundRecordingButton.backgroundColor = UIColorFromRGB(rgbValue: 0xFF467E)
+            
         } else {
-            leftButton.bottomAnchor.constraint(equalTo: buttonAndTranscribingView.bottomAnchor, constant: -85).isActive = true
-            leftButton.rightAnchor.constraint(equalTo: highlightButton.leftAnchor, constant: -10).isActive = true
-            rightButton.bottomAnchor.constraint(equalTo: buttonAndTranscribingView.bottomAnchor, constant: -85).isActive = true
-            rightButton.leftAnchor.constraint(equalTo: highlightButton.rightAnchor, constant: 10).isActive = true
-            topButton.bottomAnchor.constraint(equalTo: highlightButton.topAnchor, constant: -10).isActive = true
-            topButton.centerXAnchor.constraint(equalTo: buttonAndTranscribingView.centerXAnchor).isActive = true
-            bottomButton.topAnchor.constraint(equalTo: highlightButton.bottomAnchor, constant: 10).isActive = true
-            bottomButton.centerXAnchor.constraint(equalTo: buttonAndTranscribingView.centerXAnchor).isActive = true
-            buttonsConstraintsSet = true
+            backgroundRecordingButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
         }
         
+    }
+    
+    @objc func pickDurationButtonClicked() {
         
     }
     
+    /* Button Actions */
     
     
-    
-    @IBAction func highlightButtonClicked(_ sender: RoundButton) {
-		//FIXME: isRecording is never set!!! -> use audioRecorder.isRecordingHighlight() to check
-        if buttonsOut == false && isRecording == false {
-//            setupHighlightButtonConstraints()
-//            setupButtonConstraints()
-//            setupRestofButtonConstraints()
-            UIView.animate(withDuration: 0.3, animations: {
-                self.topButton.center = self.topButtonCenter
-                self.bottomButton.center = self.bottomButtonCenter
-                self.leftButton.center = self.leftButtonCenter
-                self.rightButton.center = self.rightButtonCenter
-                self.oneAlpha()
-            })
-            buttonsOut = true
-            setupButtonConstraints()
-            setupRestofButtonConstraints()
-        } else if buttonsOut == true && isRecording == false {
-//            setupButtonConstraints()
-//            setupRestofButtonConstraints()
-            buttonsConstraintsSet = false
-            UIView.animate(withDuration: 0.3, animations: {
-                self.backToCenter()
-                self.zeroAlpha()
-            })
-            buttonsOut = false
-//            setupButtonConstraints()
-//            setupRestofButtonConstraints()
-        }
-		
-		if audioRecorder.isRecordingHighlight() {
-			audioRecorder.stop()
-		}
-        
-        print("top center CLICKED \(topButton.center)")
-        print("bottom center CLICKED \(bottomButton.center)")
-        print("left center CLICKED\(leftButton.center)")
-        print("right center CLICKED\(rightButton.center)")
-        print("highlight center CLICKED\(highlightButton.center)")
-        
-    }
-    
-    @IBAction func topButtonClicked(_ sender: RoundButton) {
-        Settings.recordingDuration = Settings.Duration.topButton.rawValue
-        print("RECORDING DURATION: \(Settings.recordingDuration)")
-        computeHighlight()
-        UIView.animate(withDuration: 0.3, animations: {
-            self.backToCenter()
-            self.zeroAlpha()
-        })
-    }
-    @IBAction func bottomButtonClicked(_ sender: RoundButton) {
-        Settings.recordingDuration = Settings.customDuration
-        print("RECORDING DURATION: \(Settings.recordingDuration)")
-        computeHighlight()
-        UIView.animate(withDuration: 0.3, animations: {
-            self.backToCenter()
-            self.zeroAlpha()
-        })
-    }
-    @IBAction func leftButtonClicked(_ sender: RoundButton) {
-        Settings.recordingDuration = Settings.Duration.leftButton.rawValue
-        print("RECORDING DURATION: \(Settings.recordingDuration)")
-        computeHighlight()
-        UIView.animate(withDuration: 0.3, animations: {
-            self.backToCenter()
-            self.zeroAlpha()
-        })
-    }
-    @IBAction func rightButtonClicked(_ sender: RoundButton) {
-        Settings.recordingDuration = Settings.Duration.rightButton.rawValue
-        print("RECORDING DURATION: \(Settings.recordingDuration)")
-        computeHighlight()
-        UIView.animate(withDuration: 0.3, animations: {
-            self.backToCenter()
-            self.zeroAlpha()
-        })
-    }
-    
-    func setButtonsTitle() {
-        leftButton.setTitle(String(Settings.Duration.leftButton.rawValue), for: .normal)
-        topButton.setTitle(String(Settings.Duration.topButton.rawValue), for: .normal)
-        rightButton.setTitle(String(Settings.Duration.rightButton.rawValue), for: .normal)
-        bottomButton.setTitle(String(Settings.customDuration), for: .normal)
-    }
-    
-    func backToCenter() {
-        self.topButton.center = self.highlightButtonCenter
-        self.bottomButton.center = self.highlightButtonCenter
-        self.leftButton.center = self.highlightButtonCenter
-        self.rightButton.center = self.highlightButtonCenter
-    }
-    
+//
+//    @IBAction func topButtonClicked(_ sender: RoundButton) {
+//        Settings.recordingDuration = Settings.Duration.topButton.rawValue
+//        print("RECORDING DURATION: \(Settings.recordingDuration)")
+//        computeHighlight()
+//        UIView.animate(withDuration: 0.3, animations: {
+//            self.backToCenter()
+//            self.zeroAlpha()
+//        })
+//    }
+
+//
+//    func setButtonsTitle() {
+//        leftButton.setTitle(String(Settings.Duration.leftButton.rawValue), for: .normal)
+//        topButton.setTitle(String(Settings.Duration.topButton.rawValue), for: .normal)
+//        rightButton.setTitle(String(Settings.Duration.rightButton.rawValue), for: .normal)
+//        bottomButton.setTitle(String(Settings.customDuration), for: .normal)
+//    }
+
 	
     func createRollingPlot(_ inputNode: AKNode) -> AKNodeOutputPlot {
-        let frame: CGRect = CGRect(x: plotView.frame.origin.x, y: plotView.frame.origin.y, width: mainView.frame.width, height: plotView.frame.height)
-        
+        let frame: CGRect = plotView.frame
 		let rplot = AKNodeOutputPlot(inputNode, frame: frame)
 		rplot.plotType = .rolling
 		rplot.shouldFill = true
 		rplot.shouldMirror = true
 		rplot.color = UIColorFromRGB(rgbValue: 0xFFFFFF)
         //Blue theme
-        rplot.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
+//        rplot.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
+        rplot.backgroundColor = .yellow
     
 		rplot.gain = 1
 		
 		return rplot
 	}
+    
 	
 	override func viewDidAppear(_ animated: Bool) {
 		print("\(#function)")
@@ -579,7 +481,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
             
             var finished = false
             if let result = result {
-                self.TranscribingTextView.text = result.bestTranscription.formattedString
+//                self.TranscribingTextView.text = result.bestTranscription.formattedString
                 finished = result.isFinal
             }
             

@@ -11,7 +11,7 @@ import Foundation
 
 class Settings {
     static var recordingDuration = 30.0
-    static var continueRecording = false
+    static var continueRecordingInBackground = false
     static var customDuration = 120.0
     
     enum Duration: Double {
