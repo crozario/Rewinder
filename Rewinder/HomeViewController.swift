@@ -315,6 +315,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     
     
     @IBAction func highlightButtonClicked(_ sender: RoundButton) {
+		//FIXME: isRecording is never set!!! -> use audioRecorder.isRecordingHighlight() to check
         if buttonsOut == false && isRecording == false {
 //            setupHighlightButtonConstraints()
 //            setupButtonConstraints()
@@ -341,6 +342,10 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 //            setupButtonConstraints()
 //            setupRestofButtonConstraints()
         }
+		
+		if audioRecorder.isRecordingHighlight() {
+			audioRecorder.stop()
+		}
         
         print("top center CLICKED \(topButton.center)")
         print("bottom center CLICKED \(bottomButton.center)")
@@ -468,7 +473,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	
 	func computeHighlight(){
         highlightButton.backgroundColor = UIColorFromRGB(rgbValue: 0xFF467E)
-        highlightButton.isEnabled = false
+//        highlightButton.isEnabled = false
 		//get current recording time
 		let cropTime = audioRecorder?.currentTime
 		
@@ -531,7 +536,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 				high3 = nil
 				
 				self.beginRecording(recordFile: audioObj!.getNextTempFile())
-				highlightButton.isEnabled = true // move to Audio.swift file inside the mergeAndAddHighlight2 Completion Handler
+//				highlightButton.isEnabled = true // move to Audio.swift file inside the mergeAndAddHighlight2 Completion Handler
                 highlightButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
 			}
 		}
@@ -591,11 +596,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
             self.speechRecognitionRequest?.append(buffer) }
         audioEngine.prepare()
         try! audioEngine.start()
-        
-        
     }
-
-    
 }
 
 
@@ -618,9 +619,12 @@ class myRecorder: AVAudioRecorder {
 		print("------------------------------------------------------------------")
 	}
     
-    
-    
-    
+	func isRecordingHighlight() -> Bool {
+		if url.lastPathComponent == "temp.caf" {
+			return true
+		}
+		return false
+	}
 }
 
 
