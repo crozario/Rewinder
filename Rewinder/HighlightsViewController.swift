@@ -407,7 +407,7 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 	
 	// MARK: - Playing audio
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		
+		tableView.deselectRow(at: indexPath, animated: true)
 //		if self.prevPath != nil, self.prevPath == indexPath, self.audioPlayer != nil{
 //			if self.audioPlayer!.isPlaying {
 //				audioPlayer!.pause()
