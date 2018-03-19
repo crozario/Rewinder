@@ -261,6 +261,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     
     /* Button Actions */
     @objc func highlightButtonClicked(_ sender: RoundButton) {
+        
         computeHighlight()
         print("RECORDING WITH DURATION: \(Settings.recordingDuration)")
 
@@ -274,10 +275,11 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         let recordInBackground = Settings.continueRecordingInBackground
         
         if recordInBackground == true {
-            backgroundRecordingButton.backgroundColor = UIColorFromRGB(rgbValue: 0xFF467E)
-            
-        } else {
             backgroundRecordingButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
+            Settings.continueRecordingInBackground = false
+        } else {
+            backgroundRecordingButton.backgroundColor = UIColorFromRGB(rgbValue: 0xFF467E)
+            Settings.continueRecordingInBackground = true
         }
         
     }
@@ -437,7 +439,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 				high3 = nil
 				
 				self.beginRecording(recordFile: audioObj!.getNextTempFile())
-//				highlightButton.isEnabled = true // move to Audio.swift file inside the mergeAndAddHighlight2 Completion Handler
+//                highlightButton.isEnabled = true // move to Audio.swift file inside the mergeAndAddHighlight2 Completion Handler
                 highlightButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
 			}
 		}
