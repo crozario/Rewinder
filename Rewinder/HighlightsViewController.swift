@@ -497,16 +497,18 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 			// check if the section still has any rows (delete section if not)
 			if self.twoDarr[indexPath.section].count == 1 {
 				
-				tableView.beginUpdates()
-				let section_indexset = IndexSet(integer: indexPath.section)
-				tableView.deleteSections(section_indexset, with: .fade)
-//				tableView.reloadData() //FIX ME: Temp fix should only remove the section
-				tableView.endUpdates()
 				print("BEFORE")
 				self.print2D(self.twoDarr)
 				self.twoDarr.remove(at: indexPath.section)
 				print("AFTER")
 				self.print2D(self.twoDarr)
+				tableView.beginUpdates()
+				var section_indexset = IndexSet()
+				section_indexset.insert(indexPath.section)
+				tableView.deleteSections(section_indexset, with: .fade)
+				tableView.reloadData()
+				tableView.endUpdates()
+				
 			}
 		})
 		
@@ -547,7 +549,12 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 	}
 	
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return twoDarr[section][0]
+		if twoDarr.count > section {
+			if twoDarr[section].count > 0 {
+				return twoDarr[section][0]
+			}
+		}
+		return "unexpected"
 	}
 	
 	// MARK: - Unused delegate callbacks
