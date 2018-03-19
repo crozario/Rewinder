@@ -315,6 +315,12 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		return duration
 	}
 	
+	func getFileURL(from title: String) -> URL {
+		let fileName = getHighlightFilename(title: title)
+		let url = highlightsURL.appendingPathComponent(fileName)
+		return url
+	}
+	
 	// MARK: - Delete highlight
 	func removeHighlightDatabaseAndFileSystem(title: String) throws -> Bool {
 		let managedObj = self.getHighlightManagedObject(title: title)
@@ -478,7 +484,6 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 		})
 		
 		let deleteAction = UITableViewRowAction(style: .default, title: "Delete", handler: { (action, indexPath) in
-			
 			// delete in database and filesystem
 			do {
 				let element = self.getElementFromTwoDarr(indexPath: indexPath)
@@ -496,23 +501,30 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 			
 			// check if the section still has any rows (delete section if not)
 			if self.twoDarr[indexPath.section].count == 1 {
-				
-				print("BEFORE")
-				self.print2D(self.twoDarr)
+//				print("BEFORE")
+//				self.print2D(self.twoDarr)
 				self.twoDarr.remove(at: indexPath.section)
-				print("AFTER")
-				self.print2D(self.twoDarr)
+//				print("AFTER")
+//				self.print2D(self.twoDarr)
 				tableView.beginUpdates()
 				var section_indexset = IndexSet()
 				section_indexset.insert(indexPath.section)
 				tableView.deleteSections(section_indexset, with: .fade)
 				tableView.reloadData()
 				tableView.endUpdates()
-				
 			}
 		})
+		// export to photo library
+		let exportAction = UITableViewRowAction(style: .destructive, title: "Export", handler: { (action, indexPath) in
+			let fileURL = self.getFileURL(from: self.getElementFromTwoDarr(indexPath: indexPath))
+			let activityItems = [fileURL]
+			let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+			self.present(activityViewController, animated: true, completion: {
+				print("Export completed successfully")
+			})
+		})
 		
-		return [deleteAction, editAction]
+		return [deleteAction, editAction, exportAction]
 	}
 	
 	func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
