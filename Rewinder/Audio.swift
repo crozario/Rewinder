@@ -38,6 +38,7 @@ class Audio {
 		do {
 //			try session?.setCategory(AVAudioSessionCategoryPlayAndRecord)
 			try session?.setCategory(AVAudioSessionCategoryPlayAndRecord, with: AVAudioSessionCategoryOptions.mixWithOthers)
+			try session?.setActive(true)
 		}catch let error as NSError{
 			print (error)
 		}
@@ -67,7 +68,10 @@ class Audio {
 		createDir(dirURL: highlightsURL) // highlights dir created
 		
 		isFirstTemp = true
+		
+		// listen to volume buttons
 	}
+	
 	
 	func createDir(dirURL: URL){
 		if !(self.filemgr.fileExists(atPath: dirURL.path)) {

@@ -12,13 +12,15 @@ import CoreData
 import NotificationCenter
 import AudioKit
 import AudioKitUI
-import Speech
+//import Speech
+import MediaPlayer
+
 
 class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate, UIViewControllerTransitioningDelegate {
     
 //    var data = [viewControllerData(image: #imageLiteral(resourceName: "highlightIcon"), title: "Highlights"), viewControllerData(image: #imageLiteral(resourceName: "settingsIcon"), title: "Settings") ]
     
-
+	var homeViewPresented: Bool = false
 
     var topButtonCenter: CGPoint!
     var bottomButtonCenter: CGPoint!
@@ -27,9 +29,9 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     var highlightButtonCenter: CGPoint!
     var isRecording = false
     
-    private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))!
-    private var speechRecognitionRequest: SFSpeechAudioBufferRecognitionRequest?
-    private var speechRecognitionTask: SFSpeechRecognitionTask?
+//    private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))!
+//    private var speechRecognitionRequest: SFSpeechAudioBufferRecognitionRequest?
+//    private var speechRecognitionTask: SFSpeechRecognitionTask?
     private let audioEngine = AVAudioEngine()
     
 
@@ -191,11 +193,42 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         rollingPlot.heightAnchor.constraint(equalToConstant: 300).isActive = true
 //        setupRollingPlotConstraints()
         
-        startSession()
+//        startSession()
+		volumeView = MPVolumeView(frame: .null)
+//		volumeView.showsRouteButton = true
+//		volumeView.showsVolumeSlider = true
+		self.view.addSubview(volumeView)
+		
+		NotificationCenter.default.addObserver(self, selector: #selector(volumeChanged(notification:)), name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
+		
 	}
-    
-    
-    
+	func disableVolumeHub() {
+		volumeView.showsRouteButton = true
+		volumeView.showsVolumeSlider = true
+	}
+	func enableVolumeHub() {
+		volumeView.showsRouteButton = false
+		volumeView.showsVolumeSlider = false
+	}
+	var volumeView: MPVolumeView!
+	@objc func volumeChanged(notification: NSNotification) {
+		if let userInfo = notification.userInfo {
+			if let volumeChangeType = userInfo["AVSystemController_AudioVolumeChangeReasonNotificationParameter"] as? String {
+				if volumeChangeType == "ExplicitVolumeChange" {
+					if homeViewPresented {
+						triggerCaptureAction()
+					}
+				}
+			}
+		}
+	}
+	
+//	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+//		if keyPath == "outputVolume" {
+//			print("got in here2")
+//		}
+//	}
+	
     
 //    func zeroAlpha() {
 //        leftButton.alpha = 0
@@ -261,17 +294,20 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     
     /* Button Actions */
     @objc func highlightButtonClicked(_ sender: RoundButton) {
-        
-        computeHighlight()
+	
         print("RECORDING WITH DURATION: \(Settings.recordingDuration)")
 		
+		triggerCaptureAction()
+    }
+	
+	func triggerCaptureAction() {
 		if audioRecorder.isRecordingHighlight() {
 			audioRecorder.stop()
+		} else {
+			computeHighlight()
+			highlightButton.backgroundColor = UIColorFromRGB(rgbValue: 0xFF467E)
 		}
-    }
-    
-    
-    
+	}
     
     // FIX WITH ICONS
     @objc func backgroundRecordingButtonClicked(_ sender: RoundButton) {
@@ -333,6 +369,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	
 	override func viewDidAppear(_ animated: Bool) {
 		print("\(#function)")
+		homeViewPresented = true
+		disableVolumeHub()
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -344,9 +382,11 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		print("\(#function)")
+		homeViewPresented = false
 		if rollingPlot.isConnected {
 			rollingPlot.pause()
 		}
+		enableVolumeHub()
 	}
 	
 	// MARK: - Recording
@@ -463,8 +503,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		}
 	}
     
-    
-    func startSession() {
+	
+/*  func startSession() {
         if let recognitionTask = speechRecognitionTask {
             recognitionTask.cancel()
             self.speechRecognitionTask = nil
@@ -502,7 +542,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
             self.speechRecognitionRequest?.append(buffer) }
         audioEngine.prepare()
         try! audioEngine.start()
-    }
+    }*/
 }
 
 
