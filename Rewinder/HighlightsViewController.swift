@@ -407,7 +407,7 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 	
 	// MARK: - Playing audio
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		
+		tableView.deselectRow(at: indexPath, animated: true)
 //		if self.prevPath != nil, self.prevPath == indexPath, self.audioPlayer != nil{
 //			if self.audioPlayer!.isPlaying {
 //				audioPlayer!.pause()
@@ -514,6 +514,7 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 				tableView.endUpdates()
 			}
 		})
+		
 		// export to photo library
 		let exportAction = UITableViewRowAction(style: .destructive, title: "Export", handler: { (action, indexPath) in
 			let fileURL = self.getFileURL(from: self.getElementFromTwoDarr(indexPath: indexPath))

@@ -264,7 +264,10 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         
         computeHighlight()
         print("RECORDING WITH DURATION: \(Settings.recordingDuration)")
-
+		
+		if audioRecorder.isRecordingHighlight() {
+			audioRecorder.stop()
+		}
     }
     
     
