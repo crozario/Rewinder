@@ -36,7 +36,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-223" y="-940"/>
+            <point key="canvasLocation" x="-223.19999999999999" y="-940.47976011994012"/>
         </scene>
         <!--Highlights View Controller-->
         <scene sceneID="ys1-Ia-qMK">
@@ -50,8 +50,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bti-a6-TJs">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bti-a6-TJs">
                                 <rect key="frame" x="0.0" y="70" width="375" height="597"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="idNormalHighlightCell" rowHeight="60" id="qwR-NM-a7r" customClass="NormalHighlightCell" customModule="Rewinder" customModuleProvider="target">
@@ -131,13 +132,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="bti-a6-TJs" firstAttribute="top" secondItem="7Hf-SH-fZo" secondAttribute="bottom" id="3ft-RH-z9a"/>
                             <constraint firstItem="7Hf-SH-fZo" firstAttribute="trailing" secondItem="zbl-b9-ECi" secondAttribute="trailing" id="5Br-fl-7iL"/>
                             <constraint firstItem="7Hf-SH-fZo" firstAttribute="top" secondItem="Dr8-lJ-P2i" secondAttribute="bottom" id="7Jo-Ef-YBS"/>
                             <constraint firstItem="7Hf-SH-fZo" firstAttribute="leading" secondItem="zbl-b9-ECi" secondAttribute="leading" id="9uY-Rb-6A7"/>
-                            <constraint firstItem="bti-a6-TJs" firstAttribute="bottom" secondItem="ao4-WG-e7f" secondAttribute="top" id="D7Z-kS-Gcu"/>
-                            <constraint firstItem="bti-a6-TJs" firstAttribute="leading" secondItem="zbl-b9-ECi" secondAttribute="leading" id="GR8-AC-gGc"/>
-                            <constraint firstAttribute="trailing" secondItem="bti-a6-TJs" secondAttribute="trailing" id="OdN-N6-ixU"/>
                         </constraints>
                     </view>
                     <connections>

@@ -18,13 +18,10 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     
 //    var data = [viewControllerData(image: #imageLiteral(resourceName: "highlightIcon"), title: "Highlights"), viewControllerData(image: #imageLiteral(resourceName: "settingsIcon"), title: "Settings") ]
     
-
-
-    var topButtonCenter: CGPoint!
-    var bottomButtonCenter: CGPoint!
     var leftButtonCenter: CGPoint!
+    var middleButtonCenter: CGPoint!
     var rightButtonCenter: CGPoint!
-    var highlightButtonCenter: CGPoint!
+    var pickDurationButtonCenter: CGPoint!
     var isRecording = false
     
     private let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))!
@@ -43,8 +40,15 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	
 	let mic = AKMicrophone()
 	var rollingPlot: AKNodeOutputPlot!
+    
+    private let navBar: UINavigationBar = {
+        let nav = UINavigationBar()
+        let titleItem = UINavigationItem(title: "Home")
+        nav.pushItem(titleItem, animated: false)
+        return nav
+    }()
 	
-    var plotView: UIView = {
+    private let plotView: UIView = {
         let pView = UIView()
         return pView
     }()
@@ -70,6 +74,27 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         return button
     }()
     
+    private let leftButton: RoundButton = {
+        let button = RoundButton()
+        button.cornerRadius = 30
+        button.setTitle(String(Settings.Duration.leftButton.rawValue), for: .normal)
+        return button
+    }()
+    
+    private let middleButton: RoundButton = {
+        let button = RoundButton()
+        button.cornerRadius = 30
+        button.setTitle(String(Settings.Duration.middleButton.rawValue), for: .normal)
+        return button
+    }()
+    
+    private let rightButton: RoundButton = {
+        let button = RoundButton()
+        button.cornerRadius = 30
+        button.setTitle(String(Settings.Duration.rightButton.rawValue), for: .normal)
+        return button
+    }()
+    
     var buttonsOut = false
     var buttonsConstraintsSet = false
     
@@ -78,19 +103,29 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		super.viewDidLoad()
         
         //add views to the main view
+        view.addSubview(navBar)
         view.addSubview(highlightButton)
         view.addSubview(plotView)
         view.addSubview(backgroundRecordingButton)
         view.addSubview(pickDurationButton)
+        view.addSubview(leftButton)
+        view.addSubview(middleButton)
+        view.addSubview(rightButton)
+        
         
         
         setupBackgroundColors()
         
         //add constraints
+        setupNavBarConstraints()
         setupHighlightButtonConstraints()
         setupPlotViewConstraints()
         setupPickDurationButtonConstraints()
         setupBackgroundRecordingButtonConstraints()
+        setupLeftButtonConstraints()
+        setupMiddleButtonConstraints()
+        setupRightButtonConstraints()
+        
         
         //button actions
         highlightButton.addTarget(self, action: #selector(highlightButtonClicked), for: .touchUpInside)
@@ -98,53 +133,24 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         pickDurationButton.addTarget(self, action: #selector(pickDurationButtonClicked), for: .touchUpInside)
         
         //drop shadow
-        highlightButton.layer.shadowOpacity = 1
-        highlightButton.layer.shadowRadius = 5
-        backgroundRecordingButton.layer.shadowOpacity = 1
-        backgroundRecordingButton.layer.shadowRadius = 5
-        pickDurationButton.layer.shadowOpacity = 1
-        pickDurationButton.layer.shadowRadius = 5
-        
-        
-        
-        
-        
-//        self.zeroAlpha()
-        
-//        topButtonCenter = topButton.center
-//        bottomButtonCenter = bottomButton.center
-//        leftButtonCenter = leftButton.center
-//        rightButtonCenter = rightButton.center
+//        highlightButton.layer.shadowOpacity = 1
+//        highlightButton.layer.shadowRadius = 5
+//        backgroundRecordingButton.layer.shadowOpacity = 1
+//        backgroundRecordingButton.layer.shadowRadius = 5
+//        pickDurationButton.layer.shadowOpacity = 1
+//        pickDurationButton.layer.shadowRadius = 5
 //
-//        highlightButtonCenter = highlightButton.center
-////        highlightButtonCenter = CGPoint(x: mainView.center.x + 10, y: highlightButton.center.y)
-//
-//        print("top center \(topButtonCenter)")
-//        print("bottom center \(bottomButtonCenter)")
-//        print("left center \(leftButtonCenter)")
-//        print("right center \(rightButtonCenter)")
-//        print("highlight center \(highlightButtonCenter)")
-//        print("highlight center 2 \(highlightButton.center)")
-//
-////        highlightButton.center = highlightButtonCenter
-//        topButton.center = highlightButtonCenter
-//        bottomButton.center = highlightButtonCenter
-//        leftButton.center = highlightButtonCenter
-//        rightButton.center = highlightButtonCenter
-//
-//        print("top center \(topButton.center)")
-//        print("bottom center \(bottomButton.center)")
-//        print("left center \(leftButton.center)")
-//        print("right center \(rightButton.center)")
-//        print("highlight center \(highlightButton.center)")
-//
-       
-//        topButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
-//        bottomButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
-//        leftButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
-//        rightButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
         
-		
+        zeroAlpha()
+        
+        leftButtonCenter = leftButton.center
+        middleButtonCenter = middleButton.center
+        rightButtonCenter = rightButton.center
+        
+        pickDurationButtonCenter = pickDurationButton.center
+        backToCenter()
+//        disbleRightButtonConstraints()
+        
 		audioObj = Audio(managedObjectContext)
 		
 		//delete highlights folder
@@ -197,19 +203,17 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     
     
     
-//    func zeroAlpha() {
-//        leftButton.alpha = 0
-//        rightButton.alpha = 0
-//        topButton.alpha = 0
-//        bottomButton.alpha = 0
-//    }
-//
-//    func oneAlpha() {
-//        leftButton.alpha = 1
-//        rightButton.alpha = 1
-//        topButton.alpha = 1
-//        bottomButton.alpha = 1
-//    }
+    func zeroAlpha() {
+        leftButton.alpha = 0
+        middleButton.alpha = 0
+        rightButton.alpha = 0
+    }
+    
+    func oneAlpha() {
+        leftButton.alpha = 1
+        middleButton.alpha = 1
+        rightButton.alpha = 1
+    }
     
 
     func setupBackgroundColors() {
@@ -217,9 +221,25 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         highlightButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
         pickDurationButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
         backgroundRecordingButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
+        
+        
+        leftButton.backgroundColor = .yellow
+        middleButton.backgroundColor = .yellow
+        rightButton.backgroundColor = .yellow
 //        plotView.backgroundColor = .purple
         
     }
+    
+    
+    //Constraints
+    
+    func setupNavBarConstraints() {
+        navBar.translatesAutoresizingMaskIntoConstraints = false
+        navBar.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        navBar.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        navBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+    }
+    
     
     func setupHighlightButtonConstraints() {
         highlightButton.translatesAutoresizingMaskIntoConstraints = false
@@ -233,7 +253,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     func setupPlotViewConstraints() {
         plotView.translatesAutoresizingMaskIntoConstraints = false
         plotView.heightAnchor.constraint(equalToConstant: 300).isActive = true
-        plotView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        plotView.topAnchor.constraint(equalTo: navBar.bottomAnchor).isActive = true
         plotView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         plotView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
     }
@@ -254,6 +274,38 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         backgroundRecordingButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 15).isActive = true
         backgroundRecordingButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
         
+    }
+    
+    func setupLeftButtonConstraints() {
+        leftButton.translatesAutoresizingMaskIntoConstraints = false
+        leftButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        leftButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        leftButton.rightAnchor.constraint(equalTo: pickDurationButton.leftAnchor, constant: -20).isActive = true
+        leftButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
+    }
+    
+    func setupMiddleButtonConstraints() {
+        middleButton.translatesAutoresizingMaskIntoConstraints = false
+        middleButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        middleButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        middleButton.rightAnchor.constraint(equalTo: pickDurationButton.leftAnchor, constant: 10).isActive = true
+        middleButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -70).isActive = true
+    }
+    
+    func setupRightButtonConstraints() {
+        rightButton.translatesAutoresizingMaskIntoConstraints = false
+        rightButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        rightButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        rightButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15).isActive = true
+        rightButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100).isActive = true
+    }
+    
+    func disbleRightButtonConstraints() {
+        rightButton.translatesAutoresizingMaskIntoConstraints = true
+        rightButton.heightAnchor.constraint(equalToConstant: 60).isActive = false
+        rightButton.widthAnchor.constraint(equalToConstant: 60).isActive = false
+        rightButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15).isActive = false
+        rightButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100).isActive = false
     }
 
 
@@ -289,6 +341,33 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     
     @objc func pickDurationButtonClicked() {
         
+        if buttonsOut {
+            setupRightButtonConstraints()
+            UIView.animate(withDuration: 0.3, animations: {
+                self.backToCenter()
+                self.zeroAlpha()
+            })
+            buttonsOut = false
+        } else {
+//            disbleRightButtonConstraints()
+            UIView.animate(withDuration: 0.3, animations: {
+                self.backToPos()
+                self.oneAlpha()
+            })
+            buttonsOut = true
+        }
+    }
+    
+    func backToCenter() {
+        leftButton.center = pickDurationButtonCenter
+        middleButton.center = pickDurationButtonCenter
+        rightButton.center = pickDurationButtonCenter
+    }
+    
+    func backToPos() {
+        leftButton.center = leftButtonCenter
+        middleButton.center = middleButtonCenter
+        rightButton.center = rightButtonCenter
     }
     
     /* Button Actions */
