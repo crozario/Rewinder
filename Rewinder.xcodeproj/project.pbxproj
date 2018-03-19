@@ -23,7 +23,6 @@
 		C42BB58A2041E08A00D7D4CF /* RewinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5892041E08A00D7D4CF /* RewinderTests.swift */; };
 		C42BB5952041E08A00D7D4CF /* RewinderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5942041E08A00D7D4CF /* RewinderUITests.swift */; };
 		C452530520428768000808A8 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C452530420428768000808A8 /* PageViewController.swift */; };
-		C4525307204293B6000808A8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4525306204293B6000808A8 /* SettingsViewController.swift */; };
 		C46D16B92042002600B1224D /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46D16B82042002600B1224D /* RoundButton.swift */; };
 		C46E2BDA2042138C001BE43A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C46E2BD92042138C001BE43A /* Assets.xcassets */; };
 		C46E2BDD20422323001BE43A /* Eminem - Rap God.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C46E2BDC20422323001BE43A /* Eminem - Rap God.mp3 */; };
@@ -91,7 +90,6 @@
 		C42BB5942041E08A00D7D4CF /* RewinderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewinderUITests.swift; sourceTree = "<group>"; };
 		C42BB5962041E08A00D7D4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C452530420428768000808A8 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
-		C4525306204293B6000808A8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C46D16B82042002600B1224D /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		C46E2BD92042138C001BE43A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C46E2BDC20422323001BE43A /* Eminem - Rap God.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Eminem - Rap God.mp3"; sourceTree = "<group>"; };
@@ -177,7 +175,6 @@
 				C4C524E520542E7F00C5DF95 /* Main.storyboard */,
 				5D77DD4A205397BE000FC2C3 /* HomeViewController.swift */,
 				5D249A0C20538AAE00B65029 /* HighlightsViewController.swift */,
-				C4525306204293B6000808A8 /* SettingsViewController.swift */,
 				C452530420428768000808A8 /* PageViewController.swift */,
 				C4E987EA205C9306008FC728 /* Settings.swift */,
 				5D8102A620424A7C00F62B37 /* Audio.swift */,
@@ -540,7 +537,6 @@
 				C452530520428768000808A8 /* PageViewController.swift in Sources */,
 				C416424A205DB4E400658407 /* CustomLengthTableViewCell.swift in Sources */,
 				5D77DD4B205397BE000FC2C3 /* HomeViewController.swift in Sources */,
-				C4525307204293B6000808A8 /* SettingsViewController.swift in Sources */,
 				5D79EFE3204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift in Sources */,
 				5D249A0D20538AAE00B65029 /* HighlightsViewController.swift in Sources */,
 			);
