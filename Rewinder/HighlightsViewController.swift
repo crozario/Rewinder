@@ -143,9 +143,14 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 					}
 				} else {
 					if twoDinserted.isEmpty || newSectionInserted {
-						twoDinserted.insert([false], at: 0)
-					} else {
-						twoDinserted[0].append(true)
+						if newSectionInserted {
+							twoDinserted.insert([true], at: 0)
+						} else {
+							twoDinserted.insert([false], at: 0)
+						}
+					} 
+					else {
+						twoDinserted[0].append(false)
 					}
 				}
 			}
@@ -155,14 +160,13 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	func updateRows() {
 		var iPaths = [IndexPath]()
 
-		tableView.beginUpdates()
 		for (section, row) in twoDinserted.enumerated() {
-			if row[0] != false {
+			if row[0] == true {
 				//insert section
-				
 				let section_idx = IndexSet(integer: section)
+				tableView.beginUpdates()
 				tableView.insertSections(section_idx, with: .fade)
-//				tableView.endUpdates()
+				tableView.endUpdates()
 			}
 			for rowIdx in 0..<row.count {
 				let iPath = IndexPath(row: rowIdx, section: section)
@@ -492,11 +496,17 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 			
 			// check if the section still has any rows (delete section if not)
 			if self.twoDarr[indexPath.section].count == 1 {
-				self.twoDarr.remove(at: indexPath.section)
+				
 				tableView.beginUpdates()
 				let section_indexset = IndexSet(integer: indexPath.section)
 				tableView.deleteSections(section_indexset, with: .fade)
+//				tableView.reloadData() //FIX ME: Temp fix should only remove the section
 				tableView.endUpdates()
+				print("BEFORE")
+				self.print2D(self.twoDarr)
+				self.twoDarr.remove(at: indexPath.section)
+				print("AFTER")
+				self.print2D(self.twoDarr)
 			}
 		})
 		
@@ -553,10 +563,6 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
 		print("\(#function)")
 	}
-    
-    
-    
-    
 }
 
 
