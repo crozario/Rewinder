@@ -365,8 +365,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         middleButton.translatesAutoresizingMaskIntoConstraints = false
         middleButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
         middleButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        middleButton.rightAnchor.constraint(equalTo: pickDurationButton.leftAnchor, constant: 10).isActive = true
-        middleButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -70).isActive = true
+        middleButton.rightAnchor.constraint(equalTo: pickDurationButton.leftAnchor, constant: 14).isActive = true
+        middleButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -72).isActive = true
 //        middleButton.center = CGPoint(x: pickDurationButton.center.x - 20, y: pickDurationButton.center.y - 20)
     }
     
