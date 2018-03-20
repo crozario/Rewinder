@@ -15,11 +15,64 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 	var audioPlayer: myPlayer?
 	var audioRecorder: myRecorder?
+//	let settingFile: String = "highlightsettings.txt"
+	var settingsURL: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("highlightsettings.txt")
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+		
+		self.initializeSettings()
+		
         return true
     }
+	
+	//CONTINUE NOTE: Finish initializeSettings() and saveSettings()
+	func initializeSettings() {
+		let fileHandle: FileHandle? = FileHandle(forReadingAtPath: settingsURL.path)
+		if let file = fileHandle {
+			// initialize settings values
+			let data: Data = file.readDataToEndOfFile()
+			var dataString: String? = String.init(data: data, encoding: .utf8)
+			if dataString != nil {
+				if dataString!.count == 2 {
+					let durationButton: Character = dataString!.removeFirst()
+					switch durationButton{
+					case "l":
+						//same as default
+						loadDefaultDurationAndButton()
+					case "m":
+						Settings.currentButtonSelected = "middle"
+						Settings.recordingDuration = Settings.Duration.middleButton.rawValue
+					case "r":
+						Settings.currentButtonSelected = "right"
+						Settings.recordingDuration = Settings.Duration.rightButton.rawValue
+					default:
+						print("Error data fround in highlightSettings.txt file")
+						print("Loading default duration:")
+						loadDefaultDurationAndButton()
+					}
+					let backgroundChar: Character = dataString!.removeFirst()
+					let recordInBackground: Bool = (backgroundChar == "1") ? true : false
+					if recordInBackground {
+						Settings.continueRecordingInBackground = true
+					} else {
+						Settings.continueRecordingInBackground = false
+					}
+				}
+			}
+			
+			file.closeFile()
+		} else {
+			// couldn't read from file --> load defaults
+			Settings.continueRecordingInBackground = true
+			loadDefaultDurationAndButton()
+		}
+	}
+	
+	func loadDefaultDurationAndButton() {
+		Settings.recordingDuration = Settings.Duration.leftButton.rawValue
+		Settings.currentButtonSelected = "left"
+	}
 
     func applicationWillResignActive(_ application: UIApplication) {
 		print("\(#function)")
@@ -58,8 +111,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
+		self.saveSettings()
     }
 
+	func saveSettings(){
+		var dataString: String = ""
+		let char = Settings.currentButtonSelected.first
+		dataString.append(char!)
+		let boolNum = Settings.continueRecordingInBackground ? "1" : "0"
+		dataString += boolNum
+		
+		// create file
+		let filemgr = FileManager.default
+		
+		// write dataString to settingFile
+		if let data = dataString.data(using: .utf8) {
+			let success = filemgr.createFile(atPath: settingsURL.path, contents: data, attributes: nil)
+			if !success {
+				print("Error: File write unsuccessful.")
+			}
+		} else {
+			print("Error: Could not encode dataString to UTF-8 data.")
+		}
+	}
+	
     // MARK: - Core Data stack
 
     lazy var persistentContainer: NSPersistentContainer = {

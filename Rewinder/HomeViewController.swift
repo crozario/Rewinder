@@ -274,7 +274,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         view.backgroundColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
         highlightButton.backgroundColor = unSelectedColor
         pickDurationButton.backgroundColor = unSelectedColor
-        backgroundRecordingButton.backgroundColor = unSelectedColor
+		backgroundRecordingButton.backgroundColor = Settings.continueRecordingInBackground ? selectedColor : unSelectedColor
         navBar.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
         checkCurrSelected()
 //        plotView.backgroundColor = .purple
