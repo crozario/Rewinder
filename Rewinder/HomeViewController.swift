@@ -40,6 +40,9 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 
 	let managedObjectContext: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 	
+	let appDelegate = UIApplication.shared.delegate as! AppDelegate
+	
+	
 	//	var audioRecorder: AVAudioRecorder?
 	var audioObj: Audio!
     var audioPlayer: AVAudioPlayer?
@@ -210,7 +213,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		// create rolling waveform plot
         rollingPlot = createRollingPlot(micCopy1)
         
-        
+		
         
 		plotView.addSubview(rollingPlot)
         
@@ -228,6 +231,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		self.view.addSubview(volumeView)
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(volumeChanged(notification:)), name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
+		
+		
 		
 	}
 	func disableVolumeHub() {
