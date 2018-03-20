@@ -17,7 +17,7 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	var filemgr = FileManager.default
 	var docsURL: URL!
 	var highlightsURL: URL!
-    var audioPlayer: AVAudioPlayer?
+    var audioPlayer: myPlayer?
     var currSelected: Int?
 	let fileExtension: String = "caf"
     
@@ -417,21 +417,22 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	var prevCell: NormalHighlightCell?
 }
 
+// MARK: - Cell Delegate
 extension HighlightsViewController: HighlightCellDelegate {
 	func didTapPlayback(title: String, cell: NormalHighlightCell) {
 		print("tapped playback on \(title)")
 		if prevCell != nil, prevCell?.getTitle() == title, audioPlayer != nil {
 			if audioPlayer!.isPlaying {
 				audioPlayer!.pause()
-				cell.setButtonPlay()
+//				cell.setButtonPlay()
 			} else {
 				audioPlayer!.play()
-				cell.setButtonStop()
+//				cell.setButtonStop()
 			}
 		} else {
-			setupPlayerFromTitle(title: title)
+			setupPlayerFromTitle(title: title, cellRef: cell)
 			audioPlayer?.play()
-			cell.setButtonStop()
+//			cell.setButtonStop()
 			prevCell?.setButtonPlay()
 			print(title + ": " + (audioPlayer?.duration.debugDescription)!)
 		}
@@ -439,6 +440,7 @@ extension HighlightsViewController: HighlightCellDelegate {
 	}
 }
 
+// MARK: - TableView Delegate and Data Source
 extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 	
 	// MARK: - Playing audio
@@ -462,7 +464,7 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 	func setupPlayer(indexPath: IndexPath) {
 		let url = highlightsURL.appendingPathComponent(self.getHighlightFilename(title: self.getElementFromTwoDarr(indexPath: indexPath)))
 		do {
-			try audioPlayer = AVAudioPlayer(contentsOf: url)
+			try audioPlayer = myPlayer(contentsOf: url)
 			audioPlayer?.delegate = self
 			audioPlayer?.prepareToPlay()
 		} catch let error as NSError {
@@ -470,10 +472,11 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 		}
 	}
 	
-	func setupPlayerFromTitle(title: String) {
+	func setupPlayerFromTitle(title: String, cellRef: NormalHighlightCell) {
 		let url = highlightsURL.appendingPathComponent(self.getHighlightFilename(title: title))
 		do {
-			try audioPlayer = AVAudioPlayer(contentsOf: url)
+			try audioPlayer = myPlayer(contentsOf: url)
+			audioPlayer?.cell = cellRef
 			audioPlayer?.delegate = self
 			audioPlayer?.prepareToPlay()
 		} catch let error as NSError {
@@ -621,7 +624,26 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 	}
 }
 
-
+class myPlayer: AVAudioPlayer {
+	
+	var cell: NormalHighlightCell?
+	
+	override func play() -> Bool {
+		let returnval = super.play()
+		cell?.setButtonStop()
+		return returnval
+	}
+	
+	override func stop() {
+		super.stop()
+		cell?.setButtonPlay()
+	}
+	
+	override func pause() {
+		super.pause()
+		cell?.setButtonPlay()
+	}
+}
 
 
 
