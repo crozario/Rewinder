@@ -49,10 +49,16 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	let mic = AKMicrophone()
 	var rollingPlot: AKNodeOutputPlot!
     
-    private let navBar: UINavigationBar = {
-        let nav = UINavigationBar()
-        let titleItem = UINavigationItem(title: "Home")
-        nav.pushItem(titleItem, animated: false)
+    private let navBar: UIView = {
+        let nav = UIView()
+        let titleItem = UILabel()
+        nav.addSubview(titleItem)
+        titleItem.text = "Home"
+        titleItem.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+        titleItem.textColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
+        titleItem.translatesAutoresizingMaskIntoConstraints = false
+        titleItem.centerXAnchor.constraint(equalTo: nav.centerXAnchor).isActive = true
+        titleItem.bottomAnchor.constraint(equalTo: nav.bottomAnchor, constant: -15).isActive = true
         return nav
     }()
 	
@@ -268,10 +274,11 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     
 
     func setupBackgroundColors() {
-        view.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
+        view.backgroundColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
         highlightButton.backgroundColor = unSelectedColor
         pickDurationButton.backgroundColor = unSelectedColor
         backgroundRecordingButton.backgroundColor = unSelectedColor
+        navBar.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
         checkCurrSelected()
 //        plotView.backgroundColor = .purple
         
@@ -304,7 +311,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         navBar.translatesAutoresizingMaskIntoConstraints = false
         navBar.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         navBar.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        navBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        navBar.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        navBar.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
     }
     
     
@@ -469,10 +477,10 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		rplot.plotType = .rolling
 		rplot.shouldFill = true
 		rplot.shouldMirror = true
-		rplot.color = UIColorFromRGB(rgbValue: 0xFFFFFF)
+		rplot.color = UIColorFromRGB(rgbValue: 0x0278AE)
         //Blue theme
 //        rplot.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
-        rplot.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
+        rplot.backgroundColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
     
 		rplot.gain = 1
 		

@@ -22,10 +22,16 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	let fileExtension: String = "caf"
     
     
-    private let navBar: UINavigationBar = {
-        let nav = UINavigationBar()
-        let titleItem = UINavigationItem(title: "Highlights")
-        nav.pushItem(titleItem, animated: false)
+    private let navBar: UIView = {
+        let nav = UIView()
+        let titleItem = UILabel()
+        nav.addSubview(titleItem)
+        titleItem.text = "Highlights"
+        titleItem.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+        titleItem.textColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
+        titleItem.translatesAutoresizingMaskIntoConstraints = false
+        titleItem.centerXAnchor.constraint(equalTo: nav.centerXAnchor).isActive = true
+        titleItem.bottomAnchor.constraint(equalTo: nav.bottomAnchor, constant: -20).isActive = true
         return nav
     }()
 	
@@ -50,7 +56,7 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
         view.addSubview(navBar)
         setupNavBarConstraints()
         setupTableViewConstraints()
-        tableView.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
+        tableView.backgroundColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
         navBar.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
 
         audioPlayer?.delegate = self
@@ -94,7 +100,8 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
         navBar.translatesAutoresizingMaskIntoConstraints = false
         navBar.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         navBar.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        navBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        navBar.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        navBar.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
     }
     
     func setupTableViewConstraints() {
