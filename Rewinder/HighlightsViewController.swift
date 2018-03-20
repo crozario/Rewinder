@@ -426,12 +426,12 @@ extension HighlightsViewController: HighlightCellDelegate {
 				audioPlayer!.pause()
 //				cell.setButtonPlay()
 			} else {
-				audioPlayer!.play()
+				_ = audioPlayer!.play()
 //				cell.setButtonStop()
 			}
 		} else {
 			setupPlayerFromTitle(title: title, cellRef: cell)
-			audioPlayer?.play()
+			_ = audioPlayer?.play()
 //			cell.setButtonStop()
 			prevCell?.setButtonPlay()
 			print(title + ": " + (audioPlayer?.duration.debugDescription)!)
@@ -628,7 +628,19 @@ class myPlayer: AVAudioPlayer {
 	
 	var cell: NormalHighlightCell?
 	
+	var appdelegate = UIApplication.shared.delegate as! AppDelegate
+	
+//	override init(contentsOf url: URL) throws {
+//		try super.init(contentsOf: url)
+//		appdelegate.audioPlayer = self
+//	}
+	
+	deinit {
+		appdelegate.audioPlayer = nil
+	}
+	
 	override func play() -> Bool {
+		appdelegate.audioPlayer = self
 		let returnval = super.play()
 		cell?.setButtonStop()
 		return returnval

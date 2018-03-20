@@ -40,7 +40,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 
 	let managedObjectContext: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 	
-	let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//	let appDelegate = UIApplication.shared.delegate as! AppDelegate
 	
 	
 	//	var audioRecorder: AVAudioRecorder?
@@ -255,14 +255,6 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 			}
 		}
 	}
-    
-
-	
-//	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-//		if keyPath == "outputVolume" {
-//			print("got in here2")
-//		}
-//	}
 	
     
     func zeroAlpha() {
@@ -510,6 +502,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		print("\(#function)")
 		homeViewPresented = false
 		if rollingPlot.isConnected {
+			print("PAUSING ROLLING PLOT")
 			rollingPlot.pause()
 		}
 		enableVolumeHub()
@@ -675,9 +668,13 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 
 class myRecorder: AVAudioRecorder {
 	var localurl: URL!
+	
+	let appdelegate = UIApplication.shared.delegate as! AppDelegate
+	
 	override init(url: URL, settings: [String : Any]) throws {
 		try super.init(url: url, settings: settings)
 		localurl = url
+		appdelegate.audioRecorder = self
 		print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 		print("Recorder Object Created")
 		print("url: \(url.lastPathComponent)")
@@ -685,6 +682,7 @@ class myRecorder: AVAudioRecorder {
 	}
 	
 	deinit {
+		appdelegate.audioRecorder = nil
 		print("------------------------------------------------------------------")
 		print("Deinit called")
 		print("url: \(url.lastPathComponent)")

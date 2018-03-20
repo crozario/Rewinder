@@ -13,6 +13,8 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+	var audioPlayer: myPlayer?
+	var audioRecorder: myRecorder?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -30,11 +32,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		print("\(#function)")
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+		if !Settings.continueRecordingInBackground {
+			audioPlayer?.pause()
+			audioRecorder?.pause()
+		}
+
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
 		print("\(#function)")
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+		if !Settings.continueRecordingInBackground {
+			audioRecorder?.record()
+			_ = audioPlayer?.play()
+		}
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
