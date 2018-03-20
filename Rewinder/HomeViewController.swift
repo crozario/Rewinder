@@ -120,6 +120,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     var const2: NSLayoutConstraint!
     
     var selectedColor = UIColorFromRGB(rgbValue: 0xFF467E)
+	let disabledColor = UIColorFromRGB(rgbValue: 0xA0467E)
     var unSelectedColor = UIColorFromRGB(rgbValue: 0x35C2BD)
 
 	override func viewDidLoad() {
@@ -394,9 +395,15 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 			audioRecorder.stop()
 		} else {
 			computeHighlight()
-			highlightButton.backgroundColor = selectedColor
+			highlightButton.backgroundColor = disabledColor
+			highlightButton.isEnabled = false
+			DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+				self.highlightButton.isEnabled = true
+				self.highlightButton.backgroundColor = self.selectedColor
+			})
 		}
 	}
+	
     
     // FIX WITH ICONS
     @objc func backgroundRecordingButtonClicked(_ sender: RoundButton) {
