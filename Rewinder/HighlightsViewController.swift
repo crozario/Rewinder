@@ -194,14 +194,14 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	
 	func updateRows() {
 		var iPaths = [IndexPath]()
-
+		tableView.beginUpdates()
 		for (section, row) in twoDinserted.enumerated() {
 			if row[0] == true {
 				//insert section
 				let section_idx = IndexSet(integer: section)
-				tableView.beginUpdates()
+				
 				tableView.insertSections(section_idx, with: .fade)
-				tableView.endUpdates()
+//				tableView.endUpdates()
 			}
 			for rowIdx in 0..<row.count {
 				let iPath = IndexPath(row: rowIdx, section: section)
@@ -209,8 +209,9 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 			}
 		}
 		
-		tableView.beginUpdates()
+//		tableView.beginUpdates()
 		tableView.insertRows(at: iPaths, with: .fade)
+//		tableView.reloadData() // BAD FIXME
 		tableView.endUpdates()
 		
 		twoDinserted.removeAll(keepingCapacity: false)
@@ -545,7 +546,7 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 				var section_indexset = IndexSet()
 				section_indexset.insert(indexPath.section)
 				tableView.deleteSections(section_indexset, with: .fade)
-				tableView.reloadData()
+				tableView.reloadData()		//BAD SHOULDN'T RELOAD EVERYTHING
 				tableView.endUpdates()
 			}
 		})
