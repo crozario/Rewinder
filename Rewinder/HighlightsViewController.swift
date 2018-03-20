@@ -430,6 +430,9 @@ extension HighlightsViewController: HighlightCellDelegate {
 //				cell.setButtonStop()
 			}
 		} else {
+			if audioPlayer != nil, audioPlayer!.isPlaying {
+				audioPlayer?.stop()
+			}
 			setupPlayerFromTitle(title: title, cellRef: cell)
 			_ = audioPlayer?.play()
 //			cell.setButtonStop()
@@ -636,7 +639,7 @@ class myPlayer: AVAudioPlayer {
 //	}
 	
 	deinit {
-		appdelegate.audioPlayer = nil
+//		appdelegate.audioPlayer = nil
 	}
 	
 	override func play() -> Bool {
