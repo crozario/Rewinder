@@ -26,6 +26,7 @@
 		C46D16B92042002600B1224D /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46D16B82042002600B1224D /* RoundButton.swift */; };
 		C46E2BDA2042138C001BE43A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C46E2BD92042138C001BE43A /* Assets.xcassets */; };
 		C46E2BDD20422323001BE43A /* Eminem - Rap God.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C46E2BDC20422323001BE43A /* Eminem - Rap God.mp3 */; };
+		C46E908420607C9F00F63F96 /* FloatingActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46E908320607C9F00F63F96 /* FloatingActionButton.swift */; };
 		C4C524E620542E7F00C5DF95 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4C524E520542E7F00C5DF95 /* Main.storyboard */; };
 		C4E048D2204C76A9007355E1 /* waveformsample.png in Resources */ = {isa = PBXBuildFile; fileRef = C4E048D1204C76A9007355E1 /* waveformsample.png */; };
 		C4E987EB205C9306008FC728 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E987EA205C9306008FC728 /* Settings.swift */; };
@@ -93,6 +94,7 @@
 		C46D16B82042002600B1224D /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		C46E2BD92042138C001BE43A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C46E2BDC20422323001BE43A /* Eminem - Rap God.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Eminem - Rap God.mp3"; sourceTree = "<group>"; };
+		C46E908320607C9F00F63F96 /* FloatingActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingActionButton.swift; sourceTree = "<group>"; };
 		C4C524E520542E7F00C5DF95 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		C4E048D1204C76A9007355E1 /* waveformsample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waveformsample.png; sourceTree = "<group>"; };
 		C4E987EA205C9306008FC728 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				C4E987EA205C9306008FC728 /* Settings.swift */,
 				5D8102A620424A7C00F62B37 /* Audio.swift */,
 				C46D16B82042002600B1224D /* RoundButton.swift */,
+				C46E908320607C9F00F63F96 /* FloatingActionButton.swift */,
 				C4E98812205CA1B5008FC728 /* CircularTransition.swift */,
 				5D79EFE2204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift */,
 				5D79EFE1204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift */,
@@ -527,6 +530,7 @@
 				5D8102A720424A7C00F62B37 /* Audio.swift in Sources */,
 				C4E98813205CA1B5008FC728 /* CircularTransition.swift in Sources */,
 				C42BB57A2041E08A00D7D4CF /* Rewinder.xcdatamodeld in Sources */,
+				C46E908420607C9F00F63F96 /* FloatingActionButton.swift in Sources */,
 				C4E987EB205C9306008FC728 /* Settings.swift in Sources */,
 				C4164246205DB43900658407 /* ContinueTableViewCell.swift in Sources */,
 				5D79EFE4204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift in Sources */,
@@ -698,10 +702,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F73Q286GM2;
+				DEVELOPMENT_TEAM = SMV452RP74;
 				INFOPLIST_FILE = Rewinder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nasty.devs;
+				PRODUCT_BUNDLE_IDENTIFIER = tech.crozario;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -714,10 +718,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F73Q286GM2;
+				DEVELOPMENT_TEAM = SMV452RP74;
 				INFOPLIST_FILE = Rewinder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nasty.devs;
+				PRODUCT_BUNDLE_IDENTIFIER = tech.crozario;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

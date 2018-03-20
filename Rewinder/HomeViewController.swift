@@ -75,8 +75,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         return button
     }()
     
-    private let pickDurationButton: RoundButton = {
-        let button = RoundButton()
+    private let pickDurationButton: FloatingActionButton = {
+        let button = FloatingActionButton()
         button.cornerRadius = 40
         button.setTitle("D", for: .normal)
         return button
@@ -106,6 +106,13 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     var buttonsOut = false
     var buttonsConstraintsSet = false
     
+    
+    var const1: NSLayoutConstraint!
+    var const2: NSLayoutConstraint!
+    
+    var selectedColor = UIColorFromRGB(rgbValue: 0xFF467E)
+    var unSelectedColor = UIColorFromRGB(rgbValue: 0x35C2BD)
+
 	override func viewDidLoad() {
         
 		super.viewDidLoad()
@@ -120,8 +127,6 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         view.addSubview(middleButton)
         view.addSubview(rightButton)
         
-        
-        
         setupBackgroundColors()
         
         //add constraints
@@ -134,12 +139,16 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         setupMiddleButtonConstraints()
         setupRightButtonConstraints()
         
+//        rightButtonBottomConstraint.isActive = true
+//        rightButtonBottomConstraint.constant = 20
         
         //button actions
         highlightButton.addTarget(self, action: #selector(highlightButtonClicked), for: .touchUpInside)
         backgroundRecordingButton.addTarget(self, action: #selector(backgroundRecordingButtonClicked), for: .touchUpInside)
         pickDurationButton.addTarget(self, action: #selector(pickDurationButtonClicked), for: .touchUpInside)
-        
+        leftButton.addTarget(self, action: #selector(leftButtonClicked), for: .touchUpInside)
+        middleButton.addTarget(self, action: #selector(middleButtonClicked), for: .touchUpInside)
+        rightButton.addTarget(self, action: #selector(rightButtonClicked), for: .touchUpInside)
         //drop shadow
 //        highlightButton.layer.shadowOpacity = 1
 //        highlightButton.layer.shadowRadius = 5
@@ -154,9 +163,10 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         leftButtonCenter = leftButton.center
         middleButtonCenter = middleButton.center
         rightButtonCenter = rightButton.center
-        
+//
         pickDurationButtonCenter = pickDurationButton.center
         backToCenter()
+    
 //        disbleRightButtonConstraints()
         
 		audioObj = Audio(managedObjectContext)
@@ -234,6 +244,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 			}
 		}
 	}
+    
+
 	
 //	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
 //		if keyPath == "outputVolume" {
@@ -257,16 +269,32 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 
     func setupBackgroundColors() {
         view.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
-        highlightButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
-        pickDurationButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
-        backgroundRecordingButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
-        
-        
-        leftButton.backgroundColor = .yellow
-        middleButton.backgroundColor = .yellow
-        rightButton.backgroundColor = .yellow
+        highlightButton.backgroundColor = unSelectedColor
+        pickDurationButton.backgroundColor = unSelectedColor
+        backgroundRecordingButton.backgroundColor = unSelectedColor
+        checkCurrSelected()
 //        plotView.backgroundColor = .purple
         
+    }
+    
+    func checkCurrSelected() {
+        let curr = Settings.currentButtonSelected
+        switch curr {
+        case "left":
+            leftButton.backgroundColor = selectedColor
+            middleButton.backgroundColor = unSelectedColor
+            rightButton.backgroundColor = unSelectedColor
+        case "middle":
+            middleButton.backgroundColor = selectedColor
+            leftButton.backgroundColor = unSelectedColor
+            rightButton.backgroundColor = unSelectedColor
+        case "right":
+            rightButton.backgroundColor = selectedColor
+            leftButton.backgroundColor = unSelectedColor
+            middleButton.backgroundColor = unSelectedColor
+        default:
+            print("CURRENTBUTTONSELECTED FUNCTION ERROR")
+        }
     }
     
     
@@ -321,6 +349,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         leftButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
         leftButton.rightAnchor.constraint(equalTo: pickDurationButton.leftAnchor, constant: -20).isActive = true
         leftButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
+        
+//        leftButton.center = CGPoint(x: pickDurationButton.center.x - 20, y: pickDurationButton.center.y)
     }
     
     func setupMiddleButtonConstraints() {
@@ -329,25 +359,21 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         middleButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
         middleButton.rightAnchor.constraint(equalTo: pickDurationButton.leftAnchor, constant: 10).isActive = true
         middleButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -70).isActive = true
+//        middleButton.center = CGPoint(x: pickDurationButton.center.x - 20, y: pickDurationButton.center.y - 20)
     }
     
     func setupRightButtonConstraints() {
         rightButton.translatesAutoresizingMaskIntoConstraints = false
         rightButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
         rightButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        rightButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15).isActive = true
-        rightButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100).isActive = true
+        const1 = rightButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15)
+        const2 = rightButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100)
+        
+        
+//        rightButton.frame = CGRect(x: pickDurationButton.center.x, y: pickDurationButton.center.y - 20, width: 60, height: 60)
+        
+//        rightButton.center = CGPoint(x: pickDurationButton.center.x, y: pickDurationButton.center.y - 20)
     }
-    
-    func disbleRightButtonConstraints() {
-        rightButton.translatesAutoresizingMaskIntoConstraints = true
-        rightButton.heightAnchor.constraint(equalToConstant: 60).isActive = false
-        rightButton.widthAnchor.constraint(equalToConstant: 60).isActive = false
-        rightButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15).isActive = false
-        rightButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100).isActive = false
-    }
-
-
     
     
     /* Button Actions */
@@ -363,7 +389,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 			audioRecorder.stop()
 		} else {
 			computeHighlight()
-			highlightButton.backgroundColor = UIColorFromRGB(rgbValue: 0xFF467E)
+			highlightButton.backgroundColor = selectedColor
 		}
 	}
     
@@ -372,34 +398,58 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         let recordInBackground = Settings.continueRecordingInBackground
         
         if recordInBackground == true {
-            backgroundRecordingButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
+            backgroundRecordingButton.backgroundColor = unSelectedColor
             Settings.continueRecordingInBackground = false
         } else {
-            backgroundRecordingButton.backgroundColor = UIColorFromRGB(rgbValue: 0xFF467E)
+            backgroundRecordingButton.backgroundColor = selectedColor
             Settings.continueRecordingInBackground = true
         }
         
     }
     
     @objc func pickDurationButtonClicked() {
-        
+        pickDurationButtonCenter = pickDurationButton.center
         if buttonsOut {
-            setupRightButtonConstraints()
             UIView.animate(withDuration: 0.3, animations: {
-                self.backToCenter()
+//                self.rightButtonBottomConstraint.constant = 20
+                self.const1.isActive = false
+                self.const2.isActive = false
                 self.zeroAlpha()
+                self.backToCenter()
             })
             buttonsOut = false
         } else {
 //            disbleRightButtonConstraints()
             UIView.animate(withDuration: 0.3, animations: {
-                self.backToPos()
+//                self.rightButtonBottomConstraint.constant = -20
+                self.const1.isActive = true
+                self.const2.isActive = true
                 self.oneAlpha()
+                self.backToPos()
             })
             buttonsOut = true
         }
     }
     
+    @objc func leftButtonClicked() {
+        Settings.currentButtonSelected = "left"
+        Settings.setRecordingDuration(duration: Settings.Duration.leftButton.rawValue)
+        checkCurrSelected()
+    }
+    
+    @objc func middleButtonClicked() {
+        Settings.currentButtonSelected = "middle"
+        Settings.setRecordingDuration(duration: Settings.Duration.middleButton.rawValue)
+        checkCurrSelected()
+    }
+
+    @objc func rightButtonClicked() {
+        Settings.currentButtonSelected = "right"
+        Settings.setRecordingDuration(duration: Settings.Duration.rightButton.rawValue)
+        checkCurrSelected()
+    }
+    
+    /* Button Actions */
     func backToCenter() {
         leftButton.center = pickDurationButtonCenter
         middleButton.center = pickDurationButtonCenter
@@ -411,28 +461,6 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         middleButton.center = middleButtonCenter
         rightButton.center = rightButtonCenter
     }
-    
-    /* Button Actions */
-    
-    
-//
-//    @IBAction func topButtonClicked(_ sender: RoundButton) {
-//        Settings.recordingDuration = Settings.Duration.topButton.rawValue
-//        print("RECORDING DURATION: \(Settings.recordingDuration)")
-//        computeHighlight()
-//        UIView.animate(withDuration: 0.3, animations: {
-//            self.backToCenter()
-//            self.zeroAlpha()
-//        })
-//    }
-
-//
-//    func setButtonsTitle() {
-//        leftButton.setTitle(String(Settings.Duration.leftButton.rawValue), for: .normal)
-//        topButton.setTitle(String(Settings.Duration.topButton.rawValue), for: .normal)
-//        rightButton.setTitle(String(Settings.Duration.rightButton.rawValue), for: .normal)
-//        bottomButton.setTitle(String(Settings.customDuration), for: .normal)
-//    }
 
 	
     func createRollingPlot(_ inputNode: AKNode) -> AKNodeOutputPlot {
@@ -444,7 +472,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		rplot.color = UIColorFromRGB(rgbValue: 0xFFFFFF)
         //Blue theme
 //        rplot.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
-        rplot.backgroundColor = .yellow
+        rplot.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
     
 		rplot.gain = 1
 		
@@ -503,7 +531,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	var high3: URL?
 	
 	func computeHighlight(){
-        highlightButton.backgroundColor = UIColorFromRGB(rgbValue: 0xFF467E)
+        highlightButton.backgroundColor = selectedColor
 //        highlightButton.isEnabled = false
 		//get current recording time
 		let cropTime = audioRecorder?.currentTime
@@ -568,7 +596,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 				
 				self.beginRecording(recordFile: audioObj!.getNextTempFile())
 //                highlightButton.isEnabled = true // move to Audio.swift file inside the mergeAndAddHighlight2 Completion Handler
-                highlightButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
+                highlightButton.backgroundColor = unSelectedColor
 			}
 		}
 		else {

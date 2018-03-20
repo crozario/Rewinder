@@ -12,10 +12,11 @@ import Foundation
 class Settings {
     static var recordingDuration = Duration.leftButton.rawValue
     static var continueRecordingInBackground = false
+    static var currentButtonSelected = "left"
     
     enum Duration: Double {
-        case leftButton = 30.0
-        case middleButton = 60.0
+        case leftButton = 15.0
+        case middleButton = 30.0
         case rightButton = 90.0
     }
     
