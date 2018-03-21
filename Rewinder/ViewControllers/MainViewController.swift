@@ -8,28 +8,37 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
-
+class MainViewController: UIViewController,UIScrollViewDelegate {
+    @IBOutlet weak var scrollView: UIScrollView!
+    var viewControllers = [UIViewController]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        scrollView.delegate = self
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let fViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+        let sViewController = storyboard.instantiateViewController(withIdentifier: "HighlightsViewController") as! HighlightsViewController
+        viewControllers = [fViewController, sViewController]
+        
+        setupSlideScrollView()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func setupSlideScrollView() {
+        scrollView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
+        
+        scrollView.contentSize = CGSize(width: view.frame.width * CGFloat(viewControllers.count), height: view.frame.height)
+        
+        scrollView.isPagingEnabled = true
+        for i in 0 ..< viewControllers.count {
+            viewControllers[i].view.frame = CGRect(x: view.frame.width * CGFloat(i), y: 0, width: view.frame.width, height: view.frame.height)
+            
+            scrollView.addSubview(viewControllers[i].view)
+        }
+        
     }
-    */
-
+    
 }
+        
+
