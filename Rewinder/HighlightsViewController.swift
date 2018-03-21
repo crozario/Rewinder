@@ -616,6 +616,13 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 		return "unexpected"
 	}
 	
+	func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+		view.tintColor = Settings.appThemeColor
+		view.backgroundColor = UIColor.init(white: 1, alpha: 0.0)
+		let header = view as! UITableViewHeaderFooterView
+		header.textLabel?.textColor = UIColor.white
+	}
+	
 	// MARK: - Unused delegate callbacks
 	func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
 		print("\(#function)")

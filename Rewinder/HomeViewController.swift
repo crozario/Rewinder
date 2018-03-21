@@ -15,7 +15,6 @@ import AudioKitUI
 //import Speech
 import MediaPlayer
 
-
 class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate, UIViewControllerTransitioningDelegate {
     
 //    var data = [viewControllerData(image: #imageLiteral(resourceName: "highlightIcon"), title: "Highlights"), viewControllerData(image: #imageLiteral(resourceName: "settingsIcon"), title: "Settings") ]
@@ -120,12 +119,12 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     var const1: NSLayoutConstraint!
     var const2: NSLayoutConstraint!
     
-    var selectedColor = UIColorFromRGB(rgbValue: 0xFF467E)
-	let disabledColor = UIColorFromRGB(rgbValue: 0xA0467E)
-    var unSelectedColor = UIColorFromRGB(rgbValue: 0x35C2BD)
+	var selectedColor: UIColor!
+	var disabledColor: UIColor!
+	var unSelectedColor: UIColor!
+	var appThemeColor: UIColor!
 
 	override func viewDidLoad() {
-        
 		super.viewDidLoad()
         
         //add views to the main view
@@ -137,7 +136,13 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         view.addSubview(leftButton)
         view.addSubview(middleButton)
         view.addSubview(rightButton)
-        
+		
+		//initialize color vars
+		selectedColor = Settings.selectedColor
+		disabledColor = Settings.disabledColor
+		unSelectedColor = Settings.unSelectedColor
+		appThemeColor = Settings.appThemeColor
+		
         //drop shadow
 //        navBar.layer.shadowOpacity = 1
 //        navBar.layer.shadowRadius = 5
@@ -280,14 +285,13 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         middleButton.alpha = 1
         rightButton.alpha = 1
     }
-    
-
+	
     func setupBackgroundColors() {
         view.backgroundColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
         highlightButton.backgroundColor = unSelectedColor
         pickDurationButton.backgroundColor = unSelectedColor
 		backgroundRecordingButton.backgroundColor = Settings.continueRecordingInBackground ? selectedColor : unSelectedColor
-        navBar.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
+        navBar.backgroundColor = appThemeColor
         checkCurrSelected()
 //        plotView.backgroundColor = .purple
         

@@ -7,13 +7,18 @@
 //
 
 import Foundation
-
+import UIKit
 
 class Settings {
     static var recordingDuration = Duration.leftButton.rawValue
     static var continueRecordingInBackground = false
     static var currentButtonSelected = "left"
-    
+	
+	static let selectedColor: UIColor = UIColorFromRGB(rgbValue: 0xFF467E)
+	static let disabledColor: UIColor = UIColorFromRGB(rgbValue: 0xA0467E)
+	static let unSelectedColor: UIColor = UIColorFromRGB(rgbValue: 0x35C2BD)
+	static let appThemeColor: UIColor = UIColorFromRGB(rgbValue: 0x0278AE)
+
     
 //    static var d = {}
     
