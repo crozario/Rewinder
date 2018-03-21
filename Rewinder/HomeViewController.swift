@@ -138,6 +138,22 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         view.addSubview(middleButton)
         view.addSubview(rightButton)
         
+        //drop shadow
+//        navBar.layer.shadowOpacity = 1
+//        navBar.layer.shadowRadius = 5
+//        highlightButton.layer.shadowOpacity = 1
+//        highlightButton.layer.shadowRadius = 5
+//        backgroundRecordingButton.layer.shadowOpacity = 1
+//        backgroundRecordingButton.layer.shadowRadius = 5
+//        pickDurationButton.layer.shadowOpacity = 1
+//        pickDurationButton.layer.shadowRadius = 5
+//        leftButton.layer.shadowOpacity = 1
+//        leftButton.layer.shadowRadius = 5
+//        middleButton.layer.shadowOpacity = 1
+//        middleButton.layer.shadowRadius = 5
+//        rightButton.layer.shadowOpacity = 1
+//        rightButton.layer.shadowRadius = 5
+        
         setupBackgroundColors()
         
         //add constraints
@@ -150,6 +166,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         setupMiddleButtonConstraints()
         setupRightButtonConstraints()
         
+        highlightButton.setImage(#imageLiteral(resourceName: "recordicon"), for: .normal)
+        
 //        rightButtonBottomConstraint.isActive = true
 //        rightButtonBottomConstraint.constant = 20
         
@@ -160,14 +178,6 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         leftButton.addTarget(self, action: #selector(leftButtonClicked), for: .touchUpInside)
         middleButton.addTarget(self, action: #selector(middleButtonClicked), for: .touchUpInside)
         rightButton.addTarget(self, action: #selector(rightButtonClicked), for: .touchUpInside)
-        //drop shadow
-//        highlightButton.layer.shadowOpacity = 1
-//        highlightButton.layer.shadowRadius = 5
-//        backgroundRecordingButton.layer.shadowOpacity = 1
-//        backgroundRecordingButton.layer.shadowRadius = 5
-//        pickDurationButton.layer.shadowOpacity = 1
-//        pickDurationButton.layer.shadowRadius = 5
-//
         
         zeroAlpha()
         
@@ -401,6 +411,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 			DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
 				self.highlightButton.isEnabled = true
 				self.highlightButton.backgroundColor = self.selectedColor
+                self.highlightButton.setImage(#imageLiteral(resourceName: "stopicon"), for: .normal)
 			})
 		}
 	}
@@ -546,6 +557,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	
 	func computeHighlight(){
         highlightButton.backgroundColor = selectedColor
+        highlightButton.setImage(#imageLiteral(resourceName: "stopicon"), for: .normal)
 //        highlightButton.isEnabled = false
 		//get current recording time
 		let cropTime = audioRecorder?.currentTime
@@ -611,6 +623,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 				self.beginRecording(recordFile: audioObj!.getNextTempFile())
 //                highlightButton.isEnabled = true // move to Audio.swift file inside the mergeAndAddHighlight2 Completion Handler
                 highlightButton.backgroundColor = unSelectedColor
+                self.highlightButton.setImage(#imageLiteral(resourceName: "recordicon"), for: .normal)
 			}
 		}
 		else {

@@ -58,6 +58,9 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
         setupTableViewConstraints()
         tableView.backgroundColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
         navBar.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
+        
+//        navBar.layer.shadowOpacity = 1
+//        navBar.layer.shadowRadius = 5
 
         audioPlayer?.delegate = self
 		
