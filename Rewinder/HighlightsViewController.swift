@@ -68,20 +68,13 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		docsURL = filemgr.urls(for: .documentDirectory, in: .userDomainMask)[0]
         highlightsURL = docsURL.appendingPathComponent("highlights")
 		
-		// initialize audio session
 		let audioSession = AVAudioSession.sharedInstance()
-        do {
-            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
-        } catch let error as NSError {
-            print("audioSession error: \(error.localizedDescription)")
-        }
-		
 		// play from bottom speaker
-        do {
-            try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
-        } catch let error as NSError {
-            print("audioSession error: \(error.localizedDescription)")
-        }
+//        do {
+//            try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
+//        } catch let error as NSError {
+//            print("audioSession error: \(error.localizedDescription)")
+//        }
 		
 		// populate data array (arr) for the first time
 //		arr = self.getHighlightTitles()

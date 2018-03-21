@@ -122,6 +122,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	var unSelectedColor: UIColor!
 	var appThemeColor: UIColor!
 
+	// MARK: - View Override Functions
 	override func viewDidLoad() {
 		super.viewDidLoad()
         
@@ -195,8 +196,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         
 		audioObj = Audio(managedObjectContext)
 
-		let recordingSession = AVAudioSession.sharedInstance()
-		switch recordingSession.recordPermission() {
+		let session = AVAudioSession.sharedInstance()
+		switch session.recordPermission() {
 		case .granted:
 			print("Have permission to record")
 		case .denied:
@@ -208,10 +209,18 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 			print("Undetermined")
 		}
 		
+		do {
+//			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: .defaultToSpeaker)
+			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: [.mixWithOthers, .defaultToSpeaker])
+			try session.setActive(true, with: .notifyOthersOnDeactivation)
+		} catch let error {
+			print("Error setting up audiosession: \(error.localizedDescription)")
+		}
+		
 		self.firstBeginRecording()
 		
 		let micCopy1 = AKBooster(mic)
-//		let micCopy2 = AKBooster(mic)
+		let micCopy2 = AKBooster(mic)
 		if let inputs = AudioKit.inputDevices {
 			do {
 				try AudioKit.setInputDevice(inputs[0])
@@ -223,8 +232,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 //		let tracker = AKFrequencyTracker(micCopy1, hopSize: 200, peakCount: 2_000)
 //		let silence = AKBooster(tracker, gain: 0)
 		
-		
-//		AudioKit.output = nil
+		micCopy2.gain = 0
+		AudioKit.output = micCopy2
         do {
             try AudioKit.start()
         } catch let error {
@@ -247,26 +256,57 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 //        setupRollingPlotConstraints()
         
 //        startSession()
-		volumeView = MPVolumeView(frame: .null)
-//		volumeView.showsRouteButton = true
-//		volumeView.showsVolumeSlider = true
-		self.view.addSubview(volumeView)
+//		volumeView = MPVolumeView(frame: .null)
+//
+//		self.view.addSubview(volumeView)
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(volumeChanged(notification:)), name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
 	}
-	func disableVolumeHub() {
-		volumeView.showsRouteButton = true
-		volumeView.showsVolumeSlider = true
-	}
-	func enableVolumeHub() {
-		volumeView.showsRouteButton = false
-		volumeView.showsVolumeSlider = false
+	
+	override func viewDidAppear(_ animated: Bool) {
+		print("\(#function)")
+		homeViewPresented = true
+		disableVolumeHub()
 	}
 	
-	func firstBeginRecording() {
-		audioObj.deleteAndResetTempData()
-		self.beginRecording(recordFile: audioObj.getNextTempFile())
+	override func viewWillAppear(_ animated: Bool) {
+		print("\(#function)")
+		if rollingPlot.isConnected {
+			rollingPlot.resume()
+		}
+		do {
+			try AudioKit.start()
+		} catch let error {
+			print("Couldn't resume AudioKit: \(error.localizedDescription)")
+		}
 	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		print("\(#function)")
+		homeViewPresented = false
+		if rollingPlot.isConnected {
+			print("PAUSING ROLLING PLOT")
+			rollingPlot.pause()
+		}
+		enableVolumeHub()
+		do {
+			try AudioKit.stop()
+		} catch let error {
+			print("Couldn't stop audioKit: \(error.localizedDescription)")
+		}
+	}
+	
+	// MARK: - Overriding Volume Buttons
+	func disableVolumeHub() {
+//		volumeView.showsRouteButton = true
+//		volumeView.showsVolumeSlider = true
+	}
+	func enableVolumeHub() {
+//		volumeView.showsRouteButton = false
+//		volumeView.showsVolumeSlider = false
+	}
+	
+	
 	
 	var volumeView: MPVolumeView!
 	@objc func volumeChanged(notification: NSNotification) {
@@ -517,32 +557,13 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		
 		return rplot
 	}
-    
-	
-	override func viewDidAppear(_ animated: Bool) {
-		print("\(#function)")
-		homeViewPresented = true
-		disableVolumeHub()
-	}
-	
-	override func viewWillAppear(_ animated: Bool) {
-		print("\(#function)")
-		if rollingPlot.isConnected {
-			rollingPlot.resume()
-		}
-	}
-	
-	override func viewWillDisappear(_ animated: Bool) {
-		print("\(#function)")
-		homeViewPresented = false
-		if rollingPlot.isConnected {
-			print("PAUSING ROLLING PLOT")
-			rollingPlot.pause()
-		}
-		enableVolumeHub()
-	}
 	
 	// MARK: - Recording
+	func firstBeginRecording() {
+		audioObj.deleteAndResetTempData()
+		self.beginRecording(recordFile: audioObj.getNextTempFile())
+	}
+	
 	func beginRecording(recordFile: URL) {
 		do {
 			if FileManager.default.fileExists(atPath: recordFile.path){

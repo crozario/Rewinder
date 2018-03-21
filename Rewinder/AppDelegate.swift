@@ -49,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			do {
 				try audioSession?.setActive(false)
 			} catch let error {
-				print(error.localizedDescription)
+				print("Error closing audiosession: \(error.localizedDescription)")
 			}
 		}
 
@@ -64,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			do {
 				try audioSession?.setActive(true)
 			} catch let error {
-				print(error.localizedDescription)
+				print("Error reactivating audiosession: \(error.localizedDescription)")
 			}
 			
 			// begin recording
