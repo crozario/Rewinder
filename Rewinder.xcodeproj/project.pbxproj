@@ -28,6 +28,7 @@
 		C46E2BDD20422323001BE43A /* Eminem - Rap God.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C46E2BDC20422323001BE43A /* Eminem - Rap God.mp3 */; };
 		C46E908420607C9F00F63F96 /* FloatingActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46E908320607C9F00F63F96 /* FloatingActionButton.swift */; };
 		C4C524E620542E7F00C5DF95 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4C524E520542E7F00C5DF95 /* Main.storyboard */; };
+		C4C5FFC92062F0AE00A9EA1B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C5FFC82062F0AE00A9EA1B /* MainViewController.swift */; };
 		C4E048D2204C76A9007355E1 /* waveformsample.png in Resources */ = {isa = PBXBuildFile; fileRef = C4E048D1204C76A9007355E1 /* waveformsample.png */; };
 		C4E987EB205C9306008FC728 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E987EA205C9306008FC728 /* Settings.swift */; };
 		C4E98813205CA1B5008FC728 /* CircularTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E98812205CA1B5008FC728 /* CircularTransition.swift */; };
@@ -96,6 +97,7 @@
 		C46E2BDC20422323001BE43A /* Eminem - Rap God.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Eminem - Rap God.mp3"; sourceTree = "<group>"; };
 		C46E908320607C9F00F63F96 /* FloatingActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingActionButton.swift; sourceTree = "<group>"; };
 		C4C524E520542E7F00C5DF95 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		C4C5FFC82062F0AE00A9EA1B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C4E048D1204C76A9007355E1 /* waveformsample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waveformsample.png; sourceTree = "<group>"; };
 		C4E987EA205C9306008FC728 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		C4E98812205CA1B5008FC728 /* CircularTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularTransition.swift; sourceTree = "<group>"; };
@@ -174,23 +176,14 @@
 		C42BB5702041E08A00D7D4CF /* Rewinder */ = {
 			isa = PBXGroup;
 			children = (
-				C4C524E520542E7F00C5DF95 /* Main.storyboard */,
-				5D77DD4A205397BE000FC2C3 /* HomeViewController.swift */,
-				5D249A0C20538AAE00B65029 /* HighlightsViewController.swift */,
-				C452530420428768000808A8 /* PageViewController.swift */,
-				C4E987EA205C9306008FC728 /* Settings.swift */,
-				5D8102A620424A7C00F62B37 /* Audio.swift */,
-				C46D16B82042002600B1224D /* RoundButton.swift */,
-				C46E908320607C9F00F63F96 /* FloatingActionButton.swift */,
-				C4E98812205CA1B5008FC728 /* CircularTransition.swift */,
-				5D79EFE2204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift */,
-				5D79EFE1204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift */,
-				5DF98002205C481300579F45 /* NormalHighlightCell.swift */,
-				5DE1BC4D205FB6E90023BACC /* ExpandedHighlightCell.swift */,
-				C4164245205DB43900658407 /* ContinueTableViewCell.swift */,
-				C4164249205DB4E400658407 /* CustomLengthTableViewCell.swift */,
-				C42BB5712041E08A00D7D4CF /* AppDelegate.swift */,
+				C4C5FFCB2062F0D000A9EA1B /* ViewControllers */,
+				C4C5FFCE2062F1A100A9EA1B /* Models */,
+				C4C5FFCC2062F11100A9EA1B /* TableViewCells */,
+				C4C5FFCD2062F15C00A9EA1B /* ViewTemplates */,
+				C4C5FFCF2062F1B000A9EA1B /* Core Data */,
 				C46E2BD92042138C001BE43A /* Assets.xcassets */,
+				C4C524E520542E7F00C5DF95 /* Main.storyboard */,
+				C42BB5712041E08A00D7D4CF /* AppDelegate.swift */,
 				C42BB57D2041E08A00D7D4CF /* LaunchScreen.storyboard */,
 				C42BB5802041E08A00D7D4CF /* Info.plist */,
 				C42BB5782041E08A00D7D4CF /* Rewinder.xcdatamodeld */,
@@ -224,6 +217,56 @@
 				C46E2BDC20422323001BE43A /* Eminem - Rap God.mp3 */,
 			);
 			path = Files;
+			sourceTree = "<group>";
+		};
+		C4C5FFCB2062F0D000A9EA1B /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				C4C5FFC82062F0AE00A9EA1B /* MainViewController.swift */,
+				5D77DD4A205397BE000FC2C3 /* HomeViewController.swift */,
+				5D249A0C20538AAE00B65029 /* HighlightsViewController.swift */,
+				C452530420428768000808A8 /* PageViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		C4C5FFCC2062F11100A9EA1B /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				5DF98002205C481300579F45 /* NormalHighlightCell.swift */,
+				5DE1BC4D205FB6E90023BACC /* ExpandedHighlightCell.swift */,
+				C4164245205DB43900658407 /* ContinueTableViewCell.swift */,
+				C4164249205DB4E400658407 /* CustomLengthTableViewCell.swift */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		C4C5FFCD2062F15C00A9EA1B /* ViewTemplates */ = {
+			isa = PBXGroup;
+			children = (
+				C46D16B82042002600B1224D /* RoundButton.swift */,
+				C46E908320607C9F00F63F96 /* FloatingActionButton.swift */,
+				C4E98812205CA1B5008FC728 /* CircularTransition.swift */,
+			);
+			path = ViewTemplates;
+			sourceTree = "<group>";
+		};
+		C4C5FFCE2062F1A100A9EA1B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5D8102A620424A7C00F62B37 /* Audio.swift */,
+				C4E987EA205C9306008FC728 /* Settings.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C4C5FFCF2062F1B000A9EA1B /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				5D79EFE2204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift */,
+				5D79EFE1204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift */,
+			);
+			path = "Core Data";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -534,6 +577,7 @@
 				C4E987EB205C9306008FC728 /* Settings.swift in Sources */,
 				C4164246205DB43900658407 /* ContinueTableViewCell.swift in Sources */,
 				5D79EFE4204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift in Sources */,
+				C4C5FFC92062F0AE00A9EA1B /* MainViewController.swift in Sources */,
 				C46D16B92042002600B1224D /* RoundButton.swift in Sources */,
 				5DE1BC4E205FB6E90023BACC /* ExpandedHighlightCell.swift in Sources */,
 				C42BB5722041E08A00D7D4CF /* AppDelegate.swift in Sources */,
