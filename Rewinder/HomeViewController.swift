@@ -121,6 +121,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	var disabledColor: UIColor!
 	var unSelectedColor: UIColor!
 	var appThemeColor: UIColor!
+	
+	var firstTime: Bool = false
 
 	// MARK: - View Override Functions
 	override func viewDidLoad() {
@@ -211,14 +213,16 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		
 		do {
 //			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: .defaultToSpeaker)
-			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: [.mixWithOthers, .defaultToSpeaker])
+			try session.overrideOutputAudioPort(.speaker)
+			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: [.mixWithOthers /*, .defaultToSpeaker*/])
 			try session.setActive(true, with: .notifyOthersOnDeactivation)
 		} catch let error {
 			print("Error setting up audiosession: \(error.localizedDescription)")
 		}
 		
-		self.firstBeginRecording()
-		
+		// start recording and start audio kit only the first time but after app loads
+		firstTime = true
+
 		let micCopy1 = AKBooster(mic)
 		let micCopy2 = AKBooster(mic)
 		if let inputs = AudioKit.inputDevices {
@@ -234,11 +238,6 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		
 		micCopy2.gain = 0
 		AudioKit.output = micCopy2
-        do {
-            try AudioKit.start()
-        } catch let error {
-            print(error.localizedDescription)
-        }
 		
 		micCopy1.gain = 5.5
 		// create rolling waveform plot
@@ -267,6 +266,17 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		print("\(#function)")
 		homeViewPresented = true
 		disableVolumeHub()
+		if firstTime {
+			// start recording
+			self.firstBeginRecording()
+			// start audiokit
+			do {
+				try AudioKit.start()
+			} catch let error {
+				print(error.localizedDescription)
+			}
+			firstTime = false
+		}
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -274,11 +284,11 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		if rollingPlot.isConnected {
 			rollingPlot.resume()
 		}
-		do {
-			try AudioKit.start()
-		} catch let error {
-			print("Couldn't resume AudioKit: \(error.localizedDescription)")
-		}
+//		do {
+//			try AudioKit.start()
+//		} catch let error {
+//			print("Couldn't resume AudioKit: \(error.localizedDescription)")
+//		}
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
@@ -289,11 +299,11 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 			rollingPlot.pause()
 		}
 		enableVolumeHub()
-		do {
-			try AudioKit.stop()
-		} catch let error {
-			print("Couldn't stop audioKit: \(error.localizedDescription)")
-		}
+//		do {
+//			try AudioKit.stop()
+//		} catch let error {
+//			print("Couldn't stop audioKit: \(error.localizedDescription)")
+//		}
 	}
 	
 	// MARK: - Overriding Volume Buttons
@@ -305,9 +315,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 //		volumeView.showsRouteButton = false
 //		volumeView.showsVolumeSlider = false
 	}
-	
-	
-	
+
 	var volumeView: MPVolumeView!
 	@objc func volumeChanged(notification: NSNotification) {
 		if let userInfo = notification.userInfo {
