@@ -53,10 +53,14 @@ class NormalHighlightCell: UITableViewCell {
 		durationLabel.text = formattedDuration
 	}
 	func setButtonStop() { // playing
-		playbackButton.setTitle("Pause", for: .normal)
+        playbackButton.setImage(#imageLiteral(resourceName: "pauseicon"), for: .normal)
+//        playbackButton.backgroundColor = UIColorFromRGB(rgbValue: 0xFF467E)
+//        playbackButton.setTitle("Pause", for: .normal)
 	}
 	func setButtonPlay() { // not playing
-		playbackButton.setTitle("Play", for: .normal)
+        playbackButton.setImage(#imageLiteral(resourceName: "playicon"), for: .normal)
+//        playbackButton.backgroundColor = UIColorFromRGB(rgbValue: 0x35C2BD)
+//        playbackButton.setTitle("Play", for: .normal)
 	}
 	func getTitle() -> String{
 		return titleLabel.text!

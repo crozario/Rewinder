@@ -34,7 +34,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         let homeViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
         let highlightsViewController = storyboard.instantiateViewController(withIdentifier: "HighlightsViewController")
         
-        
+    
         
         return [homeViewController, highlightsViewController]
     }()

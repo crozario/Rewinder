@@ -63,13 +63,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QfR-o8-Yvo">
-                                                    <rect key="frame" x="15" y="3" width="290" height="26"/>
+                                                    <rect key="frame" x="20" y="3" width="295" height="26"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sox-Zj-1hX">
-                                                    <rect key="frame" x="15" y="30" width="250" height="20"/>
+                                                    <rect key="frame" x="20" y="30" width="250" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="250" id="vjK-VB-guX"/>
                                                     </constraints>
@@ -77,9 +77,13 @@
                                                     <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5O9-Nw-ogO">
-                                                    <rect key="frame" x="317" y="14" width="53" height="30"/>
-                                                    <state key="normal" title="Play"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5O9-Nw-ogO">
+                                                    <rect key="frame" x="320" y="5.5" width="50" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="XJA-TY-bNd"/>
+                                                        <constraint firstAttribute="height" constant="50" id="zcR-1s-60W"/>
+                                                    </constraints>
+                                                    <state key="normal" image="playicon"/>
                                                     <connections>
                                                         <action selector="playbackTapped:" destination="qwR-NM-a7r" eventType="touchUpInside" id="b9s-eL-nQR"/>
                                                     </connections>
@@ -87,14 +91,13 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Sox-Zj-1hX" firstAttribute="leading" secondItem="QfR-o8-Yvo" secondAttribute="leading" id="1Ei-F6-H5a"/>
-                                                <constraint firstItem="5O9-Nw-ogO" firstAttribute="leading" secondItem="QfR-o8-Yvo" secondAttribute="trailing" constant="12" id="IzL-Mj-bMN"/>
-                                                <constraint firstItem="5O9-Nw-ogO" firstAttribute="leading" secondItem="Sox-Zj-1hX" secondAttribute="trailing" constant="52" id="P3g-xF-GpK"/>
-                                                <constraint firstItem="QfR-o8-Yvo" firstAttribute="leading" secondItem="4IL-id-5H6" secondAttribute="leading" constant="15" id="RGf-wG-CTe"/>
+                                                <constraint firstAttribute="trailing" secondItem="5O9-Nw-ogO" secondAttribute="trailing" constant="5" id="OYM-J6-XXf"/>
+                                                <constraint firstItem="QfR-o8-Yvo" firstAttribute="leading" secondItem="4IL-id-5H6" secondAttribute="leading" constant="20" id="RGf-wG-CTe"/>
                                                 <constraint firstItem="Sox-Zj-1hX" firstAttribute="top" secondItem="QfR-o8-Yvo" secondAttribute="bottom" constant="1" id="Rse-BP-ITD"/>
                                                 <constraint firstItem="5O9-Nw-ogO" firstAttribute="centerY" secondItem="4IL-id-5H6" secondAttribute="centerY" id="Wm6-yh-tcc"/>
+                                                <constraint firstItem="5O9-Nw-ogO" firstAttribute="leading" secondItem="QfR-o8-Yvo" secondAttribute="trailing" constant="5" id="adT-8f-6vF"/>
                                                 <constraint firstItem="Sox-Zj-1hX" firstAttribute="bottom" secondItem="4IL-id-5H6" secondAttribute="bottomMargin" constant="1" id="cuV-xn-rB2"/>
                                                 <constraint firstItem="QfR-o8-Yvo" firstAttribute="top" secondItem="4IL-id-5H6" secondAttribute="top" constant="3" id="g2a-Uc-F29"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="5O9-Nw-ogO" secondAttribute="trailing" constant="-10" id="n79-7M-RU3"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -121,4 +124,7 @@
             <point key="canvasLocation" x="572" y="-256.82158920539734"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="playicon" width="333" height="333"/>
+    </resources>
 </document>

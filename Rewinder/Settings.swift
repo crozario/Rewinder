@@ -14,6 +14,9 @@ class Settings {
     static var continueRecordingInBackground = false
     static var currentButtonSelected = "left"
     
+    
+//    static var d = {}
+    
     enum Duration: Double {
         case leftButton = 15.0
         case middleButton = 30.0

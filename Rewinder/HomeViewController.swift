@@ -87,6 +87,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     private let pickDurationButton: FloatingActionButton = {
         let button = FloatingActionButton()
         button.cornerRadius = 40
+        button.setImage(#imageLiteral(resourceName: "expandicon"), for: .normal)
         button.setTitle("D", for: .normal)
         return button
     }()

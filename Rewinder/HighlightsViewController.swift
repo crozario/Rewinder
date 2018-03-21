@@ -92,6 +92,7 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		tableView.tableFooterView = UIView(frame: CGRect.zero)
 		tableView.estimatedRowHeight = 60.0
 		tableView.rowHeight = UITableViewAutomaticDimension
+        
 		
 		viewPresented = true
     }
