@@ -11,8 +11,6 @@ import CoreData
 
 class Audio {
 	
-	var session: AVAudioSession?
-	
 	let recordSettings: [String: Any] = [AVEncoderAudioQualityKey: AVAudioQuality.min.rawValue, AVEncoderBitRateKey: 16, AVNumberOfChannelsKey: 2, AVSampleRateKey: 44100.0] as [String: Any]
 	
 	var context: NSManagedObjectContext!
@@ -34,14 +32,6 @@ class Audio {
 // MARK: - Initialize Session and urls
 	// should be one Audio object per app run
 	init(_ MOC: NSManagedObjectContext) {
-		session = AVAudioSession.sharedInstance()
-		do {
-			try session?.setCategory(AVAudioSessionCategoryPlayAndRecord)
-			try session?.setCategory(AVAudioSessionCategoryPlayAndRecord, with: AVAudioSessionCategoryOptions.mixWithOthers)
-			try session?.setActive(true)
-		}catch let error as NSError{
-			print (error)
-		}
 //		AVAudioSessionCategoryOptions.mixWithOthers
 		
 		//core data context
@@ -78,16 +68,6 @@ class Audio {
 				print (error.localizedDescription)
 			}
 		}
-	}
-	
-	// MARK: - Permissions
-	func checkRecordingPermission() -> AVAudioSessionRecordPermission {
-		let status = session?.recordPermission()
-		return status!
-//		if status == .granted {
-//			return true
-//		}
-//		return false
 	}
 	
 	// MARK: - temp buffer state
