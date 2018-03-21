@@ -114,8 +114,6 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     }()
     
     var buttonsOut = false
-    var buttonsConstraintsSet = false
-    
     
     var const1: NSLayoutConstraint!
     var const2: NSLayoutConstraint!
@@ -436,6 +434,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         if buttonsOut {
             UIView.animate(withDuration: 0.3, animations: {
 //                self.rightButtonBottomConstraint.constant = 20
+                self.pickDurationButton.backgroundColor = self.unSelectedColor
+                
                 self.const1.isActive = false
                 self.const2.isActive = false
                 self.zeroAlpha()
@@ -446,6 +446,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 //            disbleRightButtonConstraints()
             UIView.animate(withDuration: 0.3, animations: {
 //                self.rightButtonBottomConstraint.constant = -20
+                self.pickDurationButton.backgroundColor = self.selectedColor
                 self.const1.isActive = true
                 self.const2.isActive = true
                 self.oneAlpha()

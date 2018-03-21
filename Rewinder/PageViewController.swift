@@ -24,7 +24,8 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         if let myView = view?.subviews.first as? UIScrollView {
             myView.canCancelContentTouches = false
         }
- 
+        
+        
 
     }
     
@@ -69,6 +70,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         }
         
         let nextViewControllerIndex = viewControllerIndex + 1
+        
         
         guard nextViewControllerIndex  < subViewControllers.count else {
             return nil
