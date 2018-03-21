@@ -18,7 +18,7 @@ import MediaPlayer
 class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate, UIViewControllerTransitioningDelegate {
     
 //    var data = [viewControllerData(image: #imageLiteral(resourceName: "highlightIcon"), title: "Highlights"), viewControllerData(image: #imageLiteral(resourceName: "settingsIcon"), title: "Settings") ]
-    
+	var continueRecording: Bool = true // will only be set at AppDelegate
 
 	var homeViewPresented: Bool = false
 
@@ -36,11 +36,9 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 //    private var speechRecognitionTask: SFSpeechRecognitionTask?
     private let audioEngine = AVAudioEngine()
     
-
+	var appDelegate = UIApplication.shared.delegate as! AppDelegate
+	
 	let managedObjectContext: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-	
-//	let appDelegate = UIApplication.shared.delegate as! AppDelegate
-	
 	
 	//	var audioRecorder: AVAudioRecorder?
 	var audioObj: Audio!
@@ -260,6 +258,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 //		self.view.addSubview(volumeView)
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(volumeChanged(notification:)), name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
+		
+		appDelegate.home = self
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
@@ -284,11 +284,6 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		if rollingPlot.isConnected {
 			rollingPlot.resume()
 		}
-//		do {
-//			try AudioKit.start()
-//		} catch let error {
-//			print("Couldn't resume AudioKit: \(error.localizedDescription)")
-//		}
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
@@ -299,11 +294,6 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 			rollingPlot.pause()
 		}
 		enableVolumeHub()
-//		do {
-//			try AudioKit.stop()
-//		} catch let error {
-//			print("Couldn't stop audioKit: \(error.localizedDescription)")
-//		}
 	}
 	
 	// MARK: - Overriding Volume Buttons
@@ -664,14 +654,18 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 				//reset the var until next time
 				high3 = nil
 				
-				self.beginRecording(recordFile: audioObj!.getNextTempFile())
-//                highlightButton.isEnabled = true // move to Audio.swift file inside the mergeAndAddHighlight2 Completion Handler
+				if continueRecording {
+					self.beginRecording(recordFile: audioObj!.getNextTempFile())
+				}
+
                 highlightButton.backgroundColor = unSelectedColor
                 self.highlightButton.setImage(#imageLiteral(resourceName: "recordicon"), for: .normal)
 			}
 		}
 		else {
-			self.beginRecording(recordFile: audioObj!.getNextTempFile())
+			if continueRecording {
+				self.beginRecording(recordFile: audioObj!.getNextTempFile())
+			}
 		}
 	}
 	

@@ -68,7 +68,7 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		docsURL = filemgr.urls(for: .documentDirectory, in: .userDomainMask)[0]
         highlightsURL = docsURL.appendingPathComponent("highlights")
 		
-		let audioSession = AVAudioSession.sharedInstance()
+//		let audioSession = AVAudioSession.sharedInstance()
 		// play from bottom speaker
 //        do {
 //            try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
@@ -142,13 +142,8 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
-//		print("\(#function)")
-		if audioPlayer != nil {
-			if audioPlayer!.isPlaying {
-				audioPlayer!.stop()
-				audioPlayer = nil
-			}
-		}
+		print("\(#function)")
+		audioPlayer?.stop()
 	}
 	
 	// CONTINUE NOTE: Insert sections into the tableview real time and change all the arr write and reads to twoDarr

@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import AVFoundation
+import AudioKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -35,14 +36,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     }
 
-	var continuePlaying: Bool = false
     func applicationDidEnterBackground(_ application: UIApplication) {
 		print("\(#function)")
-
+	
+		// stop AudioKit
+//		do {
+//			try AudioKit.stop()
+//		} catch let error {
+//			print("AudioKit stop error: \(error.localizedDescription)")
+//		}
+		
 		if !Settings.continueRecordingInBackground {
+			home?.continueRecording = false
+			
 			// stop recording and playing
 			audioRecorder?.stop()
 			audioPlayer?.stop()
+			
+			// stop AudioKit
+			do {
+				try AudioKit.stop()
+			} catch let error {
+				print("AudioKit stop error: \(error.localizedDescription)")
+			}
 			
 			// stop session
 			audioSession = AVAudioSession.sharedInstance()
@@ -52,12 +68,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				print("Error closing audiosession: \(error.localizedDescription)")
 			}
 		}
-
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
 		print("\(#function)")
-		
+		//ALWAYS DO THIS
+		home?.continueRecording = true
+
 		if !Settings.continueRecordingInBackground {
 			// start audio session
 			audioSession = AVAudioSession.sharedInstance()
@@ -69,6 +86,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			
 			// begin recording
 			home?.firstBeginRecording()
+			
+			// start AudioKit
+			do {
+				try AudioKit.start()
+			} catch let error {
+				print("AudioKit start error: \(error.localizedDescription)")
+			}
 		}
     }
 

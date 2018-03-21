@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AudioKit
 
 class MainViewController: UIViewController,UIScrollViewDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
@@ -31,14 +32,13 @@ class MainViewController: UIViewController,UIScrollViewDelegate {
         scrollView.contentSize = CGSize(width: view.frame.width * CGFloat(viewControllers.count), height: view.frame.height)
         
         scrollView.isPagingEnabled = true
+		scrollView.showsHorizontalScrollIndicator = false
         for i in 0 ..< viewControllers.count {
             viewControllers[i].view.frame = CGRect(x: view.frame.width * CGFloat(i), y: 0, width: view.frame.width, height: view.frame.height)
             
             scrollView.addSubview(viewControllers[i].view)
         }
-        
     }
-    
 }
         
 
