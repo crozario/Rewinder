@@ -295,7 +295,7 @@ class Audio {
 		self.prev_file2 = nil
 	}
 	
-	func deleteTempData() {
+	private func deleteTempData() {
 		self.deleteAll(folderURL: self.dataURL)
 	}
 	

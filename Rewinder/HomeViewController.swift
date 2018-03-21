@@ -208,7 +208,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 			print("Undetermined")
 		}
 		
-		self.beginRecording(recordFile: audioObj.getNextTempFile())
+		self.firstBeginRecording()
 		
 		let micCopy1 = AKBooster(mic)
 //		let micCopy2 = AKBooster(mic)
@@ -263,7 +263,11 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		volumeView.showsVolumeSlider = false
 	}
 	
-
+	func firstBeginRecording() {
+		audioObj.deleteAndResetTempData()
+		self.beginRecording(recordFile: audioObj.getNextTempFile())
+	}
+	
 	var volumeView: MPVolumeView!
 	@objc func volumeChanged(notification: NSNotification) {
 		if let userInfo = notification.userInfo {

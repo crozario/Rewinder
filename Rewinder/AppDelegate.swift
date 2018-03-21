@@ -8,7 +8,7 @@
 
 import UIKit
 import CoreData
-
+import AVFoundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 	var audioPlayer: myPlayer?
 	var audioRecorder: myRecorder?
+	var audioSession: AVAudioSession?
+	var home: HomeViewController?
 	
 //	let settingFile: String = "highlightsettings.txt"
 	var settingsURL: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("highlightsettings.txt")
@@ -30,29 +32,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillResignActive(_ application: UIApplication) {
 		print("\(#function)")
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-		
+
     }
 
 	var continuePlaying: Bool = false
     func applicationDidEnterBackground(_ application: UIApplication) {
 		print("\(#function)")
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+
 		if !Settings.continueRecordingInBackground {
-			audioRecorder?.pause()
-			audioPlayer?.pause()
+			// stop recording and playing
+			audioRecorder?.stop()
+			audioPlayer?.stop()
+			
+			// stop session
+			audioSession = AVAudioSession.sharedInstance()
+			do {
+				try audioSession?.setActive(false)
+			} catch let error {
+				print(error.localizedDescription)
+			}
 		}
 
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
 		print("\(#function)")
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+		
 		if !Settings.continueRecordingInBackground {
-			audioRecorder?.record()
-//			_ = audioPlayer?.play() // don't automatically continue playing when resuming session
+			// start audio session
+			audioSession = AVAudioSession.sharedInstance()
+			do {
+				try audioSession?.setActive(true)
+			} catch let error {
+				print(error.localizedDescription)
+			}
+			
+			// begin recording
+			home?.firstBeginRecording()
 		}
     }
 
@@ -63,8 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
 		print("\(#function)")
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        // Saves changes in the application's managed object context before the application terminates.
+		
         self.saveContext()
 		self.saveSettings()
     }
