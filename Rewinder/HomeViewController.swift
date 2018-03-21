@@ -194,12 +194,19 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 //        disbleRightButtonConstraints()
         
 		audioObj = Audio(managedObjectContext)
-		
-		//delete highlights folder
-		//		audioObj.deleteAllHighlights()
-		
-		//waveform
-		//		createWaveform()
+
+		let recordingSession = AVAudioSession.sharedInstance()
+		switch recordingSession.recordPermission() {
+		case .granted:
+			print("Have permission to record")
+		case .denied:
+			print("Denied permission")
+			DispatchQueue.main.async {
+				self.performSegue(withIdentifier: "idPermissionSegue", sender: self)
+			}
+		case .undetermined:
+			print("Undetermined")
+		}
 		
 		self.beginRecording(recordFile: audioObj.getNextTempFile())
 		
@@ -246,9 +253,6 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		self.view.addSubview(volumeView)
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(volumeChanged(notification:)), name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
-		
-		
-		
 	}
 	func disableVolumeHub() {
 		volumeView.showsRouteButton = true
@@ -258,6 +262,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		volumeView.showsRouteButton = false
 		volumeView.showsVolumeSlider = false
 	}
+	
+
 	var volumeView: MPVolumeView!
 	@objc func volumeChanged(notification: NSNotification) {
 		if let userInfo = notification.userInfo {

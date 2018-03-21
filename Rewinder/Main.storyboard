@@ -32,11 +32,39 @@
                     </view>
                     <connections>
                         <outlet property="view" destination="8bC-Xf-vdC" id="cuR-Ti-9al"/>
+                        <segue destination="Ekc-rK-OjD" kind="presentation" identifier="idPermissionSegue" id="XUu-5b-FMD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-223.19999999999999" y="-940.47976011994012"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="zyo-6T-K1O">
+            <objects>
+                <viewController id="Ekc-rK-OjD" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="RFz-5a-jS7"/>
+                        <viewControllerLayoutGuide type="bottom" id="mu9-0g-S6f"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="PjR-HA-2sB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Please enable recording by going to Settings&gt;Rewinder. Then restart the Rewinder Application" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cTp-c6-2uH">
+                                <rect key="frame" x="13" y="230" width="348" height="206"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" red="0.43529412150000002" green="0.4431372583" blue="0.47450980539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A7L-Rz-W2q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="621.60000000000002" y="-939.58020989505258"/>
         </scene>
         <!--Highlights View Controller-->
         <scene sceneID="ys1-Ia-qMK">

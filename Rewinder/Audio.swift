@@ -36,7 +36,7 @@ class Audio {
 	init(_ MOC: NSManagedObjectContext) {
 		session = AVAudioSession.sharedInstance()
 		do {
-//			try session?.setCategory(AVAudioSessionCategoryPlayAndRecord)
+			try session?.setCategory(AVAudioSessionCategoryPlayAndRecord)
 			try session?.setCategory(AVAudioSessionCategoryPlayAndRecord, with: AVAudioSessionCategoryOptions.mixWithOthers)
 			try session?.setActive(true)
 		}catch let error as NSError{
@@ -46,9 +46,6 @@ class Audio {
 		
 		//core data context
 		context = MOC
-		
-		//request permission******
-		
 		
 		//init directories
 		let dirs = filemgr.urls(for: .documentDirectory, in: .userDomainMask)
@@ -84,16 +81,13 @@ class Audio {
 	}
 	
 	// MARK: - Permissions
-	func requestPermission(_ session: AVAudioSession) {
-		
-	}
-	
-	func checkRecordingPermission() -> Bool {
+	func checkRecordingPermission() -> AVAudioSessionRecordPermission {
 		let status = session?.recordPermission()
-		if status == .granted {
-			return true
-		}
-		return false
+		return status!
+//		if status == .granted {
+//			return true
+//		}
+//		return false
 	}
 	
 	// MARK: - temp buffer state
