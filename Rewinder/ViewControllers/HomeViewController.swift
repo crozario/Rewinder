@@ -734,18 +734,18 @@ class myRecorder: AVAudioRecorder {
 		try super.init(url: url, settings: settings)
 		localurl = url
 		appdelegate.audioRecorder = self
-		print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-		print("Recorder Object Created")
-		print("url: \(url.lastPathComponent)")
-		print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+//		print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+//		print("Recorder Object Created")
+//		print("url: \(url.lastPathComponent)")
+//		print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 	}
 	
 	deinit {
-		appdelegate.audioRecorder = nil
-		print("------------------------------------------------------------------")
-		print("Deinit called")
-		print("url: \(url.lastPathComponent)")
-		print("------------------------------------------------------------------")
+//		appdelegate.audioRecorder = nil
+//		print("------------------------------------------------------------------")
+//		print("Deinit called")
+//		print("url: \(url.lastPathComponent)")
+//		print("------------------------------------------------------------------")
 	}
     
 	func isRecordingHighlight() -> Bool {
@@ -753,6 +753,20 @@ class myRecorder: AVAudioRecorder {
 			return true
 		}
 		return false
+	}
+	
+	override func record(forDuration duration: TimeInterval) -> Bool {
+		print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+		print("Recording to \(localurl.lastPathComponent)")
+		print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+		return super.record(forDuration: duration)
+	}
+	
+	override func stop() {
+		super.stop()
+		print("------------------------------------------------------------------")
+		print("Stopped recording to \(localurl.lastPathComponent)")
+		print("------------------------------------------------------------------")
 	}
 }
 
