@@ -18,7 +18,7 @@ import MediaPlayer
 class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate, UIViewControllerTransitioningDelegate {
     
 //    var data = [viewControllerData(image: #imageLiteral(resourceName: "highlightIcon"), title: "Highlights"), viewControllerData(image: #imageLiteral(resourceName: "settingsIcon"), title: "Settings") ]
-    
+	var continueRecording: Bool = true // will only be set at AppDelegate
 
 	var homeViewPresented: Bool = false
 
@@ -36,11 +36,9 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 //    private var speechRecognitionTask: SFSpeechRecognitionTask?
     private let audioEngine = AVAudioEngine()
     
-
+	var appDelegate = UIApplication.shared.delegate as! AppDelegate
+	
 	let managedObjectContext: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-	
-//	let appDelegate = UIApplication.shared.delegate as! AppDelegate
-	
 	
 	//	var audioRecorder: AVAudioRecorder?
 	var audioObj: Audio!
@@ -121,6 +119,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	var disabledColor: UIColor!
 	var unSelectedColor: UIColor!
 	var appThemeColor: UIColor!
+	
+	var firstTime: Bool = false
 
 	// MARK: - View Override Functions
 	override func viewDidLoad() {
@@ -211,14 +211,16 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		
 		do {
 //			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: .defaultToSpeaker)
-			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: [.mixWithOthers, .defaultToSpeaker])
+			try session.overrideOutputAudioPort(.speaker)
+			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: [.mixWithOthers /*, .defaultToSpeaker*/])
 			try session.setActive(true, with: .notifyOthersOnDeactivation)
 		} catch let error {
 			print("Error setting up audiosession: \(error.localizedDescription)")
 		}
 		
-		self.firstBeginRecording()
-		
+		// start recording and start audio kit only the first time but after app loads
+		firstTime = true
+
 		let micCopy1 = AKBooster(mic)
 		let micCopy2 = AKBooster(mic)
 		if let inputs = AudioKit.inputDevices {
@@ -234,11 +236,6 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		
 		micCopy2.gain = 0
 		AudioKit.output = micCopy2
-        do {
-            try AudioKit.start()
-        } catch let error {
-            print(error.localizedDescription)
-        }
 		
 		micCopy1.gain = 5.5
 		// create rolling waveform plot
@@ -261,23 +258,31 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 //		self.view.addSubview(volumeView)
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(volumeChanged(notification:)), name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
+		
+		appDelegate.home = self
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
 		print("\(#function)")
 		homeViewPresented = true
 		disableVolumeHub()
+		if firstTime {
+			// start recording
+			self.firstBeginRecording()
+			// start audiokit
+			do {
+				try AudioKit.start()
+			} catch let error {
+				print(error.localizedDescription)
+			}
+			firstTime = false
+		}
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
 		print("\(#function)")
 		if rollingPlot.isConnected {
 			rollingPlot.resume()
-		}
-		do {
-			try AudioKit.start()
-		} catch let error {
-			print("Couldn't resume AudioKit: \(error.localizedDescription)")
 		}
 	}
 	
@@ -289,11 +294,6 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 			rollingPlot.pause()
 		}
 		enableVolumeHub()
-		do {
-			try AudioKit.stop()
-		} catch let error {
-			print("Couldn't stop audioKit: \(error.localizedDescription)")
-		}
 	}
 	
 	// MARK: - Overriding Volume Buttons
@@ -305,9 +305,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 //		volumeView.showsRouteButton = false
 //		volumeView.showsVolumeSlider = false
 	}
-	
-	
-	
+
 	var volumeView: MPVolumeView!
 	@objc func volumeChanged(notification: NSNotification) {
 		if let userInfo = notification.userInfo {
@@ -656,14 +654,18 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 				//reset the var until next time
 				high3 = nil
 				
-				self.beginRecording(recordFile: audioObj!.getNextTempFile())
-//                highlightButton.isEnabled = true // move to Audio.swift file inside the mergeAndAddHighlight2 Completion Handler
+				if continueRecording {
+					self.beginRecording(recordFile: audioObj!.getNextTempFile())
+				}
+
                 highlightButton.backgroundColor = unSelectedColor
                 self.highlightButton.setImage(#imageLiteral(resourceName: "recordicon"), for: .normal)
 			}
 		}
 		else {
-			self.beginRecording(recordFile: audioObj!.getNextTempFile())
+			if continueRecording {
+				self.beginRecording(recordFile: audioObj!.getNextTempFile())
+			}
 		}
 	}
 	
@@ -732,18 +734,18 @@ class myRecorder: AVAudioRecorder {
 		try super.init(url: url, settings: settings)
 		localurl = url
 		appdelegate.audioRecorder = self
-		print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-		print("Recorder Object Created")
-		print("url: \(url.lastPathComponent)")
-		print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+//		print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+//		print("Recorder Object Created")
+//		print("url: \(url.lastPathComponent)")
+//		print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 	}
 	
 	deinit {
-		appdelegate.audioRecorder = nil
-		print("------------------------------------------------------------------")
-		print("Deinit called")
-		print("url: \(url.lastPathComponent)")
-		print("------------------------------------------------------------------")
+//		appdelegate.audioRecorder = nil
+//		print("------------------------------------------------------------------")
+//		print("Deinit called")
+//		print("url: \(url.lastPathComponent)")
+//		print("------------------------------------------------------------------")
 	}
     
 	func isRecordingHighlight() -> Bool {
@@ -751,6 +753,20 @@ class myRecorder: AVAudioRecorder {
 			return true
 		}
 		return false
+	}
+	
+	override func record(forDuration duration: TimeInterval) -> Bool {
+		print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+		print("Recording to \(localurl.lastPathComponent)")
+		print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+		return super.record(forDuration: duration)
+	}
+	
+	override func stop() {
+		super.stop()
+		print("------------------------------------------------------------------")
+		print("Stopped recording to \(localurl.lastPathComponent)")
+		print("------------------------------------------------------------------")
 	}
 }
 

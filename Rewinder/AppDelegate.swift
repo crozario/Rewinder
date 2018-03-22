@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import AVFoundation
+import AudioKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -35,42 +36,89 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     }
 
-	var continuePlaying: Bool = false
     func applicationDidEnterBackground(_ application: UIApplication) {
 		print("\(#function)")
-
+	
+		// stop AudioKit
+//		do {
+//			try AudioKit.stop()
+//		} catch let error {
+//			print("AudioKit stop error: \(error.localizedDescription)")
+//		}
+		
 		if !Settings.continueRecordingInBackground {
+			home?.continueRecording = false
+			
 			// stop recording and playing
 			audioRecorder?.stop()
 			audioPlayer?.stop()
 			
+			// stop AudioKit
+			stopAudioKit()
+			
 			// stop session
-			audioSession = AVAudioSession.sharedInstance()
-			do {
-				try audioSession?.setActive(false)
-			} catch let error {
-				print("Error closing audiosession: \(error.localizedDescription)")
-			}
+			deactivateAudioSession()
+		} else {
+			// stop AudioKit
+//			stopAudioKit() // can't stop audiokit because for some reason it stops the audiosession too
 		}
-
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
 		print("\(#function)")
-		
+		//ALWAYS DO THIS
+		home?.continueRecording = true
+
 		if !Settings.continueRecordingInBackground {
 			// start audio session
-			audioSession = AVAudioSession.sharedInstance()
-			do {
-				try audioSession?.setActive(true)
-			} catch let error {
-				print("Error reactivating audiosession: \(error.localizedDescription)")
-			}
+			activateAudioSession()
 			
 			// begin recording
 			home?.firstBeginRecording()
+			
+			// start AudioKit
+			startAudioKit()
+		} else {
+			// start AudioKit
+//			startAudioKit()
 		}
     }
+	
+	func activateAudioSession() {
+		audioSession = AVAudioSession.sharedInstance()
+		do {
+			try audioSession?.setActive(true)
+		} catch let error {
+			print("Error reactivating audiosession: \(error.localizedDescription)")
+		}
+	}
+	
+	func deactivateAudioSession() {
+		audioSession = AVAudioSession.sharedInstance()
+		do {
+			try audioSession?.setActive(false)
+		} catch let error {
+			print("Error closing audiosession: \(error.localizedDescription)")
+		}
+	}
+	
+	func startAudioKit() {
+		// start AudioKit
+		do {
+			try AudioKit.start()
+		} catch let error {
+			print("AudioKit start error: \(error.localizedDescription)")
+		}
+	}
+	
+	func stopAudioKit() {
+		// stop AudioKit
+		do {
+			try AudioKit.stop()
+		} catch let error {
+			print("AudioKit stop error: \(error.localizedDescription)")
+		}
+	}
 
     func applicationDidBecomeActive(_ application: UIApplication) {
 		print("\(#function)")
