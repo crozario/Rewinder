@@ -191,6 +191,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 //
         pickDurationButtonCenter = pickDurationButton.center
         backToCenter()
+        
+        checkBackgroundRecodingSet()
     
 //        disbleRightButtonConstraints()
         
@@ -261,7 +263,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		
 		appDelegate.home = self
 	}
-	
+    
 	override func viewDidAppear(_ animated: Bool) {
 		print("\(#function)")
 		homeViewPresented = true
@@ -336,7 +338,6 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         view.backgroundColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
         highlightButton.backgroundColor = unSelectedColor
         pickDurationButton.backgroundColor = unSelectedColor
-		backgroundRecordingButton.backgroundColor = Settings.continueRecordingInBackground ? selectedColor : unSelectedColor
         navBar.backgroundColor = appThemeColor
         checkCurrSelected()
 //        plotView.backgroundColor = .purple
@@ -443,6 +444,17 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     }
     
     
+    func checkBackgroundRecodingSet() {
+        let recordInBackground = Settings.continueRecordingInBackground
+        if recordInBackground == true {
+            backgroundRecordingButton.setImage(#imageLiteral(resourceName: "backgroundonicon"), for: .normal)
+            
+        } else {
+            backgroundRecordingButton.setImage(#imageLiteral(resourceName: "backgroundofficon"), for: .normal)
+        }
+        backgroundRecordingButton.backgroundColor = Settings.continueRecordingInBackground ? selectedColor : unSelectedColor
+    }
+    
     /* Button Actions */
     @objc func highlightButtonClicked(_ sender: RoundButton) {
 	
@@ -470,12 +482,14 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     // FIX WITH ICONS
     @objc func backgroundRecordingButtonClicked(_ sender: RoundButton) {
         let recordInBackground = Settings.continueRecordingInBackground
-        
         if recordInBackground == true {
             backgroundRecordingButton.backgroundColor = unSelectedColor
+            backgroundRecordingButton.setImage(#imageLiteral(resourceName: "backgroundofficon"), for: .normal)
             Settings.continueRecordingInBackground = false
+            
         } else {
             backgroundRecordingButton.backgroundColor = selectedColor
+            backgroundRecordingButton.setImage(#imageLiteral(resourceName: "backgroundonicon"), for: .normal)
             Settings.continueRecordingInBackground = true
         }
         
