@@ -12,6 +12,7 @@ import AudioKit
 class MainViewController: UIViewController,UIScrollViewDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     var viewControllers = [UIViewController]()
+    var currentFrame = CGRect()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,11 +35,17 @@ class MainViewController: UIViewController,UIScrollViewDelegate {
         scrollView.isPagingEnabled = true
 		scrollView.showsHorizontalScrollIndicator = false
         for i in 0 ..< viewControllers.count {
-            viewControllers[i].view.frame = CGRect(x: view.frame.width * CGFloat(i), y: 0, width: view.frame.width, height: view.frame.height)
-            
+            currentFrame = CGRect(x: view.frame.width * CGFloat(i), y: 0, width: view.frame.width, height: view.frame.height)
+            viewControllers[i].view.frame = currentFrame
             scrollView.addSubview(viewControllers[i].view)
         }
     }
+    
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+    }
 }
+
         
 
