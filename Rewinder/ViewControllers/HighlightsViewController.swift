@@ -68,7 +68,7 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		docsURL = filemgr.urls(for: .documentDirectory, in: .userDomainMask)[0]
         highlightsURL = docsURL.appendingPathComponent("highlights")
 		
-		let audioSession = AVAudioSession.sharedInstance()
+//        let audioSession = AVAudioSession.sharedInstance()
 		// play from bottom speaker
 //        do {
 //            try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
