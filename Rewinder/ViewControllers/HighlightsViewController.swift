@@ -87,10 +87,25 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		tableView.tableFooterView = UIView(frame: CGRect.zero)
 		tableView.estimatedRowHeight = 60.0
 		tableView.rowHeight = UITableViewAutomaticDimension
-        
+		
+		//swipe gesture
+		let recognizer = UISwipeGestureRecognizer(target: self, action: #selector(self.didSwipe(recognizer:)))
+		self.tableView.addGestureRecognizer(recognizer)
 		
 		viewPresented = true
     }
+	
+	@objc func didSwipe(recognizer: UIGestureRecognizer) {
+		if recognizer.state == UIGestureRecognizerState.ended {
+			let swipeLocation = recognizer.location(in: self.tableView)
+			if let swipedIndexPath = tableView.indexPathForRow(at: swipeLocation) {
+				if let swipedCell = self.tableView.cellForRow(at: swipedIndexPath) {
+					// Swipe happened. Do stuff!
+					print("SWIPED !")
+				}
+			}
+		}
+	}
     
     func setupNavBarConstraints() {
         navBar.translatesAutoresizingMaskIntoConstraints = false
@@ -476,6 +491,18 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 		} catch let error as NSError {
 			print("audioPlayer error \(error.localizedDescription)")
 		}
+	}
+	
+	@available(iOS 11.0, *)
+	func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
+	{
+		let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
+			print("Delete Action Tapped")
+		}
+		deleteAction.backgroundColor = Settings.unSelectedColor
+		let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+		configuration.performsFirstActionWithFullSwipe = false //HERE..
+		return configuration
 	}
 	
 	// MARK: - Editing highlight name

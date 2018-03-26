@@ -115,18 +115,9 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QfR-o8-Yvo">
-                                                    <rect key="frame" x="20" y="27" width="295" height="26"/>
+                                                    <rect key="frame" x="20" y="11" width="295" height="26"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                     <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sox-Zj-1hX">
-                                                    <rect key="frame" x="20" y="54" width="250" height="16"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="250" id="vjK-VB-guX"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5O9-Nw-ogO">
@@ -140,18 +131,28 @@
                                                         <action selector="playbackTapped:" destination="qwR-NM-a7r" eventType="touchUpInside" id="b9s-eL-nQR"/>
                                                     </connections>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sox-Zj-1hX">
+                                                    <rect key="frame" x="20" y="48" width="250" height="16"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="250" id="vjK-VB-guX"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Sox-Zj-1hX" firstAttribute="leading" secondItem="QfR-o8-Yvo" secondAttribute="leading" id="1Ei-F6-H5a"/>
-                                                <constraint firstItem="QfR-o8-Yvo" firstAttribute="centerY" secondItem="4IL-id-5H6" secondAttribute="centerY" id="71i-ic-mvP"/>
+                                                <constraint firstItem="QfR-o8-Yvo" firstAttribute="centerY" secondItem="4IL-id-5H6" secondAttribute="centerY" constant="-15.75" id="71i-ic-mvP"/>
                                                 <constraint firstAttribute="trailing" secondItem="5O9-Nw-ogO" secondAttribute="trailing" constant="5" id="OYM-J6-XXf"/>
                                                 <constraint firstItem="QfR-o8-Yvo" firstAttribute="leading" secondItem="4IL-id-5H6" secondAttribute="leading" constant="20" id="RGf-wG-CTe"/>
-                                                <constraint firstItem="Sox-Zj-1hX" firstAttribute="top" secondItem="QfR-o8-Yvo" secondAttribute="bottom" constant="1" id="Rse-BP-ITD"/>
+                                                <constraint firstItem="Sox-Zj-1hX" firstAttribute="top" secondItem="QfR-o8-Yvo" secondAttribute="bottom" constant="11" id="Rse-BP-ITD"/>
                                                 <constraint firstItem="5O9-Nw-ogO" firstAttribute="centerY" secondItem="4IL-id-5H6" secondAttribute="centerY" id="Wm6-yh-tcc"/>
                                                 <constraint firstItem="5O9-Nw-ogO" firstAttribute="leading" secondItem="QfR-o8-Yvo" secondAttribute="trailing" constant="5" id="adT-8f-6vF"/>
-                                                <constraint firstItem="Sox-Zj-1hX" firstAttribute="bottom" secondItem="4IL-id-5H6" secondAttribute="bottomMargin" constant="1" id="cuV-xn-rB2"/>
+                                                <constraint firstItem="Sox-Zj-1hX" firstAttribute="bottom" secondItem="4IL-id-5H6" secondAttribute="bottomMargin" constant="-5" id="cuV-xn-rB2"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <gestureRecognizers/>
                                         <connections>
                                             <outlet property="durationLabel" destination="Sox-Zj-1hX" id="P7n-as-bhP"/>
                                             <outlet property="playbackButton" destination="5O9-Nw-ogO" id="Syo-0X-jSm"/>
@@ -172,6 +173,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gFS-oU-Lqp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="vPq-O4-fhk"/>
             </objects>
             <point key="canvasLocation" x="-223.19999999999999" y="-209.14542728635683"/>
         </scene>
