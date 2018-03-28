@@ -261,7 +261,17 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(volumeChanged(notification:)), name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
 		
+		NotificationCenter.default.addObserver(self, selector: #selector(self.popupSavedHighlight(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
+		
+		
+		
 		appDelegate.home = self
+	}
+	
+	@objc func popupSavedHighlight(notification: NSNotification) {
+		DispatchQueue.main.async {
+			self.performSegue(withIdentifier: "idNotificationPopover", sender: self)
+		}
 	}
     
 	override func viewDidAppear(_ animated: Bool) {

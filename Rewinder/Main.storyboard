@@ -9,6 +9,11 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue-Bold</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Main View Controller-->
         <scene sceneID="Ykf-xe-qaj">
@@ -57,6 +62,7 @@
                     <connections>
                         <outlet property="view" destination="8bC-Xf-vdC" id="cuR-Ti-9al"/>
                         <segue destination="Ekc-rK-OjD" kind="presentation" identifier="idPermissionSegue" id="XUu-5b-FMD"/>
+                        <segue destination="XFs-hE-29d" kind="presentation" identifier="idNotificationPopover" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="gdk-c9-Woj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -88,7 +94,64 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A7L-Rz-W2q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="621.60000000000002" y="-939.58020989505258"/>
+            <point key="canvasLocation" x="855" y="-369"/>
+        </scene>
+        <!--Saved Highlight Popover View Controller-->
+        <scene sceneID="89o-E5-GmN">
+            <objects>
+                <viewController id="XFs-hE-29d" customClass="SavedHighlightPopoverViewController" customModule="Rewinder" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Vdd-6a-REc"/>
+                        <viewControllerLayoutGuide type="bottom" id="iyS-zi-ZtU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hxT-cl-46B">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3f6-ze-4wK">
+                                <rect key="frame" x="112" y="258" width="150" height="150"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Added Highlight" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="747-8g-VF5">
+                                        <rect key="frame" x="25" y="47" width="101" height="57"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="📝" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U6I-31-XC5">
+                                        <rect key="frame" x="59" y="112" width="33" height="35"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="150" id="6Bq-bO-8GP"/>
+                                    <constraint firstItem="747-8g-VF5" firstAttribute="top" secondItem="3f6-ze-4wK" secondAttribute="top" constant="47" id="9Iu-rr-1HZ"/>
+                                    <constraint firstAttribute="height" constant="150" id="AcY-7L-hBv"/>
+                                    <constraint firstItem="747-8g-VF5" firstAttribute="centerX" secondItem="U6I-31-XC5" secondAttribute="centerX" id="OWl-Az-sCO"/>
+                                    <constraint firstAttribute="width" constant="150" id="T5S-K2-qsx"/>
+                                    <constraint firstItem="747-8g-VF5" firstAttribute="leading" secondItem="3f6-ze-4wK" secondAttribute="leading" constant="25" id="YGL-NC-hf8"/>
+                                    <constraint firstItem="747-8g-VF5" firstAttribute="centerY" secondItem="3f6-ze-4wK" secondAttribute="centerY" id="crq-Cx-26t"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="uCN-jw-lX7"/>
+                                    <constraint firstItem="U6I-31-XC5" firstAttribute="top" secondItem="747-8g-VF5" secondAttribute="bottom" constant="8" symbolic="YES" id="uyg-GS-BAq"/>
+                                    <constraint firstItem="747-8g-VF5" firstAttribute="centerX" secondItem="3f6-ze-4wK" secondAttribute="centerX" id="vnU-zG-bQp"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="3f6-ze-4wK" firstAttribute="centerY" secondItem="hxT-cl-46B" secondAttribute="centerY" id="GL3-LJ-ajP"/>
+                            <constraint firstItem="3f6-ze-4wK" firstAttribute="centerX" secondItem="hxT-cl-46B" secondAttribute="centerX" id="eUe-IS-XCw"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="popupView" destination="3f6-ze-4wK" id="PFx-FQ-TpU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IVY-6D-Zfh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="853.60000000000002" y="-1124.8875562218891"/>
         </scene>
         <!--Highlights View Controller-->
         <scene sceneID="ys1-Ia-qMK">
