@@ -88,24 +88,8 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		tableView.estimatedRowHeight = 60.0
 		tableView.rowHeight = UITableViewAutomaticDimension
 		
-		//swipe gesture
-		let recognizer = UISwipeGestureRecognizer(target: self, action: #selector(self.didSwipe(recognizer:)))
-		self.tableView.addGestureRecognizer(recognizer)
-		
 		viewPresented = true
     }
-	
-	@objc func didSwipe(recognizer: UIGestureRecognizer) {
-		if recognizer.state == UIGestureRecognizerState.ended {
-			let swipeLocation = recognizer.location(in: self.tableView)
-			if let swipedIndexPath = tableView.indexPathForRow(at: swipeLocation) {
-				if let swipedCell = self.tableView.cellForRow(at: swipedIndexPath) {
-					// Swipe happened. Do stuff!
-					print("SWIPED !")
-				}
-			}
-		}
-	}
     
     func setupNavBarConstraints() {
         navBar.translatesAutoresizingMaskIntoConstraints = false
