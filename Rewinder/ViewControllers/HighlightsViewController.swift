@@ -89,8 +89,28 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		tableView.rowHeight = UITableViewAutomaticDimension
 		
 		viewPresented = true
+		
+//		initializeHighlightPlayerView()  // should we always keep the player view or nah? (nah rn)
     }
-    
+	
+	var playerView: HighlightPlayerView = HighlightPlayerView()
+	func initializeHighlightPlayerView() {
+		view.addSubview(playerView.contentView)
+		playerView.delegate = self
+		setupHighlightPlayerViewConstraints()
+	}
+	func setupHighlightPlayerViewConstraints() {
+		playerView.titleLabel.textColor = UIColor.white
+		let player = playerView.contentView!
+		player.backgroundColor = Settings.appThemeColor
+		player.backgroundColor?.withAlphaComponent(0.5)
+		player.translatesAutoresizingMaskIntoConstraints = false
+		player.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+		player.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+		player.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+		player.heightAnchor.constraint(equalToConstant: player.frame.height).isActive = true
+	}
+	
     func setupNavBarConstraints() {
         navBar.translatesAutoresizingMaskIntoConstraints = false
         navBar.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
@@ -126,7 +146,6 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 			updateRows()
 		}
     }
-	
 	
 	override func viewDidAppear(_ animated: Bool) {
 		if !twoDinserted.isEmpty {
@@ -372,10 +391,19 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	// MARK: - AudioPlayer delegates
 	func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
 		print("\(#function)")
+		
+		//view will disappear 20 seconds after audio has finished playing
+		DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+			if self.audioPlayer == nil {
+				self.playerView.contentView.removeFromSuperview()
+			}
+		})
 		audioPlayer = nil
+		
 //		tableView.deselectRow(at: prevPath!, animated: true)
-		prevCell?.setButtonPlay()
+//		prevCell?.setButtonPlay()
 	}
+	
 	func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
 		print("\(#function)")
 		print(error as Any)
@@ -405,31 +433,38 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	// used inside extension
 	var prevPath: IndexPath?
 	var prevCell: NormalHighlightCell?
+	
 }
 
-// MARK: - Cell Delegate
-extension HighlightsViewController: HighlightCellDelegate {
-	func didTapPlayback(title: String, cell: NormalHighlightCell) {
-		print("tapped playback on \(title)")
-		if prevCell != nil, prevCell?.getTitle() == title, audioPlayer != nil {
-			if audioPlayer!.isPlaying {
-				audioPlayer!.pause()
-//				cell.setButtonPlay()
+// MARK: - Player Delegate
+extension HighlightsViewController: HighlightPlayerDelegate {
+	func pressedPlayButton() {
+		if let player = audioPlayer {
+			// must be in paused state just play
+			_ = player.play()
+		}
+		else {
+			if let path = self.playerView.indexPath {
+				setupPlayer(indexPath: path)
+				let result = audioPlayer?.play()
+				if result != nil, result! {
+					tableView.selectRow(at: path, animated: true, scrollPosition: .top)
+				}
+				print(self.getElementFromTwoDarr(indexPath: path) + ": " + (audioPlayer?.duration.description)!)
+			}
+		}
+	}
+	
+	func pressedPauseButton() {
+		if let player = audioPlayer {
+			if player.isPlaying {
+				player.pause()
 			} else {
-				_ = audioPlayer!.play()
-//				cell.setButtonStop()
+				print("player is not playing") // shouldn't happen
 			}
 		} else {
-			if audioPlayer != nil, audioPlayer!.isPlaying {
-				audioPlayer?.stop()
-			}
-			setupPlayerFromTitle(title: title, cellRef: cell)
-			_ = audioPlayer?.play()
-//			cell.setButtonStop()
-			prevCell?.setButtonPlay()
-			print(title + ": " + (audioPlayer?.duration.debugDescription)!)
+			print("player is nil") // also shouldn't happen
 		}
-		prevCell = cell
 	}
 }
 
@@ -437,27 +472,28 @@ extension HighlightsViewController: HighlightCellDelegate {
 extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 	
 	// MARK: - Playing audio
+	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableView.deselectRow(at: indexPath, animated: true)
-//		if self.prevPath != nil, self.prevPath == indexPath, self.audioPlayer != nil{
-//			if self.audioPlayer!.isPlaying {
-//				audioPlayer!.pause()
-//				tableView.deselectRow(at: indexPath, animated: true)
-//			} else {
-//				audioPlayer!.play()
-//			}
-//		} else {
-//			setupPlayer(indexPath: indexPath)
-//			audioPlayer?.play()
-//			print(self.getElementFromTwoDarr(indexPath: indexPath) + ": " + (audioPlayer?.duration.description)!)
-//		}
-//		prevPath = indexPath
+		// check if player window is there
+		if playerView.superview == nil {
+			// add to superview
+			initializeHighlightPlayerView()
+		}
+		
+		setupPlayer(indexPath: indexPath)
+		_ = audioPlayer?.play()
+		print(self.getElementFromTwoDarr(indexPath: indexPath) + ": " + (audioPlayer?.duration.description)!)
 	}
 	
 	func setupPlayer(indexPath: IndexPath) {
-		let url = highlightsURL.appendingPathComponent(self.getHighlightFilename(title: self.getElementFromTwoDarr(indexPath: indexPath)))
+		let highlightTitle = getElementFromTwoDarr(indexPath: indexPath)
+		let url = highlightsURL.appendingPathComponent(self.getHighlightFilename(title: highlightTitle))
 		do {
 			try audioPlayer = myPlayer(contentsOf: url)
+			audioPlayer?.highlightPlayerView = playerView
+			audioPlayer?.indexPath = indexPath
+			audioPlayer?.tableView = tableView
+			audioPlayer?.highlightTitle = highlightTitle
 			audioPlayer?.delegate = self
 			audioPlayer?.prepareToPlay()
 		} catch let error as NSError {
@@ -469,108 +505,12 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 		let url = highlightsURL.appendingPathComponent(self.getHighlightFilename(title: title))
 		do {
 			try audioPlayer = myPlayer(contentsOf: url)
-			audioPlayer?.cell = cellRef
+//			audioPlayer?.cell = cellRef
 			audioPlayer?.delegate = self
 			audioPlayer?.prepareToPlay()
 		} catch let error as NSError {
 			print("audioPlayer error \(error.localizedDescription)")
 		}
-	}
-	
-	@available(iOS 11.0, *)
-	func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
-	{
-		let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
-			print("Delete Action Tapped")
-		}
-		deleteAction.backgroundColor = Settings.unSelectedColor
-		let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
-		configuration.performsFirstActionWithFullSwipe = false //HERE..
-		return configuration
-	}
-	
-	// MARK: - Editing highlight name
-	func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-		let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: { (action, indexPath) in
-			let alert = UIAlertController(title: "Modify Highlight Name", message: "What would you like to call this highlight?", preferredStyle: .alert)
-			alert.addTextField(configurationHandler: { (textField) in
-				textField.text = self.getElementFromTwoDarr(indexPath: indexPath)
-				textField.clearButtonMode = .always
-			})
-			alert.addAction(UIAlertAction(title: "Update", style: .default, handler: { (updateAction) in
-				let newName = alert.textFields!.first!.text!
-				let oldName = self.getElementFromTwoDarr(indexPath: indexPath)
-				
-				//check if newName already exists
-				if self.highlightTitleExists(title: newName) {
-					// close alert --> closes automatically
-					self.dismiss(animated: true, completion: nil)
-					
-					// display message
-					let alreadyExistsAlert = UIAlertController(title: "Rename Error", message: "Highlight name already exists.", preferredStyle: .alert)
-					alreadyExistsAlert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
-					self.present(alreadyExistsAlert, animated: true)
-				} else {
-					let managedObj = self.getHighlightManagedObject(title: oldName)
-					managedObj.setValue(newName, forKey: self.attribute_title)
-					do {
-						try self.context.save()
-//						self.arr[indexPath.row] = newName
-						self.setElementOfTwoDarr(indexPath: indexPath, title: newName)
-						self.tableView.reloadRows(at: [indexPath], with: .fade)
-					} catch let error {
-						print(error.localizedDescription)
-					}
-				}
-			}))
-			alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-			self.present(alert, animated: false)
-		})
-		
-		let deleteAction = UITableViewRowAction(style: .default, title: "Delete", handler: { (action, indexPath) in
-			// delete in database and filesystem
-			do {
-				let element = self.getElementFromTwoDarr(indexPath: indexPath)
-				_ = try self.removeHighlightDatabaseAndFileSystem(title: element)
-			} catch let error {
-				print("delete error: \(error.localizedDescription)")
-			}
-			
-			// delete in tableView
-//			self.arr.remove(at: indexPath.row)
-			self.removeElementOfTwoDarr(indexPath: indexPath)
-			tableView.beginUpdates()
-			tableView.deleteRows(at: [indexPath], with: .fade)
-			tableView.endUpdates()
-			
-			// check if the section still has any rows (delete section if not)
-			if self.twoDarr[indexPath.section].count == 1 {
-//				print("BEFORE")
-//				self.print2D(self.twoDarr)
-				self.twoDarr.remove(at: indexPath.section)
-//				print("AFTER")
-//				self.print2D(self.twoDarr)
-				tableView.beginUpdates()
-				var section_indexset = IndexSet()
-				section_indexset.insert(indexPath.section)
-				tableView.deleteSections(section_indexset, with: .fade)
-				tableView.reloadData()		//BAD SHOULDN'T RELOAD EVERYTHING
-				tableView.endUpdates()
-			}
-		})
-		
-		// export to photo library
-		let exportAction = UITableViewRowAction(style: .destructive, title: "Export", handler: { (action, indexPath) in
-			let fileURL = self.getFileURL(from: self.getElementFromTwoDarr(indexPath: indexPath))
-			let activityItems = [fileURL]
-			let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
-			self.present(activityViewController, animated: true, completion: {
-				print("Export completed successfully")
-			})
-		})
-        
-		
-		return [deleteAction, editAction, exportAction]
 	}
 	
 	func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath) {
@@ -601,7 +541,7 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 		cell.setTitle(title)
 		let duration = getHighlightDuration(title: title)
 		cell.setDuration(duration)
-		cell.delegate = self
+//		cell.delegate = self
 		
 		return cell
 	}
@@ -612,7 +552,7 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 				return twoDarr[section][0]
 			}
 		}
-		return "unexpected"
+		return "unexpected section header"
 	}
 	
 	func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -622,7 +562,134 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 		header.textLabel?.textColor = UIColor.white
 	}
 	
+	// MARK: - Modifying tableview cells
+	@available(iOS 11.0, *)
+	func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
+	{
+		let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
+			self.deleteHighlight(indexPath: indexPath)
+		}
+		let editAction = UIContextualAction(style: .normal, title: "Edit") { (action, view, handler) in
+			self.editHighlight(indexPath: indexPath)
+		}
+		let exportAction = UIContextualAction(style: .normal, title: "Export") { (action, view, handler) in
+			self.exportHighlight(indexPath: indexPath)
+		}
+		
+		deleteAction.backgroundColor = Settings.selectedColor
+		editAction.backgroundColor = Settings.unSelectedColor
+		exportAction.backgroundColor = Settings.appThemeColor
+		let actions = [deleteAction, editAction, exportAction]
+		let configuration = UISwipeActionsConfiguration(actions: actions)
+		configuration.performsFirstActionWithFullSwipe = true //HERE..
+		return configuration
+	}
+	
+	func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+		let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: { (action, indexPath) in
+			self.editHighlight(indexPath: indexPath)
+		})
+		
+		let deleteAction = UITableViewRowAction(style: .default, title: "Delete", handler: { (action, indexPath) in
+			self.deleteHighlight(indexPath: indexPath)
+		})
+		
+		// export to photo library
+		let exportAction = UITableViewRowAction(style: .destructive, title: "Export", handler: { (action, indexPath) in
+			self.exportHighlight(indexPath: indexPath)
+		})
+		
+		return [deleteAction, editAction, exportAction]
+	}
+	
+	func deleteHighlight(indexPath: IndexPath) {
+		// delete in database and filesystem
+		do {
+			let element = self.getElementFromTwoDarr(indexPath: indexPath)
+			_ = try self.removeHighlightDatabaseAndFileSystem(title: element)
+		} catch let error {
+			print("delete error: \(error.localizedDescription)")
+		}
+		
+		// delete in tableView
+		//			self.arr.remove(at: indexPath.row)
+		self.removeElementOfTwoDarr(indexPath: indexPath)
+		tableView.beginUpdates()
+		tableView.deleteRows(at: [indexPath], with: .fade)
+		tableView.endUpdates()
+		
+		// check if the section still has any rows (delete section if not)
+		if self.twoDarr[indexPath.section].count == 1 {
+			//				print("BEFORE")
+			//				self.print2D(self.twoDarr)
+			self.twoDarr.remove(at: indexPath.section)
+			//				print("AFTER")
+			//				self.print2D(self.twoDarr)
+			tableView.beginUpdates()
+			var section_indexset = IndexSet()
+			section_indexset.insert(indexPath.section)
+			tableView.deleteSections(section_indexset, with: .fade)
+			tableView.reloadData()		//BAD SHOULDN'T RELOAD EVERYTHING
+			tableView.endUpdates()
+		}
+	}
+	
+	func editHighlight(indexPath: IndexPath) {
+		let alert = UIAlertController(title: "Modify Highlight Name", message: "What would be a suitable name for this highlight? 🤔", preferredStyle: .alert)
+		alert.addTextField(configurationHandler: { (textField) in
+			textField.text = self.getElementFromTwoDarr(indexPath: indexPath)
+			textField.clearButtonMode = .always
+		})
+		alert.addAction(UIAlertAction(title: "Update", style: .default, handler: { (updateAction) in
+			let newName = alert.textFields!.first!.text!
+			let oldName = self.getElementFromTwoDarr(indexPath: indexPath)
+			
+			//check if newName already exists
+			if self.highlightTitleExists(title: newName) {
+				// close alert --> closes automatically
+				self.dismiss(animated: true, completion: nil)
+				
+				// display message
+				let alreadyExistsAlert = UIAlertController(title: "Rename Error", message: "Highlight name already exists.", preferredStyle: .alert)
+				alreadyExistsAlert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
+				self.present(alreadyExistsAlert, animated: true)
+			} else {
+				let managedObj = self.getHighlightManagedObject(title: oldName)
+				managedObj.setValue(newName, forKey: self.attribute_title)
+				do {
+					try self.context.save()
+					//		self.arr[indexPath.row] = newName
+					self.setElementOfTwoDarr(indexPath: indexPath, title: newName)
+					self.tableView.reloadRows(at: [indexPath], with: .fade)
+					
+					//	also change on playerview
+					if self.playerView.title == oldName {
+						self.playerView.title = newName
+					}
+				} catch let error {
+					print(error.localizedDescription)
+				}
+			}
+		}))
+		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+		self.present(alert, animated: false)
+	}
+	
+	func exportHighlight(indexPath: IndexPath) {
+		let fileURL = self.getFileURL(from: self.getElementFromTwoDarr(indexPath: indexPath))
+		let activityItems = [fileURL]
+		let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+		self.present(activityViewController, animated: true, completion: {
+			print("Export completed successfully")
+		})
+	}
+	
 	// MARK: - Unused delegate callbacks
+	func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+		print("\(#function)")
+		return indexPath
+	}
+	
 	func tableView(_ tableView: UITableView, willDeselectRowAt indexPath: IndexPath) -> IndexPath? {
 		print("\(#function)")
 		return indexPath
@@ -639,10 +706,15 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 
 class myPlayer: AVAudioPlayer {
 	
-	var cell: NormalHighlightCell?
+//	var cell: NormalHighlightCell?
+	
+	var highlightPlayerView: HighlightPlayerView?
 	
 	var appdelegate = UIApplication.shared.delegate as! AppDelegate
 	
+	var tableView: UITableView?
+	var indexPath: IndexPath?
+	var highlightTitle: String?
 //	override init(contentsOf url: URL) throws {
 //		try super.init(contentsOf: url)
 //		appdelegate.audioPlayer = self
@@ -653,20 +725,48 @@ class myPlayer: AVAudioPlayer {
 	}
 	
 	override func play() -> Bool {
-		appdelegate.audioPlayer = self
 		let returnval = super.play()
-		cell?.setButtonStop()
+		
+		appdelegate.audioPlayer = self
+		
+//		cell?.setButtonStop()
+		setHighlightPlayerView(isPlayingHighlight: true)
+		
+		if let path = indexPath {
+//			tableView?.selectRow(at: path, animated: true, scrollPosition: .none)
+			highlightPlayerView?.indexPath = path
+		}
+		
 		return returnval
 	}
 	
 	override func stop() {
 		super.stop()
-		cell?.setButtonPlay()
+//		cell?.setButtonPlay()
+		setHighlightPlayerView(isPlayingHighlight: false)
+		
+		if let path = indexPath {
+			tableView?.deselectRow(at: path, animated: true)
+//			print("deselecting inside stop")
+		}
 	}
 	
 	override func pause() {
 		super.pause()
-		cell?.setButtonPlay()
+//		cell?.setButtonPlay()
+		setHighlightPlayerView(isPlayingHighlight: false)
+	}
+	
+	func setHighlightPlayerView(isPlayingHighlight: Bool) {
+		if isPlayingHighlight {
+			highlightPlayerView?.setPlaying()
+			
+			if let title = highlightTitle {
+				highlightPlayerView?.title = title
+			}
+		} else {
+			highlightPlayerView?.setPaused()
+		}
 	}
 }
 

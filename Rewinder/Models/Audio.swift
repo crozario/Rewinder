@@ -377,9 +377,9 @@ class Audio {
 	func getDatetimeString() ->String {
 		let date = Date()
 		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "MM-dd-yyyy-HH-mm-ss"
+		dateFormatter.dateFormat = "MM-dd-yy-HH-mm-ss"
 		//        print(dateFormatter.string(from: date))
-		let currentFileName = "recording-\(dateFormatter.string(from: date)).caf"
+		let currentFileName = "Rec-\(dateFormatter.string(from: date)).caf"
 		return currentFileName
 	}
 }

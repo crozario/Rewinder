@@ -15,6 +15,8 @@
 		5D8102A720424A7C00F62B37 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8102A620424A7C00F62B37 /* Audio.swift */; };
 		5DABA9AE206C213200D2846F /* CustomPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DABA9AD206C213200D2846F /* CustomPopupView.swift */; };
 		5DABA9B0206C224100D2846F /* CustomPopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DABA9AF206C224100D2846F /* CustomPopupView.xib */; };
+		5DABA9B4206C715400D2846F /* HighlightPlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DABA9B3206C715400D2846F /* HighlightPlayerView.xib */; };
+		5DABA9B6206C71BA00D2846F /* HighlightPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DABA9B5206C71BA00D2846F /* HighlightPlayerView.swift */; };
 		5DE1BC4E205FB6E90023BACC /* ExpandedHighlightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE1BC4D205FB6E90023BACC /* ExpandedHighlightCell.swift */; };
 		5DF98003205C481300579F45 /* NormalHighlightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF98002205C481300579F45 /* NormalHighlightCell.swift */; };
 		C4164246205DB43900658407 /* ContinueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4164245205DB43900658407 /* ContinueTableViewCell.swift */; };
@@ -76,6 +78,8 @@
 		5D8102A620424A7C00F62B37 /* Audio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		5DABA9AD206C213200D2846F /* CustomPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopupView.swift; sourceTree = "<group>"; };
 		5DABA9AF206C224100D2846F /* CustomPopupView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomPopupView.xib; sourceTree = "<group>"; };
+		5DABA9B3206C715400D2846F /* HighlightPlayerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HighlightPlayerView.xib; sourceTree = "<group>"; };
+		5DABA9B5206C71BA00D2846F /* HighlightPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightPlayerView.swift; sourceTree = "<group>"; };
 		5DE1BC4D205FB6E90023BACC /* ExpandedHighlightCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandedHighlightCell.swift; sourceTree = "<group>"; };
 		5DF98002205C481300579F45 /* NormalHighlightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalHighlightCell.swift; sourceTree = "<group>"; };
 		6617F5124CB62670B78D2C7F /* Pods_Rewinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rewinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -192,8 +196,6 @@
 				C42BB5802041E08A00D7D4CF /* Info.plist */,
 				C42BB5782041E08A00D7D4CF /* Rewinder.xcdatamodeld */,
 				C46E2BDB204222F1001BE43A /* Files */,
-				5DABA9AD206C213200D2846F /* CustomPopupView.swift */,
-				5DABA9AF206C224100D2846F /* CustomPopupView.xib */,
 			);
 			path = Rewinder;
 			sourceTree = "<group>";
@@ -253,6 +255,10 @@
 				C46D16B82042002600B1224D /* RoundButton.swift */,
 				C46E908320607C9F00F63F96 /* FloatingActionButton.swift */,
 				C4E98812205CA1B5008FC728 /* CircularTransition.swift */,
+				5DABA9AF206C224100D2846F /* CustomPopupView.xib */,
+				5DABA9AD206C213200D2846F /* CustomPopupView.swift */,
+				5DABA9B3206C715400D2846F /* HighlightPlayerView.xib */,
+				5DABA9B5206C71BA00D2846F /* HighlightPlayerView.swift */,
 			);
 			path = ViewTemplates;
 			sourceTree = "<group>";
@@ -397,6 +403,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DABA9B4206C715400D2846F /* HighlightPlayerView.xib in Resources */,
 				C42BB57F2041E08A00D7D4CF /* LaunchScreen.storyboard in Resources */,
 				C4C524E620542E7F00C5DF95 /* Main.storyboard in Resources */,
 				C46E2BDA2042138C001BE43A /* Assets.xcassets in Resources */,
@@ -592,6 +599,7 @@
 				5DABA9AE206C213200D2846F /* CustomPopupView.swift in Sources */,
 				C452530520428768000808A8 /* PageViewController.swift in Sources */,
 				C416424A205DB4E400658407 /* CustomLengthTableViewCell.swift in Sources */,
+				5DABA9B6206C71BA00D2846F /* HighlightPlayerView.swift in Sources */,
 				5D77DD4B205397BE000FC2C3 /* HomeViewController.swift in Sources */,
 				5D79EFE3204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift in Sources */,
 				5D249A0D20538AAE00B65029 /* HighlightsViewController.swift in Sources */,

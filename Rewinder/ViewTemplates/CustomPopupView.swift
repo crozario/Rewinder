@@ -12,7 +12,6 @@ class CustomPopupView: UIView {
 
 	@IBOutlet var contentView: UIView!
 	//	@IBOutlet var popupContentView: UIView!
-	@IBOutlet weak var testLabel: UILabel!
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
