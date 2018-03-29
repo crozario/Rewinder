@@ -105,8 +105,7 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	func setupHighlightPlayerViewConstraints() {
 		playerView.titleLabel.textColor = UIColor.white
 		let player = playerView.contentView!
-		player.backgroundColor = Settings.appThemeColor
-		player.backgroundColor?.withAlphaComponent(0.5)
+//		player.backgroundColor = Settings.appThemeColor
 		player.translatesAutoresizingMaskIntoConstraints = false
 		player.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 //		player.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
@@ -651,7 +650,11 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 	func editHighlight(indexPath: IndexPath) {
 		let alert = UIAlertController(title: "Modify Highlight Name", message: "What would be a suitable name for this highlight? 🤔", preferredStyle: .alert)
 		alert.addTextField(configurationHandler: { (textField) in
+			textField.delegate = self
+			textField.autocapitalizationType = .sentences
 			textField.text = self.getElementFromTwoDarr(indexPath: indexPath)
+//			textField.selectedTextRange = textField.textRange(from: textField.beginningOfDocument, to: textField.endOfDocument)
+//			textField.selectAll(nil)
 			textField.clearButtonMode = .always
 		})
 		alert.addAction(UIAlertAction(title: "Update", style: .default, handler: { (updateAction) in
@@ -715,6 +718,12 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 	
 	func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?) {
 		print("\(#function)")
+	}
+}
+
+extension HighlightsViewController: UITextFieldDelegate {
+	func textFieldDidBeginEditing(_ textField: UITextField) {
+		textField.selectedTextRange = textField.textRange(from: textField.beginningOfDocument, to: textField.endOfDocument)
 	}
 }
 
