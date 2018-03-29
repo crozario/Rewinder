@@ -265,20 +265,20 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		
 		appDelegate.home = self
 		
-		if let popupView = Bundle.main.loadNibNamed("CustomPopupView", owner: self, options: nil)?.first as? CustomPopupView {
-			savedPopupView = popupView
-		}
+//		if let popupView = Bundle.main.loadNibNamed("CustomPopupView", owner: self, options: nil)?.first as? CustomPopupView {
+//			savedPopupView = popupView
+//		}
+		savedPopupView = CustomPopupView()
 	}
 	
 	var savedPopupView: CustomPopupView?
 	
 	
 	@objc func popupSavedHighlight(notification: NSNotification) {
-//		DispatchQueue.main.async {
-//			self.performSegue(withIdentifier: "idNotificationPopover", sender: self)
-//		}
+
 		DispatchQueue.main.async {
-			if let popupView = self.savedPopupView {
+			if let popupObj = self.savedPopupView {
+				let popupView = popupObj.contentView!
 				self.view.addSubview(popupView)
 				popupView.layer.cornerRadius = 10
 				popupView.layer.masksToBounds = true
@@ -287,8 +287,9 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 				popupView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
 				popupView.widthAnchor.constraint(equalToConstant: popupView.frame.width).isActive = true
 				popupView.heightAnchor.constraint(equalToConstant: popupView.frame.height).isActive = true
+
 				DispatchQueue.main.asyncAfter(deadline: .now() + 1.75, execute: {
-					self.savedPopupView?.removeFromSuperview()
+					popupView.removeFromSuperview()
 				})
 			}
 		}

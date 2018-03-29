@@ -16,9 +16,14 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomPopupView" customModule="Rewinder" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomPopupView" customModule="Rewinder" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="i2I-dI-mib" id="MUK-gn-Zvr"/>
+                <outlet property="testLabel" destination="bly-hU-oZj" id="l8y-Hr-93Z"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="i2I-dI-mib" customClass="CustomPopupView" customModule="Rewinder" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="i2I-dI-mib">
             <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
