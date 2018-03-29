@@ -31,7 +31,6 @@ class CustomPopupView: UIView {
 //		popupContentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 		contentView = loadViewFromNib()
 		addSubview(contentView)
-		
 	}
 	
 	func loadViewFromNib() -> UIView! {
