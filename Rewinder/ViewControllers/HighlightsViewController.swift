@@ -95,7 +95,10 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	
 	var playerView: HighlightPlayerView = HighlightPlayerView()
 	func initializeHighlightPlayerView() {
-		view.addSubview(playerView.contentView)
+		let playerContent = playerView.contentView!
+		view.addSubview(playerContent)
+		playerContent.layer.cornerRadius = 10
+//		playerContent.layer.masksToBounds = true
 		playerView.delegate = self
 		setupHighlightPlayerViewConstraints()
 	}
@@ -105,10 +108,13 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		player.backgroundColor = Settings.appThemeColor
 		player.backgroundColor?.withAlphaComponent(0.5)
 		player.translatesAutoresizingMaskIntoConstraints = false
-		player.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-		player.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-		player.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-		player.heightAnchor.constraint(equalToConstant: player.frame.height).isActive = true
+		player.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//		player.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
+//		player.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 10).isActive = true
+		player.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
+		player.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
+//		player.heightAnchor.constraint(equalToConstant: player.frame.height).isActive = true
+		player.heightAnchor.constraint(equalToConstant: 75).isActive = true
 	}
 	
     func setupNavBarConstraints() {
@@ -454,7 +460,6 @@ extension HighlightsViewController: HighlightPlayerDelegate {
 			}
 		}
 	}
-	
 	func pressedPauseButton() {
 		if let player = audioPlayer {
 			if player.isPlaying {
@@ -465,6 +470,11 @@ extension HighlightsViewController: HighlightPlayerDelegate {
 		} else {
 			print("player is nil") // also shouldn't happen
 		}
+	}
+	func swipeDetected() {
+		audioPlayer?.stop()
+		playerView.contentView.removeFromSuperview()
+		print("View removed")
 	}
 }
 
@@ -478,6 +488,10 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 		if playerView.superview == nil {
 			// add to superview
 			initializeHighlightPlayerView()
+			print("added view")
+		}
+		else {
+			print("did not need to create view")
 		}
 		
 		setupPlayer(indexPath: indexPath)

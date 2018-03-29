@@ -11,6 +11,7 @@ import UIKit
 protocol HighlightPlayerDelegate {
 	func pressedPlayButton();
 	func pressedPauseButton();
+	func swipeDetected();
 }
 
 class HighlightPlayerView: UIView {
@@ -34,10 +35,18 @@ class HighlightPlayerView: UIView {
 		super.init(coder: aDecoder)
 		commonInit()
 	}
+	
+	@IBOutlet var swipeGesture: UISwipeGestureRecognizer!
+	
+	@IBAction func swipeDetected(_ sender: UISwipeGestureRecognizer) {
+		print("Swipe detected")
+		delegate?.swipeDetected()
+	}
 
 	func commonInit() {
 		contentView = loadViewFromNib()
 		addSubview(contentView)
+		contentView.addGestureRecognizer(swipeGesture)
 		titleLabel.text = "Not Playing"
 	}
 	
@@ -63,6 +72,9 @@ class HighlightPlayerView: UIView {
 		playbackButton.setTitle("Pause", for: .normal)
 		playingHighlight = true
 	}
+	
+	
+	
 	
 	@IBAction func didPressPlayback(_ sender: Any) {
 		if playingHighlight { // meaning the pause button was visible
