@@ -27,7 +27,7 @@ class UndeterminedPermissionViewController: UIViewController {
 	@IBAction func tappedEnable(_ sender: Any) {
 		//FIXME: This is dirty and maybe pass homeviewcontroller object using preparefor segue
 		let appDelegate = UIApplication.shared.delegate as! AppDelegate
-		appDelegate.home!.initializeRollingPlot()
+		appDelegate.requestPermissionToMicrophone()
 		self.dismiss(animated: true, completion: nil)
 	}
 	

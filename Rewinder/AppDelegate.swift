@@ -111,7 +111,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var firstTime: Bool = true
 	func applicationDidBecomeActive(_ application: UIApplication) {
 		print("\(#function)")
-		// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+
 		checkPermissions()
 		
 		guard home != nil else {
@@ -121,11 +121,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		if havePermission {
 			if firstTime {
-//				home!.initializeRollingPlot()
+				home!.initializeAKMicrphone() // initialize microphone
+				home!.initializeRollingPlot()
 				configureAudioSession()
 				// start audiokit
-//				startAudioKit()
-				home!.startAudioKit(true)
+				startAudioKit()
+//				home!.startAudioKit(true)
 				// start recording
 				home!.firstBeginRecording() // FIXME: Will cause wierd behavior when scroll view is removed because then the viewDidAppear will be triggered more often
 				firstTime = false
@@ -134,15 +135,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		else {
 			if !undeterminedPermission {
 				DispatchQueue.main.async {
-					self.home!.performSegue(withIdentifier: "idDeniedPermissionSegue", sender: self)
+					self.home!.performSegue(withIdentifier: "idDeniedPermissionSegue", sender: self.home!)
 				}
 			}
-			else {
-				// show the special first time view
-				DispatchQueue.main.async {
-//					self.home!.performSegue(withIdentifier: "idUndeterminedPermissionSegue", sender: self)
+		}
+	}
+	
+	func requestPermissionToMicrophone() {
+		print("\(#function)")
+		let session = AVAudioSession.sharedInstance()
+		if session.responds(to: #selector(AVAudioSession.requestRecordPermission(_:))) {
+			session.requestRecordPermission({ (granted: Bool) in
+				if granted {
+					print("User granted Permission.")
+				} else {
+					print("User denied Permission.")
 				}
-			}
+			})
 		}
 	}
 	
@@ -233,8 +242,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	// MARK: - Saving and loading settings
 	func initializeSettings() {
+		print("\(#function)")
 		let fileHandle: FileHandle? = FileHandle(forReadingAtPath: settingsURL.path)
 		if let file = fileHandle {
+			print("Setting up preset values now...")
 			// initialize settings values
 			let data: Data = file.readDataToEndOfFile()
 			var dataString: String? = String.init(data: data, encoding: .utf8)
@@ -268,6 +279,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			
 			file.closeFile()
 		} else {
+			print("Couldn't read highlightsettings.txt. Setting up Defaults...")
 			// couldn't read from file --> load defaults
 			Settings.continueRecordingInBackground = true
 			loadDefaultDurationAndButton()
@@ -294,6 +306,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			let success = filemgr.createFile(atPath: settingsURL.path, contents: data, attributes: nil)
 			if !success {
 				print("Error: File write unsuccessful.")
+			} else {
+				print("Saving Settings data was successful.")
 			}
 		} else {
 			print("Error: Could not encode dataString to UTF-8 data.")

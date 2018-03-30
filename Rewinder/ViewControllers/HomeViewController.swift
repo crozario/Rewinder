@@ -40,6 +40,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	
 	let managedObjectContext: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 	
+	
 	//	var audioRecorder: AVAudioRecorder?
 	var audioObj: Audio!
     var audioPlayer: AVAudioPlayer?
@@ -120,6 +121,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	var appThemeColor: UIColor!
 	
 	var firstTime: Bool = false
+	
+	var mic: AKMicrophone? //IMP: THIS IS NEEDED FOR THE AUDIO SESSION (IDK WHY). SO This needs to be initialized before anything. It also needs microphone permission. 
 
 	// MARK: - View Override Functions
 	override func viewDidLoad() {
@@ -182,35 +185,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         
 		audioObj = Audio(managedObjectContext)
 
-		let mic = AKMicrophone()
-		let micCopy1 = AKBooster(mic)
-		let micCopy2 = AKBooster(mic)
-		if let inputs = AudioKit.inputDevices {
-			do {
-				try AudioKit.setInputDevice(inputs[0])
-				try mic.setDevice(inputs[0])
-			} catch let error {
-				print (error.localizedDescription)
-			}
-		}
-		//		let tracker = AKFrequencyTracker(micCopy1, hopSize: 200, peakCount: 2_000)
-		//		let silence = AKBooster(tracker, gain: 0)
-		
-		micCopy2.gain = 0
-		AudioKit.output = micCopy2 //FIXME: plays a small click when app starts
-		
-		micCopy1.gain = 4.0
-		// create rolling waveform plot
-		rollingPlot = createRollingPlot(micCopy1)
-		//
-		plotView.addSubview(rollingPlot)
-		//
-		rollingPlot.translatesAutoresizingMaskIntoConstraints = false
-		rollingPlot.topAnchor.constraint(equalTo: plotView.topAnchor).isActive = true
-		rollingPlot.leftAnchor.constraint(equalTo: plotView.leftAnchor).isActive = true
-		rollingPlot.rightAnchor.constraint(equalTo: plotView.rightAnchor).isActive = true
-		rollingPlot.heightAnchor.constraint(equalToConstant: 300).isActive = true
-		//		setupRollingPlotConstraints()
+//		initializeRollingPlot()
 		
 //		checkPermissions()
 		
@@ -228,6 +203,12 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		NotificationCenter.default.addObserver(self, selector: #selector(self.popupSavedHighlight(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
 		
 		appDelegate.home = self
+		
+		if appDelegate.undeterminedPermission {
+			DispatchQueue.main.async {
+				self.performSegue(withIdentifier: "idUndeterminedPermissionSegue", sender: self)
+			}
+		}
 		
 		savedPopupView = CustomPopupView()
 	}
@@ -339,14 +320,23 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 //		volumeView.showsVolumeSlider = false
 	}
 	
+	func initializeAKMicrphone() {
+		mic = AKMicrophone()
+	}
+	
 	func initializeRollingPlot() {
-		let mic = AKMicrophone()
-		let micCopy1 = AKBooster(mic)
-		let micCopy2 = AKBooster(mic)
+		print("\(#function)")
+		guard mic != nil else {
+			print("mic is not initialized.")
+			return
+		}
+		
+		let micCopy1 = AKBooster(mic!)
+		let micCopy2 = AKBooster(mic!)
 		if let inputs = AudioKit.inputDevices {
 			do {
 				try AudioKit.setInputDevice(inputs[0])
-				try mic.setDevice(inputs[0])
+				try mic!.setDevice(inputs[0])
 			} catch let error {
 				print (error.localizedDescription)
 			}
@@ -355,7 +345,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		//		let silence = AKBooster(tracker, gain: 0)
 		
 		micCopy2.gain = 0
-		AudioKit.output = micCopy2 //FIXME: plays a small click when app starts
+//		AudioKit.output = micCopy2 //FIXME: plays a small click when app starts
 		
 		micCopy1.gain = 4.0
 		// create rolling waveform plot
