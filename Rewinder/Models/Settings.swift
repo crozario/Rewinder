@@ -18,7 +18,8 @@ class Settings {
 	static let disabledColor: UIColor = UIColorFromRGB(rgbValue: 0xA0467E)
 	static let unSelectedColor: UIColor = UIColorFromRGB(rgbValue: 0x35C2BD)
 	static let appThemeColor: UIColor = UIColorFromRGB(rgbValue: 0x0278AE)
-	
+
+    
 //    static var d = {}
     
     enum Duration: Double {

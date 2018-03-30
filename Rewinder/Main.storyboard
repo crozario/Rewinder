@@ -65,8 +65,7 @@
                     </view>
                     <connections>
                         <outlet property="view" destination="8bC-Xf-vdC" id="cuR-Ti-9al"/>
-                        <segue destination="Ekc-rK-OjD" kind="presentation" identifier="idDeniedPermissionSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="XUu-5b-FMD"/>
-                        <segue destination="Kb1-8a-gSx" kind="presentation" identifier="idUndeterminedPermissionSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="z3K-3b-AGM"/>
+                        <segue destination="Ekc-rK-OjD" kind="presentation" identifier="idPermissionSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="XUu-5b-FMD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -230,113 +229,8 @@
             </objects>
             <point key="canvasLocation" x="-223.19999999999999" y="-209.14542728635683"/>
         </scene>
-        <!--Undetermined Permission View Controller-->
-        <scene sceneID="9y3-oT-8I5">
-            <objects>
-                <viewController id="Kb1-8a-gSx" customClass="UndeterminedPermissionViewController" customModule="Rewinder" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="rfq-gV-tGu"/>
-                        <viewControllerLayoutGuide type="bottom" id="MYG-B4-zNW"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="OQG-VO-hCx">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dL4-Rx-ygJ">
-                                <rect key="frame" x="33" y="98" width="308" height="470"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi there, I'm your personal Rewinder!" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GSp-k4-bSE">
-                                        <rect key="frame" x="8" y="8" width="219" height="72"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="72" id="W3m-d5-lcv"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="19"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="recordicon" translatesAutoresizingMaskIntoConstraints="NO" id="72W-E3-juB">
-                                        <rect key="frame" x="201" y="8" width="99" height="72"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="99" id="e6o-q7-MjT"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GDc-fy-pv9">
-                                        <rect key="frame" x="8" y="69" width="292" height="159"/>
-                                        <string key="text">I can capture important moments for you even after they have occured. Live life in the moment and leave the capturing to me. All you need to do is hit that rewind button in the middle and I will personally add the experience to your "Highlights."</string>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Db7-Ya-cqn">
-                                        <rect key="frame" x="0.0" y="385" width="308" height="85"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="85" id="EQk-ew-eCa"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
-                                        <state key="normal" title="Enable Rewinding">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="tappedEnable:" destination="Kb1-8a-gSx" eventType="touchUpInside" id="wDW-1z-h0c"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9SM-ip-yoT">
-                                        <rect key="frame" x="8" y="236" width="292" height="112"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="112" id="Fxs-kG-wnp"/>
-                                        </constraints>
-                                        <string key="text">In a nutshell, I specialize in recording audio. The recorded audio is stored securely and not shared. When you're ready, tap the "Enable" button below and then "Ok" on the following dialog.</string>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstItem="72W-E3-juB" firstAttribute="trailing" secondItem="GDc-fy-pv9" secondAttribute="trailing" id="3Kg-eS-VTU"/>
-                                    <constraint firstItem="GSp-k4-bSE" firstAttribute="top" secondItem="dL4-Rx-ygJ" secondAttribute="topMargin" id="60a-sE-GgJ"/>
-                                    <constraint firstAttribute="width" constant="308" id="6GI-5R-VtE"/>
-                                    <constraint firstAttribute="trailing" secondItem="9SM-ip-yoT" secondAttribute="trailing" constant="8" id="8T0-MB-BFI"/>
-                                    <constraint firstAttribute="bottom" secondItem="Db7-Ya-cqn" secondAttribute="bottom" id="8cd-20-tLE"/>
-                                    <constraint firstItem="GSp-k4-bSE" firstAttribute="top" secondItem="72W-E3-juB" secondAttribute="top" id="AAb-Gw-EKY"/>
-                                    <constraint firstItem="9SM-ip-yoT" firstAttribute="centerX" secondItem="Db7-Ya-cqn" secondAttribute="centerX" id="C7u-nz-c75"/>
-                                    <constraint firstAttribute="trailing" secondItem="Db7-Ya-cqn" secondAttribute="trailing" id="EZl-eg-Nck"/>
-                                    <constraint firstItem="GSp-k4-bSE" firstAttribute="leading" secondItem="GDc-fy-pv9" secondAttribute="leading" id="Igp-nu-bua"/>
-                                    <constraint firstItem="GDc-fy-pv9" firstAttribute="top" secondItem="GSp-k4-bSE" secondAttribute="bottom" constant="-11" id="Jqx-eS-aAt"/>
-                                    <constraint firstItem="GSp-k4-bSE" firstAttribute="leading" secondItem="dL4-Rx-ygJ" secondAttribute="leadingMargin" id="TwD-Id-PC7"/>
-                                    <constraint firstAttribute="trailing" secondItem="GSp-k4-bSE" secondAttribute="trailing" constant="81" id="WNo-lr-6Ww"/>
-                                    <constraint firstAttribute="trailing" secondItem="GDc-fy-pv9" secondAttribute="trailing" constant="8" id="e5Q-0J-qvF"/>
-                                    <constraint firstItem="9SM-ip-yoT" firstAttribute="leading" secondItem="dL4-Rx-ygJ" secondAttribute="leading" constant="8" id="fHP-MS-McU"/>
-                                    <constraint firstItem="GDc-fy-pv9" firstAttribute="leading" secondItem="9SM-ip-yoT" secondAttribute="leading" id="fis-Fy-0rx"/>
-                                    <constraint firstItem="9SM-ip-yoT" firstAttribute="top" secondItem="GDc-fy-pv9" secondAttribute="bottom" constant="8" id="fkV-rH-f52"/>
-                                    <constraint firstItem="Db7-Ya-cqn" firstAttribute="top" secondItem="9SM-ip-yoT" secondAttribute="bottom" constant="37" id="o5d-Hg-z2b"/>
-                                    <constraint firstItem="GDc-fy-pv9" firstAttribute="leading" secondItem="dL4-Rx-ygJ" secondAttribute="leading" constant="8" id="q0h-P0-XSr"/>
-                                    <constraint firstItem="Db7-Ya-cqn" firstAttribute="leading" secondItem="dL4-Rx-ygJ" secondAttribute="leading" id="xc4-Pk-4EN"/>
-                                    <constraint firstItem="GSp-k4-bSE" firstAttribute="bottom" secondItem="72W-E3-juB" secondAttribute="bottom" id="zWF-bp-5x2"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="0.41285851883561642" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="dL4-Rx-ygJ" firstAttribute="top" secondItem="rfq-gV-tGu" secondAttribute="bottom" constant="78" id="AUo-pF-JQK"/>
-                            <constraint firstItem="dL4-Rx-ygJ" firstAttribute="centerX" secondItem="OQG-VO-hCx" secondAttribute="centerX" id="HMG-dh-tQX"/>
-                            <constraint firstItem="dL4-Rx-ygJ" firstAttribute="centerY" secondItem="OQG-VO-hCx" secondAttribute="centerY" constant="-0.5" id="SXX-50-Dg2"/>
-                            <constraint firstItem="dL4-Rx-ygJ" firstAttribute="centerY" secondItem="OQG-VO-hCx" secondAttribute="centerY" constant="-0.5" id="bPS-7o-7Cf"/>
-                            <constraint firstItem="dL4-Rx-ygJ" firstAttribute="centerX" secondItem="OQG-VO-hCx" secondAttribute="centerX" id="wQD-BI-X7N"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="contentView" destination="dL4-Rx-ygJ" id="fzV-gs-8Bv"/>
-                        <outlet property="enableButton" destination="Db7-Ya-cqn" id="etn-WL-oqH"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gE3-Gj-oMg" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="853.60000000000002" y="-1091.6041979010495"/>
-        </scene>
     </scenes>
     <resources>
         <image name="backgroundofficon" width="682" height="682"/>
-        <image name="recordicon" width="682" height="682"/>
     </resources>
 </document>

@@ -20,16 +20,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var audioSession: AVAudioSession?
 	var home: HomeViewController?
 	
-	var havePermission: Bool = false
-	var undeterminedPermission: Bool = false
-	
 //	let settingFile: String = "highlightsettings.txt"
 	var settingsURL: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("highlightsettings.txt")
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 		
-		checkPermissions() //FIXME: Don't need to check here
+		checkPermissions()
 		self.initializeSettings()
 		
 		application.statusBarStyle = .lightContent
@@ -43,22 +40,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		switch session.recordPermission() {
 		case .granted:
 			print("Have permission to record")
-			havePermission = true
-			undeterminedPermission = false
 		case .denied:
 			print("Denied permission")
-			havePermission = false
-			undeterminedPermission = false
 		case .undetermined:
 			print("Undetermined")
-			havePermission = false
-			undeterminedPermission = true
 		}
 	}
 
     func applicationWillResignActive(_ application: UIApplication) {
 		print("\(#function)")
-		
+
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -72,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //		}
 		
 		if !Settings.continueRecordingInBackground {
-			home?.continueRecording = false	
+			home?.continueRecording = false
 			
 			// stop recording and playing
 			audioRecorder?.stop()
@@ -94,7 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		//ALWAYS DO THIS
 		home?.continueRecording = true
 
-		if havePermission, !Settings.continueRecordingInBackground {
+		if !Settings.continueRecordingInBackground {
 			// start audio session
 			activateAudioSession()
 			
@@ -108,56 +99,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //			startAudioKit()
 		}
     }
-	var firstTime: Bool = true
-	func applicationDidBecomeActive(_ application: UIApplication) {
-		print("\(#function)")
-		// Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-		checkPermissions()
-		
-		guard home != nil else {
-			print("ERROR: home reference inside AppDelegate never set")
-			return
-		}
-		
-		if havePermission {
-			if firstTime {
-//				home!.initializeRollingPlot()
-				configureAudioSession()
-				// start audiokit
-//				startAudioKit()
-				home!.startAudioKit(true)
-				// start recording
-				home!.firstBeginRecording() // FIXME: Will cause wierd behavior when scroll view is removed because then the viewDidAppear will be triggered more often
-				firstTime = false
-			}
-		}
-		else {
-			if !undeterminedPermission {
-				DispatchQueue.main.async {
-					self.home!.performSegue(withIdentifier: "idDeniedPermissionSegue", sender: self)
-				}
-			}
-			else {
-				// show the special first time view
-				DispatchQueue.main.async {
-//					self.home!.performSegue(withIdentifier: "idUndeterminedPermissionSegue", sender: self)
-				}
-			}
-		}
-	}
-	
-	// MARK: Audio Session
-	func configureAudioSession() {
-		let session = AVAudioSession.sharedInstance()
-		do {
-			//			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: .defaultToSpeaker)
-			try session.overrideOutputAudioPort(.speaker)
-			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: [.mixWithOthers /*, .defaultToSpeaker*/])
-			try session.setActive(true, with: .notifyOthersOnDeactivation)
-		} catch let error {
-			print("Error setting up audiosession: \(error.localizedDescription)")
-		}
-	}
 	
 	func activateAudioSession() {
 		audioSession = AVAudioSession.sharedInstance()
@@ -194,6 +135,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			print("AudioKit stop error: \(error.localizedDescription)")
 		}
 	}
+
+    func applicationDidBecomeActive(_ application: UIApplication) {
+		print("\(#function)")
+        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    }
 
     func applicationWillTerminate(_ application: UIApplication) {
 		print("\(#function)")

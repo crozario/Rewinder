@@ -25,12 +25,24 @@ class DeniedPermissionViewController: UIViewController {
 	
 	override func viewDidAppear(_ animated: Bool) {
 		print("\(#function)")
-
+		// check permissions
+		checkPermissions()
+	}
+	
+	func checkPermissions() {
+		let session = AVAudioSession.sharedInstance()
+		switch session.recordPermission() {
+		case .granted:
+			print("Have permission to record")
+//			self.dismiss(animated: true, completion: nil)
+		case .denied:
+			print("Denied permission")
+		case .undetermined:
+			print("Undetermined")
+		}
 	}
 	
 	@IBAction func tappedSettings(_ sender: Any) {
-		self.dismiss(animated: true, completion: nil)
-		
 		guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
 			return
 		}
