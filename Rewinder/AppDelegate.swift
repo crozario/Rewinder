@@ -20,6 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var audioSession: AVAudioSession?
 	var home: HomeViewController?
 	
+	var havePermission: Bool = false
+	var undeterminedPermission: Bool = false
+	
 //	let settingFile: String = "highlightsettings.txt"
 	var settingsURL: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("highlightsettings.txt")
 
@@ -40,10 +43,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		switch session.recordPermission() {
 		case .granted:
 			print("Have permission to record")
+			havePermission = true
+			undeterminedPermission = false
 		case .denied:
 			print("Denied permission")
+			havePermission = false
+			undeterminedPermission = false
 		case .undetermined:
 			print("Undetermined")
+			havePermission = false
+			undeterminedPermission = true
 		}
 	}
 
@@ -99,8 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //			startAudioKit()
 		}
     }
-<<<<<<< HEAD
-=======
+
 	var firstTime: Bool = true
 	func applicationDidBecomeActive(_ application: UIApplication) {
 		print("\(#function)")
@@ -113,17 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 		
 		if havePermission {
-			if firstTime {
-				home!.initializeAKMicrphone() // initialize microphone
-				home!.initializeRollingPlot()
-				configureAudioSession()
-				// start audiokit
-				startAudioKit()
-//				home!.startAudioKit(true)
-				// start recording
-				home!.firstBeginRecording() // FIXME: Will cause wierd behavior when scroll view is removed because then the viewDidAppear will be triggered more often
-				firstTime = false
-			}
+			executeFirstTime()
 		}
 		else {
 			if !undeterminedPermission {
@@ -134,6 +132,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 	}
 	
+	private func executeFirstTime() { //assumes home is not nil
+		if firstTime {
+			home!.initializeAKMicrphone() // initialize microphone
+			home!.initializeRollingPlot()
+			configureAudioSession()
+			// start audiokit
+			startAudioKit()
+			//				home!.startAudioKit(true)
+			// start recording
+			home!.firstBeginRecording() // FIXME: Will cause wierd behavior when scroll view is removed because then the viewDidAppear will be triggered more often
+			firstTime = false
+		}
+	}
+	
 	func requestPermissionToMicrophone() {
 		print("\(#function)")
 		let session = AVAudioSession.sharedInstance()
@@ -141,6 +153,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			session.requestRecordPermission({ (granted: Bool) in
 				if granted {
 					print("User granted Permission.")
+					self.executeFirstTime()
 				} else {
 					print("User denied Permission.")
 				}
@@ -160,7 +173,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			print("Error setting up audiosession: \(error.localizedDescription)")
 		}
 	}
->>>>>>> unbreak-app
 	
 	func activateAudioSession() {
 		audioSession = AVAudioSession.sharedInstance()
@@ -197,11 +209,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			print("AudioKit stop error: \(error.localizedDescription)")
 		}
 	}
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-		print("\(#function)")
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    }
 
     func applicationWillTerminate(_ application: UIApplication) {
 		print("\(#function)")

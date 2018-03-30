@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1358215CE5A809C2E23134EA /* Pods_Rewinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6617F5124CB62670B78D2C7F /* Pods_Rewinder.framework */; };
 		5D249A0D20538AAE00B65029 /* HighlightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D249A0C20538AAE00B65029 /* HighlightsViewController.swift */; };
+		5D6924AC206EF6C8009B47B9 /* UndeterminedPermissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6924AB206EF6C8009B47B9 /* UndeterminedPermissionViewController.swift */; };
 		5D77DD4B205397BE000FC2C3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D77DD4A205397BE000FC2C3 /* HomeViewController.swift */; };
 		5D79EFE3204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D79EFE1204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift */; };
 		5D79EFE4204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D79EFE2204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift */; };
@@ -73,6 +74,7 @@
 		3D6AACD5A7A46A4BF762F548 /* Pods-RewinderUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RewinderUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RewinderUITests/Pods-RewinderUITests.release.xcconfig"; sourceTree = "<group>"; };
 		508EF42CFA841215B83D0775 /* Pods-Rewinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rewinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rewinder/Pods-Rewinder.debug.xcconfig"; sourceTree = "<group>"; };
 		5D249A0C20538AAE00B65029 /* HighlightsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightsViewController.swift; sourceTree = "<group>"; };
+		5D6924AB206EF6C8009B47B9 /* UndeterminedPermissionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UndeterminedPermissionViewController.swift; sourceTree = "<group>"; };
 		5D77DD4A205397BE000FC2C3 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5D79EFE1204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HighlightEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		5D79EFE2204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HighlightEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				5D249A0C20538AAE00B65029 /* HighlightsViewController.swift */,
 				C452530420428768000808A8 /* PageViewController.swift */,
 				5DD7D5A7206DE58100D431C9 /* DeniedPermissionViewController.swift */,
+				5D6924AB206EF6C8009B47B9 /* UndeterminedPermissionViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -591,6 +594,7 @@
 				C4E98813205CA1B5008FC728 /* CircularTransition.swift in Sources */,
 				C42BB57A2041E08A00D7D4CF /* Rewinder.xcdatamodeld in Sources */,
 				C46E908420607C9F00F63F96 /* FloatingActionButton.swift in Sources */,
+				5D6924AC206EF6C8009B47B9 /* UndeterminedPermissionViewController.swift in Sources */,
 				C4E987EB205C9306008FC728 /* Settings.swift in Sources */,
 				C4164246205DB43900658407 /* ContinueTableViewCell.swift in Sources */,
 				5D79EFE4204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift in Sources */,

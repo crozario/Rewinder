@@ -65,7 +65,8 @@
                     </view>
                     <connections>
                         <outlet property="view" destination="8bC-Xf-vdC" id="cuR-Ti-9al"/>
-                        <segue destination="Ekc-rK-OjD" kind="presentation" identifier="idPermissionSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="XUu-5b-FMD"/>
+                        <segue destination="Ekc-rK-OjD" kind="presentation" identifier="idDeniedPermissionSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="XUu-5b-FMD"/>
+                        <segue destination="Qcj-pf-Kb5" kind="presentation" identifier="idUndeterminedPermissionSegue" id="UoV-YU-1uH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -100,8 +101,8 @@
                                             <action selector="tappedSettings:" destination="Ekc-rK-OjD" eventType="touchUpInside" id="E5e-L7-XSI"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Could not access microphone" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vLu-hj-Kua">
-                                        <rect key="frame" x="59" y="8" width="209" height="38"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorry, I can't hear you" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vLu-hj-Kua">
+                                        <rect key="frame" x="65" y="8" width="203" height="38"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="38" id="dMJ-kW-JBj"/>
                                         </constraints>
@@ -109,9 +110,9 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="obI-0W-IhU">
-                                        <rect key="frame" x="8" y="45" width="260" height="123"/>
-                                        <string key="text">Sorry about this but I'm having trouble hearing you, which means I can't rewind moments for you. Please go to Settings and enable your microphone. </string>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="obI-0W-IhU">
+                                        <rect key="frame" x="8" y="54" width="260" height="123"/>
+                                        <string key="text">Listening is an important part of my job. I can't rewind moments for you if I can't do that. All audio is stored securely and not shared. Please go to Settings and enable microphone.</string>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -122,22 +123,22 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="vLu-hj-Kua" firstAttribute="leading" secondItem="obI-0W-IhU" secondAttribute="leading" constant="51" id="2go-2y-n60"/>
+                                    <constraint firstItem="vLu-hj-Kua" firstAttribute="leading" secondItem="obI-0W-IhU" secondAttribute="leading" constant="57" id="2go-2y-n60"/>
                                     <constraint firstItem="obI-0W-IhU" firstAttribute="centerX" secondItem="fi7-7D-1bz" secondAttribute="centerX" id="3Ld-cO-YhC"/>
-                                    <constraint firstItem="vLu-hj-Kua" firstAttribute="leading" secondItem="VPf-hX-jGC" secondAttribute="trailing" constant="2" id="51Y-aV-OJ3"/>
+                                    <constraint firstItem="vLu-hj-Kua" firstAttribute="leading" secondItem="VPf-hX-jGC" secondAttribute="trailing" constant="8" id="51Y-aV-OJ3"/>
                                     <constraint firstItem="fi7-7D-1bz" firstAttribute="leading" secondItem="AuA-5q-thS" secondAttribute="leading" id="8HF-sR-oAo"/>
                                     <constraint firstAttribute="trailing" secondItem="fi7-7D-1bz" secondAttribute="trailing" id="DO5-gA-d5B"/>
-                                    <constraint firstItem="fi7-7D-1bz" firstAttribute="top" secondItem="obI-0W-IhU" secondAttribute="bottom" constant="18" id="IGd-KH-3wo"/>
+                                    <constraint firstItem="fi7-7D-1bz" firstAttribute="top" secondItem="obI-0W-IhU" secondAttribute="bottom" constant="9" id="IGd-KH-3wo"/>
                                     <constraint firstItem="VPf-hX-jGC" firstAttribute="leading" secondItem="obI-0W-IhU" secondAttribute="leading" id="QcL-KB-dWW"/>
                                     <constraint firstAttribute="trailing" secondItem="vLu-hj-Kua" secondAttribute="trailing" constant="8" id="UBH-Xl-7hb"/>
                                     <constraint firstAttribute="height" constant="270" id="YSJ-PR-jau"/>
                                     <constraint firstItem="VPf-hX-jGC" firstAttribute="bottom" secondItem="vLu-hj-Kua" secondAttribute="bottom" id="ZOW-ad-qkr"/>
                                     <constraint firstItem="VPf-hX-jGC" firstAttribute="top" secondItem="vLu-hj-Kua" secondAttribute="top" id="aMS-KQ-AzZ"/>
-                                    <constraint firstItem="obI-0W-IhU" firstAttribute="top" secondItem="AuA-5q-thS" secondAttribute="top" constant="45" id="fBP-RE-R3b"/>
+                                    <constraint firstItem="obI-0W-IhU" firstAttribute="top" secondItem="AuA-5q-thS" secondAttribute="top" constant="54" id="fBP-RE-R3b"/>
                                     <constraint firstItem="vLu-hj-Kua" firstAttribute="top" secondItem="AuA-5q-thS" secondAttribute="topMargin" id="huy-CB-B6k"/>
                                     <constraint firstAttribute="bottom" secondItem="fi7-7D-1bz" secondAttribute="bottom" id="ijP-bn-f8e"/>
                                     <constraint firstAttribute="width" constant="276" id="jG6-YB-nQs"/>
-                                    <constraint firstItem="vLu-hj-Kua" firstAttribute="leading" secondItem="AuA-5q-thS" secondAttribute="leadingMargin" constant="51" id="oxp-BY-B45"/>
+                                    <constraint firstItem="vLu-hj-Kua" firstAttribute="leading" secondItem="AuA-5q-thS" secondAttribute="leadingMargin" constant="57" id="oxp-BY-B45"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -229,8 +230,113 @@
             </objects>
             <point key="canvasLocation" x="-223.19999999999999" y="-209.14542728635683"/>
         </scene>
+        <!--Undetermined Permission View Controller-->
+        <scene sceneID="aj3-y5-zQ1">
+            <objects>
+                <viewController id="Qcj-pf-Kb5" customClass="UndeterminedPermissionViewController" customModule="Rewinder" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0b0-x3-yU8"/>
+                        <viewControllerLayoutGuide type="bottom" id="d9o-W4-xmp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="078-3d-hwS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yVn-cP-ind">
+                                <rect key="frame" x="33" y="98" width="308" height="470"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi there, I'm your personal Rewinder!" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="waP-4b-ckE">
+                                        <rect key="frame" x="8" y="8" width="219" height="72"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="72" id="oPv-oQ-t7i"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="19"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="recordicon" translatesAutoresizingMaskIntoConstraints="NO" id="JkK-a9-fVr">
+                                        <rect key="frame" x="201" y="8" width="99" height="72"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="99" id="z98-E0-aoM"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRs-lu-ULA">
+                                        <rect key="frame" x="8" y="69" width="292" height="159"/>
+                                        <string key="text">I can capture important moments for you even after they have occured. Live life in the moment and leave the capturing to me. All you need to do is hit that rewind button in the middle and I will personally add the experience to your "Highlights."</string>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oFd-9s-R8r">
+                                        <rect key="frame" x="0.0" y="385" width="308" height="85"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="85" id="6Lc-co-rYk"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                                        <state key="normal" title="Enable Rewinding">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="tappedEnable:" destination="Qcj-pf-Kb5" eventType="touchUpInside" id="Lbg-lu-2Tf"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QnZ-rT-A5V">
+                                        <rect key="frame" x="8" y="236" width="292" height="112"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="112" id="yB9-t2-aLZ"/>
+                                        </constraints>
+                                        <string key="text">In a nutshell, I specialize in recording audio. The recorded audio is stored securely and not shared. When you're ready, tap the "Enable" button below and then "Ok" on the following dialog.</string>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="oFd-9s-R8r" secondAttribute="bottom" id="1XQ-jz-0I8"/>
+                                    <constraint firstItem="oFd-9s-R8r" firstAttribute="leading" secondItem="yVn-cP-ind" secondAttribute="leading" id="4H8-Oh-hW9"/>
+                                    <constraint firstItem="lRs-lu-ULA" firstAttribute="top" secondItem="waP-4b-ckE" secondAttribute="bottom" constant="-11" id="8wo-oR-f1F"/>
+                                    <constraint firstItem="waP-4b-ckE" firstAttribute="top" secondItem="JkK-a9-fVr" secondAttribute="top" id="B2d-T6-kel"/>
+                                    <constraint firstItem="QnZ-rT-A5V" firstAttribute="leading" secondItem="yVn-cP-ind" secondAttribute="leading" constant="8" id="GPd-F7-NZj"/>
+                                    <constraint firstItem="waP-4b-ckE" firstAttribute="bottom" secondItem="JkK-a9-fVr" secondAttribute="bottom" id="JHd-x9-12d"/>
+                                    <constraint firstItem="QnZ-rT-A5V" firstAttribute="centerX" secondItem="oFd-9s-R8r" secondAttribute="centerX" id="NjN-ZX-GWA"/>
+                                    <constraint firstItem="QnZ-rT-A5V" firstAttribute="top" secondItem="lRs-lu-ULA" secondAttribute="bottom" constant="8" id="W7a-7t-QDg"/>
+                                    <constraint firstItem="lRs-lu-ULA" firstAttribute="leading" secondItem="QnZ-rT-A5V" secondAttribute="leading" id="cT7-nl-DnN"/>
+                                    <constraint firstItem="waP-4b-ckE" firstAttribute="leading" secondItem="yVn-cP-ind" secondAttribute="leadingMargin" id="cZh-y6-SeZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="lRs-lu-ULA" secondAttribute="trailing" constant="8" id="d3X-v6-ytL"/>
+                                    <constraint firstAttribute="width" constant="308" id="e6C-jJ-pFR"/>
+                                    <constraint firstItem="lRs-lu-ULA" firstAttribute="leading" secondItem="yVn-cP-ind" secondAttribute="leading" constant="8" id="fBE-Ju-o4q"/>
+                                    <constraint firstItem="waP-4b-ckE" firstAttribute="top" secondItem="yVn-cP-ind" secondAttribute="topMargin" id="hJH-ij-qfe"/>
+                                    <constraint firstAttribute="trailing" secondItem="QnZ-rT-A5V" secondAttribute="trailing" constant="8" id="kol-L8-KQQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="oFd-9s-R8r" secondAttribute="trailing" id="oXB-fD-wZs"/>
+                                    <constraint firstItem="waP-4b-ckE" firstAttribute="leading" secondItem="lRs-lu-ULA" secondAttribute="leading" id="pJb-mN-vbB"/>
+                                    <constraint firstItem="oFd-9s-R8r" firstAttribute="top" secondItem="QnZ-rT-A5V" secondAttribute="bottom" constant="37" id="rZ8-kt-Hef"/>
+                                    <constraint firstItem="JkK-a9-fVr" firstAttribute="trailing" secondItem="lRs-lu-ULA" secondAttribute="trailing" id="smY-of-TcE"/>
+                                    <constraint firstAttribute="trailing" secondItem="waP-4b-ckE" secondAttribute="trailing" constant="81" id="zkX-lI-otH"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666669999997" alpha="0.41285851880000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="yVn-cP-ind" firstAttribute="top" secondItem="0b0-x3-yU8" secondAttribute="bottom" constant="78" id="Dnc-rh-651"/>
+                            <constraint firstItem="yVn-cP-ind" firstAttribute="centerY" secondItem="078-3d-hwS" secondAttribute="centerY" constant="-0.5" id="V2t-gy-0Qi"/>
+                            <constraint firstItem="yVn-cP-ind" firstAttribute="centerX" secondItem="078-3d-hwS" secondAttribute="centerX" id="Xez-kf-rmd"/>
+                            <constraint firstItem="yVn-cP-ind" firstAttribute="centerX" secondItem="078-3d-hwS" secondAttribute="centerX" id="cRf-9Y-Bc0"/>
+                            <constraint firstItem="yVn-cP-ind" firstAttribute="centerY" secondItem="078-3d-hwS" secondAttribute="centerY" constant="-0.5" id="pMD-FR-ZLP"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="contentView" destination="yVn-cP-ind" id="GaA-5v-d9N"/>
+                        <outlet property="enableButton" destination="oFd-9s-R8r" id="gf9-TX-Mre"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="spZ-cv-54d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="853.60000000000002" y="-1091.6041979010495"/>
+        </scene>
     </scenes>
     <resources>
         <image name="backgroundofficon" width="682" height="682"/>
+        <image name="recordicon" width="682" height="682"/>
     </resources>
 </document>
