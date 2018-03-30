@@ -26,10 +26,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 		
+		checkPermissions()
 		self.initializeSettings()
+		
+		application.statusBarStyle = .lightContent
 		
         return true
     }
+	
+	func checkPermissions() {
+		print("\(#function)")
+		let session = AVAudioSession.sharedInstance()
+		switch session.recordPermission() {
+		case .granted:
+			print("Have permission to record")
+		case .denied:
+			print("Denied permission")
+		case .undetermined:
+			print("Undetermined")
+		}
+	}
 
     func applicationWillResignActive(_ application: UIApplication) {
 		print("\(#function)")

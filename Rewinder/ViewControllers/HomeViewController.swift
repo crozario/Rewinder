@@ -182,7 +182,6 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         
 		audioObj = Audio(managedObjectContext)
 
-		print("CheckPermissions in viewDidLoad()")
 		checkPermissions()
 		
 		configureAudioSession()
