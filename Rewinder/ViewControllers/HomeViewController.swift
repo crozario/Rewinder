@@ -53,12 +53,12 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         let nav = UIView()
         let titleItem = UILabel()
         nav.addSubview(titleItem)
-        titleItem.text = "Home"
+        titleItem.text = "Rewinder"
         titleItem.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
         titleItem.textColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
         titleItem.translatesAutoresizingMaskIntoConstraints = false
         titleItem.centerXAnchor.constraint(equalTo: nav.centerXAnchor).isActive = true
-        titleItem.bottomAnchor.constraint(equalTo: nav.bottomAnchor, constant: -15).isActive = true
+        titleItem.bottomAnchor.constraint(equalTo: nav.bottomAnchor, constant: -17).isActive = true
         return nav
     }()
 	
@@ -141,22 +141,6 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		disabledColor = Settings.disabledColor
 		unSelectedColor = Settings.unSelectedColor
 		appThemeColor = Settings.appThemeColor
-		
-        //drop shadow
-//        navBar.layer.shadowOpacity = 1
-//        navBar.layer.shadowRadius = 5
-//        highlightButton.layer.shadowOpacity = 1
-//        highlightButton.layer.shadowRadius = 5
-//        backgroundRecordingButton.layer.shadowOpacity = 1
-//        backgroundRecordingButton.layer.shadowRadius = 5
-//        pickDurationButton.layer.shadowOpacity = 1
-//        pickDurationButton.layer.shadowRadius = 5
-//        leftButton.layer.shadowOpacity = 1
-//        leftButton.layer.shadowRadius = 5
-//        middleButton.layer.shadowOpacity = 1
-//        middleButton.layer.shadowRadius = 5
-//        rightButton.layer.shadowOpacity = 1
-//        rightButton.layer.shadowRadius = 5
         
         setupBackgroundColors()
         
@@ -198,27 +182,10 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         
 		audioObj = Audio(managedObjectContext)
 
-		let session = AVAudioSession.sharedInstance()
-		switch session.recordPermission() {
-		case .granted:
-			print("Have permission to record")
-		case .denied:
-			print("Denied permission")
-			DispatchQueue.main.async {
-				self.performSegue(withIdentifier: "idPermissionSegue", sender: self)
-			}
-		case .undetermined:
-			print("Undetermined")
-		}
+		print("CheckPermissions in viewDidLoad()")
+		checkPermissions()
 		
-		do {
-//			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: .defaultToSpeaker)
-			try session.overrideOutputAudioPort(.speaker)
-			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: [.mixWithOthers /*, .defaultToSpeaker*/])
-			try session.setActive(true, with: .notifyOthersOnDeactivation)
-		} catch let error {
-			print("Error setting up audiosession: \(error.localizedDescription)")
-		}
+		configureAudioSession()
 		
 		// start recording and start audio kit only the first time but after app loads
 		firstTime = true
@@ -237,14 +204,12 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 //		let silence = AKBooster(tracker, gain: 0)
 		
 		micCopy2.gain = 0
-		AudioKit.output = micCopy2
+		AudioKit.output = micCopy2 //FIXME: plays a small click when app starts (figure out right way or try initializing to AKNode()
 		
-		micCopy1.gain = 5.5
+		micCopy1.gain = 4.0
 		// create rolling waveform plot
         rollingPlot = createRollingPlot(micCopy1)
-        
-		
-        
+
 		plotView.addSubview(rollingPlot)
         
         rollingPlot.translatesAutoresizingMaskIntoConstraints = false
@@ -271,9 +236,34 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		savedPopupView = CustomPopupView()
 	}
 	
+	func checkPermissions() {
+		let session = AVAudioSession.sharedInstance()
+		switch session.recordPermission() {
+		case .granted:
+			print("Have permission to record")
+		case .denied:
+			print("Denied permission")
+			DispatchQueue.main.async {
+				self.performSegue(withIdentifier: "idPermissionSegue", sender: self)
+			}
+		case .undetermined:
+			print("Undetermined")
+		}
+	}
+	
+	func configureAudioSession() {
+		let session = AVAudioSession.sharedInstance()
+		do {
+			//			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: .defaultToSpeaker)
+			try session.overrideOutputAudioPort(.speaker)
+			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: [.mixWithOthers /*, .defaultToSpeaker*/])
+			try session.setActive(true, with: .notifyOthersOnDeactivation)
+		} catch let error {
+			print("Error setting up audiosession: \(error.localizedDescription)")
+		}
+	}
+	
 	var savedPopupView: CustomPopupView?
-	
-	
 	@objc func popupSavedHighlight(notification: NSNotification) {
 
 		DispatchQueue.main.async {
@@ -301,10 +291,10 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		disableVolumeHub()
 		if firstTime {
 			// start recording
-			self.firstBeginRecording()
+			self.firstBeginRecording() // FIXME: Will cause wierd behavior when scroll view is removed because then the viewDidAppear will be triggered more often
 			// start audiokit
 			do {
-				try AudioKit.start()
+				try AudioKit.start() // FIXME: figure out how to stop drawing the plot
 			} catch let error {
 				print(error.localizedDescription)
 			}

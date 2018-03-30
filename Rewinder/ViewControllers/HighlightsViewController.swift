@@ -755,10 +755,8 @@ class myPlayer: AVAudioPlayer {
 //		cell?.setButtonStop()
 		setHighlightPlayerView(isPlayingHighlight: true)
 		
-		if let path = indexPath {
-//			tableView?.selectRow(at: path, animated: true, scrollPosition: .none)
-			highlightPlayerView?.indexPath = path
-		}
+		highlightPlayerView?.indexPath = indexPath
+		selectHighlightRow()
 		
 		return returnval
 	}
@@ -768,9 +766,20 @@ class myPlayer: AVAudioPlayer {
 //		cell?.setButtonPlay()
 		setHighlightPlayerView(isPlayingHighlight: false)
 		
+		deselectHighlightRow()
+	}
+	
+	func deselectHighlightRow (){
 		if let path = indexPath {
 			tableView?.deselectRow(at: path, animated: true)
-//			print("deselecting inside stop")
+			//			print("deselecting inside stop")
+		}
+	}
+	
+	func selectHighlightRow() {
+		if let path = indexPath {
+			tableView?.selectRow(at: path, animated: true, scrollPosition: .none)
+			//			print("deselecting inside stop")
 		}
 	}
 	
