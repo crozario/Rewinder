@@ -45,8 +45,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
     var audioPlayer: AVAudioPlayer?
 	//	var audioRecorder: AVAudioRecorder!
 	var audioRecorder: myRecorder!
-	
-	let mic = AKMicrophone()
+
 	var rollingPlot: AKNodeOutputPlot!
     
     private let navBar: UIView = {
@@ -124,6 +123,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 
 	// MARK: - View Override Functions
 	override func viewDidLoad() {
+		print("\(#function)")
 		super.viewDidLoad()
         
         //add views to the main view
@@ -182,13 +182,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
         
 		audioObj = Audio(managedObjectContext)
 
-		checkPermissions()
-		
-		configureAudioSession()
-		
-		// start recording and start audio kit only the first time but after app loads
-		firstTime = true
-
+		let mic = AKMicrophone()
 		let micCopy1 = AKBooster(mic)
 		let micCopy2 = AKBooster(mic)
 		if let inputs = AudioKit.inputDevices {
@@ -199,26 +193,32 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 				print (error.localizedDescription)
 			}
 		}
-//		let tracker = AKFrequencyTracker(micCopy1, hopSize: 200, peakCount: 2_000)
-//		let silence = AKBooster(tracker, gain: 0)
+		//		let tracker = AKFrequencyTracker(micCopy1, hopSize: 200, peakCount: 2_000)
+		//		let silence = AKBooster(tracker, gain: 0)
 		
 		micCopy2.gain = 0
-		AudioKit.output = micCopy2 //FIXME: plays a small click when app starts (figure out right way or try initializing to AKNode()
+		AudioKit.output = micCopy2 //FIXME: plays a small click when app starts
 		
 		micCopy1.gain = 4.0
 		// create rolling waveform plot
-        rollingPlot = createRollingPlot(micCopy1)
-
+		rollingPlot = createRollingPlot(micCopy1)
+		//
 		plotView.addSubview(rollingPlot)
-        
-        rollingPlot.translatesAutoresizingMaskIntoConstraints = false
-        rollingPlot.topAnchor.constraint(equalTo: plotView.topAnchor).isActive = true
-        rollingPlot.leftAnchor.constraint(equalTo: plotView.leftAnchor).isActive = true
-        rollingPlot.rightAnchor.constraint(equalTo: plotView.rightAnchor).isActive = true
-        rollingPlot.heightAnchor.constraint(equalToConstant: 300).isActive = true
-//        setupRollingPlotConstraints()
-        
-//        startSession()
+		//
+		rollingPlot.translatesAutoresizingMaskIntoConstraints = false
+		rollingPlot.topAnchor.constraint(equalTo: plotView.topAnchor).isActive = true
+		rollingPlot.leftAnchor.constraint(equalTo: plotView.leftAnchor).isActive = true
+		rollingPlot.rightAnchor.constraint(equalTo: plotView.rightAnchor).isActive = true
+		rollingPlot.heightAnchor.constraint(equalToConstant: 300).isActive = true
+		//		setupRollingPlotConstraints()
+		
+//		checkPermissions()
+		
+//		configureAudioSession()
+		
+		// start recording and start audio kit only the first time but after app loads
+		firstTime = true
+		
 //		volumeView = MPVolumeView(frame: .null)
 //
 //		self.view.addSubview(volumeView)
@@ -229,38 +229,35 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		
 		appDelegate.home = self
 		
-//		if let popupView = Bundle.main.loadNibNamed("CustomPopupView", owner: self, options: nil)?.first as? CustomPopupView {
-//			savedPopupView = popupView
-//		}
 		savedPopupView = CustomPopupView()
 	}
 	
-	func checkPermissions() {
-		let session = AVAudioSession.sharedInstance()
-		switch session.recordPermission() {
-		case .granted:
-			print("Have permission to record")
-		case .denied:
-			print("Denied permission")
-			DispatchQueue.main.async {
-				self.performSegue(withIdentifier: "idPermissionSegue", sender: self)
-			}
-		case .undetermined:
-			print("Undetermined")
-		}
-	}
-	
-	func configureAudioSession() {
-		let session = AVAudioSession.sharedInstance()
-		do {
-			//			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: .defaultToSpeaker)
-			try session.overrideOutputAudioPort(.speaker)
-			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: [.mixWithOthers /*, .defaultToSpeaker*/])
-			try session.setActive(true, with: .notifyOthersOnDeactivation)
-		} catch let error {
-			print("Error setting up audiosession: \(error.localizedDescription)")
-		}
-	}
+//	func checkPermissions() {
+//		let session = AVAudioSession.sharedInstance()
+//		switch session.recordPermission() {
+//		case .granted:
+//			print("Have permission to record")
+//		case .denied:
+//			print("Denied permission")
+//			DispatchQueue.main.async {
+//				self.performSegue(withIdentifier: "idPermissionSegue", sender: self)
+//			}
+//		case .undetermined:
+//			print("Undetermined")
+//		}
+//	}
+//
+//	func configureAudioSession() {
+//		let session = AVAudioSession.sharedInstance()
+//		do {
+//			//			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: .defaultToSpeaker)
+//			try session.overrideOutputAudioPort(.speaker)
+//			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: [.mixWithOthers /*, .defaultToSpeaker*/])
+//			try session.setActive(true, with: .notifyOthersOnDeactivation)
+//		} catch let error {
+//			print("Error setting up audiosession: \(error.localizedDescription)")
+//		}
+//	}
 	
 	var savedPopupView: CustomPopupView?
 	@objc func popupSavedHighlight(notification: NSNotification) {
@@ -290,31 +287,45 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		disableVolumeHub()
 		if firstTime {
 			// start recording
-			self.firstBeginRecording() // FIXME: Will cause wierd behavior when scroll view is removed because then the viewDidAppear will be triggered more often
+//			self.firstBeginRecording() // FIXME: Will cause wierd behavior when scroll view is removed because then the viewDidAppear will be triggered more often
 			// start audiokit
+//			startAudioKit(true)
+			firstTime = false
+		}
+	}
+	
+	func startAudioKit(_ start: Bool) {
+		print("\(#function)")
+		if start {
 			do {
 				try AudioKit.start() // FIXME: figure out how to stop drawing the plot
 			} catch let error {
 				print(error.localizedDescription)
 			}
-			firstTime = false
+		}
+		else {
+			do {
+				try AudioKit.stop()
+			} catch let error {
+				print(error.localizedDescription)
+			}
 		}
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
 		print("\(#function)")
-		if rollingPlot.isConnected {
-			rollingPlot.resume()
-		}
+//		if rollingPlot.isConnected {
+//			rollingPlot.resume()
+//		}
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		print("\(#function)")
 		homeViewPresented = false
-		if rollingPlot.isConnected {
-			print("PAUSING ROLLING PLOT")
-			rollingPlot.pause()
-		}
+//		if rollingPlot.isConnected {
+//			print("PAUSING ROLLING PLOT")
+//			rollingPlot.pause()
+//		}
 		enableVolumeHub()
 	}
 	
@@ -326,6 +337,38 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	func enableVolumeHub() {
 //		volumeView.showsRouteButton = false
 //		volumeView.showsVolumeSlider = false
+	}
+	
+	func initializeRollingPlot() {
+		let mic = AKMicrophone()
+		let micCopy1 = AKBooster(mic)
+		let micCopy2 = AKBooster(mic)
+		if let inputs = AudioKit.inputDevices {
+			do {
+				try AudioKit.setInputDevice(inputs[0])
+				try mic.setDevice(inputs[0])
+			} catch let error {
+				print (error.localizedDescription)
+			}
+		}
+		//		let tracker = AKFrequencyTracker(micCopy1, hopSize: 200, peakCount: 2_000)
+		//		let silence = AKBooster(tracker, gain: 0)
+		
+		micCopy2.gain = 0
+		AudioKit.output = micCopy2 //FIXME: plays a small click when app starts
+		
+		micCopy1.gain = 4.0
+		// create rolling waveform plot
+		rollingPlot = createRollingPlot(micCopy1)
+		//
+		plotView.addSubview(rollingPlot)
+		//
+		rollingPlot.translatesAutoresizingMaskIntoConstraints = false
+		rollingPlot.topAnchor.constraint(equalTo: plotView.topAnchor).isActive = true
+		rollingPlot.leftAnchor.constraint(equalTo: plotView.leftAnchor).isActive = true
+		rollingPlot.rightAnchor.constraint(equalTo: plotView.rightAnchor).isActive = true
+		rollingPlot.heightAnchor.constraint(equalToConstant: 300).isActive = true
+//		setupRollingPlotConstraints()
 	}
 
 	var volumeView: MPVolumeView!
