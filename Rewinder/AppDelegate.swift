@@ -34,6 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		application.statusBarStyle = .lightContent
 		
+		NotificationCenter.default.addObserver(self, selector: #selector(self.audioRouteChangeListener(notification:)), name: Notification.Name.AVAudioSessionRouteChange, object: nil)
+		
         return true
     }
 	
@@ -70,13 +72,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //		} catch let error {
 //			print("AudioKit stop error: \(error.localizedDescription)")
 //		}
+		audioPlayer?.stop()
 		
 		if !Settings.continueRecordingInBackground {
 			home?.continueRecording = false
 			
 			// stop recording and playing
 			audioRecorder?.stop()
-			audioPlayer?.stop()
 			
 			// stop AudioKit
 			stopAudioKit()
@@ -171,12 +173,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func configureAudioSession() {
 		let session = AVAudioSession.sharedInstance()
 		do {
-			//			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: .defaultToSpeaker)
-			try session.overrideOutputAudioPort(.speaker)
-			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: [.mixWithOthers /*, .defaultToSpeaker*/])
+//			try session.overrideOutputAudioPort(.speaker)
+//			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: [.mixWithOthers /*, .defaultToSpeaker*/])
+			let currentRoute = AVAudioSession.sharedInstance().currentRoute
+			if currentRoute.outputs.count > 0 {
+				for description in currentRoute.outputs {
+					if description.portType == AVAudioSessionPortHeadphones {
+						print("HEADPHONE plugged in")
+						try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: .defaultToSpeaker)
+					} else {
+						print("HEADPHONE pulled out")
+						try session.overrideOutputAudioPort(.speaker)
+					}
+				}
+			} else {
+				print("requires connection to device")
+			}
+//			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: .defaultToSpeaker)
 			try session.setActive(true, with: .notifyOthersOnDeactivation)
 		} catch let error {
 			print("Error setting up audiosession: \(error.localizedDescription)")
+		}
+	}
+	
+	@objc private func audioRouteChangeListener(notification: Notification) {
+		let audioChangeReason = notification.userInfo![AVAudioSessionRouteChangeReasonKey] as! UInt
+		
+		switch audioChangeReason {
+		case AVAudioSessionRouteChangeReason.newDeviceAvailable.rawValue:
+			print("headphone plugged in")
+			do {
+				try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with: .defaultToSpeaker)
+			} catch let error {
+				print(error.localizedDescription)
+			}
+		case AVAudioSessionRouteChangeReason.oldDeviceUnavailable.rawValue:
+			print("headphone plugged out")
+			do {
+				try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
+			} catch let error {
+				print(error.localizedDescription)
+			}
+		default:
+			break
 		}
 	}
 	

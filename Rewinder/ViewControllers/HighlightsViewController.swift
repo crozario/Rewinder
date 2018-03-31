@@ -89,8 +89,6 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		tableView.rowHeight = UITableViewAutomaticDimension
 		
 		viewPresented = true
-		
-//		initializeHighlightPlayerView()  // should we always keep the player view or nah? (nah rn)
     }
 	
 	var playerView: HighlightPlayerView = HighlightPlayerView()
