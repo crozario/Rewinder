@@ -27,8 +27,9 @@ class UndeterminedPermissionViewController: UIViewController {
 	@IBAction func tappedEnable(_ sender: Any) {
 		//FIXME: This is dirty and maybe pass homeviewcontroller object using preparefor segue
 		let appDelegate = UIApplication.shared.delegate as! AppDelegate
-		appDelegate.requestPermissionToMicrophone()
+		appDelegate.firstTime = false
 		self.dismiss(animated: true, completion: nil)
+		appDelegate.requestPermissionToMicrophone()
 	}
 	
     override func didReceiveMemoryWarning() {

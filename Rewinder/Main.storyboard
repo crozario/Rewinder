@@ -262,7 +262,7 @@
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRs-lu-ULA">
                                         <rect key="frame" x="8" y="69" width="292" height="159"/>
-                                        <string key="text">I can capture important moments for you even after they have occured. Live life in the moment and leave the capturing to me. All you need to do is hit that rewind button in the middle and I will personally add the experience to your "Highlights."</string>
+                                        <string key="text">I can capture important moments for you even after they have occured. Live life in the moment and leave the capturing to me. All you need to do is hit the rewind button in the middle and I will personally add the experience to your "Highlights."</string>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>

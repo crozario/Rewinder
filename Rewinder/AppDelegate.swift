@@ -121,7 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 		
 		if havePermission {
-			executeFirstTime()
+			executeFirstTime(force: false)
 		}
 		else {
 			if !undeterminedPermission {
@@ -132,9 +132,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 	}
 	
-	private func executeFirstTime() { //assumes home is not nil
-		if firstTime {
+	private func executeFirstTime(force: Bool) { //assumes home is not nil
+		print("\(#function)")
+		if firstTime || force {
 			home!.initializeAKMicrphone() // initialize microphone
+			
 			home!.initializeRollingPlot()
 			configureAudioSession()
 			// start audiokit
@@ -153,7 +155,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			session.requestRecordPermission({ (granted: Bool) in
 				if granted {
 					print("User granted Permission.")
-					self.executeFirstTime()
+					self.executeFirstTime(force: true)
 				} else {
 					print("User denied Permission.")
 				}

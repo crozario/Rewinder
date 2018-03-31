@@ -358,7 +358,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		rollingPlot.leftAnchor.constraint(equalTo: plotView.leftAnchor).isActive = true
 		rollingPlot.rightAnchor.constraint(equalTo: plotView.rightAnchor).isActive = true
 		rollingPlot.heightAnchor.constraint(equalToConstant: 300).isActive = true
-		//		setupRollingPlotConstraints()
+		
 	}
 	
 	var volumeView: MPVolumeView!
@@ -735,6 +735,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 			}
 		}
 	}
+	
+	// TODO: handle interruptions in the audiorecording
 	
 	// MARK: - Helper Functions
 	func printAudioLength(message: String, url: URL) {
