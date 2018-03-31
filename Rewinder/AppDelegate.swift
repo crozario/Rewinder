@@ -133,11 +133,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	private func executeFirstTime(force: Bool) { //assumes home is not nil
-		print("\(#function)")
+		print("\(#function) \(force)")
 		if firstTime || force {
 			home!.initializeAKMicrphone() // initialize microphone
 			
 			home!.initializeRollingPlot()
+			
 			configureAudioSession()
 			// start audiokit
 			startAudioKit()
@@ -153,9 +154,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let session = AVAudioSession.sharedInstance()
 		if session.responds(to: #selector(AVAudioSession.requestRecordPermission(_:))) {
 			session.requestRecordPermission({ (granted: Bool) in
+				DispatchQueue.main.async {
+					self.applicationDidBecomeActive(UIApplication.shared)
+				}
 				if granted {
 					print("User granted Permission.")
-					self.executeFirstTime(force: true)
+//					self.executeFirstTime(force: true)
 				} else {
 					print("User denied Permission.")
 				}
