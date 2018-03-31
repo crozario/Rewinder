@@ -36,11 +36,10 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	//    private var speechRecognitionTask: SFSpeechRecognitionTask?
 	private let audioEngine = AVAudioEngine()
 	
-	var appDelegate = UIApplication.shared.delegate as! AppDelegate
+	var appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
 	
-	let managedObjectContext: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-	
-	
+	var managedObjectContext: NSManagedObjectContext!
+
 	//	var audioRecorder: AVAudioRecorder?
 	var audioObj: Audio!
 	var audioPlayer: AVAudioPlayer?
@@ -183,6 +182,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		
 		//        disbleRightButtonConstraints()
 		
+//		managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+		managedObjectContext = appDelegate.persistentContainer.viewContext
 		audioObj = Audio(managedObjectContext)
 		
 		//		initializeRollingPlot()
@@ -211,6 +212,10 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		}
 		
 		savedPopupView = CustomPopupView()
+	}
+	
+	deinit {
+		NotificationCenter.default.removeObserver(self)
 	}
 	
 	//	func checkPermissions() {
