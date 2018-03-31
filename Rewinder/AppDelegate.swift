@@ -1,3 +1,4 @@
+
 //
 //  AppDelegate.swift
 //  Rewinder
@@ -13,8 +14,8 @@ import AudioKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
+	
+	var window: UIWindow?
 	var audioPlayer: myPlayer?
 	var audioRecorder: myRecorder?
 	var audioSession: AVAudioSession?
@@ -23,11 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var havePermission: Bool = false
 	var undeterminedPermission: Bool = false
 	
-//	let settingFile: String = "highlightsettings.txt"
+	//	let settingFile: String = "highlightsettings.txt"
 	var settingsURL: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("highlightsettings.txt")
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+	
+	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+		// Override point for customization after application launch.
 		
 		checkPermissions()
 		self.initializeSettings()
@@ -36,8 +37,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(self.audioRouteChangeListener(notification:)), name: Notification.Name.AVAudioSessionRouteChange, object: nil)
 		
-        return true
-    }
+		//		NotificationCenter.default.addObserver(self, selector: #selector(handleInterruption(_:)), name: .AVAudioSessionInterruption, object: nil)
+		
+		return true
+	}
+	
+//	@objc func handleInterruption(_ notification: Notification) {
+//		guard let info = notification.userInfo,
+//			let typeValue = info[AVAudioSessionInterruptionTypeKey] as? UInt,
+//			let type = AVAudioSessionInterruptionType(rawValue: typeValue) else {
+//				return
+//		}
+//		if type == .began {
+//			// pause recording
+//			self.audioRecorder?.pause()
+//			// pause playing
+//			self.audioPlayer?.pause()
+//		}
+//		else if type == .ended {
+//			// resume recording
+//			self.audioRecorder?.record()
+//			// don't resume playing (because i'm lazy)
+//			guard let optionsValue = info[AVAudioSessionInterruptionOptionKey] as? UInt else {
+//				return
+//			}
+//			let options = AVAudioSessionInterruptionOptions(rawValue: optionsValue)
+//			if options.contains(.shouldResume) {
+//				print("options: \(options)")
+//			}
+//		}
+//	}
 	
 	func checkPermissions() {
 		print("\(#function)")
@@ -57,21 +86,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			undeterminedPermission = true
 		}
 	}
-
-    func applicationWillResignActive(_ application: UIApplication) {
-		print("\(#function)")
-
-    }
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-		print("\(#function)")
 	
+	func applicationWillResignActive(_ application: UIApplication) {
+		print("\(#function)")
+		
+	}
+	
+	func applicationDidEnterBackground(_ application: UIApplication) {
+		print("\(#function)")
+		
 		// stop AudioKit
-//		do {
-//			try AudioKit.stop()
-//		} catch let error {
-//			print("AudioKit stop error: \(error.localizedDescription)")
-//		}
+		//		do {
+		//			try AudioKit.stop()
+		//		} catch let error {
+		//			print("AudioKit stop error: \(error.localizedDescription)")
+		//		}
 		audioPlayer?.stop()
 		
 		if !Settings.continueRecordingInBackground {
@@ -87,15 +116,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			deactivateAudioSession()
 		} else {
 			// stop AudioKit
-//			stopAudioKit() // can't stop audiokit because for some reason it stops the audiosession too
+			//			stopAudioKit() // can't stop audiokit because for some reason it stops the audiosession too
 		}
-    }
-
-    func applicationWillEnterForeground(_ application: UIApplication) {
+	}
+	
+	func applicationWillEnterForeground(_ application: UIApplication) {
 		print("\(#function)")
 		//ALWAYS DO THIS
 		home?.continueRecording = true
-
+		
 		if !Settings.continueRecordingInBackground {
 			// start audio session
 			activateAudioSession()
@@ -107,14 +136,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			startAudioKit()
 		} else {
 			// start AudioKit
-//			startAudioKit()
+			//			startAudioKit()
 		}
-    }
-
+	}
+	
 	var firstTime: Bool = true
 	func applicationDidBecomeActive(_ application: UIApplication) {
 		print("\(#function)")
-
+		
 		checkPermissions()
 		
 		guard home != nil else {
@@ -146,7 +175,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			startAudioKit()
 			//				home!.startAudioKit(true)
 			// start recording
-			home!.firstBeginRecording() // FIXME: Will cause wierd behavior when scroll view is removed because then the viewDidAppear will be triggered more often
+			home!.firstBeginRecording() // FIXME: Will cause weird behavior when scroll view is removed because then the viewDidAppear will be triggered more often
 			firstTime = false
 		}
 	}
@@ -161,7 +190,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				}
 				if granted {
 					print("User granted Permission.")
-//					self.executeFirstTime(force: true)
+					//					self.executeFirstTime(force: true)
 				} else {
 					print("User denied Permission.")
 				}
@@ -173,23 +202,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func configureAudioSession() {
 		let session = AVAudioSession.sharedInstance()
 		do {
-//			try session.overrideOutputAudioPort(.speaker)
-//			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: [.mixWithOthers /*, .defaultToSpeaker*/])
+			//			try session.overrideOutputAudioPort(.speaker)
+			//			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: [.mixWithOthers /*, .defaultToSpeaker*/])
 			let currentRoute = AVAudioSession.sharedInstance().currentRoute
 			if currentRoute.outputs.count > 0 {
 				for description in currentRoute.outputs {
 					if description.portType == AVAudioSessionPortHeadphones {
 						print("HEADPHONE plugged in")
-						try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: .defaultToSpeaker)
+						try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: [.mixWithOthers, .defaultToSpeaker])
 					} else {
 						print("HEADPHONE pulled out")
+						try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: .mixWithOthers)
 						try session.overrideOutputAudioPort(.speaker)
 					}
 				}
 			} else {
 				print("requires connection to device")
 			}
-//			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: .defaultToSpeaker)
+			//			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: .defaultToSpeaker)
 			try session.setActive(true, with: .notifyOthersOnDeactivation)
 		} catch let error {
 			print("Error setting up audiosession: \(error.localizedDescription)")
@@ -197,13 +227,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	@objc private func audioRouteChangeListener(notification: Notification) {
-		let audioChangeReason = notification.userInfo![AVAudioSessionRouteChangeReasonKey] as! UInt
+		guard let audioChangeReason = notification.userInfo![AVAudioSessionRouteChangeReasonKey] as? UInt else {
+			return
+		}
 		
 		switch audioChangeReason {
 		case AVAudioSessionRouteChangeReason.newDeviceAvailable.rawValue:
 			print("headphone plugged in")
 			do {
-				try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with: .defaultToSpeaker)
+				try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with: [.mixWithOthers, .defaultToSpeaker])
 			} catch let error {
 				print(error.localizedDescription)
 			}
@@ -254,43 +286,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			print("AudioKit stop error: \(error.localizedDescription)")
 		}
 	}
-
-    func applicationWillTerminate(_ application: UIApplication) {
+	
+	func applicationWillTerminate(_ application: UIApplication) {
 		print("\(#function)")
 		
-        self.saveContext()
+		self.saveContext()
 		self.saveSettings()
-    }
+	}
 	
-    // MARK: - Core Data stack
-
-    lazy var persistentContainer: NSPersistentContainer = {
-        /*
-         The persistent container for the application. This implementation
-         creates and returns a container, having loaded the store for the
-         application to it. This property is optional since there are legitimate
-         error conditions that could cause the creation of the store to fail.
-        */
-        let container = NSPersistentContainer(name: "Rewinder")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                 
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-        return container
-    }()
-
+	// MARK: - Core Data stack
+	
+	lazy var persistentContainer: NSPersistentContainer = {
+		/*
+		The persistent container for the application. This implementation
+		creates and returns a container, having loaded the store for the
+		application to it. This property is optional since there are legitimate
+		error conditions that could cause the creation of the store to fail.
+		*/
+		let container = NSPersistentContainer(name: "Rewinder")
+		container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+			if let error = error as NSError? {
+				// Replace this implementation with code to handle the error appropriately.
+				// fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+				
+				/*
+				Typical reasons for an error here include:
+				* The parent directory does not exist, cannot be created, or disallows writing.
+				* The persistent store is not accessible, due to permissions or data protection when the device is locked.
+				* The device is out of space.
+				* The store could not be migrated to the current model version.
+				Check the error message to determine what the actual problem was.
+				*/
+				fatalError("Unresolved error \(error), \(error.userInfo)")
+			}
+		})
+		return container
+	}()
+	
 	// MARK: - Saving and loading settings
 	func initializeSettings() {
 		print("\(#function)")
@@ -365,20 +397,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 	}
 	
-    // MARK: - Core Data Saving support
-    func saveContext () {
-        let context = persistentContainer.viewContext
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-    }
-
+	// MARK: - Core Data Saving support
+	func saveContext () {
+		let context = persistentContainer.viewContext
+		if context.hasChanges {
+			do {
+				try context.save()
+			} catch {
+				// Replace this implementation with code to handle the error appropriately.
+				// fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+				let nserror = error as NSError
+				fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+			}
+		}
+	}
+	
 }
 
