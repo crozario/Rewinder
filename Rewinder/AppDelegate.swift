@@ -39,6 +39,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		//		NotificationCenter.default.addObserver(self, selector: #selector(handleInterruption(_:)), name: .AVAudioSessionInterruption, object: nil)
 		
+//		NotificationCenter.default.addObserver(self, selector: #selector(self.handleSecondaryAudio(notification:)), name: .AVAudioSessionSilenceSecondaryAudioHint, object: nil)
+		
 		return true
 	}
 	
@@ -65,6 +67,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //			if options.contains(.shouldResume) {
 //				print("options: \(options)")
 //			}
+//		}
+//	}
+	
+//	@objc func handleSecondaryAudio(notification: Notification) {
+//		// Determine hint type
+//		guard let userInfo = notification.userInfo,
+//			let typeValue = userInfo[AVAudioSessionSilenceSecondaryAudioHintTypeKey] as? UInt,
+//			let type = AVAudioSessionSilenceSecondaryAudioHintType(rawValue: typeValue) else {
+//				return
+//		}
+//
+//		if type == .begin {
+//			// Other app audio started playing - mute secondary audio
+//		} else {
+//			// Other app audio stopped playing - restart secondary audio
 //		}
 //	}
 	
