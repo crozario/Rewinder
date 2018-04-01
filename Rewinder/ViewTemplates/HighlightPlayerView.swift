@@ -12,6 +12,7 @@ protocol HighlightPlayerDelegate {
 	func pressedPlayButton();
 	func pressedPauseButton();
 	func swipeDetected();
+	func tapDetected();
 }
 
 class HighlightPlayerView: UIView {
@@ -37,16 +38,25 @@ class HighlightPlayerView: UIView {
 	}
 	
 	@IBOutlet var swipeGesture: UISwipeGestureRecognizer!
+	@IBOutlet var tapGesture: UITapGestureRecognizer!
 	
 	@IBAction func swipeDetected(_ sender: UISwipeGestureRecognizer) {
-		print("Swipe detected")
+		print("Swipe Detected")
 		delegate?.swipeDetected()
 	}
-
+	@IBAction func tapDetected(_ sender: UITapGestureRecognizer) {
+		print("Tap Detected")
+		delegate?.tapDetected()
+	}
+	
 	func commonInit() {
 		contentView = loadViewFromNib()
 		addSubview(contentView)
 		contentView.addGestureRecognizer(swipeGesture)
+		
+		tapGesture.numberOfTapsRequired = 1
+		contentView.addGestureRecognizer(tapGesture)
+		
 		titleLabel.text = "Not Playing"
 	}
 	

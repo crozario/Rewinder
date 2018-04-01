@@ -97,7 +97,7 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	func initializeHighlightPlayerView() {
 		let playerContent = playerView.contentView!
 		view.addSubview(playerContent)
-		playerContent.layer.cornerRadius = 10
+		playerContent.layer.cornerRadius = 5
 //		playerContent.layer.masksToBounds = true
 		playerView.delegate = self
 		setupHighlightPlayerViewConstraints()
@@ -110,7 +110,7 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		player.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 //		player.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
 //		player.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 10).isActive = true
-		player.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -40).isActive = true
+		player.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 0).isActive = true
 		player.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
 //		player.heightAnchor.constraint(equalToConstant: player.frame.height).isActive = true
 		player.heightAnchor.constraint(equalToConstant: 75).isActive = true
@@ -517,6 +517,11 @@ extension HighlightsViewController: HighlightPlayerDelegate {
 		playerView.contentView.removeFromSuperview()
 		print("View removed")
 	}
+	func tapDetected() {
+		if let path = self.playerView.indexPath {
+			tableView.selectRow(at: path, animated: true, scrollPosition: .top)
+		}
+	}
 }
 
 // MARK: - TableView Delegate and Data Source
@@ -626,12 +631,15 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 	{
 		let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
 			self.deleteHighlight(indexPath: indexPath)
+			tableView.reloadData() // FIXME: shouldn't do this
 		}
 		let editAction = UIContextualAction(style: .normal, title: "Edit") { (action, view, handler) in
 			self.editHighlight(indexPath: indexPath)
+//			tableView.reloadData() // FIXME: shouldn't do this
 		}
 		let exportAction = UIContextualAction(style: .normal, title: "Export") { (action, view, handler) in
 			self.exportHighlight(indexPath: indexPath)
+//			tableView.reloadData() // FIXME: shouldn't do this
 		}
 		
 		deleteAction.backgroundColor = Settings.selectedColor
@@ -639,7 +647,7 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 		exportAction.backgroundColor = Settings.appThemeColor
 		let actions = [deleteAction, editAction, exportAction]
 		let configuration = UISwipeActionsConfiguration(actions: actions)
-		configuration.performsFirstActionWithFullSwipe = true //HERE..
+		configuration.performsFirstActionWithFullSwipe = true
 		return configuration
 	}
 	
