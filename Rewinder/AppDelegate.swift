@@ -37,9 +37,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		application.statusBarStyle = .lightContent
 		
-		//		NotificationCenter.default.addObserver(self, selector: #selector(handleInterruption(_:)), name: .AVAudioSessionInterruption, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(handleInterruption(_:)), name: .AVAudioSessionInterruption, object: nil) // FIXME: UNTESTED
 		
-//		NotificationCenter.default.addObserver(self, selector: #selector(self.handleSecondaryAudio(notification:)), name: .AVAudioSessionSilenceSecondaryAudioHint, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(self.handleSecondaryAudio(notification:)), name: .AVAudioSessionSilenceSecondaryAudioHint, object: nil) // FIXME: UNTESTED
 		
 		return true
 	}
@@ -72,7 +72,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func applicationWillResignActive(_ application: UIApplication) {
 		print("\(#function)")
-		audioPlayer?.stop()
 	}
 	
 	func applicationWillEnterForeground(_ application: UIApplication) {
@@ -97,6 +96,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func applicationDidEnterBackground(_ application: UIApplication) {
 		print("\(#function)")
+		
+		audioPlayer?.stop() // stop it for now (until we can add controles to control center to be able to play and pause audio from outside app
 		
 		if !Settings.continueRecordingInBackground {
 			home?.continueRecording = false
@@ -146,46 +147,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}()
 	
 	// MARK: - Notification Handles
-//	@objc func handleInterruption(_ notification: Notification) {
-//		guard let info = notification.userInfo,
-//			let typeValue = info[AVAudioSessionInterruptionTypeKey] as? UInt,
-//			let type = AVAudioSessionInterruptionType(rawValue: typeValue) else {
-//				return
-//		}
-//		if type == .began {
-//			// pause recording
-//			self.audioRecorder?.pause()
-//			// pause playing
-//			self.audioPlayer?.pause()
-//		}
-//		else if type == .ended {
-//			// resume recording
-//			self.audioRecorder?.record()
-//			// don't resume playing (because i'm lazy)
-//			guard let optionsValue = info[AVAudioSessionInterruptionOptionKey] as? UInt else {
-//				return
-//			}
-//			let options = AVAudioSessionInterruptionOptions(rawValue: optionsValue)
-//			if options.contains(.shouldResume) {
-//				print("options: \(options)")
-//			}
-//		}
-//	}
+	@objc func handleInterruption(_ notification: Notification) {
+		guard let info = notification.userInfo,
+			let typeValue = info[AVAudioSessionInterruptionTypeKey] as? UInt,
+			let type = AVAudioSessionInterruptionType(rawValue: typeValue) else {
+				return
+		}
+		if type == .began {
+			// pause recording
+			self.audioRecorder?.pause()
+			// pause playing
+			self.audioPlayer?.pause()
+		}
+		else if type == .ended {
+			// resume recording
+			self.audioRecorder?.record()
+			// don't resume playing (because i'm lazy)
+			guard let optionsValue = info[AVAudioSessionInterruptionOptionKey] as? UInt else {
+				return
+			}
+			let options = AVAudioSessionInterruptionOptions(rawValue: optionsValue)
+			if options.contains(.shouldResume) {
+				print("options: \(options)")
+			}
+		}
+	}
 
-//	@objc func handleSecondaryAudio(notification: Notification) {
-//		// Determine hint type
-//		guard let userInfo = notification.userInfo,
-//			let typeValue = userInfo[AVAudioSessionSilenceSecondaryAudioHintTypeKey] as? UInt,
-//			let type = AVAudioSessionSilenceSecondaryAudioHintType(rawValue: typeValue) else {
-//				return
-//		}
-//
-//		if type == .begin {
-//			// Other app audio started playing - mute secondary audio
-//		} else {
-//			// Other app audio stopped playing - restart secondary audio
-//		}
-//	}
+	
+	@objc func handleSecondaryAudio(notification: Notification) {
+		// Determine hint type
+		guard let userInfo = notification.userInfo,
+			let typeValue = userInfo[AVAudioSessionSilenceSecondaryAudioHintTypeKey] as? UInt,
+			let type = AVAudioSessionSilenceSecondaryAudioHintType(rawValue: typeValue) else {
+				return
+		}
+
+		if type == .begin {
+			// Other app audio started playing - mute secondary audio
+			print("Other app audio STARTED playing")
+		} else {
+			// Other app audio stopped playing - restart secondary audio
+			print("Other app audio STOPPED playing")
+		}
+	}
 	
 	// MARK: - Other Helper Functions
 	// stops recording, stops audiokit and deactivates audio session

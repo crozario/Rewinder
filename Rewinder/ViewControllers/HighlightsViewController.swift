@@ -83,7 +83,7 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		// create observers
 		NotificationCenter.default.addObserver(self, selector: #selector(self.updateHighlights(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
 		
-//		NotificationCenter.default.addObserver(self, selector: #selector(self.audioRouteChangeListener(notification:)), name: Notification.Name.AVAudioSessionRouteChange, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(self.audioRouteChangeListener(notification:)), name: Notification.Name.AVAudioSessionRouteChange, object: nil)
 		
 		// hide empty cells
 		tableView.tableFooterView = UIView(frame: CGRect.zero)
@@ -394,30 +394,31 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	}
 	
 	// MARK: - headphone notifications
-//	@objc private func audioRouteChangeListener(notification: Notification) {
-//		guard let audioChangeReason = notification.userInfo![AVAudioSessionRouteChangeReasonKey] as? UInt else {
-//			return
-//		}
-//
-//		switch audioChangeReason {
-//		case AVAudioSessionRouteChangeReason.newDeviceAvailable.rawValue:
-//			print("headphone plugged in")
-//			do {
-//				try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with: [.mixWithOthers, .defaultToSpeaker])
-//			} catch let error {
-//				print(error.localizedDescription)
-//			}
-//		case AVAudioSessionRouteChangeReason.oldDeviceUnavailable.rawValue:
-//			print("headphone plugged out")
-//			do {
-//				try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
-//			} catch let error {
-//				print(error.localizedDescription)
-//			}
-//		default:
-//			break
-//		}
-//	}
+	@objc private func audioRouteChangeListener(notification: Notification) {
+		guard let audioChangeReason = notification.userInfo![AVAudioSessionRouteChangeReasonKey] as? UInt else {
+			return
+		}
+
+		switch audioChangeReason {
+		case AVAudioSessionRouteChangeReason.newDeviceAvailable.rawValue:
+			print("headphone plugged in")
+			do {
+				try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with: [.mixWithOthers, .defaultToSpeaker])
+			} catch let error {
+				print(error.localizedDescription)
+			}
+		case AVAudioSessionRouteChangeReason.oldDeviceUnavailable.rawValue:
+			print("headphone plugged out")
+			do {
+				try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
+				audioPlayer?.pause()
+			} catch let error {
+				print(error.localizedDescription)
+			}
+		default:
+			break
+		}
+	}
 	
 	// MARK: - AudioPlayer delegates
 	func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
@@ -521,6 +522,9 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 		
 		setupPlayer(indexPath: indexPath)
 		_ = audioPlayer?.play()
+		if AVAudioSession.sharedInstance().isOtherAudioPlaying {
+			print("other audio is playing")
+		}
 		print(self.getElementFromTwoDarr(indexPath: indexPath) + ": " + (audioPlayer?.duration.description)!)
 	}
 	
