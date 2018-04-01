@@ -122,6 +122,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	var firstTime: Bool = false
 	
 	var mic: AKMicrophone? //IMP: THIS IS NEEDED FOR THE AUDIO SESSION (IDK WHY). SO This needs to be initialized before anything. It also needs microphone permission.
+
 	
 	// MARK: - View Override Functions
 	override func viewDidLoad() {
@@ -132,6 +133,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		view.addSubview(navBar)
 		view.addSubview(highlightButton)
 		view.addSubview(plotView)
+		
 		view.addSubview(backgroundRecordingButton)
 		view.addSubview(pickDurationButton)
 		view.addSubview(leftButton)
@@ -218,32 +220,29 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		NotificationCenter.default.removeObserver(self)
 	}
 	
-	//	func checkPermissions() {
-	//		let session = AVAudioSession.sharedInstance()
-	//		switch session.recordPermission() {
-	//		case .granted:
-	//			print("Have permission to record")
-	//		case .denied:
-	//			print("Denied permission")
-	//			DispatchQueue.main.async {
-	//				self.performSegue(withIdentifier: "idPermissionSegue", sender: self)
-	//			}
-	//		case .undetermined:
-	//			print("Undetermined")
-	//		}
-	//	}
-	//
-	//	func configureAudioSession() {
-	//		let session = AVAudioSession.sharedInstance()
-	//		do {
-	//			//			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: .defaultToSpeaker)
-	//			try session.overrideOutputAudioPort(.speaker)
-	//			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: [.mixWithOthers /*, .defaultToSpeaker*/])
-	//			try session.setActive(true, with: .notifyOthersOnDeactivation)
-	//		} catch let error {
-	//			print("Error setting up audiosession: \(error.localizedDescription)")
-	//		}
-	//	}
+	let scalePerSecond: Double = 42.81
+	private func setRollingPlotHistory(seconds: Double) {
+		guard rollingPlot != nil else { return }
+		
+		let newHistory = seconds * scalePerSecond
+		rollingPlot.setRollingHistoryLength(Int32(newHistory))
+		
+		rollingPlot.redraw()
+	}
+	func doublePlotHistory() {
+		guard rollingPlot != nil else { return }
+		
+		var history = rollingPlot.rollingHistoryLength()
+		history = history * 2
+		rollingPlot.setRollingHistoryLength(history)
+	}
+	func halfPlotHistory() {
+		guard rollingPlot != nil else { return }
+		
+		var history = rollingPlot.rollingHistoryLength()
+		history = history / 2
+		rollingPlot.setRollingHistoryLength(history)
+	}
 	
 	var savedPopupView: CustomPopupView?
 	@objc func popupSavedHighlight(notification: NSNotification) {
@@ -300,18 +299,13 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	
 	override func viewWillAppear(_ animated: Bool) {
 		print("\(#function)")
-		//		if rollingPlot.isConnected {
-		//			rollingPlot.resume()
-		//		}
+
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		print("\(#function)")
 		homeViewPresented = false
-		//		if rollingPlot.isConnected {
-		//			print("PAUSING ROLLING PLOT")
-		//			rollingPlot.pause()
-		//		}
+
 		enableVolumeHub()
 	}
 	
@@ -364,6 +358,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		rollingPlot.rightAnchor.constraint(equalTo: plotView.rightAnchor).isActive = true
 		rollingPlot.heightAnchor.constraint(equalToConstant: 300).isActive = true
 		
+		setRollingPlotHistory(seconds: Settings.getRecordingDuration())
 	}
 	
 	var volumeView: MPVolumeView!
@@ -420,6 +415,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		default:
 			print("CURRENTBUTTONSELECTED FUNCTION ERROR")
 		}
+		
+		setRollingPlotHistory(seconds: Settings.getRecordingDuration())
 	}
 	
 	
@@ -833,11 +830,19 @@ class myRecorder: AVAudioRecorder {
 		print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 		print("Recording to \(localurl.lastPathComponent)")
 		print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+		if isRecordingHighlight() {
+			appdelegate.home?.rollingPlot.color = Settings.selectedColor
+			appdelegate.home?.doublePlotHistory()
+		}
 		return super.record(forDuration: duration)
 	}
 	
 	override func stop() {
 		super.stop()
+		if isRecordingHighlight() {
+			appdelegate.home?.rollingPlot.color = Settings.appThemeColor
+			appdelegate.home?.halfPlotHistory()
+		}
 		print("------------------------------------------------------------------")
 		print("Stopped recording to \(localurl.lastPathComponent)")
 		print("------------------------------------------------------------------")
