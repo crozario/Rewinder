@@ -221,13 +221,12 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	}
 	
 	let scalePerSecond: Double = 42.81
-	private func setRollingPlotHistory(seconds: Double) {
+	var rollingScaleCheck: Bool = false
+	func setRollingPlotHistory(seconds: Double) {
 		guard rollingPlot != nil else { return }
 		
 		let newHistory = seconds * scalePerSecond
 		rollingPlot.setRollingHistoryLength(Int32(newHistory))
-		
-		rollingPlot.redraw()
 	}
 	func doublePlotHistory() {
 		guard rollingPlot != nil else { return }
@@ -235,13 +234,44 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		var history = rollingPlot.rollingHistoryLength()
 		history = history * 2
 		rollingPlot.setRollingHistoryLength(history)
+		DispatchQueue.main.async {
+			if let half = self.rollingPlotHalfWidthConstraint {
+				self.rollingPlot.removeConstraint(half)
+			}
+			if let full = self.rollingPlotFullWidthConstraint {
+				full.isActive = true
+			}
+		}
 	}
 	func halfPlotHistory() {
 		guard rollingPlot != nil else { return }
 		
-		var history = rollingPlot.rollingHistoryLength()
-		history = history / 2
-		rollingPlot.setRollingHistoryLength(history)
+		let history = rollingPlot.rollingHistoryLength()
+		let newhistory = history / 2
+		
+		rollingPlot.setRollingHistoryLength(newhistory)
+		rollingPlot.resetHistoryBuffers()
+		setRollingPlotHistory(seconds: Settings.getRecordingDuration())
+		
+		DispatchQueue.main.async {
+			if let full = self.rollingPlotFullWidthConstraint {
+				self.rollingPlot.removeConstraint(full)
+			}
+			if let half = self.rollingPlotHalfWidthConstraint {
+				half.isActive = true
+			}
+		}
+	}
+	
+	func flashView() {
+		DispatchQueue.main.async {
+			self.view.backgroundColor = UIColor.lightGray
+			self.rollingPlot.backgroundColor = UIColor.lightGray
+		}
+		DispatchQueue.main.asyncAfter(deadline: .now()+0.3, execute: { //number has to be less than 0.5
+			self.view.backgroundColor = UIColor.white
+			self.rollingPlot.backgroundColor = UIColor.white
+		})
 	}
 	
 	var savedPopupView: CustomPopupView?
@@ -355,11 +385,19 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		rollingPlot.translatesAutoresizingMaskIntoConstraints = false
 		rollingPlot.topAnchor.constraint(equalTo: plotView.topAnchor).isActive = true
 		rollingPlot.leftAnchor.constraint(equalTo: plotView.leftAnchor).isActive = true
-		rollingPlot.rightAnchor.constraint(equalTo: plotView.rightAnchor).isActive = true
+//		rollingPlot.rightAnchor.constraint(equalTo: plotView.rightAnchor).isActive = true
+		
+		rollingPlotHalfWidthConstraint = rollingPlot.widthAnchor.constraint(equalToConstant: plotView.frame.width/2)
+		rollingPlotFullWidthConstraint = rollingPlot.widthAnchor.constraint(equalToConstant: plotView.frame.width)
+		rollingPlotHalfWidthConstraint!.isActive = true
+		
 		rollingPlot.heightAnchor.constraint(equalToConstant: 300).isActive = true
 		
 		setRollingPlotHistory(seconds: Settings.getRecordingDuration())
 	}
+	
+	var rollingPlotHalfWidthConstraint: NSLayoutConstraint?
+	var rollingPlotFullWidthConstraint: NSLayoutConstraint?
 	
 	var volumeView: MPVolumeView!
 	@objc func volumeChanged(notification: NSNotification) {
@@ -416,7 +454,14 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 			print("CURRENTBUTTONSELECTED FUNCTION ERROR")
 		}
 		
-		setRollingPlotHistory(seconds: Settings.getRecordingDuration())
+		if audioRecorder != nil, rollingPlot != nil {
+			if audioRecorder.isRecordingHighlight() {
+				rollingScaleCheck = true
+			} else {
+				rollingScaleCheck = false
+				setRollingPlotHistory(seconds: Settings.getRecordingDuration())
+			}
+		}
 	}
 	
 	
@@ -833,6 +878,7 @@ class myRecorder: AVAudioRecorder {
 		if isRecordingHighlight() {
 			appdelegate.home?.rollingPlot.color = Settings.selectedColor
 			appdelegate.home?.doublePlotHistory()
+			appdelegate.home?.flashView() //flashes it gray
 		}
 		return super.record(forDuration: duration)
 	}
