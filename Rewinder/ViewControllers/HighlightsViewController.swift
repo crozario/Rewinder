@@ -203,6 +203,21 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 					}
 				}
 			}
+			if let deletes = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject>, !deletes.isEmpty {
+				print("Deleted Item")
+				print(deletes)
+				let delete = deletes.first!
+				print("CHECK")
+				let delete_title = delete.value(forKey: attribute_title) as! String
+				print(delete_title)
+				
+				if delete_title == playerView.title {
+					print("MATCH")
+					DispatchQueue.main.async {
+						self.playerView.contentView.removeFromSuperview()
+					}
+				}
+			}
 		}
 	}
 	
