@@ -235,6 +235,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		history = history * 2
 		rollingPlot.setRollingHistoryLength(history)
 		DispatchQueue.main.async {
+			self.rollingPlot.color = Settings.selectedColor
+			self.rollingPlot.layer.borderColor = Settings.selectedColor.cgColor
 			if let half = self.rollingPlotHalfWidthConstraint {
 				self.rollingPlot.removeConstraint(half)
 			}
@@ -254,6 +256,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		setRollingPlotHistory(seconds: Settings.getRecordingDuration())
 		
 		DispatchQueue.main.async {
+			self.rollingPlot.color = Settings.appThemeColor
+			self.rollingPlot.layer.borderColor = Settings.unSelectedColor.cgColor
 			if let full = self.rollingPlotFullWidthConstraint {
 				self.rollingPlot.removeConstraint(full)
 			}
@@ -392,6 +396,10 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		rollingPlotHalfWidthConstraint!.isActive = true
 		
 		rollingPlot.heightAnchor.constraint(equalToConstant: 300).isActive = true
+		
+		rollingPlot.layer.borderColor = Settings.unSelectedColor.cgColor
+		rollingPlot.layer.borderWidth = 2.3;
+		rollingPlot.layer.cornerRadius = 20
 		
 		setRollingPlotHistory(seconds: Settings.getRecordingDuration())
 	}
@@ -876,7 +884,6 @@ class myRecorder: AVAudioRecorder {
 		print("Recording to \(localurl.lastPathComponent)")
 		print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 		if isRecordingHighlight() {
-			appdelegate.home?.rollingPlot.color = Settings.selectedColor
 			appdelegate.home?.doublePlotHistory()
 			appdelegate.home?.flashView() //flashes it gray
 		}
@@ -886,7 +893,6 @@ class myRecorder: AVAudioRecorder {
 	override func stop() {
 		super.stop()
 		if isRecordingHighlight() {
-			appdelegate.home?.rollingPlot.color = Settings.appThemeColor
 			appdelegate.home?.halfPlotHistory()
 		}
 		print("------------------------------------------------------------------")
