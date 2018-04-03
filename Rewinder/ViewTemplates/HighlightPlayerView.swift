@@ -39,11 +39,16 @@ class HighlightPlayerView: UIView {
 	
 	@IBOutlet var swipeGesture: UISwipeGestureRecognizer!
 	@IBOutlet var tapGesture: UITapGestureRecognizer!
+	@IBOutlet weak var closeButton: UIButton!
 	
 	@IBAction func swipeDetected(_ sender: UISwipeGestureRecognizer) {
 		print("Swipe Detected")
 		delegate?.swipeDetected()
 	}
+	@IBAction func closeTapped(_ sender: Any) {
+		swipeDetected(swipeGesture)
+	}
+	
 	@IBAction func tapDetected(_ sender: UITapGestureRecognizer) {
 		print("Tap Detected")
 		delegate?.tapDetected()
@@ -56,6 +61,12 @@ class HighlightPlayerView: UIView {
 		
 		tapGesture.numberOfTapsRequired = 1
 		contentView.addGestureRecognizer(tapGesture)
+		
+		closeButton.layer.borderWidth = 1.0
+		closeButton.layer.borderColor = UIColor.lightGray.cgColor
+		
+		playbackButton.layer.borderWidth = 1.0
+		playbackButton.layer.borderColor = UIColor.lightGray.cgColor
 		
 		titleLabel.text = "Not Playing"
 	}

@@ -97,8 +97,8 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	func initializeHighlightPlayerView() {
 		let playerContent = playerView.contentView!
 		view.addSubview(playerContent)
-		playerContent.layer.cornerRadius = 5
-//		playerContent.layer.masksToBounds = true
+		playerContent.layer.cornerRadius = 10
+		playerContent.layer.masksToBounds = true
 		playerView.delegate = self
 		setupHighlightPlayerViewConstraints()
 	}
@@ -108,9 +108,9 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 //		player.backgroundColor = Settings.appThemeColor
 		player.translatesAutoresizingMaskIntoConstraints = false
 		player.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//		player.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
-//		player.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 10).isActive = true
-		player.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 0).isActive = true
+//		player.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 5).isActive = true
+//		player.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -5).isActive = true
+		player.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -10).isActive = true
 		player.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
 //		player.heightAnchor.constraint(equalToConstant: player.frame.height).isActive = true
 		player.heightAnchor.constraint(equalToConstant: 75).isActive = true
