@@ -97,6 +97,7 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	func initializeHighlightPlayerView() {
 		let playerContent = playerView.contentView!
 		view.addSubview(playerContent)
+		playerContent.alpha = 1.0
 		playerContent.layer.cornerRadius = 10
 		playerContent.layer.masksToBounds = true
 		playerView.delegate = self
@@ -440,15 +441,26 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		print("\(#function)")
 		
 		//view will disappear 20 seconds after audio has finished playing
-		DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+		DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
 			if self.audioPlayer == nil {
-				self.playerView.contentView.removeFromSuperview()
+//				self.playerView.contentView.removeFromSuperview()
+				self.removePlayerView()
 			}
 		})
 		audioPlayer = nil
 		
 //		tableView.deselectRow(at: prevPath!, animated: true)
 //		prevCell?.setButtonPlay()
+	}
+	
+	func removePlayerView() {
+		DispatchQueue.main.async {
+			UIView.animate(withDuration: 0.15, delay: 0, options: .transitionFlipFromRight, animations: {
+				self.playerView.contentView.alpha = 0
+			}, completion: { (_) in
+				self.playerView.contentView.removeFromSuperview()
+			})
+		}
 	}
 	
 	func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
@@ -514,7 +526,7 @@ extension HighlightsViewController: HighlightPlayerDelegate {
 	}
 	func swipeDetected() {
 		audioPlayer?.stop()
-		playerView.contentView.removeFromSuperview()
+		removePlayerView()
 		print("View removed")
 	}
 	func tapDetected() {
