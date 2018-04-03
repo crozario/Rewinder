@@ -23,8 +23,8 @@ class Settings {
 //    static var d = {}
     
     enum Duration: Double {
-        case leftButton = 15.0
-        case middleButton = 30.0
+        case leftButton = 30.0
+        case middleButton = 60.0
         case rightButton = 90.0
     }
     
