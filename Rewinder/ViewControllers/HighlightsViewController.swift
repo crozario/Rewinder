@@ -24,16 +24,44 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
     
     private let navBar: UIView = {
         let nav = UIView()
-        let titleItem = UILabel()
-        nav.addSubview(titleItem)
-        titleItem.text = "Highlights"
-        titleItem.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
-        titleItem.textColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
-        titleItem.translatesAutoresizingMaskIntoConstraints = false
-        titleItem.centerXAnchor.constraint(equalTo: nav.centerXAnchor).isActive = true
-        titleItem.bottomAnchor.constraint(equalTo: nav.bottomAnchor, constant: -20).isActive = true
+//        let titleItem = UILabel()
+//        nav.addSubview(titleItem)
+//        titleItem.text = "Highlights"
+//        titleItem.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+//        titleItem.textColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
+//        titleItem.translatesAutoresizingMaskIntoConstraints = false
+//        titleItem.centerXAnchor.constraint(equalTo: nav.centerXAnchor).isActive = true
+//        titleItem.bottomAnchor.constraint(equalTo: nav.bottomAnchor, constant: -20).isActive = true
+		
+//		let selectButton = UIButton()
+//		nav.addSubview(selectButton)
+//		selectButton.setTitle("Select", for: .normal)
+//		selectButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Bold", size: 16)
+//		selectButton.setTitleColor(UIColor.white, for: .normal)
+//		selectButton.rightAnchor.constraint(equalTo: nav.rightAnchor).isActive = true
+//		selectButton.bottomAnchor.constraint(equalTo: nav.bottomAnchor, constant: -20).isActive = true
+		
         return nav
     }()
+	
+	private let titleItem: UILabel = {
+		let title = UILabel()
+		title.text = "Highlights"
+		title.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+		title.textColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
+		return title
+	}()
+	
+	private let selectButton: UIButton = {
+		let button = UIButton()
+		button.setTitle(" Select ", for: .normal)
+		button.titleLabel?.font = UIFont(name: "HelveticaNeue", size: 16)
+		button.setTitleColor(UIColor.black, for: .normal)
+//		button.layer.backgroundColor = Settings.selectedColor.cgColor
+		button.layer.backgroundColor = UIColor.white.cgColor
+		button.layer.cornerRadius = 10
+		return button
+	}()
 	
 	var viewPresented: Bool!
 	
@@ -56,6 +84,10 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
         view.addSubview(navBar)
         setupNavBarConstraints()
         setupTableViewConstraints()
+		navBar.addSubview(titleItem)
+		setupTitleItemConstraints()
+		navBar.addSubview(selectButton)
+		setupSelectButtonConstraints()
         tableView.backgroundColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
         navBar.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
         
@@ -89,6 +121,9 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		tableView.tableFooterView = UIView(frame: CGRect.zero)
 		tableView.estimatedRowHeight = 60.0
 		tableView.rowHeight = UITableViewAutomaticDimension
+		
+		selectButton.addTarget(self, action: #selector(selectButtonClicked), for: .touchUpInside)
+		isInMultipleSelectionMode = false
 		
 		viewPresented = true
     }
@@ -124,6 +159,19 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
         navBar.heightAnchor.constraint(equalToConstant: 80).isActive = true
         navBar.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
     }
+	
+	func setupTitleItemConstraints() {
+		titleItem.translatesAutoresizingMaskIntoConstraints = false
+		titleItem.centerXAnchor.constraint(equalTo: navBar.centerXAnchor).isActive = true
+		titleItem.bottomAnchor.constraint(equalTo: navBar.bottomAnchor, constant: -20).isActive = true
+	}
+	
+	func setupSelectButtonConstraints() {
+		selectButton.translatesAutoresizingMaskIntoConstraints = false
+		selectButton.rightAnchor.constraint(equalTo: navBar.rightAnchor, constant: -10).isActive = true
+//		selectButton.bottomAnchor.constraint(equalTo: navBar.bottomAnchor, constant: -16).isActive = true
+		selectButton.centerYAnchor.constraint(equalTo: titleItem.centerYAnchor, constant: 0).isActive = true
+	}
     
     func setupTableViewConstraints() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -132,12 +180,45 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
         tableView.topAnchor.constraint(equalTo: navBar.bottomAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
-    
-    
+	
 //    @IBAction func backButton(_ sender: UIButton) {
 //       performSegue(withIdentifier: "homeSegue", sender: self)
 //    }
+	
+	var isInMultipleSelectionMode: Bool {
+		get {
+			if tableView.allowsMultipleSelection {
+				return true
+			} else {
+				return false
+			}
+		}
+		set {
+			if newValue == true{
+				tableView.allowsMultipleSelection = true
+				selectButton.setTitle("Cancle", for: .normal)
+				if audioPlayer != nil {
+					audioPlayer?.stop()
+				}
+				if playerView.contentView.superview != nil {
+					removePlayerView()
+				}
+			}
+			else {
+				tableView.allowsMultipleSelection = false
+				selectButton.setTitle("Select", for: .normal)
+			}
+		}
+	}
     
+	@objc func selectButtonClicked() {
+		print("\(#function)")
+		if isInMultipleSelectionMode {
+			isInMultipleSelectionMode = false
+		} else {
+			isInMultipleSelectionMode = true
+		}
+	}
 	
 	deinit {
 		NotificationCenter.default.removeObserver(self)
@@ -596,6 +677,14 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 				audioPlayer = nil
 			}
 		}
+	}
+	
+	func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+		print("\(#function)")
+	}
+	
+	func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
+		print("\(#function)")
 	}
 	
 	// MARK: - Table view cell content	
