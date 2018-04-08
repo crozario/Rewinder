@@ -11,6 +11,7 @@ import UIKit
 import CoreData
 import AVFoundation
 import AudioKit
+import CallKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -40,6 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		NotificationCenter.default.addObserver(self, selector: #selector(handleInterruption(_:)), name: .AVAudioSessionInterruption, object: nil) // FIXME: UNTESTED
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(self.handleSecondaryAudio(notification:)), name: .AVAudioSessionSilenceSecondaryAudioHint, object: nil) // FIXME: UNTESTED
+		
+		print("ON PHONE CALL: \(self.isOnPhoneCall())")
 		
 		return true
 	}
@@ -148,6 +151,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	// MARK: - Notification Handles
 	@objc func handleInterruption(_ notification: Notification) {
+		print("\(#function)")
 		guard let info = notification.userInfo,
 			let typeValue = info[AVAudioSessionInterruptionTypeKey] as? UInt,
 			let type = AVAudioSessionInterruptionType(rawValue: typeValue) else {
@@ -322,6 +326,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			havePermission = false
 			undeterminedPermission = true
 		}
+	}
+	
+	private func isOnPhoneCall() -> Bool {
+		for call in CXCallObserver().calls {
+			if call.hasEnded == false {
+				return true
+			}
+		}
+		return false
 	}
 	
 	// MARK: - Saving and loading settings
