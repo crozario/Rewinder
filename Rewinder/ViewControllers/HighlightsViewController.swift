@@ -650,6 +650,9 @@ extension HighlightsViewController: MultipleEditsViewDelegate {
 		print("DELETING HIGHLIGHTS...")
 		printSelectedRows()
 		isInMultipleSelectionMode = false
+		if selectedPaths.count > 0 {
+			deleteMultipleHighlights(indexPaths: selectedPaths)
+		}
 	}
 	
 	func editPressed() {
@@ -876,6 +879,13 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 			return []
 		} else {
 			return [deleteAction, editAction, exportAction]
+		}
+	}
+	
+	func deleteMultipleHighlights(indexPaths: [IndexPath]) {
+		let reversepaths = indexPaths.sorted().reversed()
+		for path in reversepaths {
+			deleteHighlight(indexPath: path)
 		}
 	}
 	
