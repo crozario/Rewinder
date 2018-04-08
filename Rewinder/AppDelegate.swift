@@ -62,7 +62,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 		
 		if havePermission {
-			executeFirstTime(force: false)
+			if isOnPhoneCall() {
+				// segue
+				DispatchQueue.main.async {
+					self.home!.performSegue(withIdentifier: "idInPhoneCallSegue", sender: self)
+				}
+			} else {
+				executeFirstTime(force: false)
+			}
 		}
 		else {
 			if !undeterminedPermission {
@@ -158,12 +165,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				return
 		}
 		if type == .began {
+			print("Interruption Began")
 			// pause recording
 			self.audioRecorder?.pause()
 			// pause playing
 			self.audioPlayer?.pause()
 		}
 		else if type == .ended {
+			print("Interruption Ended")
 			// resume recording
 			self.audioRecorder?.record()
 			// don't resume playing (because i'm lazy)
@@ -328,7 +337,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 	}
 	
-	private func isOnPhoneCall() -> Bool {
+	func isOnPhoneCall() -> Bool {
 		for call in CXCallObserver().calls {
 			if call.hasEnded == false {
 				return true

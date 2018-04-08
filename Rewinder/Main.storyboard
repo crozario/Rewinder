@@ -67,6 +67,7 @@
                         <outlet property="view" destination="8bC-Xf-vdC" id="cuR-Ti-9al"/>
                         <segue destination="Ekc-rK-OjD" kind="presentation" identifier="idDeniedPermissionSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="XUu-5b-FMD"/>
                         <segue destination="Qcj-pf-Kb5" kind="presentation" identifier="idUndeterminedPermissionSegue" id="UoV-YU-1uH"/>
+                        <segue destination="Nuv-40-Oq1" kind="presentation" identifier="idInPhoneCallSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="iAE-Od-eTr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -332,7 +333,90 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="spZ-cv-54d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="853.60000000000002" y="-1091.6041979010495"/>
+            <point key="canvasLocation" x="881" y="-1216"/>
+        </scene>
+        <!--In Phone Call View Controller-->
+        <scene sceneID="Amp-LS-urr">
+            <objects>
+                <viewController id="Nuv-40-Oq1" customClass="InPhoneCallViewController" customModule="Rewinder" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="J9S-Hw-gAQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="FFq-e1-rsJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rJO-f9-F1W">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Vl-Tx-iD8">
+                                <rect key="frame" x="33" y="98" width="308" height="335"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="recordicon" translatesAutoresizingMaskIntoConstraints="NO" id="aY5-yd-tGK">
+                                        <rect key="frame" x="201" y="8" width="99" height="72"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="99" id="LYY-io-WHO"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tiy-Ie-Wd9">
+                                        <rect key="frame" x="0.0" y="250" width="308" height="85"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                                        <state key="normal" title="I'm done">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="donePressed:" destination="Nuv-40-Oq1" eventType="touchUpInside" id="JcQ-zb-ewr"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rewinding will resume as soon as your phone call is over. Let me know when you're done." lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wSM-i8-WO1">
+                                        <rect key="frame" x="8" y="108" width="292" height="119"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I can't listen to your phone calls! " lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3o-hs-4Uk">
+                                        <rect key="frame" x="8" y="8" width="219" height="72"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="72" id="qmE-2j-U1s"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="19"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="wSM-i8-WO1" firstAttribute="top" secondItem="R3o-hs-4Uk" secondAttribute="bottom" constant="28" id="18x-BV-jDM"/>
+                                    <constraint firstItem="R3o-hs-4Uk" firstAttribute="top" secondItem="aY5-yd-tGK" secondAttribute="top" id="7e2-ve-lBl"/>
+                                    <constraint firstItem="wSM-i8-WO1" firstAttribute="centerY" secondItem="7Vl-Tx-iD8" secondAttribute="centerY" id="Fbp-Il-fUn"/>
+                                    <constraint firstItem="wSM-i8-WO1" firstAttribute="centerX" secondItem="tiy-Ie-Wd9" secondAttribute="centerX" id="LR3-Hq-55O"/>
+                                    <constraint firstItem="tiy-Ie-Wd9" firstAttribute="top" secondItem="wSM-i8-WO1" secondAttribute="bottom" constant="23" id="UQr-Mk-kJR"/>
+                                    <constraint firstAttribute="trailing" secondItem="tiy-Ie-Wd9" secondAttribute="trailing" id="VDJ-nK-QTD"/>
+                                    <constraint firstAttribute="trailing" secondItem="R3o-hs-4Uk" secondAttribute="trailing" constant="81" id="dJa-IB-JqK"/>
+                                    <constraint firstItem="R3o-hs-4Uk" firstAttribute="leading" secondItem="wSM-i8-WO1" secondAttribute="leading" id="g26-bx-U0U"/>
+                                    <constraint firstItem="tiy-Ie-Wd9" firstAttribute="leading" secondItem="7Vl-Tx-iD8" secondAttribute="leading" id="jN8-Ss-7ue"/>
+                                    <constraint firstAttribute="bottom" secondItem="tiy-Ie-Wd9" secondAttribute="bottom" id="pgK-As-qeT"/>
+                                    <constraint firstItem="aY5-yd-tGK" firstAttribute="trailing" secondItem="wSM-i8-WO1" secondAttribute="trailing" id="prN-Pm-AsN"/>
+                                    <constraint firstItem="R3o-hs-4Uk" firstAttribute="leading" secondItem="7Vl-Tx-iD8" secondAttribute="leadingMargin" id="rvf-NG-NKb"/>
+                                    <constraint firstItem="R3o-hs-4Uk" firstAttribute="top" secondItem="7Vl-Tx-iD8" secondAttribute="topMargin" id="wDZ-yx-Gmh"/>
+                                    <constraint firstItem="R3o-hs-4Uk" firstAttribute="bottom" secondItem="aY5-yd-tGK" secondAttribute="bottom" id="x5c-mq-jfS"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="0.22798052226027396" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="7Vl-Tx-iD8" firstAttribute="centerX" secondItem="rJO-f9-F1W" secondAttribute="centerX" id="YRk-fh-g6S"/>
+                            <constraint firstItem="FFq-e1-rsJ" firstAttribute="top" secondItem="7Vl-Tx-iD8" secondAttribute="bottom" constant="234" id="ZQS-VM-H3c"/>
+                            <constraint firstItem="7Vl-Tx-iD8" firstAttribute="top" secondItem="J9S-Hw-gAQ" secondAttribute="bottom" constant="78" id="ZkF-9f-eYa"/>
+                            <constraint firstItem="7Vl-Tx-iD8" firstAttribute="leading" secondItem="rJO-f9-F1W" secondAttribute="leadingMargin" constant="17" id="udF-UB-4Hb"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="contentView" destination="7Vl-Tx-iD8" id="KEa-eJ-l5z"/>
+                        <outlet property="doneButton" destination="tiy-Ie-Wd9" id="k2Y-JR-E4c"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Kaa-za-FMj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1568.8" y="-810.0449775112445"/>
         </scene>
     </scenes>
     <resources>
