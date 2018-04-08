@@ -793,7 +793,20 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 	
 	// MARK: - Table view cell content	
 	func numberOfSections(in tableView: UITableView) -> Int {
-		return twoDarr.count
+		let numSections = twoDarr.count
+		if numSections == 0 {
+			let label: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
+			label.text = "All your highlights will appear here. Swipe right to go to the Home page and start capturing highlights!"
+			label.font = UIFont(name: "HelveticaNeue", size: 16)
+			label.textColor = Settings.appThemeColor
+			label.textAlignment = .center
+			tableView.backgroundView = label
+			label.numberOfLines = 7
+			tableView.separatorStyle = .none
+		} else {
+			tableView.backgroundView = nil
+		}
+		return numSections
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
