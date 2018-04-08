@@ -263,7 +263,7 @@
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lRs-lu-ULA">
                                         <rect key="frame" x="8" y="69" width="292" height="159"/>
-                                        <string key="text">I can capture important moments for you even after they have occured. Live life in the moment and leave the capturing to me. All you need to do is hit the rewind button in the middle and I will personally add the experience to your "Highlights."</string>
+                                        <string key="text">I can capture important moments for you even after they have occured. Live life in the moment and leave the capturing to me. All you need to do is hit the rewind button in the middle of the home page and I will personally add the recording to your "Highlights".</string>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -286,7 +286,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="112" id="yB9-t2-aLZ"/>
                                         </constraints>
-                                        <string key="text">In a nutshell, I specialize in recording audio. The recorded audio is stored securely and not shared. When you're ready, tap the "Enable" button below and then "Ok" on the following dialog.</string>
+                                        <string key="text">In a nutshell, I specialize in recording audio. The recorded audio is stored securely only on your device and is not shared unless you export it. When you're ready, tap the "Enable" button below and then "Ok" on the following dialog.</string>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -366,7 +366,7 @@
                                             <action selector="donePressed:" destination="Nuv-40-Oq1" eventType="touchUpInside" id="JcQ-zb-ewr"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rewinding will resume as soon as your phone call is over. Let me know when you're done." lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wSM-i8-WO1">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rewinder will resume as soon as your phone call is over. Let me know when you're done." lineBreakMode="tailTruncation" numberOfLines="9" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wSM-i8-WO1">
                                         <rect key="frame" x="8" y="108" width="292" height="119"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
