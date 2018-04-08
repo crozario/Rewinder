@@ -18,6 +18,8 @@
 		5DABA9B0206C224100D2846F /* CustomPopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DABA9AF206C224100D2846F /* CustomPopupView.xib */; };
 		5DABA9B4206C715400D2846F /* HighlightPlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DABA9B3206C715400D2846F /* HighlightPlayerView.xib */; };
 		5DABA9B6206C71BA00D2846F /* HighlightPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DABA9B5206C71BA00D2846F /* HighlightPlayerView.swift */; };
+		5DD19C51207973330062A256 /* MultipleEditsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DD19C50207973330062A256 /* MultipleEditsView.xib */; };
+		5DD19C53207974320062A256 /* MultipleEditsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD19C52207974320062A256 /* MultipleEditsView.swift */; };
 		5DD7D5A8206DE58100D431C9 /* DeniedPermissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD7D5A7206DE58100D431C9 /* DeniedPermissionViewController.swift */; };
 		5DE1BC4E205FB6E90023BACC /* ExpandedHighlightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE1BC4D205FB6E90023BACC /* ExpandedHighlightCell.swift */; };
 		5DF98003205C481300579F45 /* NormalHighlightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF98002205C481300579F45 /* NormalHighlightCell.swift */; };
@@ -83,6 +85,8 @@
 		5DABA9AF206C224100D2846F /* CustomPopupView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomPopupView.xib; sourceTree = "<group>"; };
 		5DABA9B3206C715400D2846F /* HighlightPlayerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HighlightPlayerView.xib; sourceTree = "<group>"; };
 		5DABA9B5206C71BA00D2846F /* HighlightPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightPlayerView.swift; sourceTree = "<group>"; };
+		5DD19C50207973330062A256 /* MultipleEditsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultipleEditsView.xib; sourceTree = "<group>"; };
+		5DD19C52207974320062A256 /* MultipleEditsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleEditsView.swift; sourceTree = "<group>"; };
 		5DD7D5A7206DE58100D431C9 /* DeniedPermissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeniedPermissionViewController.swift; sourceTree = "<group>"; };
 		5DE1BC4D205FB6E90023BACC /* ExpandedHighlightCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandedHighlightCell.swift; sourceTree = "<group>"; };
 		5DF98002205C481300579F45 /* NormalHighlightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalHighlightCell.swift; sourceTree = "<group>"; };
@@ -265,6 +269,8 @@
 				5DABA9AD206C213200D2846F /* CustomPopupView.swift */,
 				5DABA9B3206C715400D2846F /* HighlightPlayerView.xib */,
 				5DABA9B5206C71BA00D2846F /* HighlightPlayerView.swift */,
+				5DD19C50207973330062A256 /* MultipleEditsView.xib */,
+				5DD19C52207974320062A256 /* MultipleEditsView.swift */,
 			);
 			path = ViewTemplates;
 			sourceTree = "<group>";
@@ -415,6 +421,7 @@
 				C46E2BDA2042138C001BE43A /* Assets.xcassets in Resources */,
 				C4E048D2204C76A9007355E1 /* waveformsample.png in Resources */,
 				5DABA9B0206C224100D2846F /* CustomPopupView.xib in Resources */,
+				5DD19C51207973330062A256 /* MultipleEditsView.xib in Resources */,
 				C46E2BDD20422323001BE43A /* Eminem - Rap God.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -592,6 +599,7 @@
 			files = (
 				5D8102A720424A7C00F62B37 /* Audio.swift in Sources */,
 				C4E98813205CA1B5008FC728 /* CircularTransition.swift in Sources */,
+				5DD19C53207974320062A256 /* MultipleEditsView.swift in Sources */,
 				C42BB57A2041E08A00D7D4CF /* Rewinder.xcdatamodeld in Sources */,
 				C46E908420607C9F00F63F96 /* FloatingActionButton.swift in Sources */,
 				5D6924AC206EF6C8009B47B9 /* UndeterminedPermissionViewController.swift in Sources */,
