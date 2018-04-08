@@ -82,17 +82,18 @@ class HighlightPlayerView: UIView {
 	
 	// should display the play image on the button
 	func setPaused() {
-//		playbackButton.setImage(#imageLiteral(resourceName: "playicon.png"), for: .normal)
+        
 		DispatchQueue.main.async {
-			self.playbackButton.setTitle("Play", for: .normal)
+//            self.playbackButton.setTitle("Play", for: .normal)
+            self.playbackButton.setImage(#imageLiteral(resourceName: "playicon.png"), for: .normal)
 		}
 		playingHighlight = false
 	}
 	
 	// should display the pause image on the button
 	func setPlaying() {
-//		playbackButton.setImage(#imageLiteral(resourceName: "pauseicon"), for: .normal)
-		playbackButton.setTitle("Pause", for: .normal)
+        playbackButton.setImage(#imageLiteral(resourceName: "pauseicon"), for: .normal)
+//        playbackButton.setTitle("Pause", for: .normal)
 		playingHighlight = true
 	}
 
