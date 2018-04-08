@@ -196,7 +196,7 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		set {
 			if newValue == true{
 				tableView.allowsMultipleSelection = true
-				selectButton.setTitle(" Cancle ", for: .normal)
+				selectButton.setTitle(" Cancel ", for: .normal)
 				if audioPlayer != nil {
 					audioPlayer?.stop()
 				}
@@ -230,8 +230,20 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 			bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
 			bottomView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
 			bottomView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-			bottomView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+			if deviceIsIPhoneX() {
+				bottomView.heightAnchor.constraint(equalToConstant: 70).isActive = true
+			} else {
+				bottomView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+			}
 		}
+	}
+	func deviceIsIPhoneX() -> Bool{
+		if UIDevice().userInterfaceIdiom == .phone {
+			if UIScreen.main.nativeBounds.height == 2436 {
+				return true
+			}
+		}
+		return false
 	}
 	private func removeMultipleEditsView() {
 		multipleEditsView.contentView.removeFromSuperview()
@@ -1045,7 +1057,9 @@ class myPlayer: AVAudioPlayer {
 		appdelegate.audioPlayer = self
 		
 //		cell?.setButtonStop()
-		setHighlightPlayerView(isPlayingHighlight: true)
+		if returnval {
+			setHighlightPlayerView(isPlayingHighlight: true)
+		}
 		
 		highlightPlayerView?.indexPath = indexPath
 		selectHighlightRow()
