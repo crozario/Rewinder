@@ -847,7 +847,7 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 			self.exportHighlight(indexPath: indexPath)
 //			tableView.reloadData() // FIXME: shouldn't do this
 		}
-		
+
 		deleteAction.backgroundColor = Settings.selectedColor
 		editAction.backgroundColor = Settings.unSelectedColor
 		exportAction.backgroundColor = Settings.appThemeColor
@@ -871,9 +871,13 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 		})
 		
 		// export to photo library
-		let exportAction = UITableViewRowAction(style: .destructive, title: "Export", handler: { (action, indexPath) in
+		let exportAction = UITableViewRowAction(style: .normal, title: "Export", handler: { (action, indexPath) in
 			self.exportHighlight(indexPath: indexPath)
 		})
+		
+		deleteAction.backgroundColor = Settings.selectedColor
+		editAction.backgroundColor = Settings.unSelectedColor
+		exportAction.backgroundColor = Settings.appThemeColor
 		
 		if isInMultipleSelectionMode {
 			return []
