@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MultipleEditsView" customModule="Rewinder" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="iN0-l3-epB" id="gHq-vU-xfi"/>
+                <outlet property="deleteButton" destination="yDG-pN-Nre" id="DEJ-6g-Btc"/>
+                <outlet property="editButton" destination="7rz-pQ-Y8d" id="BFL-kd-r5F"/>
+                <outlet property="exportButton" destination="BHs-Js-0NV" id="8qy-eb-no0"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="322" height="45"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yDG-pN-Nre">
+                    <rect key="frame" x="247" y="6" width="65" height="33"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="65" id="KNV-Q7-18D"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                    <state key="normal" title="Delete"/>
+                    <connections>
+                        <action selector="deleteButtonTapped:" destination="-1" eventType="touchUpInside" id="Hmm-6j-kgf"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7rz-pQ-Y8d">
+                    <rect key="frame" x="138.5" y="6" width="45" height="33"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="45" id="856-Sw-6u5"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                    <state key="normal" title="Edit"/>
+                    <connections>
+                        <action selector="editButtonTapped:" destination="-1" eventType="touchUpInside" id="ue8-wa-2ci"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BHs-Js-0NV">
+                    <rect key="frame" x="10" y="6" width="65" height="33"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="65" id="zWT-yB-T1Z"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                    <state key="normal" title="Export"/>
+                    <connections>
+                        <action selector="exportButtonTapped:" destination="-1" eventType="touchUpInside" id="Tos-D6-4bV"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="7rz-pQ-Y8d" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="0xI-u6-gsx"/>
+                <constraint firstItem="yDG-pN-Nre" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="9v7-YI-2Un"/>
+                <constraint firstItem="BHs-Js-0NV" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="Zav-4b-q1Y"/>
+                <constraint firstItem="7rz-pQ-Y8d" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="eJm-ct-iw6"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="yDG-pN-Nre" secondAttribute="trailing" constant="10" id="i9e-Q3-cEp"/>
+                <constraint firstItem="BHs-Js-0NV" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="qkL-lt-Pfc"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="110" y="273.5"/>
+        </view>
+    </objects>
+</document>

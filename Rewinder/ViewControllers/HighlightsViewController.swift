@@ -24,16 +24,44 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
     
     private let navBar: UIView = {
         let nav = UIView()
-        let titleItem = UILabel()
-        nav.addSubview(titleItem)
-        titleItem.text = "Highlights"
-        titleItem.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
-        titleItem.textColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
-        titleItem.translatesAutoresizingMaskIntoConstraints = false
-        titleItem.centerXAnchor.constraint(equalTo: nav.centerXAnchor).isActive = true
-        titleItem.bottomAnchor.constraint(equalTo: nav.bottomAnchor, constant: -20).isActive = true
+//        let titleItem = UILabel()
+//        nav.addSubview(titleItem)
+//        titleItem.text = "Highlights"
+//        titleItem.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+//        titleItem.textColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
+//        titleItem.translatesAutoresizingMaskIntoConstraints = false
+//        titleItem.centerXAnchor.constraint(equalTo: nav.centerXAnchor).isActive = true
+//        titleItem.bottomAnchor.constraint(equalTo: nav.bottomAnchor, constant: -20).isActive = true
+		
+//		let selectButton = UIButton()
+//		nav.addSubview(selectButton)
+//		selectButton.setTitle("Select", for: .normal)
+//		selectButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Bold", size: 16)
+//		selectButton.setTitleColor(UIColor.white, for: .normal)
+//		selectButton.rightAnchor.constraint(equalTo: nav.rightAnchor).isActive = true
+//		selectButton.bottomAnchor.constraint(equalTo: nav.bottomAnchor, constant: -20).isActive = true
+		
         return nav
     }()
+	
+	private let titleItem: UILabel = {
+		let title = UILabel()
+		title.text = "Highlights"
+		title.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+		title.textColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
+		return title
+	}()
+	
+	private let selectButton: UIButton = {
+		let button = UIButton()
+		button.setTitle(" Select ", for: .normal)
+		button.titleLabel?.font = UIFont(name: "HelveticaNeue", size: 16)
+		button.setTitleColor(UIColor.black, for: .normal)
+//		button.layer.backgroundColor = Settings.selectedColor.cgColor
+		button.layer.backgroundColor = UIColor.white.cgColor
+		button.layer.cornerRadius = 10
+		return button
+	}()
 	
 	var viewPresented: Bool!
 	
@@ -56,6 +84,10 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
         view.addSubview(navBar)
         setupNavBarConstraints()
         setupTableViewConstraints()
+		navBar.addSubview(titleItem)
+		setupTitleItemConstraints()
+		navBar.addSubview(selectButton)
+		setupSelectButtonConstraints()
         tableView.backgroundColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
         navBar.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
         
@@ -90,6 +122,9 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		tableView.estimatedRowHeight = 60.0
 		tableView.rowHeight = UITableViewAutomaticDimension
 		
+		selectButton.addTarget(self, action: #selector(selectButtonClicked), for: .touchUpInside)
+		isInMultipleSelectionMode = false
+		
 		viewPresented = true
     }
 	
@@ -114,7 +149,7 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		player.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -10).isActive = true
 		player.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
 //		player.heightAnchor.constraint(equalToConstant: player.frame.height).isActive = true
-		player.heightAnchor.constraint(equalToConstant: 75).isActive = true
+		player.heightAnchor.constraint(equalToConstant: player.bounds.height).isActive = true
 	}
 	
     func setupNavBarConstraints() {
@@ -124,6 +159,19 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
         navBar.heightAnchor.constraint(equalToConstant: 80).isActive = true
         navBar.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
     }
+	
+	func setupTitleItemConstraints() {
+		titleItem.translatesAutoresizingMaskIntoConstraints = false
+		titleItem.centerXAnchor.constraint(equalTo: navBar.centerXAnchor).isActive = true
+		titleItem.bottomAnchor.constraint(equalTo: navBar.bottomAnchor, constant: -20).isActive = true
+	}
+	
+	func setupSelectButtonConstraints() {
+		selectButton.translatesAutoresizingMaskIntoConstraints = false
+		selectButton.rightAnchor.constraint(equalTo: navBar.rightAnchor, constant: -10).isActive = true
+//		selectButton.bottomAnchor.constraint(equalTo: navBar.bottomAnchor, constant: -16).isActive = true
+		selectButton.centerYAnchor.constraint(equalTo: titleItem.centerYAnchor, constant: 0).isActive = true
+	}
     
     func setupTableViewConstraints() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -132,12 +180,71 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
         tableView.topAnchor.constraint(equalTo: navBar.bottomAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
-    
-    
+	
 //    @IBAction func backButton(_ sender: UIButton) {
 //       performSegue(withIdentifier: "homeSegue", sender: self)
 //    }
+	
+	var isInMultipleSelectionMode: Bool {
+		get {
+			if tableView.allowsMultipleSelection {
+				return true
+			} else {
+				return false
+			}
+		}
+		set {
+			if newValue == true{
+				tableView.allowsMultipleSelection = true
+				selectButton.setTitle(" Cancle ", for: .normal)
+				if audioPlayer != nil {
+					audioPlayer?.stop()
+				}
+				if playerView.contentView.superview != nil {
+					removePlayerView()
+				}
+				addMultipleEditsView()
+			}
+			else {
+				tableView.allowsMultipleSelection = false
+				selectButton.setTitle(" Select ", for: .normal)
+				removeMultipleEditsView()
+			}
+		}
+	}
+	private func printSelectedRows() {
+		for path in selectedPaths {
+			let cellTitle = getElementFromTwoDarr(indexPath: path)
+			print(cellTitle)
+		}
+	}
+	
+	var multipleEditsView: MultipleEditsView = MultipleEditsView()
+	private func addMultipleEditsView() {
+		multipleEditsView.delegate = self
+		updateMultipleViewButtons()
+		if let bottomView = multipleEditsView.contentView {
+			view.addSubview(bottomView)
+			bottomView.backgroundColor = Settings.appThemeColor
+			bottomView.translatesAutoresizingMaskIntoConstraints = false
+			bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+			bottomView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+			bottomView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+			bottomView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+		}
+	}
+	private func removeMultipleEditsView() {
+		multipleEditsView.contentView.removeFromSuperview()
+	}
     
+	@objc func selectButtonClicked() {
+		print("\(#function)")
+		if isInMultipleSelectionMode {
+			isInMultipleSelectionMode = false
+		} else {
+			isInMultipleSelectionMode = true
+		}
+	}
 	
 	deinit {
 		NotificationCenter.default.removeObserver(self)
@@ -493,6 +600,7 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	var prevPath: IndexPath?
 	var prevCell: NormalHighlightCell?
 	
+	var selectedPaths: [IndexPath] = []
 }
 
 // MARK: - Player Delegate
@@ -536,28 +644,89 @@ extension HighlightsViewController: HighlightPlayerDelegate {
 	}
 }
 
+// MARK: - TableView multiple edits view delegate
+extension HighlightsViewController: MultipleEditsViewDelegate {
+	func deletePressed() {
+		print("DELETING HIGHLIGHTS...")
+		printSelectedRows()
+		isInMultipleSelectionMode = false
+	}
+	
+	func editPressed() {
+		print("EDITING HIGHLIGHT...")
+		printSelectedRows()
+		if selectedPaths.count == 1 {
+			if let path = selectedPaths.first {
+				editHighlight(indexPath: path)
+			}
+		}
+		isInMultipleSelectionMode = false
+	}
+	
+	func exportPressed() {
+		print("EXPORTING HIGHLIGHTS...")
+		printSelectedRows()
+		isInMultipleSelectionMode = false
+	}
+}
+
 // MARK: - TableView Delegate and Data Source
 extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 	
 	// MARK: - Playing audio
-	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		// check if player window is there
-		if playerView.superview == nil {
-			// add to superview
-			initializeHighlightPlayerView()
-			print("added view")
+		if isInMultipleSelectionMode {
+			let cell = tableView.cellForRow(at: indexPath) as! NormalHighlightCell
+			setCellSelectionState(normalHighlightCell: cell)
+			
+			updateMultipleViewButtons()
+		} else {
+			// check if player window is there
+			if playerView.superview == nil {
+				// add to superview
+				initializeHighlightPlayerView()
+				print("added view")
+			}
+			else {
+				print("did not need to create view")
+			}
+			
+			setupPlayer(indexPath: indexPath)
+			_ = audioPlayer?.play()
+			if AVAudioSession.sharedInstance().isOtherAudioPlaying {
+				print("other audio is playing")
+			}
+			print(self.getElementFromTwoDarr(indexPath: indexPath) + ": " + (audioPlayer?.duration.description)!)
+		}
+	}
+	
+	func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+		if isInMultipleSelectionMode {
+			let cell = tableView.cellForRow(at: indexPath) as! NormalHighlightCell
+			setCellSelectionState(normalHighlightCell: cell)
+			
+			updateMultipleViewButtons()
+		}
+	}
+	
+	// updates the edit button on the multipleEditsView
+	private func updateMultipleViewButtons() {
+		if let paths = tableView.indexPathsForSelectedRows {
+			selectedPaths = paths
+		} else {
+			selectedPaths.removeAll()
+		}
+		if selectedPaths.count > 0 {
+			multipleEditsView.enableDeleteAndExportButton()
 		}
 		else {
-			print("did not need to create view")
+			multipleEditsView.disableDeleteAndExportButton()
 		}
-		
-		setupPlayer(indexPath: indexPath)
-		_ = audioPlayer?.play()
-		if AVAudioSession.sharedInstance().isOtherAudioPlaying {
-			print("other audio is playing")
+		if selectedPaths.count == 1 {
+			multipleEditsView.enableEditButton()
+		} else {
+			multipleEditsView.disableEditButton()
 		}
-		print(self.getElementFromTwoDarr(indexPath: indexPath) + ": " + (audioPlayer?.duration.description)!)
 	}
 	
 	func setupPlayer(indexPath: IndexPath) {
@@ -598,6 +767,14 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 		}
 	}
 	
+//	func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+//		print("\(#function)")
+//	}
+//
+//	func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
+//		print("\(#function)")
+//	}
+	
 	// MARK: - Table view cell content	
 	func numberOfSections(in tableView: UITableView) -> Int {
 		return twoDarr.count
@@ -618,7 +795,20 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 		cell.setDuration(duration)
 //		cell.delegate = self
 		
+		setCellSelectionState(normalHighlightCell: cell)
+		
 		return cell
+	}
+	
+	func setCellSelectionState(normalHighlightCell: NormalHighlightCell) {
+		if isInMultipleSelectionMode {
+			if normalHighlightCell.isSelected == true {
+//				normalHighlightCell.accessoryType = .checkmark
+				normalHighlightCell.accessoryType = .none	// for now because the checkmarks repeat even though they're being reset everything a cell is reused inside cellForRowAt
+			} else {
+				normalHighlightCell.accessoryType = .none
+			}
+		}
 	}
 	
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
