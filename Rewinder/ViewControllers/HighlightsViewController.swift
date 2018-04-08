@@ -666,7 +666,8 @@ extension HighlightsViewController: MultipleEditsViewDelegate {
 	func exportPressed() {
 		print("EXPORTING HIGHLIGHTS...")
 		printSelectedRows()
-		isInMultipleSelectionMode = false
+		exportMultipleHighlights(indexPaths: selectedPaths)
+//		isInMultipleSelectionMode = false
 	}
 }
 
@@ -850,7 +851,11 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 		let actions = [deleteAction, editAction, exportAction]
 		let configuration = UISwipeActionsConfiguration(actions: actions)
 		configuration.performsFirstActionWithFullSwipe = true
-		return configuration
+		if isInMultipleSelectionMode {
+			return UISwipeActionsConfiguration()
+		} else {
+			return configuration
+		}
 	}
 	
 	func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
@@ -867,7 +872,11 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 			self.exportHighlight(indexPath: indexPath)
 		})
 		
-		return [deleteAction, editAction, exportAction]
+		if isInMultipleSelectionMode {
+			return []
+		} else {
+			return [deleteAction, editAction, exportAction]
+		}
 	}
 	
 	func deleteHighlight(indexPath: IndexPath) {
@@ -954,6 +963,20 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 		self.present(activityViewController, animated: true, completion: {
 			print("Export completed successfully")
 		})
+	}
+	
+	func exportMultipleHighlights(indexPaths: [IndexPath]) {
+		if indexPaths.count > 0 {
+			var activityItems: [URL] = []
+			for path in indexPaths {
+				let fileURL = self.getFileURL(from: self.getElementFromTwoDarr(indexPath: path))
+				activityItems.append(fileURL)
+			}
+			let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+			self.present(activityViewController, animated: true, completion: {
+				print("Export completed successfully")
+			})
+		}
 	}
 	
 	// MARK: - Unused delegate callbacks
