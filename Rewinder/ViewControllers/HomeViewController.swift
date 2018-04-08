@@ -513,8 +513,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		pickDurationButton.translatesAutoresizingMaskIntoConstraints = false
 		pickDurationButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
 		pickDurationButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
-		pickDurationButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -15).isActive = true
-		pickDurationButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
+		pickDurationButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15).isActive = true
+		pickDurationButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
 		
 	}
 	
@@ -522,8 +522,8 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		backgroundRecordingButton.translatesAutoresizingMaskIntoConstraints = false
 		backgroundRecordingButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
 		backgroundRecordingButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
-		backgroundRecordingButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 15).isActive = true
-		backgroundRecordingButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
+		backgroundRecordingButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15).isActive = true
+		backgroundRecordingButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
 		
 	}
 	
@@ -532,7 +532,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		leftButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
 		leftButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
 		leftButton.rightAnchor.constraint(equalTo: pickDurationButton.leftAnchor, constant: -20).isActive = true
-		leftButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
+		leftButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
 		
 		//        leftButton.center = CGPoint(x: pickDurationButton.center.x - 20, y: pickDurationButton.center.y)
 	}
@@ -542,7 +542,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		middleButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
 		middleButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
 		middleButton.rightAnchor.constraint(equalTo: pickDurationButton.leftAnchor, constant: 14).isActive = true
-		middleButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -72).isActive = true
+		middleButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -72).isActive = true
 		//        middleButton.center = CGPoint(x: pickDurationButton.center.x - 20, y: pickDurationButton.center.y - 20)
 	}
 	
@@ -551,7 +551,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		rightButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
 		rightButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
 		const1 = rightButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15)
-		const2 = rightButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100)
+		const2 = rightButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
 		
 		
 		//        rightButton.frame = CGRect(x: pickDurationButton.center.x, y: pickDurationButton.center.y - 20, width: 60, height: 60)
