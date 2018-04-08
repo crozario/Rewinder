@@ -206,7 +206,6 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 				addMultipleEditsView()
 			}
 			else {
-				printSelectedRows()
 				tableView.allowsMultipleSelection = false
 				selectButton.setTitle(" Select ", for: .normal)
 				removeMultipleEditsView()
@@ -650,16 +649,24 @@ extension HighlightsViewController: MultipleEditsViewDelegate {
 	func deletePressed() {
 		print("DELETING HIGHLIGHTS...")
 		printSelectedRows()
+		isInMultipleSelectionMode = false
 	}
 	
 	func editPressed() {
 		print("EDITING HIGHLIGHT...")
 		printSelectedRows()
+		if selectedPaths.count == 1 {
+			if let path = selectedPaths.first {
+				editHighlight(indexPath: path)
+			}
+		}
+		isInMultipleSelectionMode = false
 	}
 	
 	func exportPressed() {
 		print("EXPORTING HIGHLIGHTS...")
 		printSelectedRows()
+		isInMultipleSelectionMode = false
 	}
 }
 
