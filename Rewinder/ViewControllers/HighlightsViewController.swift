@@ -147,7 +147,7 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 //		player.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 5).isActive = true
 //		player.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -5).isActive = true
 		player.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -10).isActive = true
-		player.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
+		player.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -35).isActive = true
 //		player.heightAnchor.constraint(equalToConstant: player.frame.height).isActive = true
 		player.heightAnchor.constraint(equalToConstant: player.bounds.height).isActive = true
 	}

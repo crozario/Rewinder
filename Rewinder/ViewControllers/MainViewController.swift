@@ -9,6 +9,8 @@
 import UIKit
 import AudioKit
 
+
+
 class MainViewController: UIViewController,UIScrollViewDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     var viewControllers = [UIViewController]()
@@ -29,9 +31,7 @@ class MainViewController: UIViewController,UIScrollViewDelegate {
     
     func setupSlideScrollView() {
         scrollView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
-        
         scrollView.contentSize = CGSize(width: view.frame.width * CGFloat(viewControllers.count), height: view.frame.height)
-        
         scrollView.isPagingEnabled = true
 		scrollView.showsHorizontalScrollIndicator = false
         for i in 0 ..< viewControllers.count {
@@ -45,6 +45,9 @@ class MainViewController: UIViewController,UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
     }
+    
+    
+    
 }
 
         
