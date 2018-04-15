@@ -13,6 +13,11 @@
 		5D77DD4B205397BE000FC2C3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D77DD4A205397BE000FC2C3 /* HomeViewController.swift */; };
 		5D79EFE3204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D79EFE1204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift */; };
 		5D79EFE4204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D79EFE2204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift */; };
+		5D7F3D532082CF4300F9D7F1 /* InfoPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7F3D522082CF4300F9D7F1 /* InfoPageViewController.swift */; };
+		5D7F3D562082D2C000F9D7F1 /* ExpandInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7F3D552082D2C000F9D7F1 /* ExpandInfoViewController.swift */; };
+		5D7F3D582082D2E900F9D7F1 /* BackgroundInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7F3D572082D2E900F9D7F1 /* BackgroundInfoViewController.swift */; };
+		5D7F3D5A2082D30000F9D7F1 /* InitialInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7F3D592082D30000F9D7F1 /* InitialInfoViewController.swift */; };
+		5D7F3D5C2082D30F00F9D7F1 /* RecordInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7F3D5B2082D30F00F9D7F1 /* RecordInfoViewController.swift */; };
 		5D8102A720424A7C00F62B37 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8102A620424A7C00F62B37 /* Audio.swift */; };
 		5DABA9AE206C213200D2846F /* CustomPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DABA9AD206C213200D2846F /* CustomPopupView.swift */; };
 		5DABA9B0206C224100D2846F /* CustomPopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DABA9AF206C224100D2846F /* CustomPopupView.xib */; };
@@ -81,6 +86,11 @@
 		5D77DD4A205397BE000FC2C3 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5D79EFE1204F1599008DBC65 /* HighlightEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HighlightEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		5D79EFE2204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HighlightEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		5D7F3D522082CF4300F9D7F1 /* InfoPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPageViewController.swift; sourceTree = "<group>"; };
+		5D7F3D552082D2C000F9D7F1 /* ExpandInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandInfoViewController.swift; sourceTree = "<group>"; };
+		5D7F3D572082D2E900F9D7F1 /* BackgroundInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundInfoViewController.swift; sourceTree = "<group>"; };
+		5D7F3D592082D30000F9D7F1 /* InitialInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialInfoViewController.swift; sourceTree = "<group>"; };
+		5D7F3D5B2082D30F00F9D7F1 /* RecordInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordInfoViewController.swift; sourceTree = "<group>"; };
 		5D8102A620424A7C00F62B37 /* Audio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		5DABA9AD206C213200D2846F /* CustomPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopupView.swift; sourceTree = "<group>"; };
 		5DABA9AF206C224100D2846F /* CustomPopupView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomPopupView.xib; sourceTree = "<group>"; };
@@ -148,6 +158,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5D7F3D542082CFB700F9D7F1 /* InfoPages */ = {
+			isa = PBXGroup;
+			children = (
+				5D7F3D592082D30000F9D7F1 /* InitialInfoViewController.swift */,
+				5D7F3D552082D2C000F9D7F1 /* ExpandInfoViewController.swift */,
+				5D7F3D572082D2E900F9D7F1 /* BackgroundInfoViewController.swift */,
+				5D7F3D5B2082D30F00F9D7F1 /* RecordInfoViewController.swift */,
+			);
+			path = InfoPages;
+			sourceTree = "<group>";
+		};
 		61631C7E87D11CB4F75C0278 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -247,6 +268,8 @@
 				5DD7D5A7206DE58100D431C9 /* DeniedPermissionViewController.swift */,
 				5D6924AB206EF6C8009B47B9 /* UndeterminedPermissionViewController.swift */,
 				5DD19C542079EF5B0062A256 /* InPhoneCallViewController.swift */,
+				5D7F3D522082CF4300F9D7F1 /* InfoPageViewController.swift */,
+				5D7F3D542082CFB700F9D7F1 /* InfoPages */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -609,14 +632,19 @@
 				C4E987EB205C9306008FC728 /* Settings.swift in Sources */,
 				C4164246205DB43900658407 /* ContinueTableViewCell.swift in Sources */,
 				5DD19C552079EF5B0062A256 /* InPhoneCallViewController.swift in Sources */,
+				5D7F3D562082D2C000F9D7F1 /* ExpandInfoViewController.swift in Sources */,
 				5D79EFE4204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift in Sources */,
 				C4C5FFC92062F0AE00A9EA1B /* MainViewController.swift in Sources */,
+				5D7F3D582082D2E900F9D7F1 /* BackgroundInfoViewController.swift in Sources */,
 				5DD7D5A8206DE58100D431C9 /* DeniedPermissionViewController.swift in Sources */,
 				C46D16B92042002600B1224D /* RoundButton.swift in Sources */,
 				5DE1BC4E205FB6E90023BACC /* ExpandedHighlightCell.swift in Sources */,
 				C42BB5722041E08A00D7D4CF /* AppDelegate.swift in Sources */,
+				5D7F3D532082CF4300F9D7F1 /* InfoPageViewController.swift in Sources */,
 				5DF98003205C481300579F45 /* NormalHighlightCell.swift in Sources */,
+				5D7F3D5C2082D30F00F9D7F1 /* RecordInfoViewController.swift in Sources */,
 				5DABA9AE206C213200D2846F /* CustomPopupView.swift in Sources */,
+				5D7F3D5A2082D30000F9D7F1 /* InitialInfoViewController.swift in Sources */,
 				C452530520428768000808A8 /* PageViewController.swift in Sources */,
 				C416424A205DB4E400658407 /* CustomLengthTableViewCell.swift in Sources */,
 				5DABA9B6206C71BA00D2846F /* HighlightPlayerView.swift in Sources */,

@@ -63,6 +63,17 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		return button
 	}()
 	
+	private let infoButton: UIButton = {
+		let button = UIButton()
+		button.setTitle("  Info  ", for: .normal)
+		button.titleLabel?.font = UIFont(name: "HelveticaNeue-Bold", size: 16)
+		button.setTitleColor(UIColor.white, for: .normal)
+		button.layer.backgroundColor = Settings.unSelectedColor.cgColor
+		button.layer.cornerRadius = 10
+		
+		return button
+	}()
+	
 	var viewPresented: Bool!
 	
 //    @IBOutlet weak var dismissHighlightPageButton: RoundButton!
@@ -88,6 +99,9 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		setupTitleItemConstraints()
 		navBar.addSubview(selectButton)
 		setupSelectButtonConstraints()
+		navBar.addSubview(infoButton)
+		setupInfoButtonContraints()
+		
         tableView.backgroundColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
         navBar.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
         
@@ -124,6 +138,8 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		
 		selectButton.addTarget(self, action: #selector(selectButtonClicked), for: .touchUpInside)
 		isInMultipleSelectionMode = false
+		
+		infoButton.addTarget(self, action: #selector(infoButtonClicked), for: .touchUpInside)
 		
 		viewPresented = true
     }
@@ -171,6 +187,12 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		selectButton.rightAnchor.constraint(equalTo: navBar.rightAnchor, constant: -10).isActive = true
 //		selectButton.bottomAnchor.constraint(equalTo: navBar.bottomAnchor, constant: -16).isActive = true
 		selectButton.centerYAnchor.constraint(equalTo: titleItem.centerYAnchor, constant: 0).isActive = true
+	}
+	
+	func setupInfoButtonContraints() {
+		infoButton.translatesAutoresizingMaskIntoConstraints = false
+		infoButton.leftAnchor.constraint(equalTo: navBar.leftAnchor, constant: 10).isActive = true
+		infoButton.centerYAnchor.constraint(equalTo: titleItem.centerYAnchor, constant: 5).isActive = true
 	}
     
     func setupTableViewConstraints() {
@@ -255,6 +277,12 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 			isInMultipleSelectionMode = false
 		} else {
 			isInMultipleSelectionMode = true
+		}
+	}
+	
+	@objc func infoButtonClicked() {
+		DispatchQueue.main.async {
+			self.performSegue(withIdentifier: "idInfoPageSegue", sender: self)
 		}
 	}
 	
