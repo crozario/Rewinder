@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import AudioKit
-
 
 
 class MainViewController: UIViewController,UIScrollViewDelegate {

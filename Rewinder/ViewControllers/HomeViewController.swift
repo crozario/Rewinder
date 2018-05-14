@@ -10,8 +10,6 @@ import UIKit
 import AVFoundation
 import CoreData
 import NotificationCenter
-import AudioKit
-import AudioKitUI
 //import Speech
 import MediaPlayer
 
