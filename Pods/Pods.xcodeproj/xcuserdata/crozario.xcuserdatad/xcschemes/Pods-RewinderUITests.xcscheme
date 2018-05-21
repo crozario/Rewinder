@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4D87C5A3A2E6BC3BA1E3C9423096BB71"
+               BlueprintIdentifier = "74F90C22A05DCD1590989DA1F60AB8A5"
                BuildableName = "Pods_RewinderUITests.framework"
                BlueprintName = "Pods-RewinderUITests"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -26,7 +26,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
@@ -37,7 +36,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -47,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4D87C5A3A2E6BC3BA1E3C9423096BB71"
+            BlueprintIdentifier = "74F90C22A05DCD1590989DA1F60AB8A5"
             BuildableName = "Pods_RewinderUITests.framework"
             BlueprintName = "Pods-RewinderUITests"
             ReferencedContainer = "container:Pods.xcodeproj">

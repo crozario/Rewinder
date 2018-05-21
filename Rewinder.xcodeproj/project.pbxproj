@@ -29,6 +29,8 @@
 		5DD7D5A8206DE58100D431C9 /* DeniedPermissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD7D5A7206DE58100D431C9 /* DeniedPermissionViewController.swift */; };
 		5DE1BC4E205FB6E90023BACC /* ExpandedHighlightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE1BC4D205FB6E90023BACC /* ExpandedHighlightCell.swift */; };
 		5DF98003205C481300579F45 /* NormalHighlightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF98002205C481300579F45 /* NormalHighlightCell.swift */; };
+		92B73400500A4F6B022BFBC3 /* Pods_RewinderUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25DD2E09C93BE5A41900772F /* Pods_RewinderUITests.framework */; };
+		A04DB03AF4B391843AB09F49 /* Pods_RewinderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFCEB7F1767B10CB3113ECC4 /* Pods_RewinderTests.framework */; };
 		C4164246205DB43900658407 /* ContinueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4164245205DB43900658407 /* ContinueTableViewCell.swift */; };
 		C416424A205DB4E400658407 /* CustomLengthTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4164249205DB4E400658407 /* CustomLengthTableViewCell.swift */; };
 		C42BB5722041E08A00D7D4CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5712041E08A00D7D4CF /* AppDelegate.swift */; };
@@ -79,6 +81,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		25DD2E09C93BE5A41900772F /* Pods_RewinderUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RewinderUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D6AACD5A7A46A4BF762F548 /* Pods-RewinderUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RewinderUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RewinderUITests/Pods-RewinderUITests.release.xcconfig"; sourceTree = "<group>"; };
 		508EF42CFA841215B83D0775 /* Pods-Rewinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rewinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rewinder/Pods-Rewinder.debug.xcconfig"; sourceTree = "<group>"; };
 		5D249A0C20538AAE00B65029 /* HighlightsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightsViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +108,7 @@
 		6617F5124CB62670B78D2C7F /* Pods_Rewinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rewinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A43D9B070600BD68B44103 /* Pods-RewinderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RewinderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RewinderTests/Pods-RewinderTests.release.xcconfig"; sourceTree = "<group>"; };
 		AD248553DBF2FBF53F53FBD7 /* Pods-Rewinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rewinder.release.xcconfig"; path = "Pods/Target Support Files/Pods-Rewinder/Pods-Rewinder.release.xcconfig"; sourceTree = "<group>"; };
+		BFCEB7F1767B10CB3113ECC4 /* Pods_RewinderTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RewinderTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C121B3D043782CF7C15B913E /* Pods-RewinderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RewinderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RewinderTests/Pods-RewinderTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C4164245205DB43900658407 /* ContinueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinueTableViewCell.swift; sourceTree = "<group>"; };
 		C4164249205DB4E400658407 /* CustomLengthTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLengthTableViewCell.swift; sourceTree = "<group>"; };
@@ -145,6 +149,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A04DB03AF4B391843AB09F49 /* Pods_RewinderTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,6 +157,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92B73400500A4F6B022BFBC3 /* Pods_RewinderUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,6 +192,8 @@
 			isa = PBXGroup;
 			children = (
 				6617F5124CB62670B78D2C7F /* Pods_Rewinder.framework */,
+				BFCEB7F1767B10CB3113ECC4 /* Pods_RewinderTests.framework */,
+				25DD2E09C93BE5A41900772F /* Pods_RewinderUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -330,8 +338,6 @@
 				C42BB56A2041E08A00D7D4CF /* Sources */,
 				C42BB56B2041E08A00D7D4CF /* Frameworks */,
 				C42BB56C2041E08A00D7D4CF /* Resources */,
-				6D1AE6699D99A9F2F4D40404 /* [CP] Embed Pods Frameworks */,
-				AADEE0B68A79A3DD241AD848 /* [CP] Copy Pods Resources */,
 				5D249A1420538C0100B65029 /* Embed Frameworks */,
 			);
 			buildRules = (
@@ -351,8 +357,6 @@
 				C42BB5812041E08A00D7D4CF /* Sources */,
 				C42BB5822041E08A00D7D4CF /* Frameworks */,
 				C42BB5832041E08A00D7D4CF /* Resources */,
-				69EFCE3F97ECD89C14F90EED /* [CP] Embed Pods Frameworks */,
-				58C401A878929C9B19135C73 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -372,8 +376,6 @@
 				C42BB58C2041E08A00D7D4CF /* Sources */,
 				C42BB58D2041E08A00D7D4CF /* Frameworks */,
 				C42BB58E2041E08A00D7D4CF /* Resources */,
-				B14740D2CD89D71D3FE1A411 /* [CP] Embed Pods Frameworks */,
-				AF29DEFE065BBE7B24E9F390 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -392,7 +394,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Crossley Rozario";
 				TargetAttributes = {
 					C42BB56D2041E08A00D7D4CF = {
@@ -487,21 +489,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		58C401A878929C9B19135C73 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RewinderTests/Pods-RewinderTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		65BA0B67996B744A64CA292D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -520,39 +507,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		69EFCE3F97ECD89C14F90EED /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RewinderTests/Pods-RewinderTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6D1AE6699D99A9F2F4D40404 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Rewinder/Pods-Rewinder-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/DSWaveformImage/DSWaveformImage.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DSWaveformImage.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Rewinder/Pods-Rewinder-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		A3E17165CB6E5C58366378B0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -569,51 +523,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AADEE0B68A79A3DD241AD848 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Rewinder/Pods-Rewinder-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AF29DEFE065BBE7B24E9F390 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RewinderUITests/Pods-RewinderUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B14740D2CD89D71D3FE1A411 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RewinderUITests/Pods-RewinderUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -711,6 +620,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -718,6 +628,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -751,6 +662,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -768,6 +680,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -775,6 +688,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -800,6 +714,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
