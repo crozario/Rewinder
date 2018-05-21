@@ -24,8 +24,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         if let myView = view?.subviews.first as? UIScrollView {
             myView.canCancelContentTouches = false
         }
-        
-        
 
     }
     
