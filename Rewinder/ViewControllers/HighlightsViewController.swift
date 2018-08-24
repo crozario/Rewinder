@@ -429,7 +429,7 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 			let managedObj = element as! NSManagedObject
 			_ = appendTo2Darr(managedObject: managedObj)
 		}
-	}
+	} 
 	
 	func appendTo2Darr(managedObject: NSManagedObject) -> Bool {
 		
@@ -1023,13 +1023,17 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 		self.present(alert, animated: false)
 	}
 	
+	//*	Should wrap around exporMultipleHighlights(indexPaths: [IndexPath])
 	func exportHighlight(indexPath: IndexPath) {
-		let fileURL = self.getFileURL(from: self.getElementFromTwoDarr(indexPath: indexPath))
-		let activityItems = [fileURL]
-		let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
-		self.present(activityViewController, animated: true, completion: {
-			print("Export completed successfully")
-		})
+//		let fileURL = self.getFileURL(from: self.getElementFromTwoDarr(indexPath: indexPath))
+//		let activityItems = [fileURL]
+//		let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+//		self.present(activityViewController, animated: true, completion: {
+//			print("Export completed successfully")
+//		})
+		
+		let path_arr = [indexPath]
+		exportMultipleHighlights(indexPaths: path_arr)
 	}
 	
 	func exportMultipleHighlights(indexPaths: [IndexPath]) {
