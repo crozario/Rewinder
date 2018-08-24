@@ -5,6 +5,8 @@ target 'Rewinder' do
   
   # Pods for Rewinder
   pod 'AudioKit/UI', '~> 4.1'
+  pod 'GoogleAPIClientForREST/Drive', '~> 1.2.1'
+  pod 'GoogleSignIn', '~> 4.1.1'
 
   target 'RewinderTests' do
     inherit! :search_paths
