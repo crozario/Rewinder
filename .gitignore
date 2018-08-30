@@ -1,4 +1,5 @@
 Pods/*
+Pods/Target\ Support\ Files/*
 Podfile.lock
 AudioKit.framework/*
 AudioKitUI.framework/*
@@ -7,3 +8,4 @@ Rewinder.xcworkspace/xcuserdata/
 *.xcuserdatad
 /build/
 *.xccheckout
+Rewinder.xcodeproj/project.pbxproj
