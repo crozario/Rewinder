@@ -12,9 +12,11 @@ import CoreData
 import AVFoundation
 import AudioKit
 import CallKit
+import GoogleAPIClientForREST
+import GoogleSignIn
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 	
 	var window: UIWindow?
 	var audioPlayer: myPlayer?
@@ -28,6 +30,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	//	let settingFile: String = "highlightsettings.txt"
 	var settingsURL: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("highlightsettings.txt")
 	
+	// Mark: - Google stuff added
+	fileprivate let service = GTLRDriveService()
+	private func setupGoogleSignIn() {
+		GIDSignIn.sharedInstance().delegate = self as GIDSignInDelegate
+		GIDSignIn.sharedInstance().uiDelegate = self as! GIDSignInUIDelegate
+		GIDSignIn.sharedInstance().scopes = [kGTLRAuthScopeDriveFile]
+		GIDSignIn.sharedInstance().signInSilently()
+	}
+	
+	func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+		return GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApplication, annotation: annotation)
+	}
+	func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+		let sourceApplication = options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String
+		let annotation = options[UIApplicationOpenURLOptionsKey.annotation]
+		return GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApplication, annotation: annotation)
+	}
+	
+	//https://stackoverflow.com/a/42829231/7303112
+	//GIDSignInDelegate protocol methods
+//	func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+//
+//	}
+	func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+		if let _ = error {
+			service.authorizer = nil
+		} else {
+			service.authorizer = user.authentication.fetcherAuthorizer()
+		}
+	}
+//	func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+//
+//	}
+//
+//	func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+//
+//	}
 	
 	// MARK: - Main Application Actions
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -43,6 +82,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		NotificationCenter.default.addObserver(self, selector: #selector(self.handleSecondaryAudio(notification:)), name: .AVAudioSessionSilenceSecondaryAudioHint, object: nil) // FIXME: UNTESTED
 		
 		print("ON PHONE CALL: \(self.isOnPhoneCall())")
+		
+		GIDSignIn.sharedInstance().clientID = "1013009439972-tqssvh2483slkt0ahfj04df4s0prvp1o.apps.googleusercontent.com"
 		
 		return true
 	}
@@ -436,4 +477,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //	}
 	
 }
+
+// MARK: - GIDSignInDelegate
+//extension ViewController: GIDSignInDelegate {
+//	func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+//		if let _ = error {
+//			service.authorizer = nil
+//		} else {
+//			service.authorizer = user.authentication.fetcherAuthorizer()
+//		}
+//	}
+//}
+
 

@@ -45,10 +45,17 @@ class MainViewController: UIViewController,UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
     }
-    
-    
-    
 }
+
+//extension MainViewController: GIDSignInDelegate {
+//	func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+//		if let _ = error {
+//			service.authorizer = nil
+//		} else {
+//			service.authorizer = user.authentication.fetcherAuthorizer()
+//		}
+//	}
+//}
 
         
 
