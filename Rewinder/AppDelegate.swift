@@ -12,17 +12,18 @@ import CoreData
 import AVFoundation
 import AudioKit
 import CallKit
-import GoogleAPIClientForREST
-import GoogleSignIn
+//import GoogleAPIClientForREST
+//import GoogleSignIn
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
-	
+class AppDelegate: UIResponder, UIApplicationDelegate /*, GIDSignInDelegate*/ { //GOOGLE UNCOMMENT
+
 	var window: UIWindow?
 	var audioPlayer: myPlayer?
 	var audioRecorder: myRecorder?
 	var audioSession: AVAudioSession?
 	var home: HomeViewController?
+	var highlightsViewController: HighlightsViewController? // not using it yet (but is initialized from highlightsVC)
 	
 	var havePermission: Bool = false
 	var undeterminedPermission: Bool = false
@@ -30,7 +31,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 	//	let settingFile: String = "highlightsettings.txt"
 	var settingsURL: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("highlightsettings.txt")
 	
-	// Mark: - Google stuff added
+	// MARK: - Google stuff added
+	//GOOGLE UNCOMMENT
+	/*
 	fileprivate let service = GTLRDriveService()
 	private func setupGoogleSignIn() {
 		GIDSignIn.sharedInstance().delegate = self as GIDSignInDelegate
@@ -49,10 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 	}
 	
 	//https://stackoverflow.com/a/42829231/7303112
-	//GIDSignInDelegate protocol methods
-//	func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-//
-//	}
+	//GIDSignInDelegate protocol method
 	func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
 		if let _ = error {
 			service.authorizer = nil
@@ -60,13 +60,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 			service.authorizer = user.authentication.fetcherAuthorizer()
 		}
 	}
+	// advised to implement on stackoverflow ^
 //	func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
 //
 //	}
-//
-//	func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-//
-//	}
+	*/
 	
 	// MARK: - Main Application Actions
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -83,7 +81,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
 		
 		print("ON PHONE CALL: \(self.isOnPhoneCall())")
 		
-		GIDSignIn.sharedInstance().clientID = "1013009439972-tqssvh2483slkt0ahfj04df4s0prvp1o.apps.googleusercontent.com"
+		//GOOGLE UNCOMMENT
+//		GIDSignIn.sharedInstance().clientID = "1013009439972-tqssvh2483slkt0ahfj04df4s0prvp1o.apps.googleusercontent.com"
 		
 		return true
 	}

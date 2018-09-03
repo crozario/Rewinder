@@ -19,8 +19,7 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	var highlightsURL: URL!
     var audioPlayer: myPlayer?
     var currSelected: Int?
-	let fileExtension: String = "caf"
-    
+	let fileExtension: String = ".caf"
     
     private let navBar: UIView = {
         let nav = UIView()
@@ -86,6 +85,8 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	let attribute_fileName: String = "fileName"
 	let attribute_title: String = "title"
 	
+	let appdelegate = UIApplication.shared.delegate as! AppDelegate
+	
 //    @IBAction func dismissHighlightVC(_ sender: RoundButton) {
 //        self.dismiss(animated: true, completion: nil)
 //    }
@@ -141,8 +142,53 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		
 		infoButton.addTarget(self, action: #selector(infoButtonClicked), for: .touchUpInside)
 		
+		appdelegate.highlightsViewController = self
+		
 		viewPresented = true
+		
+		printHighlightsDirectory()
+		printHighlightsDatabase()
     }
+	
+	func printHighlightsDatabase() {
+		let managedobj_list = self.getHighlightsList()
+		print("-----------------PRINTING highlights/ database content:-----------------")
+		for element in managedobj_list {
+			let obj = element as! NSManagedObject
+			let title = obj.value(forKey: attribute_title) as! String
+			let filename = obj.value(forKey: attribute_fileName) as! String
+			print("Title: \(title).... FileName: \(filename)")
+		}
+	}
+	
+	func printHighlightsDirectory() {
+		print("-----------------PRINTING highlights/ directory content:-----------------")
+		do {
+			let filelist = try filemgr.contentsOfDirectory(atPath: highlightsURL.path)
+			for filename in filelist {
+				print(filename)
+			}
+		} catch let error {
+			print("Error: \(error.localizedDescription)")
+		}
+	}
+	
+	/*
+	Need to delete highlights from highlightsURL folder
+	@param titles : list of highlight names without file .caf extension
+	*/
+	func deleteHighlightsFromFilesystem(titles: [String]) {
+		for title in titles {
+			let fileurl = getFileURL(title: title)
+			if filemgr.fileExists(atPath: fileurl.path) {
+				do {
+					try filemgr.removeItem(at: fileurl)
+				} catch let error {
+					print("Error: \(error.localizedDescription)")
+				}
+			}
+		}
+	}
 	
 	var playerView: HighlightPlayerView = HighlightPlayerView()
 	func initializeHighlightPlayerView() {
@@ -412,6 +458,9 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		return results
 	}
 	
+	/*
+	Was used previously to populate the 1D 'arr' data array for tableview
+	*/
 	func getHighlightTitles() -> [String]{
 		let results = self.getHighlightsList()
 		var titles = [String]()
@@ -512,6 +561,8 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		let highlightManagedObject = getHighlightManagedObject(title: title)
 		let fileName = highlightManagedObject.value(forKey: attribute_fileName) as! String
 		return fileName
+		// not yet
+//		return (title + fileExtension)
 	}
 	
 	func highlightTitleExists(title: String) -> Bool {
@@ -522,31 +573,41 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		return false
 	}
 	
+	/*
+	Look for highlight file in the file system
+	1. get the file URL from database
+	2. check in filesystem
+	*/
+	func highlightFileExists(url: URL) -> Bool {
+		if filemgr.fileExists(atPath: url.path) {
+			return true
+		}
+		
+		// did not find highlight
+		return false
+	}
+	
 	func getHighlightDuration(title: String) -> Double {
 		let highlightManagedObject = getHighlightManagedObject(title: title)
 		let duration: Double = highlightManagedObject.value(forKey: attribute_duration) as! Double
 		return duration
 	}
 	
-	func getFileURL(from title: String) -> URL {
+	func getFileURL(title: String) -> URL {
 		let fileName = getHighlightFilename(title: title)
 		let url = highlightsURL.appendingPathComponent(fileName)
 		return url
 	}
 	
-	// MARK: - Delete highlight
+	// MARK: - Delete and rename highlight
+	/*
+	Deletes highlight from from filesystem and from datbase
+	*/
 	func removeHighlightDatabaseAndFileSystem(title: String) throws -> Bool {
 		let managedObj = self.getHighlightManagedObject(title: title)
 		
 		// remove in filesystem
-		let file = managedObj.value(forKey: attribute_fileName) as! String
-		let url = self.highlightsURL.appendingPathComponent(file)
-		if self.filemgr.fileExists(atPath: url.path) {
-			try self.filemgr.removeItem(at: url)
-		} else {
-			print("File \(title).caf not found in filesystem")
-			return false
-		}
+		deleteHighlightsFromFilesystem(titles: [title])
 		
 		// remove in database
 		self.context.delete(managedObj)
@@ -554,6 +615,71 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		
 		// deletion complete successfully
 		return true
+	}
+	
+	/*
+	First renames file in filesystem
+	Then renames file in database and changes attribute 'title' and 'fileName'
+	*/
+	func renameHighlightDatabaseAndFileSystem(oldTitle: String, newTitle: String) -> Bool {
+		print("BEFORE")
+		printHighlightsDirectory()
+		printHighlightsDatabase()
+		
+		//	add extension
+		let oldFile: String = getHighlightFilename(title: oldTitle)			// add extension
+//		let newFile: String = getHighlightFilename(title: newTitle)			// add extension
+		let newFile: String = newTitle + ".caf"
+		//	get url
+		let oldPath: String = getHighlightURL(fileName: oldFile).path		// get path
+		let newPath: String = getHighlightURL(fileName: newFile).path		// get path
+		
+		//*	Rename file in filesystem
+		//	make sure file exists
+		if !filemgr.fileExists(atPath: oldPath) {
+			print("Error: File could not be renamed because it does not exist.")
+			return false
+		}
+		//	now rename
+		do {
+			try filemgr.moveItem(atPath: oldPath, toPath: newPath)
+			print("SUCCESSFUL: rename in filesystem.")
+		} catch let error {
+			print("Error: \(error.localizedDescription)")
+			return false
+		}
+		
+		//*	Rename filename and title in database
+		let managedObj = getHighlightManagedObject(title: oldTitle)	// get database handle
+		managedObj.setValue(newFile, forKey: attribute_fileName)
+		managedObj.setValue(newTitle, forKey: attribute_title)
+		do {
+			try context.save()
+		} catch let error {
+			print("ERROR: \(error.localizedDescription)")
+		}
+		
+		print("AFTER")
+		printHighlightsDirectory()
+		printHighlightsDatabase()
+		
+		// renamed successfully
+		return true
+	}
+	
+	/*
+	Adds .caf extension to a file
+	*/
+	func getFileName(title: String) -> String {
+		return (title + fileExtension)
+	}
+	
+	/*
+	returns highlight file url
+	uses global highlight url and appends filename string
+	*/
+	func getHighlightURL(fileName: String) -> URL {
+		return self.highlightsURL.appendingPathComponent(fileName)
 	}
 	
 	// MARK: - headphone notifications
@@ -652,12 +778,14 @@ extension HighlightsViewController: HighlightPlayerDelegate {
 		}
 		else {
 			if let path = self.playerView.indexPath {
-				setupPlayer(indexPath: path)
-				let result = audioPlayer?.play()
-				if result != nil, result! {
-					tableView.selectRow(at: path, animated: true, scrollPosition: .top)
+				let setup_success = setupPlayer(indexPath: path)
+				if setup_success {
+					let result = audioPlayer?.play()
+					if result != nil, result! {
+						tableView.selectRow(at: path, animated: true, scrollPosition: .top)
+					}
+					print(self.getElementFromTwoDarr(indexPath: path) + ": " + (audioPlayer?.duration.description)!)
 				}
-				print(self.getElementFromTwoDarr(indexPath: path) + ": " + (audioPlayer?.duration.description)!)
 			}
 		}
 	}
@@ -735,7 +863,13 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 				print("did not need to create view")
 			}
 			
-			setupPlayer(indexPath: indexPath)
+			let setup_success = setupPlayer(indexPath: indexPath)
+			if !setup_success { // could not setup player properly
+				// deselect cell
+				tableView.deselectRow(at: indexPath, animated: true)
+				return
+			}
+			
 			_ = audioPlayer?.play()
 			if AVAudioSession.sharedInstance().isOtherAudioPlaying {
 				print("other audio is playing")
@@ -773,9 +907,15 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 		}
 	}
 	
-	func setupPlayer(indexPath: IndexPath) {
+	func setupPlayer(indexPath: IndexPath) -> Bool{
 		let highlightTitle = getElementFromTwoDarr(indexPath: indexPath)
-		let url = highlightsURL.appendingPathComponent(self.getHighlightFilename(title: highlightTitle))
+		print("Title: \(highlightTitle)")
+		print("FileName: \(self.getHighlightFilename(title: highlightTitle))")
+//		let url = highlightsURL.appendingPathComponent(self.getHighlightFilename(title: highlightTitle))
+		let url = getFileURL(title: highlightTitle)
+		if !highlightFileExists(url: url) {
+			return false
+		}
 		do {
 			try audioPlayer = myPlayer(contentsOf: url)
 			audioPlayer?.highlightPlayerView = playerView
@@ -787,10 +927,15 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 		} catch let error as NSError {
 			print("audioPlayer error \(error.localizedDescription)")
 		}
+		
+		// player setup successfully
+		return true
 	}
 	
+	// FIXME: why do we need this?
+	//	I think this was an attempt to setup player from a Cell class that knows title but not indexPath
 	func setupPlayerFromTitle(title: String, cellRef: NormalHighlightCell) {
-		let url = highlightsURL.appendingPathComponent(self.getHighlightFilename(title: title))
+		let url = getFileURL(title: title)
 		do {
 			try audioPlayer = myPlayer(contentsOf: url)
 //			audioPlayer?.cell = cellRef
@@ -1002,17 +1147,30 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 				alreadyExistsAlert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
 				self.present(alreadyExistsAlert, animated: true)
 			} else {
-				let managedObj = self.getHighlightManagedObject(title: oldName)
-				managedObj.setValue(newName, forKey: self.attribute_title)
+//				let managedObj = self.getHighlightManagedObject(title: oldName)
+//				managedObj.setValue(newName, forKey: self.attribute_title)
+//				let fileName = newName + fileExtension
+//				managedObj.setValue(fileName, forKey: self.attribute_fileName)
 				do {
 					try self.context.save()
-					//		self.arr[indexPath.row] = newName
-					self.setElementOfTwoDarr(indexPath: indexPath, title: newName)
-					self.tableView.reloadRows(at: [indexPath], with: .fade)
+					// FIRST: Rename on filesystem and databse
+					let success = self.renameHighlightDatabaseAndFileSystem(oldTitle: oldName, newTitle: newName)
 					
-					//	also change on playerview
-					if self.playerView.title == oldName {
-						self.playerView.title = newName
+					if success {
+						//	rename on twoDarr
+						self.setElementOfTwoDarr(indexPath: indexPath, title: newName)
+						//	update tableview
+						self.tableView.reloadRows(at: [indexPath], with: .fade)
+						
+						//	also change on playerview
+						if self.playerView.title == oldName {
+							self.playerView.title = newName
+						}
+					}
+					else {	// show alert error
+						let renameErrorAlert = UIAlertController(title: "Rename Error", message: "Highlight coud not be renamed.", preferredStyle: .alert)
+						renameErrorAlert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
+						self.present(renameErrorAlert, animated: true)
 					}
 				} catch let error {
 					print(error.localizedDescription)
@@ -1025,13 +1183,6 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 	
 	//*	Should wrap around exporMultipleHighlights(indexPaths: [IndexPath])
 	func exportHighlight(indexPath: IndexPath) {
-//		let fileURL = self.getFileURL(from: self.getElementFromTwoDarr(indexPath: indexPath))
-//		let activityItems = [fileURL]
-//		let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
-//		self.present(activityViewController, animated: true, completion: {
-//			print("Export completed successfully")
-//		})
-		
 		let path_arr = [indexPath]
 		exportMultipleHighlights(indexPaths: path_arr)
 	}
@@ -1040,7 +1191,7 @@ extension HighlightsViewController: UITableViewDelegate, UITableViewDataSource {
 		if indexPaths.count > 0 {
 			var activityItems: [URL] = []
 			for path in indexPaths {
-				let fileURL = self.getFileURL(from: self.getElementFromTwoDarr(indexPath: path))
+				let fileURL = self.getFileURL(title: self.getElementFromTwoDarr(indexPath: path))
 				activityItems.append(fileURL)
 			}
 			let activityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
@@ -1152,6 +1303,20 @@ class myPlayer: AVAudioPlayer {
 		}
 	}
 }
+
+//import GoogleAPIClientForREST
+//import GoogleSignIn
+//
+//extension HighlightsViewController: GIDSignInDelegate {
+//	func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+//		let service = (UIApplication.shared.delegate as! AppDelegate)
+//		if let _ = error {
+//			service.authorizer = nil
+//		} else {
+//			service.authorizer = user.authentication.fetcherAuthorizer()
+//		}
+//	}
+//}
 
 
 
