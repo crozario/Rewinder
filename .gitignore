@@ -8,4 +8,4 @@ Rewinder.xcworkspace/xcuserdata/
 *.xcuserdatad
 /build/
 *.xccheckout
-Rewinder.xcodeproj/project.pbxproj
+# Rewinder.xcodeproj/project.pbxproj
