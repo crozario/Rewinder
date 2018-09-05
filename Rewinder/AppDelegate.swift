@@ -12,8 +12,9 @@ import CoreData
 import AVFoundation
 import AudioKit
 import CallKit
-//import GoogleAPIClientForREST
+import GoogleAPIClientForREST
 //import GoogleSignIn
+import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate /*, GIDSignInDelegate*/ { //GOOGLE UNCOMMENT

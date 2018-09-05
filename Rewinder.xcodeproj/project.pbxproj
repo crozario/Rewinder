@@ -40,6 +40,7 @@
 		C42BB57F2041E08A00D7D4CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42BB57D2041E08A00D7D4CF /* LaunchScreen.storyboard */; };
 		C42BB58A2041E08A00D7D4CF /* RewinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5892041E08A00D7D4CF /* RewinderTests.swift */; };
 		C42BB5952041E08A00D7D4CF /* RewinderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BB5942041E08A00D7D4CF /* RewinderUITests.swift */; };
+		C451476621404A5600DF868F /* GoogleAPIClientForREST.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C451476721404A5600DF868F /* GoogleAPIClientForREST.framework */; };
 		C452530520428768000808A8 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C452530420428768000808A8 /* PageViewController.swift */; };
 		C46D16B92042002600B1224D /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46D16B82042002600B1224D /* RoundButton.swift */; };
 		C46E2BDA2042138C001BE43A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C46E2BD92042138C001BE43A /* Assets.xcassets */; };
@@ -127,6 +128,7 @@
 		C42BB5902041E08A00D7D4CF /* RewinderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RewinderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42BB5942041E08A00D7D4CF /* RewinderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewinderUITests.swift; sourceTree = "<group>"; };
 		C42BB5962041E08A00D7D4CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C451476721404A5600DF868F /* GoogleAPIClientForREST.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GoogleAPIClientForREST.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C452530420428768000808A8 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		C46D16B82042002600B1224D /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		C46E2BD92042138C001BE43A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C451476621404A5600DF868F /* GoogleAPIClientForREST.framework in Frameworks */,
 				5D5E9442213908FE001C052D /* SystemConfiguration.framework in Frameworks */,
 				5D5E9440213908F0001C052D /* Security.framework in Frameworks */,
 				1358215CE5A809C2E23134EA /* Pods_Rewinder.framework in Frameworks */,
@@ -197,6 +200,7 @@
 		8BB8E98B965539DFA942F224 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C451476721404A5600DF868F /* GoogleAPIClientForREST.framework */,
 				5D5E9441213908FE001C052D /* SystemConfiguration.framework */,
 				5D5E943F213908F0001C052D /* Security.framework */,
 				6617F5124CB62670B78D2C7F /* Pods_Rewinder.framework */,
@@ -367,6 +371,8 @@
 				C42BB5812041E08A00D7D4CF /* Sources */,
 				C42BB5822041E08A00D7D4CF /* Frameworks */,
 				C42BB5832041E08A00D7D4CF /* Resources */,
+				E14D4AFB56CD582DA5DE5352 /* [CP] Embed Pods Frameworks */,
+				82BEAC4364FB9A2C33B00120 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -386,6 +392,8 @@
 				C42BB58C2041E08A00D7D4CF /* Sources */,
 				C42BB58D2041E08A00D7D4CF /* Frameworks */,
 				C42BB58E2041E08A00D7D4CF /* Resources */,
+				2D063B545B2476D4B67AC553 /* [CP] Embed Pods Frameworks */,
+				A21FABBED5F40F8DD46A3A2D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -500,6 +508,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		2D063B545B2476D4B67AC553 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RewinderUITests/Pods-RewinderUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		65BA0B67996B744A64CA292D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -516,6 +539,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		82BEAC4364FB9A2C33B00120 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RewinderTests/Pods-RewinderTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A21FABBED5F40F8DD46A3A2D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RewinderUITests/Pods-RewinderUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A3E17165CB6E5C58366378B0 /* [CP] Check Pods Manifest.lock */ = {
@@ -576,6 +629,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Rewinder/Pods-Rewinder-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E14D4AFB56CD582DA5DE5352 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RewinderTests/Pods-RewinderTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

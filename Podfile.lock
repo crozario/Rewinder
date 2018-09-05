@@ -6,18 +6,18 @@ PODS:
     - GoogleAPIClientForREST/Core
     - GTMSessionFetcher (>= 1.1.7)
   - GoogleSignIn (4.1.2):
-    - "GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)"
-    - "GoogleToolboxForMac/NSString+URLArguments (~> 2.1)"
+    - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
+    - GoogleToolboxForMac/NSString+URLArguments (~> 2.1)
     - GTMOAuth2 (~> 1.0)
     - GTMSessionFetcher/Core (~> 1.1)
   - GoogleToolboxForMac/DebugUtils (2.1.4):
     - GoogleToolboxForMac/Defines (= 2.1.4)
   - GoogleToolboxForMac/Defines (2.1.4)
-  - "GoogleToolboxForMac/NSDictionary+URLArguments (2.1.4)":
+  - GoogleToolboxForMac/NSDictionary+URLArguments (2.1.4):
     - GoogleToolboxForMac/DebugUtils (= 2.1.4)
     - GoogleToolboxForMac/Defines (= 2.1.4)
-    - "GoogleToolboxForMac/NSString+URLArguments (= 2.1.4)"
-  - "GoogleToolboxForMac/NSString+URLArguments (2.1.4)"
+    - GoogleToolboxForMac/NSString+URLArguments (= 2.1.4)
+  - GoogleToolboxForMac/NSString+URLArguments (2.1.4)
   - GTMOAuth2 (1.1.6):
     - GTMSessionFetcher (~> 1.1)
   - GTMSessionFetcher (1.2.0):
@@ -31,15 +31,6 @@ DEPENDENCIES:
   - GoogleAPIClientForREST/Drive (~> 1.2.1)
   - GoogleSignIn (~> 4.1.1)
 
-SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - AudioKit
-    - GoogleAPIClientForREST
-    - GoogleSignIn
-    - GoogleToolboxForMac
-    - GTMOAuth2
-    - GTMSessionFetcher
-
 SPEC CHECKSUMS:
   AudioKit: 0bb2b3e61e4ac908fe576ad7a1d89c597156bb47
   GoogleAPIClientForREST: a8b95a252014ce2e618df6b75dc72eca2c00b4af
@@ -50,4 +41,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 43c21edd6d4e5cb1aee394d2de262b6ed9db36b0
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.4.0
