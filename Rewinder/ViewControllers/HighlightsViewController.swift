@@ -20,26 +20,19 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
     var audioPlayer: myPlayer?
     var currSelected: Int?
 	let fileExtension: String = ".caf"
-    
+	let attribute_dateandtime: String = "dateandtime"
+	let attribute_duration: String = "duration"
+	let attribute_fileName: String = "fileName"
+	let attribute_title: String = "title"
+	var viewPresented: Bool!									// How is this used?
+	let context: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+	let appdelegate = UIApplication.shared.delegate as! AppDelegate
+	
+	// MARK: GUI Stuff on HighlightsVC
     private let navBar: UIView = {
         let nav = UIView()
-//        let titleItem = UILabel()
-//        nav.addSubview(titleItem)
-//        titleItem.text = "Highlights"
-//        titleItem.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
-//        titleItem.textColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
-//        titleItem.translatesAutoresizingMaskIntoConstraints = false
-//        titleItem.centerXAnchor.constraint(equalTo: nav.centerXAnchor).isActive = true
-//        titleItem.bottomAnchor.constraint(equalTo: nav.bottomAnchor, constant: -20).isActive = true
-		
-//		let selectButton = UIButton()
-//		nav.addSubview(selectButton)
-//		selectButton.setTitle("Select", for: .normal)
-//		selectButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Bold", size: 16)
-//		selectButton.setTitleColor(UIColor.white, for: .normal)
-//		selectButton.rightAnchor.constraint(equalTo: nav.rightAnchor).isActive = true
-//		selectButton.bottomAnchor.constraint(equalTo: nav.bottomAnchor, constant: -20).isActive = true
-		
+//		navBar.layer.shadowOpacity = 1
+//		navBar.layer.shadowRadius = 5
         return nav
     }()
 	
@@ -73,29 +66,16 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		return button
 	}()
 	
-	var viewPresented: Bool!
-	
-//    @IBOutlet weak var dismissHighlightPageButton: RoundButton!
     @IBOutlet weak var tableView: UITableView!
 	
-	let context: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+	var highlightsModel: Highlights!
 	
-	let attribute_dateandtime: String = "dateandtime"
-	let attribute_duration: String = "duration"
-	let attribute_fileName: String = "fileName"
-	let attribute_title: String = "title"
-	
-	let appdelegate = UIApplication.shared.delegate as! AppDelegate
-	
-//    @IBAction func dismissHighlightVC(_ sender: RoundButton) {
-//        self.dismiss(animated: true, completion: nil)
-//    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(navBar)
-        setupNavBarConstraints()
-        setupTableViewConstraints()
+		view.addSubview(navBar)
+		setupNavBarConstraints()
+		setupTableViewConstraints()
 		navBar.addSubview(titleItem)
 		setupTitleItemConstraints()
 		navBar.addSubview(selectButton)
@@ -103,11 +83,8 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		navBar.addSubview(infoButton)
 		setupInfoButtonContraints()
 		
-        tableView.backgroundColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
-        navBar.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
-        
-//        navBar.layer.shadowOpacity = 1
-//        navBar.layer.shadowRadius = 5
+		tableView.backgroundColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
+		navBar.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
 
         audioPlayer?.delegate = self
 		
@@ -124,7 +101,7 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		
 		// populate data array (arr) for the first time
 //		arr = self.getHighlightTitles()
-		
+		highlightsModel = Highlights()
 		self.getHighlightTitlesTwoD()
 		
 		// create observers
@@ -146,8 +123,8 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		
 		viewPresented = true
 		
-		printHighlightsDirectory()
-		printHighlightsDatabase()
+//		printHighlightsDirectory()
+//		printHighlightsDatabase()
     }
 	
 	func printHighlightsDatabase() {
@@ -200,54 +177,6 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		playerView.delegate = self
 		setupHighlightPlayerViewConstraints()
 	}
-	func setupHighlightPlayerViewConstraints() {
-		playerView.titleLabel.textColor = UIColor.white
-		let player = playerView.contentView!
-//		player.backgroundColor = Settings.appThemeColor
-		player.translatesAutoresizingMaskIntoConstraints = false
-		player.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//		player.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 5).isActive = true
-//		player.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -5).isActive = true
-		player.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -10).isActive = true
-		player.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -35).isActive = true
-//		player.heightAnchor.constraint(equalToConstant: player.frame.height).isActive = true
-		player.heightAnchor.constraint(equalToConstant: player.bounds.height).isActive = true
-	}
-	
-    func setupNavBarConstraints() {
-        navBar.translatesAutoresizingMaskIntoConstraints = false
-        navBar.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        navBar.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        navBar.heightAnchor.constraint(equalToConstant: 80).isActive = true
-        navBar.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-    }
-	
-	func setupTitleItemConstraints() {
-		titleItem.translatesAutoresizingMaskIntoConstraints = false
-		titleItem.centerXAnchor.constraint(equalTo: navBar.centerXAnchor).isActive = true
-		titleItem.bottomAnchor.constraint(equalTo: navBar.bottomAnchor, constant: -20).isActive = true
-	}
-	
-	func setupSelectButtonConstraints() {
-		selectButton.translatesAutoresizingMaskIntoConstraints = false
-		selectButton.rightAnchor.constraint(equalTo: navBar.rightAnchor, constant: -10).isActive = true
-//		selectButton.bottomAnchor.constraint(equalTo: navBar.bottomAnchor, constant: -16).isActive = true
-		selectButton.centerYAnchor.constraint(equalTo: titleItem.centerYAnchor, constant: 0).isActive = true
-	}
-	
-	func setupInfoButtonContraints() {
-		infoButton.translatesAutoresizingMaskIntoConstraints = false
-		infoButton.leftAnchor.constraint(equalTo: navBar.leftAnchor, constant: 10).isActive = true
-		infoButton.centerYAnchor.constraint(equalTo: titleItem.centerYAnchor, constant: 5).isActive = true
-	}
-    
-    func setupTableViewConstraints() {
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: navBar.bottomAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-    }
 	
 //    @IBAction func backButton(_ sender: UIButton) {
 //       performSegue(withIdentifier: "homeSegue", sender: self)
@@ -573,11 +502,11 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		return false
 	}
 	
-	/*
+	/**
 	Look for highlight file in the file system
-	1. get the file URL from database
-	2. check in filesystem
-	*/
+	- parameters:
+		- url: url of file in filesystem
+	**/
 	func highlightFileExists(url: URL) -> Bool {
 		if filemgr.fileExists(atPath: url.path) {
 			return true
@@ -751,18 +680,71 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 	}
 	
 	func getElementFromTwoDarr(indexPath: IndexPath) -> String {
-		return twoDarr[indexPath.section][indexPath.row + 1]
+//		return twoDarr[indexPath.section][indexPath.row + 1]
+		return highlightsModel.getHighlightTitle(indexPath: indexPath)
 	}
 	
 	func setElementOfTwoDarr(indexPath: IndexPath, title: String) {
-		twoDarr[indexPath.section][indexPath.row + 1] = title
+//		twoDarr[indexPath.section][indexPath.row + 1] = title
+		highlightsModel.setHighlightTitle(indexPath: indexPath, title: title)
 	}
 	
 	func removeElementOfTwoDarr(indexPath: IndexPath) {
-		twoDarr[indexPath.section].remove(at: indexPath.row + 1)
+//		twoDarr[indexPath.section].remove(at: indexPath.row + 1)
+		highlightsModel.removeHighlightTitle(indexPath: indexPath)
 	}
 	
-	// used inside extension
+	// MARK: setting up constraints
+	func setupHighlightPlayerViewConstraints() {
+		playerView.titleLabel.textColor = UIColor.white
+		let player = playerView.contentView!
+		//		player.backgroundColor = Settings.appThemeColor
+		player.translatesAutoresizingMaskIntoConstraints = false
+		player.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+		//		player.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 5).isActive = true
+		//		player.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -5).isActive = true
+		player.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -10).isActive = true
+		player.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -35).isActive = true
+		//		player.heightAnchor.constraint(equalToConstant: player.frame.height).isActive = true
+		player.heightAnchor.constraint(equalToConstant: player.bounds.height).isActive = true
+	}
+	
+	func setupNavBarConstraints() {
+		navBar.translatesAutoresizingMaskIntoConstraints = false
+		navBar.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+		navBar.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+		navBar.heightAnchor.constraint(equalToConstant: 80).isActive = true
+		navBar.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+	}
+	
+	func setupTitleItemConstraints() {
+		titleItem.translatesAutoresizingMaskIntoConstraints = false
+		titleItem.centerXAnchor.constraint(equalTo: navBar.centerXAnchor).isActive = true
+		titleItem.bottomAnchor.constraint(equalTo: navBar.bottomAnchor, constant: -20).isActive = true
+	}
+	
+	func setupSelectButtonConstraints() {
+		selectButton.translatesAutoresizingMaskIntoConstraints = false
+		selectButton.rightAnchor.constraint(equalTo: navBar.rightAnchor, constant: -10).isActive = true
+		//		selectButton.bottomAnchor.constraint(equalTo: navBar.bottomAnchor, constant: -16).isActive = true
+		selectButton.centerYAnchor.constraint(equalTo: titleItem.centerYAnchor, constant: 0).isActive = true
+	}
+	
+	func setupInfoButtonContraints() {
+		infoButton.translatesAutoresizingMaskIntoConstraints = false
+		infoButton.leftAnchor.constraint(equalTo: navBar.leftAnchor, constant: 10).isActive = true
+		infoButton.centerYAnchor.constraint(equalTo: titleItem.centerYAnchor, constant: 5).isActive = true
+	}
+	
+	func setupTableViewConstraints() {
+		tableView.translatesAutoresizingMaskIntoConstraints = false
+		tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+		tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+		tableView.topAnchor.constraint(equalTo: navBar.bottomAnchor).isActive = true
+		tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+	}
+	
+	// MARK: initialize variables for extensions
 	var prevPath: IndexPath?
 	var prevCell: NormalHighlightCell?
 	

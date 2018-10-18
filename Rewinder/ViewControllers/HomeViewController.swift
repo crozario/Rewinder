@@ -229,12 +229,12 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	func setRollingPlotNotRecordingColor() {
 		self.rollingPlot.color = Settings.appThemeColor
 	}
-//	func setRollingPlotHistory(seconds: Double) {
-//		guard rollingPlot != nil else { return }
-//
-//		let newHistory = seconds * scalePerSecond
-//		rollingPlot.setRollingHistoryLength(Int32(newHistory))
-//	}
+	func setRollingPlotHistory(seconds: Double) {
+		guard rollingPlot != nil else { return }
+
+		let newHistory = seconds * scalePerSecond
+		rollingPlot.setRollingHistoryLength(Int32(newHistory))
+	}
 //	func doublePlotHistory() {
 //		guard rollingPlot != nil else { return }
 //
@@ -410,6 +410,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 //		rollingPlot.layer.cornerRadius = 20
 		
 //		setRollingPlotHistory(seconds: Settings.getRecordingDuration())
+		setRollingPlotHistory(seconds: 3.0)
 	}
 	
 	var rollingPlotHalfWidthConstraint: NSLayoutConstraint?
@@ -674,15 +675,16 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	func createRollingPlot(_ inputNode: AKNode) -> AKNodeOutputPlot {
 		let frame: CGRect = plotView.frame
 		let rplot = AKNodeOutputPlot(inputNode, frame: frame)
-		rplot.plotType = .buffer
-		rplot.shouldFill = false
-		rplot.shouldMirror = false
+//		rplot.plotType = .buffer
+		rplot.plotType = .rolling
+		rplot.shouldFill = true
+		rplot.shouldMirror = true
 		rplot.color = UIColorFromRGB(rgbValue: 0x0278AE)
 		//Blue theme
 		//        rplot.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
 		rplot.backgroundColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
 		
-		rplot.gain = 1
+		rplot.gain = 2.5
 		
 		return rplot
 	}

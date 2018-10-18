@@ -29,6 +29,7 @@
 		5DD19C53207974320062A256 /* MultipleEditsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD19C52207974320062A256 /* MultipleEditsView.swift */; };
 		5DD19C552079EF5B0062A256 /* InPhoneCallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD19C542079EF5B0062A256 /* InPhoneCallViewController.swift */; };
 		5DD7D5A8206DE58100D431C9 /* DeniedPermissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DD7D5A7206DE58100D431C9 /* DeniedPermissionViewController.swift */; };
+		5DDC0D13215456750025E766 /* Highlights.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDC0D12215456750025E766 /* Highlights.swift */; };
 		5DE1BC4E205FB6E90023BACC /* ExpandedHighlightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE1BC4D205FB6E90023BACC /* ExpandedHighlightCell.swift */; };
 		5DF98003205C481300579F45 /* NormalHighlightCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF98002205C481300579F45 /* NormalHighlightCell.swift */; };
 		92B73400500A4F6B022BFBC3 /* Pods_RewinderUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25DD2E09C93BE5A41900772F /* Pods_RewinderUITests.framework */; };
@@ -107,6 +108,7 @@
 		5DD19C52207974320062A256 /* MultipleEditsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleEditsView.swift; sourceTree = "<group>"; };
 		5DD19C542079EF5B0062A256 /* InPhoneCallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InPhoneCallViewController.swift; sourceTree = "<group>"; };
 		5DD7D5A7206DE58100D431C9 /* DeniedPermissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeniedPermissionViewController.swift; sourceTree = "<group>"; };
+		5DDC0D12215456750025E766 /* Highlights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Highlights.swift; sourceTree = "<group>"; };
 		5DE1BC4D205FB6E90023BACC /* ExpandedHighlightCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandedHighlightCell.swift; sourceTree = "<group>"; };
 		5DF98002205C481300579F45 /* NormalHighlightCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalHighlightCell.swift; sourceTree = "<group>"; };
 		6617F5124CB62670B78D2C7F /* Pods_Rewinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Rewinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -322,6 +324,7 @@
 			children = (
 				5D8102A620424A7C00F62B37 /* Audio.swift */,
 				C4E987EA205C9306008FC728 /* Settings.swift */,
+				5DDC0D12215456750025E766 /* Highlights.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -596,6 +599,7 @@
 				5DD19C552079EF5B0062A256 /* InPhoneCallViewController.swift in Sources */,
 				5D7F3D562082D2C000F9D7F1 /* ExpandInfoViewController.swift in Sources */,
 				5D79EFE4204F1599008DBC65 /* HighlightEntity+CoreDataProperties.swift in Sources */,
+				5DDC0D13215456750025E766 /* Highlights.swift in Sources */,
 				C4C5FFC92062F0AE00A9EA1B /* MainViewController.swift in Sources */,
 				5D7F3D582082D2E900F9D7F1 /* BackgroundInfoViewController.swift in Sources */,
 				5DD7D5A8206DE58100D431C9 /* DeniedPermissionViewController.swift in Sources */,
