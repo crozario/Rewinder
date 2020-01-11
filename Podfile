@@ -1,10 +1,10 @@
-platform :ios, '9.0'
+platform :ios, '11.0'
 
 target 'Rewinder' do
   use_frameworks!
   
   # Pods for Rewinder
-  pod 'AudioKit/UI', '~> 4.1'
+  pod 'AudioKit/UI', '~> 4.8'
   pod 'GoogleAPIClientForREST/Drive', '~> 1.2.1'
   pod 'GoogleSignIn', '~> 4.1.1'
 

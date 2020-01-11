@@ -371,8 +371,6 @@
 				C42BB5812041E08A00D7D4CF /* Sources */,
 				C42BB5822041E08A00D7D4CF /* Frameworks */,
 				C42BB5832041E08A00D7D4CF /* Resources */,
-				E14D4AFB56CD582DA5DE5352 /* [CP] Embed Pods Frameworks */,
-				82BEAC4364FB9A2C33B00120 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -392,8 +390,6 @@
 				C42BB58C2041E08A00D7D4CF /* Sources */,
 				C42BB58D2041E08A00D7D4CF /* Frameworks */,
 				C42BB58E2041E08A00D7D4CF /* Resources */,
-				2D063B545B2476D4B67AC553 /* [CP] Embed Pods Frameworks */,
-				A21FABBED5F40F8DD46A3A2D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -508,21 +504,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2D063B545B2476D4B67AC553 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RewinderUITests/Pods-RewinderUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		65BA0B67996B744A64CA292D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -539,36 +520,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		82BEAC4364FB9A2C33B00120 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RewinderTests/Pods-RewinderTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A21FABBED5F40F8DD46A3A2D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RewinderUITests/Pods-RewinderUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A3E17165CB6E5C58366378B0 /* [CP] Check Pods Manifest.lock */ = {
@@ -595,7 +546,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Rewinder/Pods-Rewinder-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Rewinder/Pods-Rewinder-resources.sh",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -604,7 +555,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Rewinder/Pods-Rewinder-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Rewinder/Pods-Rewinder-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C654F6EFF1DDA9AF78EEADD9 /* [CP] Embed Pods Frameworks */ = {
@@ -613,7 +564,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Rewinder/Pods-Rewinder-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Rewinder/Pods-Rewinder-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleAPIClientForREST/GoogleAPIClientForREST.framework",
@@ -628,22 +579,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Rewinder/Pods-Rewinder-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E14D4AFB56CD582DA5DE5352 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RewinderTests/Pods-RewinderTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Rewinder/Pods-Rewinder-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -847,7 +783,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8Y3PGK52XS;
+				DEVELOPMENT_TEAM = F73Q286GM2;
 				INFOPLIST_FILE = Rewinder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -878,7 +814,7 @@
 					"-framework",
 					"\"Security\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = tech.nastydevs;
+				PRODUCT_BUNDLE_IDENTIFIER = haard.cross;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -895,7 +831,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8Y3PGK52XS;
+				DEVELOPMENT_TEAM = F73Q286GM2;
 				INFOPLIST_FILE = Rewinder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -926,7 +862,7 @@
 					"-framework",
 					"\"Security\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = tech.nastydevs;
+				PRODUCT_BUNDLE_IDENTIFIER = haard.cross;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
