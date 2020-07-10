@@ -44,7 +44,6 @@
 		C452530520428768000808A8 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C452530420428768000808A8 /* PageViewController.swift */; };
 		C46D16B92042002600B1224D /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46D16B82042002600B1224D /* RoundButton.swift */; };
 		C46E2BDA2042138C001BE43A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C46E2BD92042138C001BE43A /* Assets.xcassets */; };
-		C46E2BDD20422323001BE43A /* Eminem - Rap God.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C46E2BDC20422323001BE43A /* Eminem - Rap God.mp3 */; };
 		C46E908420607C9F00F63F96 /* FloatingActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46E908320607C9F00F63F96 /* FloatingActionButton.swift */; };
 		C4C524E620542E7F00C5DF95 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4C524E520542E7F00C5DF95 /* Main.storyboard */; };
 		C4C5FFC92062F0AE00A9EA1B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C5FFC82062F0AE00A9EA1B /* MainViewController.swift */; };
@@ -132,7 +131,6 @@
 		C452530420428768000808A8 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		C46D16B82042002600B1224D /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		C46E2BD92042138C001BE43A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C46E2BDC20422323001BE43A /* Eminem - Rap God.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Eminem - Rap God.mp3"; sourceTree = "<group>"; };
 		C46E908320607C9F00F63F96 /* FloatingActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingActionButton.swift; sourceTree = "<group>"; };
 		C4C524E520542E7F00C5DF95 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		C4C5FFC82062F0AE00A9EA1B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -273,7 +271,6 @@
 			isa = PBXGroup;
 			children = (
 				C4E048D1204C76A9007355E1 /* waveformsample.png */,
-				C46E2BDC20422323001BE43A /* Eminem - Rap God.mp3 */,
 			);
 			path = Files;
 			sourceTree = "<group>";
@@ -465,7 +462,6 @@
 				C4E048D2204C76A9007355E1 /* waveformsample.png in Resources */,
 				5DABA9B0206C224100D2846F /* CustomPopupView.xib in Resources */,
 				5DD19C51207973330062A256 /* MultipleEditsView.xib in Resources */,
-				C46E2BDD20422323001BE43A /* Eminem - Rap God.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -667,6 +663,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -713,13 +710,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -727,6 +724,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -767,11 +765,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -783,7 +781,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F73Q286GM2;
+				DEVELOPMENT_TEAM = QFV2NQCR94;
 				INFOPLIST_FILE = Rewinder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -814,7 +812,7 @@
 					"-framework",
 					"\"Security\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = haard.cross;
+				PRODUCT_BUNDLE_IDENTIFIER = brozario.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -831,7 +829,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F73Q286GM2;
+				DEVELOPMENT_TEAM = QFV2NQCR94;
 				INFOPLIST_FILE = Rewinder/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -862,7 +860,7 @@
 					"-framework",
 					"\"Security\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = haard.cross;
+				PRODUCT_BUNDLE_IDENTIFIER = brozario.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;

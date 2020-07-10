@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Rewinder
+//@testable import Rewinder
 
 class RewinderTests: XCTestCase {
     

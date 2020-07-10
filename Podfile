@@ -4,7 +4,7 @@ target 'Rewinder' do
   use_frameworks!
   
   # Pods for Rewinder
-  pod 'AudioKit/UI', '~> 4.8'
+  pod 'AudioKit/UI', '~> 4.10.1'
   pod 'GoogleAPIClientForREST/Drive', '~> 1.2.1'
   pod 'GoogleSignIn', '~> 4.1.1'
 

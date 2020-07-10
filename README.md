@@ -11,4 +11,7 @@ TODOs:
 
 ### Dependencies
 
-AudioKit 
+AudioKit
+GoogleAPIClientForREST
+GoogleSignIn
+ 
