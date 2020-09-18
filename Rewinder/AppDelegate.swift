@@ -10,10 +10,7 @@
 import UIKit
 import CoreData
 import AVFoundation
-import AudioKit
 import CallKit
-import GoogleAPIClientForREST
-import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate /*, GIDSignInDelegate*/ { //GOOGLE UNCOMMENT
@@ -31,41 +28,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate /*, GIDSignInDelegate*/ { 
 	//	let settingFile: String = "highlightsettings.txt"
 	var settingsURL: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("highlightsettings.txt")
 	
-	// MARK: - Google stuff added
-	//GOOGLE UNCOMMENT
-	/*
-	fileprivate let service = GTLRDriveService()
-	private func setupGoogleSignIn() {
-		GIDSignIn.sharedInstance().delegate = self as GIDSignInDelegate
-		GIDSignIn.sharedInstance().uiDelegate = self as! GIDSignInUIDelegate
-		GIDSignIn.sharedInstance().scopes = [kGTLRAuthScopeDriveFile]
-		GIDSignIn.sharedInstance().signInSilently()
-	}
+
 	
-	func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-		return GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApplication, annotation: annotation)
-	}
-	func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-		let sourceApplication = options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String
-		let annotation = options[UIApplicationOpenURLOptionsKey.annotation]
-		return GIDSignIn.sharedInstance().handle(url, sourceApplication: sourceApplication, annotation: annotation)
-	}
-	
-	//https://stackoverflow.com/a/42829231/7303112
-	//GIDSignInDelegate protocol method
-	func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-		if let _ = error {
-			service.authorizer = nil
-		} else {
-			service.authorizer = user.authentication.fetcherAuthorizer()
-		}
-	}
-	// advised to implement on stackoverflow ^
-//	func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-//
-//	}
-	*/
-	
+
 	// MARK: - Main Application Actions
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 		// Override point for customization after application launch.
@@ -137,7 +102,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate /*, GIDSignInDelegate*/ { 
 			home?.firstBeginRecording()
 			
 			// start AudioKit
-			startAudioKit()
+
 		} else {
 			// start AudioKit
 			//			startAudioKit()
@@ -251,7 +216,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate /*, GIDSignInDelegate*/ { 
 		audioRecorder?.stop()
 		
 		// stop AudioKit
-		stopAudioKit()
+
 		
 		// stop session
 		deactivateAudioSession()
@@ -261,13 +226,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate /*, GIDSignInDelegate*/ { 
 	private func executeFirstTime(force: Bool) { //assumes home is not nil
 		print("\(#function) \(force)")
 		if firstTime || force {
-			home!.initializeAKMicrphone() // initialize microphone
-			
-			home!.initializeRollingPlot()
-			
+
 			configureAudioSession()
 			// start audiokit
-			startAudioKit()
+
 			//				home!.startAudioKit(true)
 			// start recording
 			home!.firstBeginRecording() // FIXME: Will cause weird behavior when scroll view is removed because then the viewDidAppear will be triggered more often
@@ -340,23 +302,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate /*, GIDSignInDelegate*/ { 
 		}
 	}
 	
-	func startAudioKit() {
-		// start AudioKit
-		do {
-			try AudioKit.start()
-		} catch let error {
-			print("AudioKit start error: \(error.localizedDescription)")
-		}
-	}
-	
-	func stopAudioKit() {
-		// stop AudioKit
-		do {
-			try AudioKit.stop()
-		} catch let error {
-			print("AudioKit stop error: \(error.localizedDescription)")
-		}
-	}
 	
 	func checkPermissions() {
 		print("\(#function)")
@@ -460,32 +405,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate /*, GIDSignInDelegate*/ { 
 		}
 	}
 	
-	// MARK: - Core Data Saving support
-//	func saveContext () { // DONT NEED HERE (Context is saved inside Audio.swift)
-//		let context = persistentContainer.viewContext
-//		if context.hasChanges {
-//			do {
-//				try context.save()
-//			} catch {
-//				// Replace this implementation with code to handle the error appropriately.
-//				// fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-//				let nserror = error as NSError
-//				fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-//			}
-//		}
-//	}
-	
 }
-
-// MARK: - GIDSignInDelegate
-//extension ViewController: GIDSignInDelegate {
-//	func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-//		if let _ = error {
-//			service.authorizer = nil
-//		} else {
-//			service.authorizer = user.authentication.fetcherAuthorizer()
-//		}
-//	}
-//}
-
-

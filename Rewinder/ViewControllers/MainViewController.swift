@@ -4,12 +4,9 @@
 //
 //  Created by Crossley Rozario on 3/21/18.
 //  Copyright © 2018 Crossley Rozario. All rights reserved.
-//
+
 
 import UIKit
-import AudioKit
-
-
 
 class MainViewController: UIViewController,UIScrollViewDelegate {
     @IBOutlet weak var scrollView: UIScrollView!

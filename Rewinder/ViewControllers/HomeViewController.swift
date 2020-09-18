@@ -10,9 +10,6 @@ import UIKit
 import AVFoundation
 import CoreData
 import NotificationCenter
-import AudioKit
-import AudioKitUI
-//import Speech
 import MediaPlayer
 
 class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate, UIViewControllerTransitioningDelegate {
@@ -45,8 +42,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	var audioPlayer: AVAudioPlayer?
 	//	var audioRecorder: AVAudioRecorder!
 	var audioRecorder: myRecorder!
-	
-	var rollingPlot: AKNodeOutputPlot!
+
 	
 	private let navBar: UIView = {
 		let nav = UIView()
@@ -120,10 +116,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	var appThemeColor: UIColor!
 	
 	var firstTime: Bool = false
-	
-	var mic: AKMicrophone? //IMP: THIS IS NEEDED FOR THE AUDIO SESSION (IDK WHY). SO This needs to be initialized before anything. It also needs microphone permission.
 
-	
 	// MARK: - View Override Functions
 	override func viewDidLoad() {
 		print("\(#function)")
@@ -201,7 +194,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		//
 		//		self.view.addSubview(volumeView)
 		
-		NotificationCenter.default.addObserver(self, selector: #selector(volumeChanged(notification:)), name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
+
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(self.popupSavedHighlight(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
 		
@@ -223,12 +216,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	let scalePerSecond: Double = 42.81
 	var rollingScaleCheck: Bool = false
 	
-	func setRollingPlotRecordingColor() {
-		self.rollingPlot.color = Settings.selectedColor
-	}
-	func setRollingPlotNotRecordingColor() {
-		self.rollingPlot.color = Settings.appThemeColor
-	}
+
 //	func setRollingPlotHistory(seconds: Double) {
 //		guard rollingPlot != nil else { return }
 //
@@ -274,17 +262,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 //		}
 //	}
 	
-	func flashView() {
-		DispatchQueue.main.async {
-			self.view.backgroundColor = UIColor.lightGray
-			self.rollingPlot.backgroundColor = UIColor.lightGray
-		}
-		DispatchQueue.main.asyncAfter(deadline: .now()+0.3, execute: { //number has to be less than 0.5
-			self.view.backgroundColor = UIColor.white
-			self.rollingPlot.backgroundColor = UIColor.white
-		})
-	}
-	
+
 	var savedPopupView: CustomPopupView?
 	@objc func popupSavedHighlight(notification: NSNotification) {
 		
@@ -320,23 +298,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		}
 	}
 	
-	func startAudioKit(_ start: Bool) {
-		print("\(#function)")
-		if start {
-			do {
-				try AudioKit.start() // FIXME: figure out how to stop drawing the plot
-			} catch let error {
-				print(error.localizedDescription)
-			}
-		}
-		else {
-			do {
-				try AudioKit.stop()
-			} catch let error {
-				print(error.localizedDescription)
-			}
-		}
-	}
+
 	
 	override func viewWillAppear(_ animated: Bool) {
 		print("\(#function)")
@@ -360,73 +322,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		//		volumeView.showsVolumeSlider = false
 	}
 	
-	func initializeAKMicrphone() {
-		mic = AKMicrophone()
-	}
-	
-	func initializeRollingPlot() {
-		print("\(#function)")
-		guard mic != nil else {
-			print("mic is not initialized.")
-			return
-		}
-		
-		let micCopy1 = AKBooster(mic!)
-//		let micCopy2 = AKBooster(mic!)
-		if let inputs = AudioKit.inputDevices {
-			do {
-				try AudioKit.setInputDevice(inputs[0])
-				try mic!.setDevice(inputs[0])
-			} catch let error {
-				print (error.localizedDescription)
-			}
-		}
-		//		let tracker = AKFrequencyTracker(micCopy1, hopSize: 200, peakCount: 2_000)
-		//		let silence = AKBooster(tracker, gain: 0)
-		
-//		micCopy2.gain = 0
-		//		AudioKit.output = micCopy2 //FIXME: plays a small click when app starts
-		
-		micCopy1.gain = 0.8
-		// create rolling waveform plot
-		rollingPlot = createRollingPlot(micCopy1)
-		//
-		plotView.addSubview(rollingPlot)
-		//
-		rollingPlot.translatesAutoresizingMaskIntoConstraints = false
-		rollingPlot.topAnchor.constraint(equalTo: plotView.topAnchor).isActive = true
-		rollingPlot.leftAnchor.constraint(equalTo: plotView.leftAnchor).isActive = true
-//		rollingPlot.rightAnchor.constraint(equalTo: plotView.rightAnchor).isActive = true
-		
-		rollingPlotHalfWidthConstraint = rollingPlot.widthAnchor.constraint(equalToConstant: plotView.frame.width/2)
-		rollingPlotFullWidthConstraint = rollingPlot.widthAnchor.constraint(equalToConstant: plotView.frame.width)
-//		rollingPlotHalfWidthConstraint!.isActive = true
-		rollingPlotFullWidthConstraint?.isActive = true
-		
-		rollingPlot.heightAnchor.constraint(equalToConstant: 300).isActive = true
-		
-//		rollingPlot.layer.borderColor = Settings.unSelectedColor.cgColor
-//		rollingPlot.layer.borderWidth = 2.3;
-//		rollingPlot.layer.cornerRadius = 20
-		
-//		setRollingPlotHistory(seconds: Settings.getRecordingDuration())
-	}
-	
-	var rollingPlotHalfWidthConstraint: NSLayoutConstraint?
-	var rollingPlotFullWidthConstraint: NSLayoutConstraint?
-	
-	var volumeView: MPVolumeView!
-	@objc func volumeChanged(notification: NSNotification) {
-		if let userInfo = notification.userInfo {
-			if let volumeChangeType = userInfo["AVSystemController_AudioVolumeChangeReasonNotificationParameter"] as? String {
-				if volumeChangeType == "ExplicitVolumeChange" {
-					if homeViewPresented {
-						triggerCaptureAction()
-					}
-				}
-			}
-		}
-	}
+
 	
 	
 	func zeroAlpha() {
@@ -470,14 +366,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 			print("CURRENTBUTTONSELECTED FUNCTION ERROR")
 		}
 		
-		if audioRecorder != nil, rollingPlot != nil {
-			if audioRecorder.isRecordingHighlight() {
-				rollingScaleCheck = true
-			} else {
-				rollingScaleCheck = false
-//				setRollingPlotHistory(seconds: Settings.getRecordingDuration())
-			}
-		}
+
 	}
 	
 	
@@ -671,21 +560,6 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 	}
 	
 	
-	func createRollingPlot(_ inputNode: AKNode) -> AKNodeOutputPlot {
-		let frame: CGRect = plotView.frame
-		let rplot = AKNodeOutputPlot(inputNode, frame: frame)
-		rplot.plotType = .buffer
-		rplot.shouldFill = false
-		rplot.shouldMirror = false
-		rplot.color = UIColorFromRGB(rgbValue: 0x0278AE)
-		//Blue theme
-		//        rplot.backgroundColor = UIColorFromRGB(rgbValue: 0x0278AE)
-		rplot.backgroundColor = UIColorFromRGB(rgbValue: 0xFFFFFF)
-		
-		rplot.gain = 1
-		
-		return rplot
-	}
 	
 	// MARK: - Recording
 	func firstBeginRecording() {
@@ -892,17 +766,13 @@ class myRecorder: AVAudioRecorder {
 		print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 		print("Recording to \(localurl.lastPathComponent)")
 		print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-		if isRecordingHighlight() {
-			appdelegate.home?.setRollingPlotRecordingColor()
-		}
+
 		return super.record(forDuration: duration)
 	}
 	
 	override func stop() {
 		super.stop()
-		if isRecordingHighlight() {
-			appdelegate.home?.setRollingPlotNotRecordingColor()
-		}
+
 		print("------------------------------------------------------------------")
 		print("Stopped recording to \(localurl.lastPathComponent)")
 		print("------------------------------------------------------------------")
