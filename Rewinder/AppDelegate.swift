@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate /*, GIDSignInDelegate*/ { 
 	
 
 	// MARK: - Main Application Actions
-	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		// Override point for customization after application launch.
 		
 		checkPermissions()
@@ -40,9 +40,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate /*, GIDSignInDelegate*/ { 
 		
 		application.statusBarStyle = .lightContent
 		
-		NotificationCenter.default.addObserver(self, selector: #selector(handleInterruption(_:)), name: .AVAudioSessionInterruption, object: nil) // FIXME: UNTESTED
+		NotificationCenter.default.addObserver(self, selector: #selector(handleInterruption(_:)), name: AVAudioSession.interruptionNotification, object: nil) // FIXME: UNTESTED
 		
-		NotificationCenter.default.addObserver(self, selector: #selector(self.handleSecondaryAudio(notification:)), name: .AVAudioSessionSilenceSecondaryAudioHint, object: nil) // FIXME: UNTESTED
+		NotificationCenter.default.addObserver(self, selector: #selector(self.handleSecondaryAudio(notification:)), name: AVAudioSession.silenceSecondaryAudioHintNotification, object: nil) // FIXME: UNTESTED
 		
 		print("ON PHONE CALL: \(self.isOnPhoneCall())")
 		
@@ -166,7 +166,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate /*, GIDSignInDelegate*/ { 
 		print("\(#function)")
 		guard let info = notification.userInfo,
 			let typeValue = info[AVAudioSessionInterruptionTypeKey] as? UInt,
-			let type = AVAudioSessionInterruptionType(rawValue: typeValue) else {
+			let type = AVAudioSession.InterruptionType(rawValue: typeValue) else {
 				return
 		}
 		if type == .began {
@@ -184,7 +184,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate /*, GIDSignInDelegate*/ { 
 			guard let optionsValue = info[AVAudioSessionInterruptionOptionKey] as? UInt else {
 				return
 			}
-			let options = AVAudioSessionInterruptionOptions(rawValue: optionsValue)
+			let options = AVAudioSession.InterruptionOptions(rawValue: optionsValue)
 			if options.contains(.shouldResume) {
 				print("options: \(options)")
 			}
@@ -196,7 +196,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate /*, GIDSignInDelegate*/ { 
 		// Determine hint type
 		guard let userInfo = notification.userInfo,
 			let typeValue = userInfo[AVAudioSessionSilenceSecondaryAudioHintTypeKey] as? UInt,
-			let type = AVAudioSessionSilenceSecondaryAudioHintType(rawValue: typeValue) else {
+			let type = AVAudioSession.SilenceSecondaryAudioHintType(rawValue: typeValue) else {
 				return
 		}
 
@@ -264,12 +264,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate /*, GIDSignInDelegate*/ { 
 			let currentRoute = AVAudioSession.sharedInstance().currentRoute
 			if currentRoute.outputs.count > 0 {
 				for description in currentRoute.outputs {
-					if description.portType == AVAudioSessionPortHeadphones {
+					if convertFromAVAudioSessionPort(description.portType) == convertFromAVAudioSessionPort(AVAudioSession.Port.headphones) {
 						print("HEADPHONE plugged in")
-						try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: [.mixWithOthers, .defaultToSpeaker])
+						try session.setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord)), options: [.mixWithOthers, .defaultToSpeaker])
 					} else {
 						print("HEADPHONE pulled out")
-						try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: .mixWithOthers)
+						try session.setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord)), options: .mixWithOthers)
 						try session.overrideOutputAudioPort(.speaker)
 					}
 				}
@@ -277,7 +277,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate /*, GIDSignInDelegate*/ { 
 				print("requires connection to device")
 			}
 			//			try session.setCategory(AVAudioSessionCategoryPlayAndRecord, with: .defaultToSpeaker)
-			try session.setActive(true, with: .notifyOthersOnDeactivation)
+			try session.setActive(true, options: .notifyOthersOnDeactivation)
 		} catch let error {
 			print("Error setting up audiosession: \(error.localizedDescription)")
 		}
@@ -306,7 +306,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate /*, GIDSignInDelegate*/ { 
 	func checkPermissions() {
 		print("\(#function)")
 		let session = AVAudioSession.sharedInstance()
-		switch session.recordPermission() {
+		switch session.recordPermission {
 		case .granted:
 			print("Have permission to record")
 			havePermission = true
@@ -405,4 +405,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate /*, GIDSignInDelegate*/ { 
 		}
 	}
 	
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionPort(_ input: AVAudioSession.Port) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
 }

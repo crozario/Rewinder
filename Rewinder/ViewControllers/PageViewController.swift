@@ -45,7 +45,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = subViewControllers.index(of: viewController) else {
+        guard let viewControllerIndex = subViewControllers.firstIndex(of: viewController) else {
             return nil
         }
         
@@ -63,7 +63,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        guard let viewControllerIndex = subViewControllers.index(of: viewController) else {
+        guard let viewControllerIndex = subViewControllers.firstIndex(of: viewController) else {
             return nil
         }
         

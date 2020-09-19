@@ -31,7 +31,7 @@ class DeniedPermissionViewController: UIViewController {
 	
 	func checkPermissions() {
 		let session = AVAudioSession.sharedInstance()
-		switch session.recordPermission() {
+		switch session.recordPermission {
 		case .granted:
 			print("Have permission to record")
 //			self.dismiss(animated: true, completion: nil)
@@ -43,16 +43,16 @@ class DeniedPermissionViewController: UIViewController {
 	}
 	
 	@IBAction func tappedSettings(_ sender: Any) {
-		guard let settingsUrl = URL(string: UIApplicationOpenSettingsURLString) else {
+		guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
 			return
 		}
 		
-		if UIApplication.shared.canOpenURL(settingsUrl) {
-			UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
-				// Checking for setting is opened or not
-				print("Setting is opened: \(success)")
-			})
-		}
+//		if UIApplication.shared.canOpenURL(settingsUrl) {
+//			UIApplication.shared.open(settingsUrl, completionHandler: convertToUIApplicationOpenExternalURLOptionsKeyDictionary({ (success) in
+//				// Checking for setting is opened or not
+//				print("Setting is opened: \(success)")
+//			}))
+//		}
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -69,4 +69,9 @@ class DeniedPermissionViewController: UIViewController {
     }
     */
 
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

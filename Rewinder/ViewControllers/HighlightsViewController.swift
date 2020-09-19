@@ -130,12 +130,12 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		// create observers
 		NotificationCenter.default.addObserver(self, selector: #selector(self.updateHighlights(notification:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: nil)
 		
-		NotificationCenter.default.addObserver(self, selector: #selector(self.audioRouteChangeListener(notification:)), name: Notification.Name.AVAudioSessionRouteChange, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(self.audioRouteChangeListener(notification:)), name: AVAudioSession.routeChangeNotification, object: nil)
 		
 		// hide empty cells
 		tableView.tableFooterView = UIView(frame: CGRect.zero)
 		tableView.estimatedRowHeight = 60.0
-		tableView.rowHeight = UITableViewAutomaticDimension
+		tableView.rowHeight = UITableView.automaticDimension
 		
 		selectButton.addTarget(self, action: #selector(selectButtonClicked), for: .touchUpInside)
 		isInMultipleSelectionMode = false
@@ -689,14 +689,14 @@ class HighlightsViewController: UIViewController, AVAudioPlayerDelegate, AVAudio
 		}
 
 		switch audioChangeReason {
-		case AVAudioSessionRouteChangeReason.newDeviceAvailable.rawValue:
+		case AVAudioSession.RouteChangeReason.newDeviceAvailable.rawValue:
 			print("headphone plugged in")
 			do {
-				try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, with: [.mixWithOthers, .defaultToSpeaker])
+				try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord)), options: [.mixWithOthers, .defaultToSpeaker])
 			} catch let error {
 				print(error.localizedDescription)
 			}
-		case AVAudioSessionRouteChangeReason.oldDeviceUnavailable.rawValue:
+		case AVAudioSession.RouteChangeReason.oldDeviceUnavailable.rawValue:
 			print("headphone plugged out")
 			do {
 				try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
@@ -1323,3 +1323,8 @@ class myPlayer: AVAudioPlayer {
 
 
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
+}

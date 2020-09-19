@@ -387,7 +387,7 @@ class HomeViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlay
 		highlightButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
 		highlightButton.heightAnchor.constraint(equalToConstant: 80).isActive = true
 		highlightButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150).isActive = true
-        view.bringSubview(toFront: highlightButton)
+        view.bringSubviewToFront(highlightButton)
 	}
 	
 	

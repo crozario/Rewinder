@@ -115,9 +115,9 @@ class Audio {
 			
 			let duration = CMTimeGetSeconds(asset.duration)
 			
-			let startTime = CMTimeMakeWithSeconds(cropTime, 1000000)
-			let endTime = CMTimeMakeWithSeconds(duration, 1000000)
-			exporter.timeRange = CMTimeRangeFromTimeToTime(startTime, endTime)
+			let startTime = CMTimeMakeWithSeconds(cropTime, preferredTimescale: 1000000)
+			let endTime = CMTimeMakeWithSeconds(duration, preferredTimescale: 1000000)
+			exporter.timeRange = CMTimeRangeFromTimeToTime(start: startTime, end: endTime)
 			
 			// do it
 			exporter.exportAsynchronously(completionHandler: {
@@ -157,18 +157,18 @@ class Audio {
 		
 		// Grab the first audio track and insert it into our appendedAudioTrack
 		var track1: [AVAssetTrack] = asset1.tracks(withMediaType: .audio) as [AVAssetTrack]
-		var timeRange: CMTimeRange = CMTimeRangeMake(kCMTimeZero, asset1.duration)
+		var timeRange: CMTimeRange = CMTimeRangeMake(start: CMTime.zero, duration: asset1.duration)
 		if track1.count != 0 {
 			if let aIndex = track1[0] as AVAssetTrack? {
-				try? appendedAudioTrack?.insertTimeRange(timeRange, of: aIndex, at: kCMTimeZero)
+				((try? appendedAudioTrack?.insertTimeRange(timeRange, of: aIndex, at: CMTime.zero)) as ()??)
 			}
 		}
 		
 		// Grab the second audio track and insert it at the end of the first one
 		var track2 = asset2.tracks(withMediaType: .audio) as [AVAssetTrack]
-		timeRange = CMTimeRangeMake(kCMTimeZero, asset2.duration)
+		timeRange = CMTimeRangeMake(start: CMTime.zero, duration: asset2.duration)
 		if let aIndex = track2[0] as AVAssetTrack? {
-			try? appendedAudioTrack?.insertTimeRange(timeRange, of: aIndex, at: asset1.duration)
+			((try? appendedAudioTrack?.insertTimeRange(timeRange, of: aIndex, at: asset1.duration)) as ()??)
 		}
 		
 		// Create a new audio file using the appendedAudioTrack
