@@ -1,17 +1,23 @@
-# Rewinder
+# Rewinder - Voice Recording iOS App
 
-> Made at HackTCNJ
+> Started at HackTCNJ
 
 [Check out the Devpost](https://devpost.com/software/rewinder-oxp13n)
 
-TODOs:
-- Update README
-- Plans to republish on iOS
-- Plans for android
-
 ### Dependencies
 
-AudioKit
-GoogleAPIClientForREST
-GoogleSignIn
+* AudioKit
+* GoogleAPIClientForREST
+* GoogleSignIn
+
+## Screenshots
+
+<p float="left">
+    <img src="images/screenshot-1.PNG" width="200" />
+    <img src="images/screenshot-2.PNG" width="200" /> 
+    <img src="images/screenshot-3.PNG" width="200" />
+    <img src="images/screenshot-4.PNG" width="200" />
+    <img src="images/screenshot-5.PNG" width="200" /> 
+    <img src="images/screenshot-6.PNG" width="200" />
+</p>
  
